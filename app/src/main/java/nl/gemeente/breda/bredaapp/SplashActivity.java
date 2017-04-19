@@ -24,6 +24,7 @@ public class SplashActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
+
         setContentView(R.layout.activity_splash);
 
         new CountDownTimer(2543, 1000) {
