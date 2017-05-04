@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Infra-meld Breda</string>
+    <string name="activityCreateNewReport_tv_noPicture">Ik heb geen foto</string>
+    <string name="activityCreateNewReport_bt_makePicture">Kies/maak foto</string>
 </resources>
