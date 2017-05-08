@@ -5,5 +5,5 @@ package nl.gemeente.breda.bredaapp.util;
  */
 
 public class LocationHelper {
-    
+
 }

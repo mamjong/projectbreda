@@ -46,7 +46,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                Intent i = new Intent(getApplicationContext(), LocationActivity.class);
+                Intent i = new Intent(getApplicationContext(), MainScreenActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
                 finish();

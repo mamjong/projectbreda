@@ -1,9 +1,13 @@
 package nl.gemeente.breda.bredaapp.testing;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -17,18 +21,21 @@ import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListe
 import com.google.android.gms.location.LocationServices;
 
 import nl.gemeente.breda.bredaapp.R;
+import nl.gemeente.breda.bredaapp.util.AlertCreator;
 
 public class LocationActivity extends AppCompatActivity implements ConnectionCallbacks, OnConnectionFailedListener {
 
     protected static final String TAG = "LocationActivity";
 
     protected GoogleApiClient mGoogleApiClient;
-    protected Location mLastLocation;
+    public Location mLastLocation;
 
     protected String mLatitudeLabel;
     protected String mLongitudeLabel;
     protected TextView mLatitudeText;
     protected TextView mLongitudeText;
+
+    final Context context = this;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -91,8 +98,23 @@ public class LocationActivity extends AppCompatActivity implements ConnectionCal
                     finish();
                     startActivity(getIntent());
                 } else {
-                    // No location access granted
-                    // plantVirus();
+                    AlertCreator alertCreator = new AlertCreator(context);
+
+                    alertCreator.setTitle(R.string.no_location_permission_title);
+                    alertCreator.setMessage(R.string.no_location_permission_description);
+                    alertCreator.setNegativeButton(R.string.no_location_permission_negative, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    });
+                    alertCreator.setPositiveButton(R.string.no_location_permission_positive, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions(LocationActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+                        }
+                    });
+                    alertCreator.show();
                 }
                 return;
             }
