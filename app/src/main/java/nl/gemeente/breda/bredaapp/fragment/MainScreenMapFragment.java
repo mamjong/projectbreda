@@ -56,7 +56,7 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 //		googleMap.addMarker(new MarkerOptions().position(breda).title("Marker in Breda"));
 //		googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(breda, zoom));
 		
-		ReportsMarkerHelper helper = new ReportsMarkerHelper(googleMap);
+		ReportsMarkerHelper helper = new ReportsMarkerHelper(googleMap, getContext());
 		helper.demo();
 	}
 }
