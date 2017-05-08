@@ -7,13 +7,12 @@ package nl.gemeente.breda.bredaapp;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ProgressBar;
 
-import nl.gemeente.breda.bredaapp.testing.TestLocationActivity;
+import nl.gemeente.breda.bredaapp.testing.LocationActivity;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -47,7 +46,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                Intent i = new Intent(getApplicationContext(), MainScreenActivity.class);
+                Intent i = new Intent(getApplicationContext(), LocationActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
                 finish();
