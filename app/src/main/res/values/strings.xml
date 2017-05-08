@@ -3,6 +3,4 @@
     <string name="activityCreateNewReport_tv_noPicture">Ik heb geen foto</string>
     <string name="activityCreateNewReport_bt_makePicture">Kies/maak foto</string>
     <string name="activityCreateNewReport_bt_continue">Doorgaan</string>
-    <string name="activityTermsAndConditions_bt_continue">Doorgaan</string>
-    <string name="activityTermsAndConditions_tv_termsandconditions">Alle informatie, die u ons doorgeeft, behandelt de gemeente vertrouwelijk. Persoons- of adresgegevens gebruikt de gemeente uitsluitend waarvoor u deze heeft doorgegeven. De gemeente Breda behandelt uw e-mail vertrouwelijk, maar sluit niet helemaal uit dat een e-mail door derden ingezien wordt. \n \nDe gemeente Breda probeert om e-mailberichten, die bij het centrale e-mailadres contact@breda.nl (link stuurt een e-mail) of als reactie via het contactformulier op de site binnenkomen, binnen 5 werkdagen te beantwoorden.</string>
 </resources>
