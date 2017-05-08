@@ -27,8 +27,8 @@
 
     <ImageView
         android:id="@+id/activitySplashScreen_iv_logo"
-        android:layout_width="300dp"
-        android:layout_height="320dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
