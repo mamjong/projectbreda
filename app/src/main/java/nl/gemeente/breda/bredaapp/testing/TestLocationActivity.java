@@ -35,8 +35,6 @@ public class TestLocationActivity extends AppCompatActivity {
 					double longitude = tracker.getLongitude();
 					
 					Toast.makeText(getApplicationContext(), "Your location is - \nLat:" + latitude + "\nLong: " + longitude, Toast.LENGTH_SHORT).show();
-				} else {
-					tracker.showNoLocationAlert();
 				}
 			}
 		});

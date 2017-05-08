@@ -53,25 +53,28 @@ public class LocationTracker extends Service implements LocationListener {
 				showNoLocationAlert();
 			} else {
 				this.canGetLocation = true;
-				if (isNetworkEnabled) {
+//				if (isNetworkEnabled) {
+//					if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
+//						return null;
+//					}
+//					locationManager.requestLocationUpdates(
+//							LocationManager.NETWORK_PROVIDER,
+//							MIN_TIME_BW_UPDATES,
+//							MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+//					Log.d("Network", "Network");
+//					if (locationManager != null) {
+//						location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+//						if (location != null) {
+//							latitude = location.getLatitude();
+//							longitude = location.getLongitude();
+//						}
+//					}
+//				}
+				
+				if (isGPSEnabled) {
 					if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_DENIED) {
 						return null;
 					}
-					locationManager.requestLocationUpdates(
-							LocationManager.NETWORK_PROVIDER,
-							MIN_TIME_BW_UPDATES,
-							MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-					Log.d("Network", "Network");
-					if (locationManager != null) {
-						location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-						if (location != null) {
-							latitude = location.getLatitude();
-							longitude = location.getLongitude();
-						}
-					}
-				}
-				
-				if (isGPSEnabled) {
 					if (location == null) {
 						locationManager.requestLocationUpdates(
 								LocationManager.GPS_PROVIDER,
