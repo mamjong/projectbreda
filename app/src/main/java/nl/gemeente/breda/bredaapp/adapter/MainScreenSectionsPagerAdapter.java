@@ -1,5 +1,7 @@
 package nl.gemeente.breda.bredaapp.adapter;
 
+import android.content.Context;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -7,14 +9,19 @@ import android.support.v4.app.FragmentPagerAdapter;
 import nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment;
 import nl.gemeente.breda.bredaapp.fragment.MainScreenMapFragment;
 
+import nl.gemeente.breda.bredaapp.R;
+
 public class MainScreenSectionsPagerAdapter extends FragmentPagerAdapter {
-	
+
+	private Context context;
+
 	//================================================================================
 	// Constructors
 	//================================================================================
 	
-	public MainScreenSectionsPagerAdapter(FragmentManager fm) {
+	public MainScreenSectionsPagerAdapter(FragmentManager fm, Context context) {
 		super(fm);
+		this.context = context;
 	}
 	
 	//================================================================================
@@ -46,9 +53,9 @@ public class MainScreenSectionsPagerAdapter extends FragmentPagerAdapter {
 	public CharSequence getPageTitle(int position) {
 		switch (position) {
 			case 0:
-				return "Map";
+				return context.getResources().getString(R.string.homescreen_left_tab);
 			case 1:
-				return "Overzicht";
+				return context.getResources().getString(R.string.homescreen_right_tab);
 		}
 		return null;
 	}
