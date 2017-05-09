@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
+import nl.gemeente.breda.bredaapp.domain.Report;
 import nl.gemeente.breda.bredaapp.domain.User;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
@@ -23,9 +24,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String REPORTS_TABLE_NAME = "reports";
 
     private static final String REPORTS_COLUMN_ID = "_id";
-    private static final String REPORTS_COLUMN_CATEGORY = "category";
-    private static final String REPORTS_COLUMN_TYPE = "type";
-    private static final String REPORTS_COLUMN_IMAGEURL = "image";
 
     public DatabaseHandler(Context context, String name,
                            SQLiteDatabase.CursorFactory factory, int version) {
@@ -41,10 +39,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         String CREATE_REPORTS_TABLE = "CREATE TABLE " + REPORTS_TABLE_NAME +
                 "(" +
-                REPORTS_COLUMN_ID + " INTEGER PRIMARY KEY," +
-                REPORTS_COLUMN_CATEGORY + " TEXT," +
-                REPORTS_COLUMN_TYPE + " TEXT," +
-                REPORTS_COLUMN_IMAGEURL + " TEXT," +
+                REPORTS_COLUMN_ID + " INTEGER PRIMARY KEY" +
                 ")";
 
         db.execSQL(CREATE_USERS_TABLE);
@@ -92,17 +87,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void addReport(Report report) {
         ContentValues values = new ContentValues();
 
-        values.put(REPORTS_COLUMN_ID, report.getReportID());
-        values.put(REPORTS_COLUMN_CATEGORY, report.getReportCategory());
-        values.put(REPORTS_COLUMN_TYPE, report.getReportType());
-        values.put(REPORTS_COLUMN_IMAGEURL, report.getReportImageUrl());
+        values.put(REPORTS_COLUMN_ID, report.getServiceRequestId());
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(REPORTS_TABLE_NAME, null, values);
         db.close();
     }
 
-    public ArrayList getAllReports() {
+    public ArrayList getAllReportIDs() {
         String query = "SELECT * FROM " + REPORTS_TABLE_NAME;
         ArrayList<Report> reports = new ArrayList<>();
 
@@ -112,10 +104,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         while(cursor.moveToNext()) {
             Report report = new Report();
 
-            report.setReportID(cursor.getInt(cursor.getColumnIndex(REPORTS_COLUMN_ID)));
-            report.setReportCategory(cursor.getString(cursor.getColumnIndex(REPORTS_COLUMN_CATEGORY)));
-            report.setReportType(cursor.getString(cursor.getColumnIndex(REPORTS_COLUMN_TYPE)));
-            report.setReportImageUrl(cursor.getString(cursor.getColumnIndex(REPORTS_COLUMN_IMAGEURL)));
+            report.setServiceRequestId(cursor.getString(cursor.getColumnIndex(REPORTS_COLUMN_ID)));
 
             reports.add(report);
         }
