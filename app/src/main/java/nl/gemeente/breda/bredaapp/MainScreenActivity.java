@@ -6,9 +6,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
+import java.util.ArrayList;
 
 import nl.gemeente.breda.bredaapp.adapter.MainScreenSectionsPagerAdapter;
 import nl.gemeente.breda.bredaapp.api.ApiHomeScreen;
@@ -16,7 +17,6 @@ import nl.gemeente.breda.bredaapp.api.ApiServices;
 import nl.gemeente.breda.bredaapp.businesslogic.ReportManager;
 import nl.gemeente.breda.bredaapp.domain.Report;
 import nl.gemeente.breda.bredaapp.domain.Service;
-import nl.gemeente.breda.bredaapp.testing.LocationActivity;
 
 public class MainScreenActivity extends AppCompatActivity implements ApiHomeScreen.Listener, ApiServices.Listener {
 	
@@ -26,8 +26,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 	
 	private MainScreenSectionsPagerAdapter sectionsPagerAdapter;
 	private ViewPager viewPager;
-	private ReportManager reportManager;
-	
+
 	//================================================================================
 	// Accessors
 	//================================================================================
@@ -66,7 +65,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 
 	@Override
 	public void onReportAvailable(Report report) {
-		Log.i("Report", report.getDescription());
+		//Log.i("Report", report.getDescription());
 		ReportManager.addReport(report);
 	}
 

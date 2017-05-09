@@ -23,7 +23,6 @@ import java.util.TimerTask;
 
 import nl.gemeente.breda.bredaapp.R;
 import nl.gemeente.breda.bredaapp.businesslogic.ReportManager;
-import nl.gemeente.breda.bredaapp.businesslogic.ReportsMarkerHelper;
 import nl.gemeente.breda.bredaapp.domain.Report;
 
 public class MainScreenMapFragment extends Fragment implements OnMapReadyCallback {
@@ -63,9 +62,6 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 //		float zoom = 12;
 //		googleMap.addMarker(new MarkerOptions().position(breda).title("Marker in Breda"));
 //		googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(breda, zoom));
-		
-//		ReportsMarkerHelper helper = new ReportsMarkerHelper(googleMap, getContext());
-//		helper.demo();
 		map = googleMap;
 
 		Timer timer = new Timer();
