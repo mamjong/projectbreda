@@ -13,6 +13,7 @@ import java.net.URLEncoder;
 import nl.gemeente.breda.bredaapp.adapter.MainScreenSectionsPagerAdapter;
 import nl.gemeente.breda.bredaapp.api.ApiHomeScreen;
 import nl.gemeente.breda.bredaapp.api.ApiServices;
+import nl.gemeente.breda.bredaapp.businesslogic.ReportManager;
 import nl.gemeente.breda.bredaapp.domain.Report;
 import nl.gemeente.breda.bredaapp.domain.Service;
 import nl.gemeente.breda.bredaapp.testing.LocationActivity;
@@ -25,6 +26,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 	
 	private MainScreenSectionsPagerAdapter sectionsPagerAdapter;
 	private ViewPager viewPager;
+	private ReportManager reportManager;
 	
 	//================================================================================
 	// Accessors
@@ -34,7 +36,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_screen);
-		
+
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 		
@@ -64,7 +66,8 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 
 	@Override
 	public void onReportAvailable(Report report) {
-		Log.i("REPORT", report.getDescription());
+		Log.i("Report", report.getDescription());
+		ReportManager.addReport(report);
 	}
 
 	@Override
