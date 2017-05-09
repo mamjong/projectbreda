@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">Infra-meld Breda</string>
+    <string name="app_name" translatable="false">InfraMeld Breda</string>
+    <string name="action_settings">Instellingen</string>
+    <string name="latitude_label" translatable="false">Latitude</string>
+    <string name="longitude_label" translatable="false">Longitude</string>
+    <string name="no_location_permission_title">Permissies nodig</string>
+    <string name="no_location_permission_description">Locatie permissies zijn nodig om de app te kunnen gebruiken. Wilt u deze toestaan?</string>
+    <string name="no_location_permission_positive">Ja</string>
+    <string name="no_location_permission_negative">Nee</string>
 </resources>
