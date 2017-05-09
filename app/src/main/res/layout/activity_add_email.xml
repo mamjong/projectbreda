@@ -6,106 +6,42 @@
     android:layout_height="match_parent"
     tools:context="nl.gemeente.breda.bredaapp.AddEmailActivity">
 
-    <!--CheckDataActivity_iv_defectImage-->
     <TextView
-        android:id="@+id/AddEmailActivity_tv_introText"
+        android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:text="@string/AddEmailActivity_tv_introText"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@id/AddEmailActivity_sp_introEmailSpace"
-        app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintRight_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
-    <Space
-        android:id="@+id/AddEmailActivity_sp_introEmailSpace"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        app:layout_constraintTop_toBottomOf="@+id/AddEmailActivity_tv_introText"
-        app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintRight_toLeftOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/AddEmailActivity_tv_emailaddress"/>
+        android:text="TextView" />
 
     <TextView
-        android:id="@+id/AddEmailActivity_tv_emailaddress"
+        android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/AddEmailActivity_tv_emailaddress"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/AddEmailActivity_et_emailInput"
-        app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintRight_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AddEmailActivity_sp_introEmailSpace"
-        app:layout_constraintHorizontal_bias="0.21"
-        android:layout_marginTop="0dp" />
+        android:text="TextView" />
 
     <EditText
-        android:id="@+id/AddEmailActivity_et_emailInput"
+        android:id="@+id/editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/AddEmailActivity_tv_emailaddress"
-        app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintRight_toLeftOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/AddEmailActivity_sp_SpaceemailInpuntTermsText"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text=""
-        app:layout_constraintHorizontal_bias="0.39"
-        android:layout_marginTop="0dp" />
-
-    <Space
-        android:id="@+id/AddEmailActivity_sp_SpaceemailInpuntTermsText"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        app:layout_constraintTop_toBottomOf="@+id/AddEmailActivity_et_emailInput"
-        app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintRight_toLeftOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/AddEmailActivity_tv_TermsText"/>
+        android:text="Name" />
 
     <TextView
-        android:id="@+id/AddEmailActivity_tv_TermsText"
+        android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/AddEmailActivity_sp_SpaceemailInpuntTermsText"
-        app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintRight_toLeftOf="parent"
-        android:text="@string/AddEmailActivity_tv_TermsText"
-        app:layout_constraintHorizontal_bias="0.27" />
+        android:text="TextView" />
 
     <CheckBox
-        android:id="@+id/AddEmailActivity_cb_termsAccepted"
+        android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/AddEmailActivity_tv_TermsText"
-        app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintRight_toLeftOf="parent"
-        android:text="@string/AddEmailActivity_cb_termsAccepted"
-        app:layout_constraintHorizontal_bias="0.6" />
+        android:text="CheckBox" />
 
     <Button
-        android:id="@+id/AddEmailActivity_bt_emailConfirmButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:text="@string/AddEmailActivity_bt_emailConfirmButton"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="parent"
-        app:layout_constraintRight_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AddEmailActivity_cb_termsAccepted"
-        app:layout_constraintVertical_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <android.support.constraint.Guideline
+        android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/guideline"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="304dp" />
+        android:text="Button" />
 
 </android.support.constraint.ConstraintLayout>
