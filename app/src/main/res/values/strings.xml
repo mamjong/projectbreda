@@ -7,4 +7,7 @@
     <string name="no_location_permission_description">Locatie permissies zijn nodig om de app te kunnen gebruiken. Wilt u deze toestaan?</string>
     <string name="no_location_permission_positive">Ja</string>
     <string name="no_location_permission_negative">Nee</string>
+    <string name="button_create_report">Melding aanmaken</string>
+    <string name="homescreen_left_tab">Kaart</string>
+    <string name="homescreen_right_tab">Overzicht</string>
 </resources>
