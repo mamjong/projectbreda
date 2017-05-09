@@ -1,4 +1,4 @@
-package nl.gemeente.breda.bredaapp.Domain;
+package nl.gemeente.breda.bredaapp.domain;
 
 public class User {
 

@@ -8,8 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
-import nl.gemeente.breda.bredaapp.Domain.Report;
-import nl.gemeente.breda.bredaapp.Domain.User;
+import nl.gemeente.breda.bredaapp.domain.Report;
+import nl.gemeente.breda.bredaapp.domain.User;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String TAG = "InfraDBHandler";
