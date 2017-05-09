@@ -18,6 +18,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import nl.gemeente.breda.bredaapp.R;
+import nl.gemeente.breda.bredaapp.businesslogic.ReportsMarkerHelper;
 
 public class MainScreenMapFragment extends Fragment implements OnMapReadyCallback {
 	
@@ -50,9 +51,12 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 	
 	@Override
 	public void onMapReady(GoogleMap googleMap) {
-		LatLng breda = new LatLng(51.5853953, 4.7929303);
-		float zoom = 12;
-		googleMap.addMarker(new MarkerOptions().position(breda).title("Marker in Breda"));
-		googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(breda, zoom));
+//		LatLng breda = new LatLng(51.5853953, 4.7929303);
+//		float zoom = 12;
+//		googleMap.addMarker(new MarkerOptions().position(breda).title("Marker in Breda"));
+//		googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(breda, zoom));
+		
+		ReportsMarkerHelper helper = new ReportsMarkerHelper(googleMap, getContext());
+		helper.demo();
 	}
 }
