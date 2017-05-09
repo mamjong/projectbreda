@@ -29,6 +29,15 @@ public class CreateNewReportActivity extends AppCompatActivity {
         Button continueToMap = (Button) findViewById(R.id.activityCreateNewReport_bt_continue);
 
 
+        // TODO: Make 2nd map screen to choose object.
+//        continueToMap.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(getApplicationContext(), )
+//            }
+//        });
+
+
         // Placeholder spinner data
         this.arraySpinnerDataMain = getResources().getStringArray(R.array.spinnerPlaceHolderData);
         this.arraySpinnerAfvalSubs = getResources().getStringArray(R.array.spinnerAfvalSubs);
