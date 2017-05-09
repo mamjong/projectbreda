@@ -14,4 +14,39 @@
     <string name="no_location_permission_description">Locatie permissies zijn nodig om de app te kunnen gebruiken. Wilt u deze toestaan?</string>
     <string name="no_location_permission_positive">Ja</string>
     <string name="no_location_permission_negative">Nee</string>
+
+    <string-array name="spinnerPlaceHolderData">
+        <item>Groen</item>
+        <item>Openbare verlichting</item>
+        <item>Afval</item>
+        <item>Dieren en ongedierte</item>
+    </string-array>
+
+    <string-array name="spinnerGroenSubs">
+        <item>Beplanting</item>
+        <item>Gazon/Berm</item>
+        <item>Bomen</item>
+    </string-array>
+
+    <string-array name="spinnerAfvalSubs">
+        <item>Afvalcontainers</item>
+        <item>Inzamelen GFT afval</item>
+        <item>Inzamelen paper</item>
+        <item>Inzamelen resafval</item>
+        <item>Kleding, -glascontainers</item>
+        <item>Zwergafval</item>
+    </string-array>
+
+    <string-array name="spinnerDierenEnOngedierteSubs">
+        <item>Dode dieren (kadavers)</item>
+        <item>Insecten of loslopende dieren</item>
+        <item>Ratten/Muizen/Steenmatter</item>
+        <item>Lechnesh</item>
+    </string-array>
+
+    <string-array name="spinnerOpenbareVerlichtingSubs">
+        <item>Defecte lamp</item>
+        <item>Kappote lichtmast</item>
+    </string-array>
+
 </resources>
