@@ -12,10 +12,12 @@ import java.net.URLEncoder;
 
 import nl.gemeente.breda.bredaapp.adapter.MainScreenSectionsPagerAdapter;
 import nl.gemeente.breda.bredaapp.api.ApiHomeScreen;
+import nl.gemeente.breda.bredaapp.api.ApiServices;
 import nl.gemeente.breda.bredaapp.domain.Report;
+import nl.gemeente.breda.bredaapp.domain.Service;
 import nl.gemeente.breda.bredaapp.testing.LocationActivity;
 
-public class MainScreenActivity extends AppCompatActivity implements ApiHomeScreen.Listener {
+public class MainScreenActivity extends AppCompatActivity implements ApiHomeScreen.Listener, ApiServices.Listener {
 	
 	//================================================================================
 	// Properties
@@ -36,7 +38,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 		
-		sectionsPagerAdapter = new MainScreenSectionsPagerAdapter(getSupportFragmentManager());
+		sectionsPagerAdapter = new MainScreenSectionsPagerAdapter(getSupportFragmentManager(), getApplicationContext());
 		
 		viewPager = (ViewPager) findViewById(R.id.container);
 		viewPager.setAdapter(sectionsPagerAdapter);
@@ -45,6 +47,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		tabLayout.setupWithViewPager(viewPager);
 
 		getReports();
+		getServices();
 	}
 
 	public void getReports() {
@@ -53,8 +56,19 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		apiHomeScreen.execute(urls);
 	}
 
+	public void getServices() {
+		ApiServices apiServices = new ApiServices(this);
+		String[] urls = new String[] {"https://asiointi.hel.fi/palautews/rest/v1/services.json"};
+		apiServices.execute(urls);
+	}
+
 	@Override
 	public void onReportAvailable(Report report) {
 		Log.i("REPORT", report.getDescription());
+	}
+
+	@Override
+	public void onServiceAvailable(Service service) {
+		Log.i("Service", service.getServiceName());
 	}
 }

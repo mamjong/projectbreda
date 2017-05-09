@@ -1,9 +1,5 @@
 package nl.gemeente.breda.bredaapp.domain;
 
-/**
- * Created by Thomas on 8-5-2017.
- */
-
 public class Report {
     private String serviceRequestId;
     private String serviceCode;
