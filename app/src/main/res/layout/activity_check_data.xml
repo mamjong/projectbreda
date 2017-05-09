@@ -6,70 +6,68 @@
     android:layout_height="match_parent"
     tools:context="nl.gemeente.breda.bredaapp.CheckDataActivity">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/CheckDataActivity_iv_defectImage"
         android:layout_width="0dp"
         android:layout_height="192dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
         android:layout_centerHorizontal="true"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:src="@color/colorAccentDark"
+        app:civ_border_color="#00000000"
+        app:civ_border_width="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/CheckDataActivity_tv_category"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/CheckDataActivity_tv_category"
-        android:src="@color/colorAccentDark"
-        app:civ_border_width="0dp"
-        app:civ_border_color="#00000000"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/CheckDataActivity_tv_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/CheckDataActivity_iv_defectImage"
+        android:text="@string/CheckDataActivity_tv_category"
+        app:layout_constraintBottom_toTopOf="@+id/CheckDataActivity_tv_categoryInput"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/CheckDataActivity_tv_kindOfDefect"
-        app:layout_constraintBottom_toTopOf="@+id/CheckDataActivity_tv_categoryInput"
-        android:text="@string/CheckDataActivity_tv_category" />
+        app:layout_constraintTop_toBottomOf="@+id/CheckDataActivity_iv_defectImage" />
 
     <TextView
         android:id="@+id/CheckDataActivity_tv_categoryInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/CheckDataActivity_tv_category"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/CheckDataActivity_tv_kindOfDefectInput"
+        android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/CheckDataActivity_mv_locationObject"
-        android:text="TextView" />
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/CheckDataActivity_tv_kindOfDefectInput"
+        app:layout_constraintTop_toBottomOf="@+id/CheckDataActivity_tv_category" />
 
     <TextView
         android:id="@+id/CheckDataActivity_tv_kindOfDefect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/CheckDataActivity_iv_defectImage"
+        android:text="@string/CheckDataActivity_tv_kindOfDefect"
+        app:layout_constraintBottom_toTopOf="@+id/CheckDataActivity_tv_kindOfDefectInput"
         app:layout_constraintLeft_toRightOf="@+id/CheckDataActivity_tv_category"
         app:layout_constraintRight_toLeftOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/CheckDataActivity_tv_kindOfDefectInput"
-        android:text="@string/CheckDataActivity_tv_kindOfDefect" />
+        app:layout_constraintTop_toBottomOf="@+id/CheckDataActivity_iv_defectImage" />
 
     <TextView
         android:id="@+id/CheckDataActivity_tv_kindOfDefectInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/CheckDataActivity_tv_kindOfDefect"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/CheckDataActivity_mv_locationObject"
         app:layout_constraintLeft_toRightOf="@+id/CheckDataActivity_tv_categoryInput"
         app:layout_constraintRight_toLeftOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/CheckDataActivity_mv_locationObject"
-        android:text="TextView" />
+        app:layout_constraintTop_toBottomOf="@+id/CheckDataActivity_tv_kindOfDefect" />
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/CheckDataActivity_mv_locationObject"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:paddingTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/CheckDataActivity_tv_categoryInput"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintRight_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/CheckDataActivity_tv_categoryInput" />
 </android.support.constraint.ConstraintLayout>
