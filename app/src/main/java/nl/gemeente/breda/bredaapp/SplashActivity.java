@@ -26,7 +26,7 @@ public class SplashActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-
+        final DatabaseHandler dbh = new DatabaseHandler(getApplicationContext(), null, null, 1);
 
         getSupportActionBar().hide();
 
@@ -46,9 +46,15 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                Intent i = new Intent(getApplicationContext(), MainScreenActivity.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
+                Intent returnUser = new Intent(getApplicationContext(), MainScreenActivity.class);
+                Intent newUser = new Intent(getApplicationContext(), AddEmailActivity.class);
+                returnUser.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                if (dbh.checkUser() == true ) {
+                    startActivity(returnUser);
+                } else {
+                    startActivity(newUser);
+                }
                 finish();
             }
         }.start();
