@@ -30,6 +30,8 @@
                 android:id="@+id/activityTermsAndConditions_bt_continue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:textColor="@android:color/white"
                 android:text="@string/activityTermsAndConditions_bt_continue" />
         </LinearLayout>
     </ScrollView>
