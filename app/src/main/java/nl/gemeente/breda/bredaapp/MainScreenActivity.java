@@ -53,7 +53,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 
 	public void getReports() {
 		ApiHomeScreen apiHomeScreen = new ApiHomeScreen(this);
-		String[] urls = new String[] {"https://asiointi.hel.fi/palautews/rest/v1/requests.json?status=open&service_code=198&lat=60.1892477&long=24.9707467&radius=500"};
+		String[] urls = new String[] {"https://asiointi.hel.fi/palautews/rest/v1/requests.json?status=open&service_code=2806&lat=60.1892477&long=24.9707467&radius=5000"};
 		apiHomeScreen.execute(urls);
 	}
 
