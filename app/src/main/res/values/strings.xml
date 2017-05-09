@@ -1,8 +1,14 @@
 <resources>
     <string name="app_name">Infra-meld Breda</string>
+<<<<<<< HEAD
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="CheckDataActivity_tv_category">Categorie:</string>
     <string name="CheckDataActivity_tv_kindOfDefect">Soort defect:</string>
+=======
+    <string name="activityCreateNewReport_tv_noPicture">Ik heb geen foto</string>
+    <string name="activityCreateNewReport_bt_makePicture">Kies/maak foto</string>
+    <string name="activityCreateNewReport_bt_continue">Doorgaan</string>
+>>>>>>> cd1664c3a9c07c95523cbf6ee17f57ba37db8dd3
 </resources>
