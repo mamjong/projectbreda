@@ -4,4 +4,7 @@
     <string name="no_location_permission_description">Location permissions are required in order to use this app. Do you want to grant these permissions?</string>
     <string name="no_location_permission_positive">Yes</string>
     <string name="no_location_permission_negative">No</string>
+    <string name="button_create_report">Create report</string>
+    <string name="homescreen_left_tab">Map</string>
+    <string name="homescreen_right_tab">Overview</string>
 </resources>
