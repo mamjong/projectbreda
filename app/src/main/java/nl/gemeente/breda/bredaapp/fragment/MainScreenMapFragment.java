@@ -1,20 +1,19 @@
 package nl.gemeente.breda.bredaapp.fragment;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
@@ -64,6 +63,11 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 //		googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(breda, zoom));
 		map = googleMap;
 
+		LatLngBounds helsinki = new LatLngBounds(new LatLng(60.08, 24.76), new LatLng(60.26,25.08));
+		map.setLatLngBoundsForCameraTarget(helsinki);
+		map.setMinZoomPreference(11);
+		map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(60.192059 ,24.945831)));
+
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
 
@@ -87,6 +91,6 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 					}
 				});
 			}
-		},0,1000);
+		},0,750);
 	}
 }

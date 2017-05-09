@@ -3,15 +3,16 @@ package nl.gemeente.breda.bredaapp.businesslogic;
 import java.util.ArrayList;
 
 import nl.gemeente.breda.bredaapp.domain.Report;
+import nl.gemeente.breda.bredaapp.domain.Service;
 
 public class ServiceManager {
-    private static ArrayList<Report> reports = new ArrayList<>();
+    private static ArrayList<Service> services = new ArrayList<>();
 
-    public static void addReport(Report report){
-        reports.add(report);
+    public static void addService(Service service){
+        services.add(service);
     }
 
-    public static ArrayList<Report> getReports(){
-        return reports;
+    public static ArrayList<Service> getServices(){
+        return services;
     }
 }
