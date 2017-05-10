@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -20,6 +21,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import nl.gemeente.breda.bredaapp.adapter.MainScreenSectionsPagerAdapter;
+import nl.gemeente.breda.bredaapp.adapter.ReportAdapter;
 import nl.gemeente.breda.bredaapp.adapter.ServiceAdapter;
 import nl.gemeente.breda.bredaapp.api.ApiHomeScreen;
 import nl.gemeente.breda.bredaapp.api.ApiServices;
@@ -39,7 +41,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 	private ViewPager viewPager;
 	private ServiceAdapter spinnerAdapter;
 	private Spinner homescreenDropdown;
-	
+		
 	private String loadingString;
 
 	//================================================================================
@@ -72,6 +74,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		homescreenDropdown = (Spinner) findViewById(R.id.homescreen_dropdown);
 		//homescreenDropdown.setEnabled(false);
 		spinnerAdapter = new ServiceAdapter(getApplicationContext(), ServiceManager.getServices());
+		
 		homescreenDropdown.setAdapter(spinnerAdapter);
 		homescreenDropdown.setOnItemSelectedListener(this);
 	}
