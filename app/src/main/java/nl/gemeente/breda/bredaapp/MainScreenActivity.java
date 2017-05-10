@@ -18,6 +18,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import nl.gemeente.breda.bredaapp.adapter.MainScreenSectionsPagerAdapter;
+import nl.gemeente.breda.bredaapp.adapter.ServiceAdapter;
 import nl.gemeente.breda.bredaapp.api.ApiHomeScreen;
 import nl.gemeente.breda.bredaapp.api.ApiServices;
 import nl.gemeente.breda.bredaapp.businesslogic.ReportManager;
@@ -34,8 +35,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 	
 	private MainScreenSectionsPagerAdapter sectionsPagerAdapter;
 	private ViewPager viewPager;
-	private ArrayList<String> servicesNames;
-	private ArrayAdapter<String> spinnerAdapter;
+	private ServiceAdapter spinnerAdapter;
 	private Spinner homescreenDropdown;
 	
 	private String loadingString;
@@ -49,7 +49,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_screen);
 		
-		loadingString = getResources().getString(R.string.spinner_loading);
+		//loadingString = getResources().getString(R.string.spinner_loading);
 
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
@@ -65,12 +65,11 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		getReports();
 		getServices();
 
-		servicesNames = new ArrayList<>();
-		servicesNames.clear();
-		servicesNames.add(loadingString);
+		//servicesNames = new ArrayList<>();
+		//servicesNames.clear();
 		homescreenDropdown = (Spinner) findViewById(R.id.homescreen_dropdown);
-		homescreenDropdown.setEnabled(false);
-		spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_layout_adapter, servicesNames);
+		//homescreenDropdown.setEnabled(false);
+		spinnerAdapter = new ServiceAdapter(getApplicationContext(), ServiceManager.getServices());
 		homescreenDropdown.setAdapter(spinnerAdapter);
 	}
 
@@ -95,12 +94,12 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 	@Override
 	public void onServiceAvailable(Service service) {
 		Log.i("Service", service.getServiceName());
-		if (servicesNames.contains(loadingString)) {
-			servicesNames.remove(loadingString);
-			homescreenDropdown.setEnabled(true);
-		}
+//		if (ServiceManager.getServices().contains(loadingString)) {
+//			ServiceManager.getServices().remove(loadingString);
+//			homescreenDropdown.setEnabled(true);
+//		}
 		ServiceManager.addService(service);
-		servicesNames.add(service.getServiceName());
+		//servicesNames.add(service.getServiceName());
 		spinnerAdapter.notifyDataSetChanged();
 	}
 }

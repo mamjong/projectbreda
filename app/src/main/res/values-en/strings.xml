@@ -7,6 +7,6 @@
     <string name="button_create_report">Create report</string>
     <string name="homescreen_left_tab">Map</string>
     <string name="homescreen_right_tab">Overview</string>
-    <string name="spinner_loading">Loading... Please wait.</string>
+    <string name="spinner_loading">Loading. Please wait.</string>
     <string name="splash_loading">Loading...</string>
 </resources>
