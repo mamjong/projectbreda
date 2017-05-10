@@ -35,6 +35,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 	private MainScreenSectionsPagerAdapter sectionsPagerAdapter;
 	private ViewPager viewPager;
 	private ArrayList<String> servicesNames;
+	private ArrayAdapter<String> spinnerAdapter;
 
 	//================================================================================
 	// Accessors
@@ -60,30 +61,10 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		getServices();
 
 		servicesNames = new ArrayList<>();
+		servicesNames.clear();
 		Spinner homescreenDropdown = (Spinner) findViewById(R.id.homescreen_dropdown);
-		final ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_layout_adapter, servicesNames);
+		spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_layout_adapter, servicesNames);
 		homescreenDropdown.setAdapter(spinnerAdapter);
-
-		Timer timer = new Timer();
-		timer.scheduleAtFixedRate(new TimerTask() {
-
-			@Override
-			public void run() {
-				runOnUiThread(new Runnable() {
-					@Override
-					public void run() {
-						servicesNames.clear();
-
-						ArrayList<Service> services = ServiceManager.getServices();
-
-						for (Service service : services) {
-							servicesNames.add(service.getServiceName());
-							spinnerAdapter.notifyDataSetChanged();
-						}
-					}
-				});
-			}
-		},0,1500);
 	}
 
 	public void getReports() {
@@ -108,5 +89,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 	public void onServiceAvailable(Service service) {
 		Log.i("Service", service.getServiceName());
 		ServiceManager.addService(service);
+		servicesNames.add(service.getServiceName());
+		spinnerAdapter.notifyDataSetChanged();
 	}
 }
