@@ -14,8 +14,12 @@ import nl.gemeente.breda.bredaapp.domain.Service;
 
 public class ServiceAdapter extends ArrayAdapter<Service> {
 
-    public ServiceAdapter(Context context, ArrayList<Service> services){
-        super(context, R.layout.spinner_layout_adapter, services);
+	int layout;
+	
+    public ServiceAdapter(Context context, ArrayList<Service> services, int layout){
+        super(context, layout, services);
+	    this.layout = layout;
+	    
     }
 
     public View getView(int position, View convertView, ViewGroup parent){
@@ -25,7 +29,7 @@ public class ServiceAdapter extends ArrayAdapter<Service> {
 
         // Check for existing view
         if(convertView == null){
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.spinner_layout_adapter, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(layout, parent, false);
         }
 
         // Select row items
