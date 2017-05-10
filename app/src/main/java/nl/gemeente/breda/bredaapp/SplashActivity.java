@@ -52,10 +52,6 @@ public class SplashActivity extends AppCompatActivity {
                 Intent newUser = new Intent(getApplicationContext(), AddEmailActivity.class);
                 returnUser.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-                User user = new User();
-                user.setMailAccount("mamjong@avans.nl");
-                dbh.addUser(user);
-
                 if (dbh.checkUser() == true ) {
                     startActivity(returnUser);
                 } else {
