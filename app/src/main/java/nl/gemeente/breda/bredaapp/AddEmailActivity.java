@@ -29,7 +29,6 @@ public class AddEmailActivity extends AppCompatActivity {
 		emailConfirmBtn = (Button) findViewById(R.id.AddEmailActivity_bt_emailConfirmButton);
 		
 		emailConfirmBtn.setEnabled(false);
-		//emailConfirmBtn.setBackgroundColor(Color.LTGRAY);
 		
 		emailInputBox.addTextChangedListener(new TextWatcher() {
 			@Override
