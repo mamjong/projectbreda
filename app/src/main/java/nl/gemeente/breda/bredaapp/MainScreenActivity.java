@@ -132,6 +132,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		String serviceCode = service.getServiceCode();
 		getReports(serviceCode);
 		loading.setText(R.string.spinner_loading);
+		overlay.setVisibility(View.VISIBLE);
 	}
 
 	@Override
