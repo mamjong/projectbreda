@@ -1,6 +1,7 @@
 <resources>
     <string name="CheckDataActivity_tv_category">Categorie:</string>
     <string name="CheckDataActivity_tv_kindOfDefect">Soort defect:</string>
+    <string name="CheckDataActivity_bt_confirmReportButton">Bevestig melding</string>
     <string name="activityCreateNewReport_tv_noPicture">Ik heb geen foto</string>
     <string name="activityCreateNewReport_bt_makePicture">Kies/maak foto</string>
     <string name="activityCreateNewReport_bt_continue">Doorgaan</string>
@@ -56,9 +57,15 @@
     <string name="AddEmailActivity_cb_termsAccepted">Ik accepteer de algemene voorwaarden</string>
     <string name="AddEmailActivity_bt_emailConfirmButton">E-mail bevestigen</string>
 
+    <string name="ReportReceivedActivity_tv_ReceivedText">Melding ontvangen!</string>
+
 
     <string name="button_create_report">Melding aanmaken</string>
     <string name="homescreen_left_tab">Kaart</string>
     <string name="homescreen_right_tab">Overzicht</string>
 
+
+    <string name="spinner_loading">Aan het laden. Even geduld alstublieft.</string>
+    <string name="splash_loading">Aan het laden...</string>
+    <string name="no_reports_found">Geen meldingen gevonden</string>
 </resources>

@@ -10,7 +10,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.example.permission.MAPS_RECEIVE" />
 
@@ -21,7 +20,6 @@
     <permission
         android:name="com.example.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
-
 
     <uses-permission android:name="com.example.permission.MAPS_RECEIVE" />
 
@@ -41,7 +39,9 @@
 
         <activity
             android:name=".SplashActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -52,13 +52,16 @@
         <activity android:name=".CheckDataActivity" />
         <activity android:name=".CreateNewReportActivity" />
         <activity android:name=".TermsAndConditionsActivity" />
-        <activity android:name=".AddEmailActivity"></activity>
+        <activity android:name=".AddEmailActivity" />
         <activity
             android:name=".MainScreenActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation" />
         <activity android:name=".testing.LocationActivity" />
-        <activity android:name=".AddEmailActivity"></activity>
+        <activity android:name=".ReportReceivedActivity" />
+
     </application>
 
 </manifest>

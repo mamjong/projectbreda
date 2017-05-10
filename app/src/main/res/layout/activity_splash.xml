@@ -8,7 +8,7 @@
     android:background="@color/colorAccentDark">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/activitySplashScreen_tv_appName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -23,7 +23,7 @@
         app:layout_constraintBottom_toTopOf="@+id/activitySplashScreen_iv_logo"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageView
         android:id="@+id/activitySplashScreen_iv_logo"
@@ -66,7 +66,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:text="Loading..."
+        android:text="@string/splash_loading"
         android:textColor="@color/colorPrimary"
         android:textColorLink="@color/colorPrimary"
         android:textSize="20dp"
