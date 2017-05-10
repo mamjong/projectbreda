@@ -93,7 +93,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		
 		homescreenDropdown = (Spinner) findViewById(R.id.homescreen_dropdown);
 		homescreenDropdown.setVisibility(View.INVISIBLE);
-		spinnerAdapter = new ServiceAdapter(getApplicationContext(), ServiceManager.getServices());
+		spinnerAdapter = new ServiceAdapter(getApplicationContext(), ServiceManager.getServices(), R.layout.spinner_layout_adapter);
 		homescreenDropdown.setAdapter(spinnerAdapter);
 		homescreenDropdown.setOnItemSelectedListener(this);
 		homescreenDropdown.setPrompt(getResources().getString(R.string.spinner_loading));

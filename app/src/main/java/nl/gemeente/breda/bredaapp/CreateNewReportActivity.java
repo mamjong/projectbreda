@@ -13,12 +13,16 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import nl.gemeente.breda.bredaapp.adapter.ServiceAdapter;
+import nl.gemeente.breda.bredaapp.businesslogic.ServiceManager;
+
 
 public class CreateNewReportActivity extends AppCompatActivity {
 	
 	
 	private static final int CAMERA_PIC_REQUEST = 1337; // LEET
 	private String[] arraySpinnerDataMain, arraySpinnerGroenSubs, arraySpinnerAfvalSubs, arraySpinnerDierenEnOngedierteSubs, arraySpinnerOpenbareVerlichtingSubs;
+	private ServiceAdapter serviceAdapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,8 @@ public class CreateNewReportActivity extends AppCompatActivity {
 		
 		Button cameraButton = (Button) findViewById(R.id.activityCreateNewReport_bt_makePicture);
 		Button continueToMap = (Button) findViewById(R.id.activityCreateNewReport_bt_continue);
+		
+		serviceAdapter = new ServiceAdapter(getApplicationContext(), ServiceManager.getServices(), R.layout.spinner_layout_custom_row);
 		
 		
 		// TODO: Make 2nd map screen to choose object.
@@ -49,10 +55,14 @@ public class CreateNewReportActivity extends AppCompatActivity {
 		final Spinner sprSubCategories = (Spinner) findViewById(R.id.activityCreateNewReport_spr_defects);
 		Spinner sprCategories = (Spinner) findViewById(R.id.activityCreateNewReport_spr_categories);
 		
-		ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, arraySpinnerDataMain);
 		
-		sprCategories.setAdapter(spinnerAdapter);
+//		ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
+//				android.R.layout.simple_spinner_item, arraySpinnerDataMain);
+		
+		
+		
+		
+		sprCategories.setAdapter(serviceAdapter);
 		
 		
 		// Categorie -- TODO: Ophalen van de API
