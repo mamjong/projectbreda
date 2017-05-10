@@ -7,6 +7,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -27,7 +29,7 @@ import nl.gemeente.breda.bredaapp.domain.Report;
 import nl.gemeente.breda.bredaapp.domain.Service;
 import nl.gemeente.breda.bredaapp.fragment.MainScreenMapFragment;
 
-public class MainScreenActivity extends AppCompatActivity implements ApiHomeScreen.Listener, ApiServices.Listener {
+public class MainScreenActivity extends AppCompatActivity implements ApiHomeScreen.Listener, ApiServices.Listener, AdapterView.OnItemSelectedListener {
 	
 	//================================================================================
 	// Properties
@@ -62,7 +64,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 		tabLayout.setupWithViewPager(viewPager);
 
-		getReports();
+		getReports("0");
 		getServices();
 
 		//servicesNames = new ArrayList<>();
@@ -71,11 +73,12 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		//homescreenDropdown.setEnabled(false);
 		spinnerAdapter = new ServiceAdapter(getApplicationContext(), ServiceManager.getServices());
 		homescreenDropdown.setAdapter(spinnerAdapter);
+		homescreenDropdown.setOnItemSelectedListener(this);
 	}
 
-	public void getReports() {
+	public void getReports(String serviceCode) {
 		ApiHomeScreen apiHomeScreen = new ApiHomeScreen(this);
-		String[] urls = new String[] {"https://asiointi.hel.fi/palautews/rest/v1/requests.json?status=open&service_code=2806&lat=60.1892477&long=24.9707467&radius=5000"};
+		String[] urls = new String[] {"https://asiointi.hel.fi/palautews/rest/v1/requests.json?status=open&service_code=" + serviceCode + "&lat=60.1892477&long=24.9707467&radius=5000"};
 		apiHomeScreen.execute(urls);
 	}
 
@@ -101,5 +104,17 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		ServiceManager.addService(service);
 		//servicesNames.add(service.getServiceName());
 		spinnerAdapter.notifyDataSetChanged();
+	}
+
+	@Override
+	public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+		Service service = ServiceManager.getServices().get(position);
+		String serviceCode = service.getServiceCode();
+		getReports(serviceCode);
+	}
+
+	@Override
+	public void onNothingSelected(AdapterView<?> parent) {
+
 	}
 }
