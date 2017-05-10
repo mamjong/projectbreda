@@ -36,6 +36,9 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 	private ViewPager viewPager;
 	private ArrayList<String> servicesNames;
 	private ArrayAdapter<String> spinnerAdapter;
+	private Spinner homescreenDropdown;
+	
+	private String loadingString;
 
 	//================================================================================
 	// Accessors
@@ -45,6 +48,8 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_screen);
+		
+		loadingString = getResources().getString(R.string.spinner_loading);
 
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
@@ -62,7 +67,9 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 
 		servicesNames = new ArrayList<>();
 		servicesNames.clear();
-		Spinner homescreenDropdown = (Spinner) findViewById(R.id.homescreen_dropdown);
+		servicesNames.add(loadingString);
+		homescreenDropdown = (Spinner) findViewById(R.id.homescreen_dropdown);
+		homescreenDropdown.setEnabled(false);
 		spinnerAdapter = new ArrayAdapter<String>(this, R.layout.spinner_layout_adapter, servicesNames);
 		homescreenDropdown.setAdapter(spinnerAdapter);
 	}
@@ -88,6 +95,10 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 	@Override
 	public void onServiceAvailable(Service service) {
 		Log.i("Service", service.getServiceName());
+		if (servicesNames.contains(loadingString)) {
+			servicesNames.remove(loadingString);
+			homescreenDropdown.setEnabled(true);
+		}
 		ServiceManager.addService(service);
 		servicesNames.add(service.getServiceName());
 		spinnerAdapter.notifyDataSetChanged();
