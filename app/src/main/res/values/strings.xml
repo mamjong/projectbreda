@@ -57,6 +57,8 @@
     <string name="AddEmailActivity_cb_termsAccepted">Ik accepteer de algemene voorwaarden</string>
     <string name="AddEmailActivity_bt_emailConfirmButton">E-mail bevestigen</string>
 
+    <string name="ReportReceivedActivity_tv_ReceivedText">Melding ontvangen!</string>
+
 
     <string name="button_create_report">Melding aanmaken</string>
     <string name="homescreen_left_tab">Kaart</string>
