@@ -67,4 +67,9 @@ public class Service {
     public String getGroup() {
         return group;
     }
+	
+	@Override
+	public String toString() {
+		return serviceName;
+	}
 }
