@@ -15,7 +15,7 @@ import nl.gemeente.breda.bredaapp.domain.Service;
 public class ServiceAdapter extends ArrayAdapter<Service> {
 
     public ServiceAdapter(Context context, ArrayList<Service> services){
-        super(context, 0,services);
+        super(context, R.layout.spinner_layout_adapter, services);
     }
 
     public View getView(int position, View convertView, ViewGroup parent){
