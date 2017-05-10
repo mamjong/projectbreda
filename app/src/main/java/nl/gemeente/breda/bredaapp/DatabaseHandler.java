@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -53,10 +54,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addUser(User user) {
+    public void addUser(String mailAccount) {
         ContentValues values = new ContentValues();
 
-        values.put(USERS_COLUMN_MAILACCOUNT, user.getMailAccount());
+        values.put(USERS_COLUMN_MAILACCOUNT, mailAccount);
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(USERS_TABLE_NAME, null, values);
