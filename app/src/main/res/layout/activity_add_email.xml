@@ -26,6 +26,9 @@
         android:id="@+id/AddEmailActivity_sp_introEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/AddEmailActivity_tv_introText"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"
         tools:layout_editor_absoluteY="51dp"
         tools:layout_editor_absoluteX="192dp" />
 
