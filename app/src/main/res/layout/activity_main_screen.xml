@@ -30,6 +30,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/homescreen_dropdown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
@@ -45,13 +57,13 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/activityMainScreen_btn_createReport"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="?attr/colorPrimary"
             android:text="@string/button_create_report"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"/>
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

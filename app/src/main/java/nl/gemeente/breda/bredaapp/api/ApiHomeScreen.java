@@ -66,7 +66,7 @@ public class ApiHomeScreen extends AsyncTask<String, Void, String> {
 
     protected void onPostExecute(String response){
 
-        Log.i("RESPONSE", response);
+        //Log.i("RESPONSE", response);
 
         try {
             JSONArray reports = new JSONArray(response);
