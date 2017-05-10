@@ -1,0 +1,22 @@
+[
+	{
+		"service_code": "172",
+		"subcategory_code" : "ruit",
+		"subcategory_name": "Ruit kapot"
+	},
+	{
+		"service_code": "172",
+		"subcategory_code" : "prullenbak",
+		"subcategory_name": "Prullenbak opgeblazen"
+	},
+	{
+		"service_code": "2806",
+		"subcategory_code" : "afval",
+		"subcategory_name": "Afval op straat"
+	},
+	{
+		"service_code": "2806",
+		"subcategory_code" : "Prullenbak",
+		"subcategory_name": "Prullenbak vol"
+	}
+]
