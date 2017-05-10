@@ -74,8 +74,4 @@ public class MainScreenSectionsPagerAdapter extends FragmentPagerAdapter {
 	public void removeMarkers(){
 		tab1.removeMarkers();
 	}
-
-	public void canMove(boolean canMove){
-		tab1.canMove(canMove);
-	}
 }

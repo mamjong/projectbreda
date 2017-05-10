@@ -130,12 +130,10 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		if(number > 0){
 			loading.setText("");
 			overlay.setVisibility(View.INVISIBLE);
-			sectionsPagerAdapter.canMove(true);
 		}
 		else if(number == 0){
 			loading.setText(R.string.no_reports_found);
 			overlay.setVisibility(View.VISIBLE);
-			sectionsPagerAdapter.canMove(false);
 		}
 	}
 }

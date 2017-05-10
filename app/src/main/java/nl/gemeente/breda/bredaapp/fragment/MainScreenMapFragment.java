@@ -95,8 +95,4 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 		reports.clear();
 		map.clear();
 	}
-
-	public void canMove(boolean canMove){
-		map.getUiSettings().setAllGesturesEnabled(canMove);
-	}
 }
