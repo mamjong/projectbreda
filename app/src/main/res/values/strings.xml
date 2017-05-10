@@ -1,4 +1,11 @@
 <resources>
+    <string name="CheckDataActivity_tv_category">Categorie:</string>
+    <string name="CheckDataActivity_tv_kindOfDefect">Soort defect:</string>
+    <string name="activityCreateNewReport_tv_noPicture">Ik heb geen foto</string>
+    <string name="activityCreateNewReport_bt_makePicture">Kies/maak foto</string>
+    <string name="activityCreateNewReport_bt_continue">Doorgaan</string>
+    <string name="activityTermsAndConditions_bt_continue">Doorgaan</string>
+    <string name="activityTermsAndConditios_tv_termsAndConditions">Alle informatie, die u ons doorgeeft, behandelt de gemeente vertrouwelijk. Persoons- of adresgegevens gebruikt de gemeente uitsluitend waarvoor u deze heeft doorgegeven. De gemeente Breda behandelt uw e-mail vertrouwelijk, maar sluit niet helemaal uit dat een e-mail door derden ingezien wordt. \n \nDe gemeente Breda probeert om e-mailberichten, die bij het centrale e-mailadres contact@breda.nl (link stuurt een e-mail) of als reactie via het contactformulier op de site binnenkomen, binnen 5 werkdagen te beantwoorden.</string>
     <string name="app_name" translatable="false">InfraMeld Breda</string>
     <string name="action_settings">Instellingen</string>
     <string name="latitude_label" translatable="false">Latitude</string>
@@ -7,7 +14,51 @@
     <string name="no_location_permission_description">Locatie permissies zijn nodig om de app te kunnen gebruiken. Wilt u deze toestaan?</string>
     <string name="no_location_permission_positive">Ja</string>
     <string name="no_location_permission_negative">Nee</string>
+
+    <string-array name="spinnerPlaceHolderData">
+        <item>Groen</item>
+        <item>Openbare verlichting</item>
+        <item>Afval</item>
+        <item>Dieren en ongedierte</item>
+    </string-array>
+
+    <string-array name="spinnerGroenSubs">
+        <item>Beplanting</item>
+        <item>Gazon/Berm</item>
+        <item>Bomen</item>
+    </string-array>
+
+    <string-array name="spinnerAfvalSubs">
+        <item>Afvalcontainers</item>
+        <item>Inzamelen GFT afval</item>
+        <item>Inzamelen paper</item>
+        <item>Inzamelen resafval</item>
+        <item>Kleding, -glascontainers</item>
+        <item>Zwergafval</item>
+    </string-array>
+
+    <string-array name="spinnerDierenEnOngedierteSubs">
+        <item>Dode dieren (kadavers)</item>
+        <item>Insecten of loslopende dieren</item>
+        <item>Ratten/Muizen/Steenmatter</item>
+        <item>Lechnesh</item>
+    </string-array>
+
+    <string-array name="spinnerOpenbareVerlichtingSubs">
+        <item>Defecte lamp</item>
+        <item>Kappote lichtmast</item>
+    </string-array>
+
+
+    <string name="AddEmailActivity_tv_introText">Uw e-mailadres is nodig om gebruik \nte kunnen maken van deze app</string>
+    <string name="AddEmailActivity_tv_emailaddress">E-mailadres:</string>
+    <string name="AddEmailActivity_tv_TermsText">Algemene voorwaarden</string>
+    <string name="AddEmailActivity_cb_termsAccepted">Ik accepteer de algemene voorwaarden</string>
+    <string name="AddEmailActivity_bt_emailConfirmButton">E-mail bevestigen</string>
+
+
     <string name="button_create_report">Melding aanmaken</string>
     <string name="homescreen_left_tab">Kaart</string>
     <string name="homescreen_right_tab">Overzicht</string>
+
 </resources>

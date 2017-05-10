@@ -1,11 +1,14 @@
 package nl.gemeente.breda.bredaapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -27,6 +30,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 	private MainScreenSectionsPagerAdapter sectionsPagerAdapter;
 	private ViewPager viewPager;
 	private ReportManager reportManager;
+	private Button newReportActivityBtn;
 	
 	//================================================================================
 	// Accessors
@@ -39,14 +43,24 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
-		
 		sectionsPagerAdapter = new MainScreenSectionsPagerAdapter(getSupportFragmentManager(), getApplicationContext());
+
 		
 		viewPager = (ViewPager) findViewById(R.id.container);
 		viewPager.setAdapter(sectionsPagerAdapter);
 		
 		TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 		tabLayout.setupWithViewPager(viewPager);
+
+		newReportActivityBtn = (Button) findViewById(R.id.mainScreenActivity_Btn_MakeReport);
+
+		newReportActivityBtn.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(getApplicationContext(), CreateNewReportActivity.class);
+				startActivity(i);
+			}
+		});
 
 		getReports();
 		getServices();

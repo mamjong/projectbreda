@@ -6,4 +6,62 @@
     android:layout_height="match_parent"
     tools:context="nl.gemeente.breda.bredaapp.AddEmailActivity">
 
+    <TextView
+        android:id="@+id/AddEmailActivity_tv_introText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/AddEmailActivity_sp_introEmail"
+        android:text="@string/AddEmailActivity_tv_introText" />
+
+    <Space
+        android:id="@+id/AddEmailActivity_sp_introEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/AddEmailActivity_tv_emailaddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/AddEmailActivity_tv_emailaddress" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name" />
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/AddEmailActivity_tv_TermsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/AddEmailActivity_tv_TermsText" />
+
+    <CheckBox
+        android:id="@+id/AddEmailActivity_cb_termsAccepted"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/AddEmailActivity_cb_termsAccepted" />
+
+    <Button
+        android:id="@+id/AddEmailActivity_bt_emailConfirmButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="@string/AddEmailActivity_bt_emailConfirmButton"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
