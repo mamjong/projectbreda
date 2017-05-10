@@ -5,4 +5,5 @@
     <color name="colorAccent">#ffffff</color>
     <color name="colorDark">#1a1918</color>
     <color name="colorAccentDark">#EFEFEF</color>
+    <color name="image_overlay">#7f757575</color>
 </resources>

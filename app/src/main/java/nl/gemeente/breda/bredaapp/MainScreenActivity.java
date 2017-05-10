@@ -10,10 +10,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.vision.text.Text;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -29,7 +32,7 @@ import nl.gemeente.breda.bredaapp.domain.Report;
 import nl.gemeente.breda.bredaapp.domain.Service;
 import nl.gemeente.breda.bredaapp.fragment.MainScreenMapFragment;
 
-public class MainScreenActivity extends AppCompatActivity implements ApiHomeScreen.Listener, ApiServices.Listener, AdapterView.OnItemSelectedListener {
+public class MainScreenActivity extends AppCompatActivity implements ApiHomeScreen.Listener, ApiServices.Listener, ApiHomeScreen.NumberOfReports, AdapterView.OnItemSelectedListener {
 	
 	//================================================================================
 	// Properties
@@ -39,8 +42,9 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 	private ViewPager viewPager;
 	private ServiceAdapter spinnerAdapter;
 	private Spinner homescreenDropdown;
-	
-	private String loadingString;
+	private int numberOfReports;
+	private TextView loading;
+	private ImageView overlay;
 
 	//================================================================================
 	// Accessors
@@ -50,14 +54,12 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_screen);
-		
-		//loadingString = getResources().getString(R.string.spinner_loading);
 
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 		
 		sectionsPagerAdapter = new MainScreenSectionsPagerAdapter(getSupportFragmentManager(), getApplicationContext());
-		
+
 		viewPager = (ViewPager) findViewById(R.id.container);
 		viewPager.setAdapter(sectionsPagerAdapter);
 		
@@ -67,17 +69,23 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		getReports("0");
 		getServices();
 
-		//servicesNames = new ArrayList<>();
-		//servicesNames.clear();
+		numberOfReports = -1;
+
+		loading = (TextView) findViewById(R.id.activityMainscreen_tv_loading);
+		overlay = (ImageView) findViewById(R.id.activityMainscreen_overlay_image);
+		overlay.setVisibility(View.INVISIBLE);
+		loading.setText(R.string.spinner_loading);
+		
 		homescreenDropdown = (Spinner) findViewById(R.id.homescreen_dropdown);
-		//homescreenDropdown.setEnabled(false);
+		homescreenDropdown.setVisibility(View.INVISIBLE);
 		spinnerAdapter = new ServiceAdapter(getApplicationContext(), ServiceManager.getServices());
 		homescreenDropdown.setAdapter(spinnerAdapter);
 		homescreenDropdown.setOnItemSelectedListener(this);
+		homescreenDropdown.setPrompt(getResources().getString(R.string.spinner_loading));
 	}
 
 	public void getReports(String serviceCode) {
-		ApiHomeScreen apiHomeScreen = new ApiHomeScreen(this);
+		ApiHomeScreen apiHomeScreen = new ApiHomeScreen(this, this);
 		String[] urls = new String[] {"https://asiointi.hel.fi/palautews/rest/v1/requests.json?status=open&service_code=" + serviceCode + "&lat=60.1892477&long=24.9707467&radius=5000"};
 		apiHomeScreen.execute(urls);
 	}
@@ -96,25 +104,38 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 
 	@Override
 	public void onServiceAvailable(Service service) {
-		Log.i("Service", service.getServiceName());
-//		if (ServiceManager.getServices().contains(loadingString)) {
-//			ServiceManager.getServices().remove(loadingString);
-//			homescreenDropdown.setEnabled(true);
-//		}
+		//Log.i("Service", service.getServiceName());
+		homescreenDropdown.setVisibility(View.VISIBLE);
 		ServiceManager.addService(service);
-		//servicesNames.add(service.getServiceName());
 		spinnerAdapter.notifyDataSetChanged();
 	}
 
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+		sectionsPagerAdapter.removeMarkers();
 		Service service = ServiceManager.getServices().get(position);
 		String serviceCode = service.getServiceCode();
 		getReports(serviceCode);
+		loading.setText(R.string.spinner_loading);
 	}
 
 	@Override
 	public void onNothingSelected(AdapterView<?> parent) {
 
+	}
+
+	@Override
+	public void onNumberOfReportsAvailable(int number) {
+		this.numberOfReports = number;
+		if(number > 0){
+			loading.setText("");
+			overlay.setVisibility(View.INVISIBLE);
+			sectionsPagerAdapter.canMove(true);
+		}
+		else if(number == 0){
+			loading.setText(R.string.no_reports_found);
+			overlay.setVisibility(View.VISIBLE);
+			sectionsPagerAdapter.canMove(false);
+		}
 	}
 }

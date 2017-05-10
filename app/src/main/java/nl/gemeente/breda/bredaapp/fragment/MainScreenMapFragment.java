@@ -31,6 +31,7 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 	//================================================================================
 
 	private GoogleMap map;
+	private ArrayList<Report> reports;
 
 	//================================================================================
 	// Accessors
@@ -57,10 +58,6 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 	
 	@Override
 	public void onMapReady(GoogleMap googleMap) {
-//		LatLng breda = new LatLng(51.5853953, 4.7929303);
-//		float zoom = 12;
-//		googleMap.addMarker(new MarkerOptions().position(breda).title("Marker in Breda"));
-//		googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(breda, zoom));
 		map = googleMap;
 
 		LatLngBounds helsinki = new LatLngBounds(new LatLng(60.08, 24.76), new LatLng(60.26,25.08));
@@ -76,7 +73,7 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 				getActivity().runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-						ArrayList<Report> reports = ReportManager.getReports();
+						reports = ReportManager.getReports();
 
 						for (Report report : reports) {
 							double latitude = report.getLatitude();
@@ -92,5 +89,14 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 				});
 			}
 		},0,750);
+	}
+
+	public void removeMarkers(){
+		reports.clear();
+		map.clear();
+	}
+
+	public void canMove(boolean canMove){
+		map.getUiSettings().setAllGesturesEnabled(canMove);
 	}
 }

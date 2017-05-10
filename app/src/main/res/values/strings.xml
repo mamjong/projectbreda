@@ -12,4 +12,5 @@
     <string name="homescreen_right_tab">Overzicht</string>
     <string name="spinner_loading">Aan het laden. Even geduld alstublieft.</string>
     <string name="splash_loading">Aan het laden...</string>
+    <string name="no_reports_found">Geen meldingen gevonden</string>
 </resources>

@@ -20,9 +20,11 @@ import nl.gemeente.breda.bredaapp.domain.Report;
 public class ApiHomeScreen extends AsyncTask<String, Void, String> {
 
     private Listener listener = null;
+    private NumberOfReports numberListener = null;
 
-    public ApiHomeScreen(Listener listener) {
+    public ApiHomeScreen(Listener listener, NumberOfReports numberOfReports) {
         this.listener = listener;
+        this.numberListener = numberOfReports;
     }
 
     @Override
@@ -70,6 +72,8 @@ public class ApiHomeScreen extends AsyncTask<String, Void, String> {
 
         try {
             JSONArray reports = new JSONArray(response);
+
+            numberListener.onNumberOfReportsAvailable(reports.length());
 
             for (int idx = 0; idx < reports.length(); idx++){
                 // Select this product
@@ -137,5 +141,8 @@ public class ApiHomeScreen extends AsyncTask<String, Void, String> {
     }
     public interface Listener {
         void onReportAvailable(Report report);
+    }
+    public interface NumberOfReports {
+        void onNumberOfReportsAvailable(int number);
     }
 }
