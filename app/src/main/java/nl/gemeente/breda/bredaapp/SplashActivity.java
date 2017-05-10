@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ProgressBar;
 
+import nl.gemeente.breda.bredaapp.domain.User;
 import nl.gemeente.breda.bredaapp.testing.LocationActivity;
 
 
@@ -25,8 +26,6 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
-        final DatabaseHandler dbh = new DatabaseHandler(getApplicationContext(), null, null, 1);
 
         getSupportActionBar().hide();
 
@@ -46,9 +45,16 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
+
+                DatabaseHandler dbh = new DatabaseHandler(getApplicationContext(), null, null, 1);
+
                 Intent returnUser = new Intent(getApplicationContext(), MainScreenActivity.class);
                 Intent newUser = new Intent(getApplicationContext(), AddEmailActivity.class);
                 returnUser.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                User user = new User();
+                user.setMailAccount("mamjong@avans.nl");
+                dbh.addUser(user);
 
                 if (dbh.checkUser() == true ) {
                     startActivity(returnUser);

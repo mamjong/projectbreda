@@ -74,7 +74,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         method returns true.
         */
         Cursor cursor = db.rawQuery(query, null);
-        if (cursor.moveToFirst()) {
+        cursor.moveToFirst();
+        int rowCount = cursor.getInt(0);
+
+        if (rowCount > 0) {
             flag = true;
         } else {
             flag = false;
