@@ -17,7 +17,7 @@ import android.widget.Toast;
 public class CreateNewReportActivity extends AppCompatActivity {
 
 
-    private static final int CAMERA_PIC_REQUEST = 1337;
+    private static final int CAMERA_PIC_REQUEST = 1337; // LEET
     private String[] arraySpinnerDataMain, arraySpinnerGroenSubs, arraySpinnerAfvalSubs, arraySpinnerDierenEnOngedierteSubs, arraySpinnerOpenbareVerlichtingSubs;
 
     @Override
@@ -59,9 +59,9 @@ public class CreateNewReportActivity extends AppCompatActivity {
         sprCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                Toast.makeText(parent.getContext(),
-                        "OnItemSelectedListener: " + parent.getItemAtPosition(pos).toString(),
-                        Toast.LENGTH_SHORT).show();
+//                Toast.makeText(parent.getContext(),
+//                        "OnItemSelectedListener: " + parent.getItemAtPosition(pos).toString(),
+//                        Toast.LENGTH_SHORT).show();
 
                 switch (parent.getItemAtPosition(pos).toString()) {
                     case "Groen":
@@ -91,7 +91,7 @@ public class CreateNewReportActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                Toast.makeText(parent.getContext(), "herf", Toast.LENGTH_LONG).show();
+                Toast.makeText(parent.getContext(), "Nothing selected", Toast.LENGTH_LONG).show();
             }
 
         });

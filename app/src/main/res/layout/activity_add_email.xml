@@ -13,7 +13,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintRight_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/AddEmailActivity_sp_introEmail"
+        app:layout_constraintBottom_toTopOf="parent"
         android:text="@string/AddEmailActivity_tv_introText" />
 
     <Space
