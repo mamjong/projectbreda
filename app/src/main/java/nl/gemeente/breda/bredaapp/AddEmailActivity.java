@@ -9,7 +9,9 @@ import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class AddEmailActivity extends AppCompatActivity {
 	
@@ -17,6 +19,10 @@ public class AddEmailActivity extends AppCompatActivity {
 	private EditText emailInputBox;
 	private String email;
 	private DatabaseHandler dbh;
+	private CheckBox readTOSCheck;
+	private TextView terms;
+	
+	private final int ACCEPT_TERMS = 999;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +56,18 @@ public class AddEmailActivity extends AppCompatActivity {
 			}
 		});
 		
+		readTOSCheck = (CheckBox) findViewById(R.id.AddEmailActivity_cb_termsAccepted);
+		readTOSCheck.setEnabled(false);
+		
+		terms = (TextView) findViewById(R.id.AddEmailActivity_tv_TermsText);
+		terms.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(getApplicationContext(), TermsAndConditionsActivity.class);
+				startActivityForResult(i, ACCEPT_TERMS);
+			}
+		});
+		
 		emailConfirmBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -69,5 +87,17 @@ public class AddEmailActivity extends AppCompatActivity {
 			return Patterns.EMAIL_ADDRESS.matcher(target).matches();
 		}
 	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == ACCEPT_TERMS) {
+			if (resultCode == RESULT_OK) {
+				boolean accepted = data.getBooleanExtra("accepted", false);
+				readTOSCheck.setChecked(accepted);
+				readTOSCheck.setEnabled(true);
+			}
+		}
+	}
 }
+		
 

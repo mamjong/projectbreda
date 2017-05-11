@@ -1,5 +1,7 @@
 package nl.gemeente.breda.bredaapp;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,7 +19,10 @@ public class TermsAndConditionsActivity extends AppCompatActivity {
 		continueButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				TermsAndConditionsActivity.super.onBackPressed();
+				Intent returnIntent = new Intent();
+				returnIntent.putExtra("accepted", true);
+				setResult(Activity.RESULT_OK, returnIntent);
+				finish();
 			}
 		});
 	}
