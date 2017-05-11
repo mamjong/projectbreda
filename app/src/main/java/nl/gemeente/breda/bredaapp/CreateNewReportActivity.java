@@ -120,9 +120,14 @@ public class CreateNewReportActivity extends AppCompatActivity {
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == CAMERA_PIC_REQUEST) {
-			Bitmap defectImage = (Bitmap) data.getExtras().get("data");
-			ImageView imageview = (ImageView) findViewById(R.id.activityCreateNewReport_iv_defectImage);
-			imageview.setImageBitmap(defectImage);
+			
+			if(resultCode == RESULT_OK){
+				Bitmap defectImage = (Bitmap)data.getExtras().get("data");
+				ImageView imageview = (ImageView) findViewById(R.id.activityCreateNewReport_iv_defectImage);
+				imageview.setImageBitmap(defectImage);
+			} else if(resultCode == RESULT_CANCELED){
+				
+			}
 		}
 	}
 	
