@@ -57,6 +57,7 @@ public class AddEmailActivity extends AppCompatActivity {
 				email = emailInputBox.getText().toString();
 				dbh.addUser(email);
 				startActivity(i);
+				finish();
 			}
 		});
 	}
