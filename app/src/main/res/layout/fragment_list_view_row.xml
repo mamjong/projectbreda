@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    tools:context="nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="15dp">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/fragmentListViewRow_IV_mediaUrl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/ic_launcher_round"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2">
+
+            <TextView
+                android:id="@+id/fragmentListViewRow_TV_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Category"
+                android:textSize="16dp"
+                android:textStyle="bold|italic"
+                android:layout_marginBottom="5dp"
+                />
+
+            <TextView
+                android:id="@+id/fragmentListViewRow_TV_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:textSize="12dp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2">
+
+            <TextView
+                android:id="@+id/fragmentListViewRow_TV_blank"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="16dp"
+                android:textStyle="bold|italic"
+                android:layout_marginBottom="5dp"
+                />
+
+            <TextView
+                android:id="@+id/fragmentListViewRow_TV_status"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:text="Status"
+                android:textSize="12dp"
+                android:textStyle="bold|italic" />
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
