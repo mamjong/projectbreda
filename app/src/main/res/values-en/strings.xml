@@ -10,4 +10,18 @@
     <string name="spinner_loading">Loading. Please wait.</string>
     <string name="splash_loading">Loading...</string>
     <string name="no_reports_found">No reports found</string>
+    <string name="AddEmailActivity_bt_emailConfirmButton">Confirm E-mail</string>
+    <string name="AddEmailActivity_cb_termsAccepted">I accept the terms and conditions</string>
+    <string name="AddEmailActivity_tv_TermsText">Terms and conditions</string>
+    <string name="AddEmailActivity_tv_emailaddress">E-mailaddress:</string>
+    <string name="AddEmailActivity_tv_introText">Your e-mailaddress is required to use this application</string>
+    <string name="CheckDataActivity_bt_confirmReportButton">Confirm report</string>
+    <string name="CheckDataActivity_tv_category">Category:</string>
+    <string name="CheckDataActivity_tv_kindOfDefect">Kind of defect:</string>
+    <string name="ReportReceivedActivity_tv_ReceivedText">Report received!</string>
+    <string name="activityCreateNewReport_bt_continue">Continue</string>
+    <string name="activityCreateNewReport_bt_makePicture">Choose/take picture</string>
+    <string name="activityCreateNewReport_tv_noPicture">I don\'t have a picture</string>
+    <string name="activityTermsAndConditions_bt_accept">Accept</string>
+    <string name="activityTermsAndConditions_bt_decline">Decline</string>
 </resources>

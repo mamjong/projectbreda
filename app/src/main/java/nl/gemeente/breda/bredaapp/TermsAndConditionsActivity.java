@@ -14,13 +14,24 @@ public class TermsAndConditionsActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_terms_and_conditions);
 		
-		Button continueButton = (Button) findViewById(R.id.activityTermsAndConditions_bt_continue);
+		Button acceptButton = (Button) findViewById(R.id.activityTermsAndConditions_bt_accept);
+		Button declineButton = (Button) findViewById(R.id.activityTermsAndConditions_bt_decline); 
 		
-		continueButton.setOnClickListener(new View.OnClickListener() {
+		acceptButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent returnIntent = new Intent();
 				returnIntent.putExtra("accepted", true);
+				setResult(Activity.RESULT_OK, returnIntent);
+				finish();
+			}
+		});
+		
+		declineButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent returnIntent = new Intent();
+				returnIntent.putExtra("accepted", false);
 				setResult(Activity.RESULT_OK, returnIntent);
 				finish();
 			}
