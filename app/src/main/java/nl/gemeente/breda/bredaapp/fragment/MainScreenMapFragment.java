@@ -29,9 +29,10 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 	//================================================================================
 	// Properties
 	//================================================================================
-
+	
 	private GoogleMap map;
-
+	private ArrayList<Report> reports;
+	
 	//================================================================================
 	// Accessors
 	//================================================================================
@@ -39,7 +40,7 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final View rootView = inflater.inflate(R.layout.fragment_map_view, container, false);
-
+		
 		SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.fragmentMapView_FL_mapLayout);
 		if (mapFragment == null) {
 			FragmentManager fragmentManager = getFragmentManager();
@@ -57,40 +58,41 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 	
 	@Override
 	public void onMapReady(GoogleMap googleMap) {
-//		LatLng breda = new LatLng(51.5853953, 4.7929303);
-//		float zoom = 12;
-//		googleMap.addMarker(new MarkerOptions().position(breda).title("Marker in Breda"));
-//		googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(breda, zoom));
 		map = googleMap;
-
-		LatLngBounds helsinki = new LatLngBounds(new LatLng(60.08, 24.76), new LatLng(60.26,25.08));
+		
+		LatLngBounds helsinki = new LatLngBounds(new LatLng(60.08, 24.76), new LatLng(60.26, 25.08));
 		map.setLatLngBoundsForCameraTarget(helsinki);
 		map.setMinZoomPreference(11);
-		map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(60.192059 ,24.945831)));
-
+		map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(60.192059, 24.945831)));
+		
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
-
+			
 			@Override
 			public void run() {
 				getActivity().runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-						ArrayList<Report> reports = ReportManager.getReports();
-
+						reports = ReportManager.getReports();
+						
 						for (Report report : reports) {
 							double latitude = report.getLatitude();
 							double longtitude = report.getLongitude();
 							String description = report.getDescription();
-
+							
 							LatLng position = new LatLng(latitude, longtitude);
-
+							
 							MarkerOptions markerOptions = new MarkerOptions().position(position).title(description);
 							MainScreenMapFragment.this.map.addMarker(markerOptions);
 						}
 					}
 				});
 			}
-		},0,750);
+		}, 0, 750);
+	}
+	
+	public void removeMarkers() {
+		reports.clear();
+		map.clear();
 	}
 }

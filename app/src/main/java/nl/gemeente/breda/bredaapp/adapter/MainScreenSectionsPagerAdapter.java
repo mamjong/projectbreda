@@ -70,4 +70,8 @@ public class MainScreenSectionsPagerAdapter extends FragmentPagerAdapter {
 		}
 		return null;
 	}
+
+	public void removeMarkers(){
+		tab1.removeMarkers();
+	}
 }
