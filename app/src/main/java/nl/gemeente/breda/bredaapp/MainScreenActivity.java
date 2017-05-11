@@ -111,6 +111,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+		ReportManager.emptyArray();
 		Service service = ServiceManager.getServices().get(position);
 		String serviceCode = service.getServiceCode();
 		getReports(serviceCode);

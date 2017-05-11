@@ -16,7 +16,7 @@ import nl.gemeente.breda.bredaapp.domain.Report;
 public class ReportAdapter extends ArrayAdapter<Report> {
 	
 	public ReportAdapter(Context context, ArrayList<Report> reports) {
-		super(context, 0, reports);
+		super(context, R.layout.fragment_list_view_row, reports);
 	}
 	
 	public View getView(int position, View convertView, ViewGroup parent) {

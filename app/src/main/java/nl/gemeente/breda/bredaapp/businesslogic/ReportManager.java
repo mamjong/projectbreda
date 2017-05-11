@@ -14,4 +14,8 @@ public class ReportManager {
     public static ArrayList<Report> getReports(){
         return reports;
     }
+    
+    public static void emptyArray(){
+	    reports.clear();
+    }
 }
