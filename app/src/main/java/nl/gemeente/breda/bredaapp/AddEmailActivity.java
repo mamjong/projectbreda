@@ -2,6 +2,7 @@ package nl.gemeente.breda.bredaapp;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -30,6 +31,7 @@ public class AddEmailActivity extends AppCompatActivity {
 		
 		emailConfirmBtn.setEnabled(false);
 		
+		emailInputBox.getBackground().mutate().setColorFilter(getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_ATOP);
 		emailInputBox.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
