@@ -16,6 +16,7 @@
     <string name="no_location_permission_description">Locatie permissies zijn nodig om de app te kunnen gebruiken. Wilt u deze toestaan?</string>
     <string name="no_location_permission_positive">Ja</string>
     <string name="no_location_permission_negative">Nee</string>
+    <string name="activityEmail_no_submit">Vul een geldig e-mailadres in en accepteer de algemene voorwaarden om door te gaan.</string>
 
     <string-array name="spinnerPlaceHolderData">
         <item>Groen</item>

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AddEmailActivity extends AppCompatActivity {
 	
@@ -36,7 +37,7 @@ public class AddEmailActivity extends AppCompatActivity {
 		
 		emailInputBox = (EditText) findViewById(R.id.AddEmailActivity_et_emailInput);
 		emailConfirmBtn = (Button) findViewById(R.id.AddEmailActivity_bt_emailConfirmButton);
-		emailConfirmBtn.setEnabled(false);
+		//emailConfirmBtn.setEnabled(false);
 		
 		mailOkay = false;
 		termsOkay = false;
@@ -85,11 +86,16 @@ public class AddEmailActivity extends AppCompatActivity {
 		emailConfirmBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(getApplicationContext(), MainScreenActivity.class);
-				email = emailInputBox.getText().toString();
-				dbh.addUser(email);
-				startActivity(i);
-				finish();
+				if (canButtonSubmit()) {
+					Intent i = new Intent(getApplicationContext(), MainScreenActivity.class);
+					email = emailInputBox.getText().toString();
+					dbh.addUser(email);
+					startActivity(i);
+					finish();
+				} else {
+					Toast toast = Toast.makeText(getApplicationContext(), getResources().getString(R.string.activityEmail_no_submit), Toast.LENGTH_SHORT);
+					toast.show();
+				}
 			}
 		});
 	}
@@ -119,6 +125,10 @@ public class AddEmailActivity extends AppCompatActivity {
 		} else {
 			emailConfirmBtn.setEnabled(false);
 		}
+	}
+	
+	public boolean canButtonSubmit() {
+		return (termsOkay && mailOkay);
 	}
 }
 		
