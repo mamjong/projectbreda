@@ -21,6 +21,8 @@ public class AddEmailActivity extends AppCompatActivity {
 	private DatabaseHandler dbh;
 	private CheckBox readTOSCheck;
 	private TextView terms;
+	private boolean mailOkay;
+	private boolean termsOkay;
 	
 	private final int ACCEPT_TERMS = 999;
 	
@@ -34,8 +36,10 @@ public class AddEmailActivity extends AppCompatActivity {
 		
 		emailInputBox = (EditText) findViewById(R.id.AddEmailActivity_et_emailInput);
 		emailConfirmBtn = (Button) findViewById(R.id.AddEmailActivity_bt_emailConfirmButton);
-		
 		emailConfirmBtn.setEnabled(false);
+		
+		mailOkay = false;
+		termsOkay = false;
 		
 		emailInputBox.addTextChangedListener(new TextWatcher() {
 			@Override
@@ -45,10 +49,13 @@ public class AddEmailActivity extends AppCompatActivity {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
 				if (s.toString().trim().length() == 0) {
-					emailConfirmBtn.setEnabled(false);
+					//emailConfirmBtn.setEnabled(false);
+					mailOkay = false;
 				} else if (isValidEmail(s)){
-					emailConfirmBtn.setEnabled(true);
+					//emailConfirmBtn.setEnabled(true);
+					mailOkay = true;
 				}
+				submitButtonState();
 			}
 			
 			@Override
@@ -58,6 +65,13 @@ public class AddEmailActivity extends AppCompatActivity {
 		
 		readTOSCheck = (CheckBox) findViewById(R.id.AddEmailActivity_cb_termsAccepted);
 		readTOSCheck.setEnabled(false);
+		readTOSCheck.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				termsOkay = readTOSCheck.isChecked();
+				submitButtonState();
+			}
+		});
 		
 		terms = (TextView) findViewById(R.id.AddEmailActivity_tv_TermsText);
 		terms.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +110,14 @@ public class AddEmailActivity extends AppCompatActivity {
 				readTOSCheck.setChecked(accepted);
 				readTOSCheck.setEnabled(true);
 			}
+		}
+	}
+	
+	public void submitButtonState() {
+		if (termsOkay && mailOkay) {
+			emailConfirmBtn.setEnabled(true);
+		} else {
+			emailConfirmBtn.setEnabled(false);
 		}
 	}
 }
