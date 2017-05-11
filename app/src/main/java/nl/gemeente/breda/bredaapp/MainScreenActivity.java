@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.AdapterView;
@@ -15,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -151,5 +153,12 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 			loading.setText(R.string.no_reports_found);
 			overlay.setVisibility(View.VISIBLE);
 		}
+	}
+	
+	@Override
+	public void noConnectionAvailable() {
+		Toast toast = Toast.makeText(this, "No connection available.", Toast.LENGTH_LONG);
+		toast.setGravity(Gravity.CENTER, 0, 0);
+		toast.show();
 	}
 }
