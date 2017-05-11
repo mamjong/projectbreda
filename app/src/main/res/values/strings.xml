@@ -7,9 +7,9 @@
     <string name="activityCreateNewReport_bt_makePicture">Kies/maak foto</string>
     <string name="activityCreateNewReport_bt_continue">Doorgaan</string>
 
-    <string name="activityTermsAndConditions_bt_continue">Doorgaan</string>
-    <string name="activityTermsAndConditios_tv_termsAndConditions">Alle informatie, die u ons doorgeeft, behandelt de gemeente vertrouwelijk. Persoons- of adresgegevens gebruikt de gemeente uitsluitend waarvoor u deze heeft doorgegeven. De gemeente Breda behandelt uw e-mail vertrouwelijk, maar sluit niet helemaal uit dat een e-mail door derden ingezien wordt. \n \nDe gemeente Breda probeert om e-mailberichten, die bij het centrale e-mailadres contact@breda.nl (link stuurt een e-mail) of als reactie via het contactformulier op de site binnenkomen, binnen 5 werkdagen te beantwoorden.</string>
-
+    <string name="activityTermsAndConditions_bt_accept">Accepteren</string>
+    <string name="activityTermsAndConditions_bt_decline">Niet accepteren</string>
+    <string name="activityTermsAndConditios_tv_termsAndConditions" translatable="false">Alle informatie, die u ons doorgeeft, behandelt de gemeente vertrouwelijk. Persoons- of adresgegevens gebruikt de gemeente uitsluitend waarvoor u deze heeft doorgegeven. De gemeente Breda behandelt uw e-mail vertrouwelijk, maar sluit niet helemaal uit dat een e-mail door derden ingezien wordt. \n \nDe gemeente Breda probeert om e-mailberichten, die bij het centrale e-mailadres contact@breda.nl (link stuurt een e-mail) of als reactie via het contactformulier op de site binnenkomen, binnen 5 werkdagen te beantwoorden.</string>
     <string name="app_name" translatable="false">InfraMeld Breda</string>
     <string name="action_settings">Instellingen</string>
     <string name="latitude_label" translatable="false">Latitude</string>
@@ -19,6 +19,7 @@
     <string name="no_location_permission_description">Locatie permissies zijn nodig om de app te kunnen gebruiken. Wilt u deze toestaan?</string>
     <string name="no_location_permission_positive">Ja</string>
     <string name="no_location_permission_negative">Nee</string>
+    <string name="activityEmail_no_submit">Vul een geldig e-mailadres in en accepteer de algemene voorwaarden om door te gaan.</string>
 
     <string-array name="spinnerPlaceHolderData">
         <item>Groen</item>
