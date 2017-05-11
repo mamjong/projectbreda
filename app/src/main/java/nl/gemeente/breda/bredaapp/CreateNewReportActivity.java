@@ -183,8 +183,6 @@ public class CreateNewReportActivity extends AppCompatActivity {
 			imageview.setImageBitmap(defectImage);
 		}
 	}
-	
-	
 }
 
 

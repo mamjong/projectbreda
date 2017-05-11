@@ -27,6 +27,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import nl.gemeente.breda.bredaapp.adapter.MainScreenSectionsPagerAdapter;
+import nl.gemeente.breda.bredaapp.adapter.ReportAdapter;
 import nl.gemeente.breda.bredaapp.adapter.ServiceAdapter;
 import nl.gemeente.breda.bredaapp.api.ApiHomeScreen;
 import nl.gemeente.breda.bredaapp.api.ApiServices;
@@ -94,6 +95,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		loading.setText(R.string.spinner_loading);
 		
 		homescreenDropdown = (Spinner) findViewById(R.id.homescreen_dropdown);
+
 		homescreenDropdown.setVisibility(View.INVISIBLE);
 		spinnerAdapter = new ServiceAdapter(getApplicationContext(), ServiceManager.getServices(), R.layout.spinner_layout_adapter);
 		homescreenDropdown.setAdapter(spinnerAdapter);
@@ -115,7 +117,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 
 	@Override
 	public void onReportAvailable(Report report) {
-		//Log.i("Report", report.getDescription());
+		Log.i("Report", report.getDescription());
 		ReportManager.addReport(report);
 	}
 
@@ -129,6 +131,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+		ReportManager.emptyArray();
 		sectionsPagerAdapter.removeMarkers();
 		Service service = ServiceManager.getServices().get(position);
 		String serviceCode = service.getServiceCode();
