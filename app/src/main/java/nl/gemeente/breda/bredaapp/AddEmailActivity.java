@@ -46,7 +46,7 @@ public class AddEmailActivity extends AppCompatActivity {
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
 				if (s.toString().trim().length() == 0) {
 					emailConfirmBtn.setEnabled(false);
-				} else {
+				} else if (isValidEmail(s)){
 					emailConfirmBtn.setEnabled(true);
 				}
 			}
