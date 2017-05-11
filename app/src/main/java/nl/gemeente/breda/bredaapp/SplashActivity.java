@@ -51,8 +51,9 @@ public class SplashActivity extends AppCompatActivity {
                 Intent returnUser = new Intent(getApplicationContext(), MainScreenActivity.class);
                 Intent newUser = new Intent(getApplicationContext(), AddEmailActivity.class);
                 returnUser.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                newUser.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-                if (dbh.checkUser() == true ) {
+                if (dbh.checkUser()) {
                     startActivity(returnUser);
                 } else {
                     startActivity(newUser);
