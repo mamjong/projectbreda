@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -37,7 +38,6 @@ public class AddEmailActivity extends AppCompatActivity {
 		
 		emailInputBox = (EditText) findViewById(R.id.AddEmailActivity_et_emailInput);
 		emailConfirmBtn = (Button) findViewById(R.id.AddEmailActivity_bt_emailConfirmButton);
-		//emailConfirmBtn.setEnabled(false);
 		
 		mailOkay = false;
 		termsOkay = false;
@@ -49,13 +49,14 @@ public class AddEmailActivity extends AppCompatActivity {
 			
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				if (s.toString().trim().length() == 0) {
-					//emailConfirmBtn.setEnabled(false);
-					mailOkay = false;
-				} else if (isValidEmail(s)){
-					//emailConfirmBtn.setEnabled(true);
-					mailOkay = true;
-				}
+//				if (s.toString().trim().length() == 0) {
+//					//emailConfirmBtn.setEnabled(false);
+//					mailOkay = false;
+//				} else if (isValidEmail(s)){
+//					//emailConfirmBtn.setEnabled(true);
+//					mailOkay = true;
+//				}
+				checkMail(s);
 				submitButtonState();
 			}
 			
@@ -78,6 +79,7 @@ public class AddEmailActivity extends AppCompatActivity {
 		terms.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				emailConfirmBtn.setEnabled(false);
 				Intent i = new Intent(getApplicationContext(), TermsAndConditionsActivity.class);
 				startActivityForResult(i, ACCEPT_TERMS);
 			}
@@ -86,6 +88,7 @@ public class AddEmailActivity extends AppCompatActivity {
 		emailConfirmBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				Log.i("Button Submit", "Submitted");
 				if (canButtonSubmit()) {
 					Intent i = new Intent(getApplicationContext(), MainScreenActivity.class);
 					email = emailInputBox.getText().toString();
@@ -112,9 +115,12 @@ public class AddEmailActivity extends AppCompatActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == ACCEPT_TERMS) {
 			if (resultCode == RESULT_OK) {
+				emailConfirmBtn.setEnabled(true);
 				boolean accepted = data.getBooleanExtra("accepted", false);
 				readTOSCheck.setChecked(accepted);
 				readTOSCheck.setEnabled(true);
+				termsOkay = true;
+				checkMail();
 			}
 		}
 	}
@@ -129,6 +135,30 @@ public class AddEmailActivity extends AppCompatActivity {
 	
 	public boolean canButtonSubmit() {
 		return (termsOkay && mailOkay);
+	}
+	
+	public boolean checkMail(CharSequence s) {
+		if (s.toString().trim().length() == 0) {
+			mailOkay = false;
+			return false;
+		}
+		
+		if (!isValidEmail(s)) {
+			mailOkay = false;
+			return false;
+		}
+		
+		mailOkay = true;
+		Log.i("Mail Okay:", mailOkay + "");
+		Log.i("Terms Okay:", termsOkay + "");
+		Log.i("Can submit:", canButtonSubmit() + "");
+		return true;
+	}
+	
+	public boolean checkMail() {
+		CharSequence s = emailInputBox.getText();
+		Log.i("Test", s.toString());
+		return checkMail(s);
 	}
 }
 		
