@@ -1,14 +1,42 @@
 package nl.gemeente.breda.bredaapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.vision.text.Text;
+
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import nl.gemeente.breda.bredaapp.adapter.MainScreenSectionsPagerAdapter;
+import nl.gemeente.breda.bredaapp.adapter.ServiceAdapter;
+import nl.gemeente.breda.bredaapp.api.ApiHomeScreen;
+import nl.gemeente.breda.bredaapp.api.ApiServices;
+import nl.gemeente.breda.bredaapp.businesslogic.ReportManager;
+import nl.gemeente.breda.bredaapp.businesslogic.ServiceManager;
+import nl.gemeente.breda.bredaapp.domain.Report;
+import nl.gemeente.breda.bredaapp.domain.Service;
+import nl.gemeente.breda.bredaapp.fragment.MainScreenMapFragment;
 
-public class MainScreenActivity extends AppCompatActivity {
+public class MainScreenActivity extends AppCompatActivity implements ApiHomeScreen.Listener, ApiServices.Listener, ApiHomeScreen.NumberOfReports, AdapterView.OnItemSelectedListener {
 	
 	//================================================================================
 	// Properties
@@ -16,7 +44,14 @@ public class MainScreenActivity extends AppCompatActivity {
 	
 	private MainScreenSectionsPagerAdapter sectionsPagerAdapter;
 	private ViewPager viewPager;
-	
+	private ReportManager reportManager;
+	private Button newReportActivityBtn;
+	private ServiceAdapter spinnerAdapter;
+	private Spinner homescreenDropdown;
+	private int numberOfReports;
+	private TextView loading;
+	private ImageView overlay;
+
 	//================================================================================
 	// Accessors
 	//================================================================================
@@ -25,16 +60,105 @@ public class MainScreenActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_screen);
-		
+
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
-		
-		sectionsPagerAdapter = new MainScreenSectionsPagerAdapter(getSupportFragmentManager());
-		
+		sectionsPagerAdapter = new MainScreenSectionsPagerAdapter(getSupportFragmentManager(), getApplicationContext());
+
+
 		viewPager = (ViewPager) findViewById(R.id.container);
 		viewPager.setAdapter(sectionsPagerAdapter);
 		
 		TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 		tabLayout.setupWithViewPager(viewPager);
+
+		newReportActivityBtn = (Button) findViewById(R.id.mainScreenActivity_Btn_MakeReport);
+
+		newReportActivityBtn.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(getApplicationContext(), CreateNewReportActivity.class);
+				startActivity(i);
+			}
+		});
+
+//		getReports();
+		getReports("0");
+		getServices();
+
+		numberOfReports = -1;
+
+		loading = (TextView) findViewById(R.id.activityMainscreen_tv_loading);
+		overlay = (ImageView) findViewById(R.id.activityMainscreen_overlay_image);
+		overlay.setVisibility(View.INVISIBLE);
+		loading.setText(R.string.spinner_loading);
+		
+		homescreenDropdown = (Spinner) findViewById(R.id.homescreen_dropdown);
+		homescreenDropdown.setVisibility(View.INVISIBLE);
+		spinnerAdapter = new ServiceAdapter(getApplicationContext(), ServiceManager.getServices(), R.layout.spinner_layout_adapter);
+		homescreenDropdown.setAdapter(spinnerAdapter);
+		homescreenDropdown.setOnItemSelectedListener(this);
+		homescreenDropdown.setPrompt(getResources().getString(R.string.spinner_loading));
+	}
+
+	public void getReports(String serviceCode) {
+		ApiHomeScreen apiHomeScreen = new ApiHomeScreen(this, this);
+		String[] urls = new String[] {"https://asiointi.hel.fi/palautews/rest/v1/requests.json?status=open&service_code=" + serviceCode + "&lat=60.1892477&long=24.9707467&radius=5000"};
+		apiHomeScreen.execute(urls);
+	}
+
+	public void getServices() {
+		ApiServices apiServices = new ApiServices(this);
+		String[] urls = new String[] {"https://asiointi.hel.fi/palautews/rest/v1/services.json"};
+		apiServices.execute(urls);
+	}
+
+	@Override
+	public void onReportAvailable(Report report) {
+		//Log.i("Report", report.getDescription());
+		ReportManager.addReport(report);
+	}
+
+	@Override
+	public void onServiceAvailable(Service service) {
+		//Log.i("Service", service.getServiceName());
+		homescreenDropdown.setVisibility(View.VISIBLE);
+		ServiceManager.addService(service);
+		spinnerAdapter.notifyDataSetChanged();
+	}
+
+	@Override
+	public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+		sectionsPagerAdapter.removeMarkers();
+		Service service = ServiceManager.getServices().get(position);
+		String serviceCode = service.getServiceCode();
+		getReports(serviceCode);
+		loading.setText(R.string.spinner_loading);
+		overlay.setVisibility(View.VISIBLE);
+	}
+
+	@Override
+	public void onNothingSelected(AdapterView<?> parent) {
+
+	}
+
+	@Override
+	public void onNumberOfReportsAvailable(int number) {
+		this.numberOfReports = number;
+		if(number > 0){
+			loading.setText("");
+			overlay.setVisibility(View.INVISIBLE);
+		}
+		else if(number == 0){
+			loading.setText(R.string.no_reports_found);
+			overlay.setVisibility(View.VISIBLE);
+		}
+	}
+	
+	@Override
+	public void noConnectionAvailable() {
+		Toast toast = Toast.makeText(this, "No connection available.", Toast.LENGTH_LONG);
+		toast.setGravity(Gravity.CENTER, 0, 0);
+		toast.show();
 	}
 }

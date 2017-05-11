@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.StringRes;
 
 import static android.R.style.Theme_DeviceDefault_Dialog_Alert;
 
@@ -37,7 +38,11 @@ public class AlertCreator {
 	public void setTitle(String title) {
 		dialog.setTitle(title);
 	}
-	
+
+	public void setTitle(@StringRes int title) {
+		dialog.setTitle(title);
+	}
+
 	public void setIcon(@DrawableRes int iconID) {
 		dialog.setIcon(iconID);
 	}
@@ -45,11 +50,19 @@ public class AlertCreator {
 	public void setMessage(String message) {
 		dialog.setMessage(message);
 	}
+
+	public void setMessage(@StringRes int message) {
+		dialog.setMessage(message);
+	}
 	
 	public void setPositiveButton(String text, DialogInterface.OnClickListener event) {
 		dialog.setPositiveButton(text, event);
 	}
-	
+
+	public void setPositiveButton(@StringRes int text, DialogInterface.OnClickListener event) {
+		dialog.setPositiveButton(text, event);
+	}
+
 	public void setPositiveButton(ButtonDefine button) {
 		dialog.setPositiveButton(button.getText(), button.getEvent());
 	}
@@ -57,7 +70,11 @@ public class AlertCreator {
 	public void setNegativeButton(String text, DialogInterface.OnClickListener event) {
 		dialog.setNegativeButton(text, event);
 	}
-	
+
+	public void setNegativeButton(@StringRes int text, DialogInterface.OnClickListener event) {
+		dialog.setNegativeButton(text, event);
+	}
+
 	public void setNegativeButton(ButtonDefine button) {
 		dialog.setNegativeButton(button.getText(), button.getEvent());
 	}

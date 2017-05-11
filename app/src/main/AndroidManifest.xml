@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="nl.gemeente.breda.bredaapp" >
+    package="nl.gemeente.breda.bredaapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
@@ -17,13 +21,15 @@
         android:name="com.example.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
 
+    <uses-permission android:name="com.example.permission.MAPS_RECEIVE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCcz-pjn-ihhR23Gp5x0tqoiS7muvFrqWk" />
@@ -33,24 +39,29 @@
 
         <activity
             android:name=".SplashActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
-        <activity
-            android:name=".testing.TestLocationActivity"
-            android:label="@string/title_activity_test_location"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+        <activity android:name=".DetailedReportActivity" />
+        <activity android:name=".CheckDataActivity" />
+        <activity android:name=".CreateNewReportActivity" />
+        <activity android:name=".TermsAndConditionsActivity" />
+        <activity android:name=".AddEmailActivity" />
         <activity
             android:name=".MainScreenActivity"
-            android:label="@string/title_activity_main_screen"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation" />
+        <activity android:name=".testing.LocationActivity" />
+        <activity android:name=".ReportReceivedActivity" />
+
     </application>
 
 </manifest>
