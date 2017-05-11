@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,7 +47,6 @@ public class AddEmailActivity extends AppCompatActivity {
 			
 			@Override
 			public void afterTextChanged(Editable s) {
-				
 			}
 		});
 		
@@ -60,6 +60,14 @@ public class AddEmailActivity extends AppCompatActivity {
 				finish();
 			}
 		});
+	}
+	
+	public final static boolean isValidEmail(CharSequence target) {
+		if (target == null) {
+			return false;
+		} else {
+			return Patterns.EMAIL_ADDRESS.matcher(target).matches();
+		}
 	}
 }
 
