@@ -121,7 +121,7 @@ public class AddEmailActivity extends AppCompatActivity {
 				boolean accepted = data.getBooleanExtra("accepted", false);
 				readTOSCheck.setChecked(accepted);
 				readTOSCheck.setEnabled(true);
-				termsOkay = true;
+				termsOkay = accepted;
 				checkMail();
 			}
 		}
