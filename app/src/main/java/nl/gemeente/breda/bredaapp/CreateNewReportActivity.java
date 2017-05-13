@@ -24,12 +24,12 @@ import nl.gemeente.breda.bredaapp.businesslogic.ServiceManager;
 
 public class CreateNewReportActivity extends AppCompatActivity {
 	
-	
-	private static final int CAMERA_PIC_REQUEST = 1337; // LEET
+	private static final int CAMERA_PIC_REQUEST = 1337;
 	private String[] arraySpinnerDataMain, arraySpinnerGroenSubs, arraySpinnerAfvalSubs, arraySpinnerDierenEnOngedierteSubs, arraySpinnerOpenbareVerlichtingSubs;
 	private ServiceAdapter serviceAdapter;
 	private String chosenService;
 	private Bitmap itemImage;
+	private Button continueToMap;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class CreateNewReportActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_create_new_report);
 		
 		Button cameraButton = (Button) findViewById(R.id.activityCreateNewReport_bt_makePicture);
-		final Button continueToMap = (Button) findViewById(R.id.activityCreateNewReport_bt_continue);
+		continueToMap = (Button) findViewById(R.id.activityCreateNewReport_bt_continue);
 		
 		serviceAdapter = new ServiceAdapter(getApplicationContext(), ServiceManager.getServices(), R.layout.spinner_layout_custom_row);
 		
@@ -50,7 +50,6 @@ public class CreateNewReportActivity extends AppCompatActivity {
 //            }
 //        });
 		
-		
 		// Placeholder spinner data
 		this.arraySpinnerDataMain = getResources().getStringArray(R.array.spinnerPlaceHolderData);
 		this.arraySpinnerAfvalSubs = getResources().getStringArray(R.array.spinnerAfvalSubs);
@@ -62,15 +61,10 @@ public class CreateNewReportActivity extends AppCompatActivity {
 		final Spinner sprSubCategories = (Spinner) findViewById(R.id.activityCreateNewReport_spr_defects);
 		Spinner sprCategories = (Spinner) findViewById(R.id.activityCreateNewReport_spr_categories);
 		
-		
 //		ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
 //				android.R.layout.simple_spinner_item, arraySpinnerDataMain);
 		
-		
-		
-		
 		sprCategories.setAdapter(serviceAdapter);
-		
 		
 		// Subcategories: TODO: Maken aan de hand van de API
 		sprCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -80,10 +74,7 @@ public class CreateNewReportActivity extends AppCompatActivity {
 //                        "OnItemSelectedListener: " + parent.getItemAtPosition(pos).toString(),
 //                        Toast.LENGTH_SHORT).show();
 				
-				
-				
 				chosenService = parent.getItemAtPosition(pos).toString();
-				
 				
 				switch (parent.getItemAtPosition(pos).toString()) {
 					case "Groen":
@@ -112,37 +103,28 @@ public class CreateNewReportActivity extends AppCompatActivity {
 						sprSubCategories.setAdapter(sprSubDierAdapter);
 						break;
 				}
-				
-				
 			}
 			
 			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
 				Toast.makeText(parent.getContext(), "Nothing selected", Toast.LENGTH_LONG).show();
 			}
-			
 		});
-		
 		
 		continueToMap.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View v){
-				
-	
-				
+				Log.i("Create report", "Next clicked");
 				ByteArrayOutputStream bs = new ByteArrayOutputStream();
 				
 				try {
-					
 					// Write file
 					String filename = "bitmap.png";
 					FileOutputStream stream = CreateNewReportActivity.this.openFileOutput(filename, Context.MODE_PRIVATE);
 					itemImage.compress(Bitmap.CompressFormat.PNG, 100, bs);
 					
-					
 					// Cleanup
 					stream.close();
-					
 					
 					// Pop intent
 					Intent continueToMapIntent = new Intent(getApplicationContext(), CheckDataActivity.class);
@@ -150,24 +132,15 @@ public class CreateNewReportActivity extends AppCompatActivity {
 					continueToMapIntent.putExtra("IMAGE", bs.toByteArray());
 					
 					startActivity(continueToMapIntent);
-					
-					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				
-					
-				
-				
 			}
 		});
-		
-		
 		
 		cameraButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
 				Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 				startActivityForResult(cameraIntent, CAMERA_PIC_REQUEST);
 			}
@@ -177,10 +150,14 @@ public class CreateNewReportActivity extends AppCompatActivity {
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == CAMERA_PIC_REQUEST) {
-			Bitmap defectImage = (Bitmap) data.getExtras().get("data");
-			this.itemImage = defectImage;
-			ImageView imageview = (ImageView) findViewById(R.id.activityCreateNewReport_iv_defectImage);
-			imageview.setImageBitmap(defectImage);
+			if(resultCode == RESULT_OK){
+				Bitmap defectImage = (Bitmap) data.getExtras().get("data");
+				this.itemImage = defectImage;
+				ImageView imageview = (ImageView) findViewById(R.id.activityCreateNewReport_iv_defectImage);
+				imageview.setImageBitmap(defectImage);
+			} else if(resultCode == RESULT_CANCELED){
+				//Canceled
+			}
 		}
 	}
 }
