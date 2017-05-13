@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +19,7 @@ public class CheckDataActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_check_data);
 		
+		Button confirmBtn = (Button) findViewById(R.id.CheckDataActivity_bt_confirmReportButton);
 		
 		Intent i =  getIntent();
 		Bundle extras = getIntent().getExtras();
@@ -34,6 +37,16 @@ public class CheckDataActivity extends AppCompatActivity {
 		if ( i.hasExtra("SERVICE") ){
 			serviceTypeInput.setText(extras.getString("SERVICE"));
 		}
+		
+		confirmBtn.setOnClickListener(new View.OnClickListener(){
+			@Override
+			public void onClick(View v){
+				Intent confirmScreenIntent = new Intent(CheckDataActivity.this, ReportReceivedActivity.class);
+				startActivity(confirmScreenIntent);
+				finish();
+			}
+		});
+		
 		
 	}
 }
