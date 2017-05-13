@@ -6,6 +6,10 @@
     <string name="activityCreateNewReport_tv_noPicture">Ik heb geen foto</string>
     <string name="activityCreateNewReport_bt_makePicture">Kies/maak foto</string>
     <string name="activityCreateNewReport_bt_continue">Doorgaan</string>
+    <string name="activityCreateNewReport_text_chooseSource">Bron kiezen</string>
+    <string name="activityCreateNewReport_text_chooseSourceText">Kies camera om een foto te maken of gallerij om een foto te kiezen.</string>
+    <string name="activityCreateNewReport_text_itemCamera">Camera</string>
+    <string name="activityCreateNewReport_text_itemGallery">Gallerij</string>
 
     <string name="activityTermsAndConditions_bt_accept">Accepteren</string>
     <string name="activityTermsAndConditions_bt_decline">Niet accepteren</string>

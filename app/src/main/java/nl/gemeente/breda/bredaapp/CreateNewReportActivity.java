@@ -1,8 +1,12 @@
 package nl.gemeente.breda.bredaapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,11 +24,13 @@ import java.io.FileOutputStream;
 
 import nl.gemeente.breda.bredaapp.adapter.ServiceAdapter;
 import nl.gemeente.breda.bredaapp.businesslogic.ServiceManager;
+import nl.gemeente.breda.bredaapp.util.AlertCreator;
 
 
 public class CreateNewReportActivity extends AppCompatActivity {
 	
 	private static final int CAMERA_PIC_REQUEST = 1337;
+	private static final int GALLERY_PIC_REQUEST = 1338;
 	private String[] arraySpinnerDataMain, arraySpinnerGroenSubs, arraySpinnerAfvalSubs, arraySpinnerDierenEnOngedierteSubs, arraySpinnerOpenbareVerlichtingSubs;
 	private ServiceAdapter serviceAdapter;
 	private String chosenService;
@@ -138,25 +144,75 @@ public class CreateNewReportActivity extends AppCompatActivity {
 			}
 		});
 		
+//		cameraButton.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//				startActivityForResult(cameraIntent, CAMERA_PIC_REQUEST);
+//			}
+//		});
+		
 		cameraButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-				startActivityForResult(cameraIntent, CAMERA_PIC_REQUEST);
+				AlertCreator popup = new AlertCreator(CreateNewReportActivity.this);
+				popup.setTitle(getResources().getString(R.string.activityCreateNewReport_text_chooseSource));
+				popup.setMessage(getResources().getString(R.string.activityCreateNewReport_text_chooseSourceText));
+				popup.setIcon(R.mipmap.ic_launcher);
+				popup.setPositiveButton(getResources().getString(R.string.activityCreateNewReport_text_itemCamera), new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+						startActivityForResult(cameraIntent, CAMERA_PIC_REQUEST);
+					}
+				});
+				popup.setNegativeButton(getResources().getString(R.string.activityCreateNewReport_text_itemGallery), new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+						galleryIntent.setType("image/*");
+						galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+						startActivityForResult(galleryIntent, GALLERY_PIC_REQUEST);
+					}
+				});
+				popup.show();
 			}
 		});
 	}
 	
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == CAMERA_PIC_REQUEST) {
-			if(resultCode == RESULT_OK){
-				Bitmap defectImage = (Bitmap) data.getExtras().get("data");
-				this.itemImage = defectImage;
-				ImageView imageview = (ImageView) findViewById(R.id.activityCreateNewReport_iv_defectImage);
-				imageview.setImageBitmap(defectImage);
-			} else if(resultCode == RESULT_CANCELED){
-				//Canceled
+//		if (requestCode == CAMERA_PIC_REQUEST) {
+//			if(resultCode == RESULT_OK){
+//				Bitmap defectImage = (Bitmap) data.getExtras().get("data");
+//				this.itemImage = defectImage;
+//				ImageView imageview = (ImageView) findViewById(R.id.activityCreateNewReport_iv_defectImage);
+//				imageview.setImageBitmap(defectImage);
+//			} else if(resultCode == RESULT_CANCELED){
+//				//Canceled
+//			}
+//		}
+		
+		if (resultCode == RESULT_OK) {
+			switch (requestCode) {
+				case CAMERA_PIC_REQUEST:
+					Bitmap defectImage = (Bitmap) data.getExtras().get("data");
+					this.itemImage = defectImage;
+					ImageView imageView = (ImageView) findViewById(R.id.activityCreateNewReport_iv_defectImage);
+					imageView.setImageBitmap(defectImage);
+					break;
+				
+				case GALLERY_PIC_REQUEST:
+					Uri selectedImage = data.getData();
+					try {
+						Bitmap picture = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+						this.itemImage = picture;
+						ImageView ivGallery = (ImageView) findViewById(R.id.activityCreateNewReport_iv_defectImage);
+						ivGallery.setImageBitmap(picture);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					break;
 			}
 		}
 	}

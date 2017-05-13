@@ -25,4 +25,11 @@
     <string name="activityTermsAndConditions_bt_accept">Accept</string>
     <string name="activityTermsAndConditions_bt_decline">Decline</string>
     <string name="activityEmail_no_submit">Enter a valid e-mailaddress and accept the terms and conditions.</string>
+    <string name="DetailedReportActivity_tv_categoryText">Category:</string>
+    <string name="DetailedReportActivity_tv_kindOfDefectText">Kind of defect:</string>
+    <string name="DetailedReportActivity_tv_reportText">I want to report this as well!</string>
+    <string name="activityCreateNewReport_text_chooseSource">Choose image source</string>
+    <string name="activityCreateNewReport_text_chooseSourceText">Choose camera to take a picture or gallery to pick a picture.</string>
+    <string name="activityCreateNewReport_text_itemCamera">Camera</string>
+    <string name="activityCreateNewReport_text_itemGallery">Gallery</string>
 </resources>
