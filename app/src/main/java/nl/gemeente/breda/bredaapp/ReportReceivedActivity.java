@@ -27,7 +27,7 @@ public class ReportReceivedActivity extends AppCompatActivity {
 			@Override
 			public void onFinish() {
 				
-				Intent backToMainScreenIntent = new Intent(getApplicationContext(), SplashActivity.class);
+				Intent backToMainScreenIntent = new Intent(getApplicationContext(), MainScreenActivity.class);
 				startActivity(backToMainScreenIntent);
 				
 				finish();

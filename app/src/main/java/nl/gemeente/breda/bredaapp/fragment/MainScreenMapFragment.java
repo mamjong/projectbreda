@@ -41,6 +41,8 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final View rootView = inflater.inflate(R.layout.fragment_map_view, container, false);
 		
+		reports = new ArrayList<>();
+		
 		SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.fragmentMapView_FL_mapLayout);
 		if (mapFragment == null) {
 			FragmentManager fragmentManager = getFragmentManager();
@@ -93,6 +95,8 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 	
 	public void removeMarkers() {
 		reports.clear();
-		map.clear();
+		if(map != null) {
+			map.clear();
+		}
 	}
 }
