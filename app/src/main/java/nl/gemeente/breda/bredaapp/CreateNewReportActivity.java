@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
@@ -35,26 +36,29 @@ public class CreateNewReportActivity extends AppCompatActivity {
 	private ServiceAdapter serviceAdapter;
 	private String chosenService;
 	private Bitmap itemImage;
+	private Button cameraButton;
 	private Button continueToMap;
+	private TextView noPicture;
+	private ImageView selectedPictureView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_new_report);
 		
-		Button cameraButton = (Button) findViewById(R.id.activityCreateNewReport_bt_makePicture);
+		cameraButton = (Button) findViewById(R.id.activityCreateNewReport_bt_makePicture);
 		continueToMap = (Button) findViewById(R.id.activityCreateNewReport_bt_continue);
-		
+		noPicture = (TextView) findViewById(R.id.activityCreateNewReport_tv_noPicture);
+		selectedPictureView = (ImageView) findViewById(R.id.activityCreateNewReport_iv_defectImage); 
 		serviceAdapter = new ServiceAdapter(getApplicationContext(), ServiceManager.getServices(), R.layout.spinner_layout_custom_row);
 		
-		
-		// TODO: Make 2nd map screen to choose object.
-//        continueToMap.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(getApplicationContext(), )
-//            }
-//        });
+		noPicture.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				itemImage = BitmapFactory.decodeResource(getResources(), R.drawable.nopicturefound);
+				selectedPictureView.setImageBitmap(itemImage);
+			}
+		});
 		
 		// Placeholder spinner data
 		this.arraySpinnerDataMain = getResources().getStringArray(R.array.spinnerPlaceHolderData);
@@ -144,14 +148,6 @@ public class CreateNewReportActivity extends AppCompatActivity {
 			}
 		});
 		
-//		cameraButton.setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//				startActivityForResult(cameraIntent, CAMERA_PIC_REQUEST);
-//			}
-//		});
-		
 		cameraButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -180,26 +176,13 @@ public class CreateNewReportActivity extends AppCompatActivity {
 		});
 	}
 	
-	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//		if (requestCode == CAMERA_PIC_REQUEST) {
-//			if(resultCode == RESULT_OK){
-//				Bitmap defectImage = (Bitmap) data.getExtras().get("data");
-//				this.itemImage = defectImage;
-//				ImageView imageview = (ImageView) findViewById(R.id.activityCreateNewReport_iv_defectImage);
-//				imageview.setImageBitmap(defectImage);
-//			} else if(resultCode == RESULT_CANCELED){
-//				//Canceled
-//			}
-//		}
-		
 		if (resultCode == RESULT_OK) {
 			switch (requestCode) {
 				case CAMERA_PIC_REQUEST:
 					Bitmap defectImage = (Bitmap) data.getExtras().get("data");
 					this.itemImage = defectImage;
-					ImageView imageView = (ImageView) findViewById(R.id.activityCreateNewReport_iv_defectImage);
-					imageView.setImageBitmap(defectImage);
+					selectedPictureView.setImageBitmap(defectImage);
 					break;
 				
 				case GALLERY_PIC_REQUEST:
@@ -207,8 +190,7 @@ public class CreateNewReportActivity extends AppCompatActivity {
 					try {
 						Bitmap picture = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
 						this.itemImage = picture;
-						ImageView ivGallery = (ImageView) findViewById(R.id.activityCreateNewReport_iv_defectImage);
-						ivGallery.setImageBitmap(picture);
+						selectedPictureView.setImageBitmap(picture);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

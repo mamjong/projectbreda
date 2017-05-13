@@ -21,7 +21,7 @@
     <string name="ReportReceivedActivity_tv_ReceivedText">Report received!</string>
     <string name="activityCreateNewReport_bt_continue">Continue</string>
     <string name="activityCreateNewReport_bt_makePicture">Choose/take picture</string>
-    <string name="activityCreateNewReport_tv_noPicture">I don\'t have a picture</string>
+    <string name="activityCreateNewReport_tv_noPicture">Don\'t have a picture?</string>
     <string name="activityTermsAndConditions_bt_accept">Accept</string>
     <string name="activityTermsAndConditions_bt_decline">Decline</string>
     <string name="activityEmail_no_submit">Enter a valid e-mailaddress and accept the terms and conditions.</string>
