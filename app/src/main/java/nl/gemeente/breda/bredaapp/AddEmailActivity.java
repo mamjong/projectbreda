@@ -23,7 +23,8 @@ public class AddEmailActivity extends AppCompatActivity {
 	private String email;
 	private DatabaseHandler dbh;
 	private CheckBox readTOSCheck;
-	private TextView terms;
+	//private TextView terms;
+	private Button terms;
 	private boolean mailOkay;
 	private boolean termsOkay;
 	
@@ -77,7 +78,7 @@ public class AddEmailActivity extends AppCompatActivity {
 			}
 		});
 		
-		terms = (TextView) findViewById(R.id.AddEmailActivity_tv_TermsText);
+		terms = (Button) findViewById(R.id.AddEmailActivity_tv_TermsText);
 		terms.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -90,7 +91,6 @@ public class AddEmailActivity extends AppCompatActivity {
 		emailConfirmBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Log.i("Button Submit", "Submitted");
 				if (canButtonSubmit()) {
 					Intent i = new Intent(getApplicationContext(), MainScreenActivity.class);
 					email = emailInputBox.getText().toString();
@@ -128,11 +128,11 @@ public class AddEmailActivity extends AppCompatActivity {
 	}
 	
 	public void submitButtonState() {
-		if (termsOkay && mailOkay) {
-			emailConfirmBtn.setEnabled(true);
-		} else {
-			emailConfirmBtn.setEnabled(false);
-		}
+//		if (termsOkay && mailOkay) {
+//			emailConfirmBtn.setEnabled(true);
+//		} else {
+//			emailConfirmBtn.setEnabled(false);
+//		}
 	}
 	
 	public boolean canButtonSubmit() {
