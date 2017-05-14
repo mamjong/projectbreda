@@ -10,6 +10,7 @@
     <string name="activityCreateNewReport_text_chooseSourceText">Kies camera om een foto te maken of gallerij om een foto te kiezen.</string>
     <string name="activityCreateNewReport_text_itemCamera">Camera</string>
     <string name="activityCreateNewReport_text_itemGallery">Gallerij</string>
+    <string name="activityCreateNewReport_text_imageTooLarge">Er is een fout opgetreden met je afbeelding. Probeer een andere afbeelding.</string>
 
     <string name="activityTermsAndConditions_bt_accept">Accepteren</string>
     <string name="activityTermsAndConditions_bt_decline">Niet accepteren</string>
