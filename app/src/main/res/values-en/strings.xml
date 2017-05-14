@@ -33,4 +33,6 @@
     <string name="activityCreateNewReport_text_itemCamera">Camera</string>
     <string name="activityCreateNewReport_text_itemGallery">Gallery</string>
     <string name="activityCreateNewReport_text_imageTooLarge">An error has occured with your image. Please try another one.</string>
+    <string name="activitySplashScreen_tv_appVersion">Version</string>
+    <string name="activitySplashScreen_text_unknownVersion">unknown</string>
 </resources>
