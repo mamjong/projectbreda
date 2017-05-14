@@ -80,5 +80,7 @@
     <string name="DetailedReportActivity_tv_categoryText">Categorie:</string>
     <string name="DetailedReportActivity_tv_kindOfDefectText">Soort defect:</string>
     <string name="DetailedReportActivity_tv_reportText">Ik wil dit ook melden!</string>
-
+    
+    <string name="activitySplashScreen_tv_appVersion">Versie</string>
+    <string name="activitySplashScreen_text_unknownVersion">onbekend</string>
 </resources>
