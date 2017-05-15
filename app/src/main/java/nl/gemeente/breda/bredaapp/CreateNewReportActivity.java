@@ -128,9 +128,11 @@ public class CreateNewReportActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View v){
 				Log.i("Create report", "Next clicked");
+				continueToMap.setEnabled(false);
 				//ByteArrayOutputStream bs = new ByteArrayOutputStream();
 				
 				try {
+					continueToMap.setText(getResources().getString(R.string.spinner_loading));
 					// Write file
 					String filename = "inframeld.png";
 					//FileOutputStream stream = CreateNewReportActivity.this.openFileOutput(filename, Context.MODE_PRIVATE);
