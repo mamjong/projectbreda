@@ -39,7 +39,7 @@ public class MainScreenListFragment extends Fragment implements AdapterView.OnIt
 	// Properties
 	//================================================================================
 	private static final String TAG = "MainScreenListFragment";
-//	public final static String EXTRA_REPORT = "REPORT";
+	public final static String EXTRA_REPORT = "REPORT";
 	
 	private ListView reportsListView;
 	private ReportAdapter reportAdapter;
@@ -79,10 +79,10 @@ public class MainScreenListFragment extends Fragment implements AdapterView.OnIt
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Log.i(TAG, "Report " + position + " is geselecteerd");
 		
-		//Report r = reports.get(position);
+		Report r = ReportManager.getReports().get(position);
 		Intent detailedReportIntent = new Intent(getContext(), DetailedReportActivity.class);
 		
-//		intent.putExtra(EXTRA_REPORT, r);
+		detailedReportIntent.putExtra(EXTRA_REPORT, r);
 		startActivity(detailedReportIntent);
 	}
 }
