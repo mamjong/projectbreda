@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.TransactionTooLargeException;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -142,6 +143,9 @@ public class CreateNewReportActivity extends AppCompatActivity {
 					continueToMapIntent.putExtra("IMAGE", bs.toByteArray());
 					
 					startActivity(continueToMapIntent);
+				} catch (RuntimeException e) {
+					Toast toastError = Toast.makeText(CreateNewReportActivity.this, getResources().getString(R.string.activityCreateNewReport_text_imageTooLarge), Toast.LENGTH_LONG);
+					toastError.show();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

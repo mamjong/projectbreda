@@ -6,11 +6,13 @@ package nl.gemeente.breda.bredaapp;
 
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import nl.gemeente.breda.bredaapp.domain.User;
 import nl.gemeente.breda.bredaapp.testing.LocationActivity;
@@ -24,16 +26,30 @@ public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-
         getSupportActionBar().hide();
-
-
         setContentView(R.layout.activity_splash);
+	
+	    PackageInfo packageInfo = null;
+	    
+	    try {
+		    packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+	    } catch (Exception e) {
+		    e.printStackTrace();
+	    }
+	    
+	    String version = "";
+	    
+	    if (packageInfo != null) {
+		    version = packageInfo.versionName;
+	    } else {
+		    version = getResources().getString(R.string.activitySplashScreen_text_unknownVersion);
+	    }
+    
+        TextView appVersion = (TextView) findViewById(R.id.activitySplashScreen_tv_appVersion);
+	    appVersion.setText(getResources().getString(R.string.activitySplashScreen_tv_appVersion) + " " + version);
 
         ProgressBar pb = (ProgressBar) findViewById(R.id.activitySplashScreen_pb_loader);
-
         pb.getIndeterminateDrawable().setColorFilter(Color.parseColor("#d91d49"), android.graphics.PorterDuff.Mode.SRC_ATOP);
 
         new CountDownTimer(2543, 1000) {
