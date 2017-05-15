@@ -121,7 +121,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 	
 	public void getLocation(){
 		LocationApi locationApi = new LocationApi(this);
-		locationApi.setContext(context);
+		locationApi.setContext(context, this);
 		locationApi.search();
 	}
 

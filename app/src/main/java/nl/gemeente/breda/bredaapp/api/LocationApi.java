@@ -49,8 +49,9 @@ public class LocationApi implements ConnectionCallbacks, OnConnectionFailedListe
 		this.listener = listener;
 	}
 	
-	public void setContext(Context context) {
+	public void setContext(Context context, Activity activity) {
 		this.context = context;
+		this.activity = activity;
 	}
 	
 	public void search(){
