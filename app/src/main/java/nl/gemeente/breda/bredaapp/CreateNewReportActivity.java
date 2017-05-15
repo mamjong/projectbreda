@@ -22,7 +22,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 import nl.gemeente.breda.bredaapp.adapter.ServiceAdapter;
 import nl.gemeente.breda.bredaapp.businesslogic.ServiceManager;
@@ -126,21 +128,25 @@ public class CreateNewReportActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View v){
 				Log.i("Create report", "Next clicked");
-				ByteArrayOutputStream bs = new ByteArrayOutputStream();
+				continueToMap.setEnabled(false);
+				//ByteArrayOutputStream bs = new ByteArrayOutputStream();
 				
 				try {
+					continueToMap.setText(getResources().getString(R.string.spinner_loading));
 					// Write file
-					String filename = "bitmap.png";
-					FileOutputStream stream = CreateNewReportActivity.this.openFileOutput(filename, Context.MODE_PRIVATE);
-					itemImage.compress(Bitmap.CompressFormat.PNG, 100, bs);
+					String filename = "inframeld.png";
+					//FileOutputStream stream = CreateNewReportActivity.this.openFileOutput(filename, Context.MODE_PRIVATE);
+					//itemImage.compress(Bitmap.CompressFormat.PNG, 100, bs);
 					
 					// Cleanup
-					stream.close();
+					//stream.close();
+					
+					saveImage(CreateNewReportActivity.this, itemImage, filename);
 					
 					// Pop intent
 					Intent continueToMapIntent = new Intent(getApplicationContext(), CheckDataActivity.class);
 					continueToMapIntent.putExtra("SERVICE", chosenService);
-					continueToMapIntent.putExtra("IMAGE", bs.toByteArray());
+					//continueToMapIntent.putExtra("IMAGE", bs.toByteArray());
 					
 					startActivity(continueToMapIntent);
 				} catch (RuntimeException e) {
@@ -200,6 +206,20 @@ public class CreateNewReportActivity extends AppCompatActivity {
 					}
 					break;
 			}
+		}
+	}
+	
+	private void saveImage(Context context, Bitmap bitmap, String name) {
+		FileOutputStream fos;
+		
+		try {
+			fos = context.openFileOutput(name, Context.MODE_PRIVATE);
+			bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+			fos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }
