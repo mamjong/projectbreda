@@ -45,14 +45,19 @@
             </intent-filter>
         </activity>
         <activity android:name=".DetailedReportActivity"
+                  android:label="@string/detailed_report_label"
                   android:screenOrientation="portrait"/>
         <activity android:name=".CheckDataActivity"
+                  android:label="@string/check_data_label"
                   android:screenOrientation="portrait"/>
         <activity android:name=".CreateNewReportActivity"
+                  android:label="@string/create_new_report_label"
                   android:screenOrientation="portrait"/>
         <activity android:name=".TermsAndConditionsActivity"
+                  android:label="@string/terms_and_conditions_label"
                   android:screenOrientation="portrait"/>
         <activity android:name=".AddEmailActivity"
+                  android:label="@string/add_email_label"
                   android:screenOrientation="portrait"/>
         <activity
             android:name=".MainScreenActivity"
