@@ -24,7 +24,7 @@ public class CheckDataActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_check_data);
 		
-		Button confirmBtn = (Button) findViewById(R.id.CheckDataActivity_bt_confirmReportButton);
+		final Button confirmBtn = (Button) findViewById(R.id.CheckDataActivity_bt_confirmReportButton);
 		
 		Intent i =  getIntent();
 		Bundle extras = getIntent().getExtras();
@@ -49,6 +49,7 @@ public class CheckDataActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View v){
 				Intent confirmScreenIntent = new Intent(CheckDataActivity.this, ReportReceivedActivity.class);
+				confirmScreenIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 				startActivity(confirmScreenIntent);
 				finish();
 			}
