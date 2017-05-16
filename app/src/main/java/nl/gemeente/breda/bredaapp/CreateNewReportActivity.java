@@ -137,7 +137,7 @@ public class CreateNewReportActivity extends AppCompatActivity {
 					@Override
 					public void run() {
 						try {
-							String filename = "inframeld.png";
+							String filename = "inframeld.jpeg";
 							
 							saveImage(CreateNewReportActivity.this, itemImage, filename);
 							
@@ -219,7 +219,7 @@ public class CreateNewReportActivity extends AppCompatActivity {
 		
 		try {
 			fos = context.openFileOutput(name, Context.MODE_PRIVATE);
-			bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+			bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
 			fos.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

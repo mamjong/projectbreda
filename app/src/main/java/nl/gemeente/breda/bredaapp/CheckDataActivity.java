@@ -31,7 +31,7 @@ public class CheckDataActivity extends AppCompatActivity {
 		
 		ImageView itemImageView = (ImageView) findViewById(R.id.CheckDataActivity_iv_defectImage);
 		TextView serviceTypeInput = (TextView) findViewById(R.id.CheckDataActivity_tv_categoryInput);
-		bitmap = loadBitmap(CheckDataActivity.this, "inframeld.png");
+		bitmap = loadBitmap(CheckDataActivity.this, "inframeld.jpeg");
 		itemImageView.setImageBitmap(bitmap);
 		Bitmap inputImage;
 		
