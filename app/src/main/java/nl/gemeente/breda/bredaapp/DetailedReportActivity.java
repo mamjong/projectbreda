@@ -1,21 +1,20 @@
 package nl.gemeente.breda.bredaapp;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.InputStream;
-
+import nl.gemeente.breda.bredaapp.api.ImageLoader;
 import nl.gemeente.breda.bredaapp.domain.Report;
 import static nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment.EXTRA_REPORT;
 
 public class DetailedReportActivity extends AppCompatActivity {
 	
+	private static final String TAG = "DetailedReportActivity";
 	private TextView description;
 	private ImageView mediaUrl;
 	
@@ -29,38 +28,31 @@ public class DetailedReportActivity extends AppCompatActivity {
 		
 		Bundle extras = getIntent().getExtras();
 		
-		Report r = (Report) extras.getSerializable(EXTRA_REPORT);
+		final Report r = (Report) extras.getSerializable(EXTRA_REPORT);
 		
 		description.setText(r.getDescription());
 		new ImageLoader(mediaUrl).execute(r.getMediaUrl());
-	}
+		
+		
+		
+		
+		
+		mediaUrl.setOnClickListener(new View.OnClickListener() {
 	
-	/**
-	 * Interne asynchrone class om afbeeldingen te laden.
-	 */
-	private class ImageLoader extends AsyncTask<String, Void, Bitmap> {
-		ImageView imageView;
-		
-		public ImageLoader(ImageView imageView) {
-			this.imageView = imageView;
+		@Override
+		public void onClick(View v) {
+			Log.i(TAG, "onClick geactiveerd.");
+//			setContentView(R.layout.activity_detailed_report_fullscreen_image);
+//			mediaUrl = (ImageView) findViewById(R.id.DetailedReportActivityFullscreenImage_IV_Image);
+//			new ImageLoader(mediaUrl).execute(r.getMediaUrl());
+//			Toast.makeText(getApplicationContext(), "FULLSCREEN!", Toast.LENGTH_LONG).show();
+			Intent fullscreenImageIntent = new Intent(getApplicationContext(), DetailedReportActivityImage.class);
+			fullscreenImageIntent.putExtra(EXTRA_REPORT, r);
+			startActivity(fullscreenImageIntent);
+	
+			
 		}
 		
-		protected Bitmap doInBackground(String... urls) {
-			String imageURL = urls[0];
-			Bitmap bitmap = null;
-			try {
-				InputStream in = new java.net.URL(imageURL).openStream();
-				bitmap = BitmapFactory.decodeStream(in);
-				
-			} catch (Exception e) {
-				Log.e("Error Message", "No image possible");
-				e.printStackTrace();
-			}
-			return bitmap;
-		}
-		
-		protected void onPostExecute(Bitmap result) {
-			imageView.setImageBitmap(result);
-		}
+		});
 	}
 }
