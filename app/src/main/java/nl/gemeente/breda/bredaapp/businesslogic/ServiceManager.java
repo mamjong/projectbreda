@@ -15,4 +15,8 @@ public class ServiceManager {
     public static ArrayList<Service> getServices(){
         return services;
     }
+    
+    public static void emptyArray(){
+        services.clear();
+    }
 }
