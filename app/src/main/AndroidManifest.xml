@@ -55,6 +55,8 @@
                   android:screenOrientation="portrait"/>
         <activity android:name=".AddEmailActivity"
                   android:screenOrientation="portrait"/>
+        <activity android:name=".eastereggs.TestEasterEgg"
+                  android:screenOrientation="portrait"/>
         <activity
             android:name=".MainScreenActivity"
             android:label="@string/app_name"
