@@ -36,4 +36,8 @@
     <string name="activitySplashScreen_tv_appVersion">Version</string>
     <string name="activitySplashScreen_text_unknownVersion">unknown</string>
     <string name="activityCreateNewReport_text_noImageSelected">No picture has been selected. If you don\'t have a picture, select \"I don\'t have a picture.\".</string>
+    <string name="appClose">Exit</string>
+    <string name="appCloseMessage">Are you sure you want to exit InfraMeld?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
 </resources>
