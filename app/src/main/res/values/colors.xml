@@ -7,4 +7,9 @@
     <color name="colorDark">#1a1918</color>
     <color name="colorAccentDark">#EFEFEF</color>
     <color name="image_overlay">#a4ffffff</color>
+	<color name="muted_red">#ff400010</color>
+	<color name="muted_yellow">#ff404000</color>
+	<color name="muted_blue">#ff100050</color>
+	<color name="muted_green">#ff004000</color>
+	<color name="text_violet">#ff8888ff</color>
 </resources>
