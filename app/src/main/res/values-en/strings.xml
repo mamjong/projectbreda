@@ -42,5 +42,8 @@
     <string name="terms_and_conditions_label">Terms &amp; Conditions</string>
     <string name="DetailedReportActivity_tv_reportText2">x</string>
     <string name="activityCreateNewReport_text_noImageSelected">No picture has been selected. If you don\'t have a picture, select \"I don\'t have a picture.\".</string>
->>>>>>> f4fb8248382b495c5b0080f62d73a3bdc7e548d9
+    <string name="appClose">Exit</string>
+    <string name="appCloseMessage">Are you sure you want to exit InfraMeld?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
 </resources>

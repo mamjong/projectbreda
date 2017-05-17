@@ -220,4 +220,25 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		this.longtitude = longtitude;
 		getReports(serviceCode, latitude, longtitude, 500);
 	}
+	
+	@Override
+	public void onBackPressed() {
+		AlertCreator exit = new AlertCreator(MainScreenActivity.this);
+		exit.setIcon(R.mipmap.ic_launcher);
+		exit.setTitle(getResources().getString(R.string.appClose));
+		exit.setMessage(getResources().getString(R.string.appCloseMessage));
+		exit.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				System.exit(0);
+			}
+		});
+		exit.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				
+			}
+		});
+		exit.show();
+	}
 }
