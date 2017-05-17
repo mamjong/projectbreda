@@ -42,7 +42,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_splash);
-	
+	    
 	    PackageInfo packageInfo = null;
 	    
 	    try {
@@ -128,5 +128,11 @@ public class SplashActivity extends AppCompatActivity {
         };
 	    
         timer.start();
+    }
+    
+    @Override
+	public void onResume(){
+	    super.onResume();
+	    timer.start();
     }
 }
