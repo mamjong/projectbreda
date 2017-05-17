@@ -2,7 +2,6 @@ package nl.gemeente.breda.bredaapp.businesslogic;
 
 import java.util.ArrayList;
 
-import nl.gemeente.breda.bredaapp.domain.Report;
 import nl.gemeente.breda.bredaapp.domain.Service;
 
 public class ServiceManager {
