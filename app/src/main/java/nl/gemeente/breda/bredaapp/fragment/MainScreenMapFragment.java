@@ -72,6 +72,9 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 			
 			@Override
 			public void run() {
+				if(getActivity() == null)
+					return;
+				
 				getActivity().runOnUiThread(new Runnable() {
 					@Override
 					public void run() {

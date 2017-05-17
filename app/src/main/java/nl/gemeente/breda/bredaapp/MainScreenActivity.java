@@ -1,6 +1,5 @@
 package nl.gemeente.breda.bredaapp;
 
-import android.*;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -108,12 +107,14 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 	}
 
 	public void getReports(String serviceCode, double latitude, double longtitude, int radius) {
+		ReportManager.emptyArray();
 		ApiHomeScreen apiHomeScreen = new ApiHomeScreen(this, this);
 		String[] urls = new String[] {"https://asiointi.hel.fi/palautews/rest/v1/requests.json?status=open&service_code=" + serviceCode + "&lat=" + latitude + "&long=" + longtitude + "&radius=" + radius};
 		apiHomeScreen.execute(urls);
 	}
 
 	public void getServices() {
+		ServiceManager.emptyArray();
 		ApiServices apiServices = new ApiServices(this);
 		String[] urls = new String[] {"https://asiointi.hel.fi/palautews/rest/v1/services.json"};
 		apiServices.execute(urls);
@@ -182,7 +183,6 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		toast.show();
 	}
 	
-	
 	@Override
 	public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
 		switch (requestCode) {
@@ -191,7 +191,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 					finish();
 					startActivity(getIntent());
 				} else {
-					AlertCreator alertCreator = new AlertCreator(context);
+					AlertCreator alertCreator = new AlertCreator(MainScreenActivity.this);
 					
 					alertCreator.setTitle(R.string.no_location_permission_title);
 					alertCreator.setMessage(R.string.no_location_permission_description);
