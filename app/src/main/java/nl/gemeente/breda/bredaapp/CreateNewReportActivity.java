@@ -132,12 +132,13 @@ public class CreateNewReportActivity extends AppCompatActivity {
 				Log.i("Create report", "Next clicked");
 				continueToMap.setEnabled(false);
 				continueToMap.setText(getResources().getString(R.string.spinner_loading));
+				continueToMap.setBackgroundResource(R.color.colorPrimaryLight);
 				
 				new Timer().schedule(new TimerTask() {
 					@Override
 					public void run() {
 						try {
-							String filename = "inframeld.png";
+							String filename = "inframeld.jpeg";
 							
 							saveImage(CreateNewReportActivity.this, itemImage, filename);
 							
@@ -189,6 +190,7 @@ public class CreateNewReportActivity extends AppCompatActivity {
 		super.onResume();
 		continueToMap.setEnabled(true);
 		continueToMap.setText(getResources().getString(R.string.activityCreateNewReport_bt_continue));
+		continueToMap.setBackgroundResource(R.color.colorPrimary);
 	}
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -219,7 +221,7 @@ public class CreateNewReportActivity extends AppCompatActivity {
 		
 		try {
 			fos = context.openFileOutput(name, Context.MODE_PRIVATE);
-			bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+			bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
 			fos.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
