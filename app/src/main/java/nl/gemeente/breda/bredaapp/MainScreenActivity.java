@@ -36,7 +36,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 	//================================================================================
 	// Properties
 	//================================================================================
-	
+	private static final String TAG = "MainScreenActivity";
 	private MainScreenSectionsPagerAdapter sectionsPagerAdapter;
 	private ViewPager viewPager;
 	private ReportManager reportManager;
@@ -45,7 +45,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 	private Spinner homescreenDropdown;
 	private int numberOfReports;
 	private TextView loading;
-	private ImageView overlay;
+	public static ImageView overlay;
 	private double latitude;
 	private double longtitude;
 	private Context context;
@@ -67,12 +67,23 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		latitude = 0;
 		longtitude = 0;
 		serviceCode = "0";
-
+		
 		viewPager = (ViewPager) findViewById(R.id.container);
 		viewPager.setAdapter(sectionsPagerAdapter);
 		
 		TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 		tabLayout.setupWithViewPager(viewPager);
+		
+		tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
+			//@Override
+			public void onTabSelected(TabLayout.Tab tab) {
+				//super.onTabSelected(tab);
+				int position = tab.getPosition();
+				Log.i(TAG, "Tab " + position + " is geselecteerd");
+				if(position > 0)
+					overlay.setVisibility(View.INVISIBLE);
+					loading.setVisibility(View.INVISIBLE);
+				}});
 
 		newReportActivityBtn = (Button) findViewById(R.id.mainScreenActivity_Btn_MakeReport);
 
@@ -89,7 +100,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		getReports("0", 60.1892477, 24.9707467, 10000);
 		getServices();
 		getLocation();
-
+	
 		numberOfReports = -1;
 
 		loading = (TextView) findViewById(R.id.activityMainscreen_tv_loading);
@@ -173,7 +184,10 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		else if(number == 0){
 			loading.setText(R.string.no_reports_found);
 			overlay.setVisibility(View.VISIBLE);
+			//sectionsPagerAdapter.showOverlay();
+			
 		}
+		
 	}
 	
 	@Override
@@ -221,4 +235,14 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		this.longtitude = longtitude;
 		getReports(serviceCode, latitude, longtitude, 500);
 	}
+	
+	
+	public void onTabSelected2(TabLayout.Tab tab) {
+		int position = tab.getPosition();
+		Log.i(TAG, "Tab " + position + " is geselecteerd");
+		if(position > 0)
+			overlay.setVisibility(View.INVISIBLE);
+			loading.setVisibility(View.INVISIBLE);
+	};
+
 }

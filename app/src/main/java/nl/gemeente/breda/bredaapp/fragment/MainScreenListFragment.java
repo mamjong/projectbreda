@@ -10,15 +10,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import nl.gemeente.breda.bredaapp.DetailedReportActivity;
+import nl.gemeente.breda.bredaapp.MainScreenActivity;
 import nl.gemeente.breda.bredaapp.R;
 import nl.gemeente.breda.bredaapp.adapter.ReportAdapter;
 import nl.gemeente.breda.bredaapp.businesslogic.ReportManager;
@@ -78,5 +74,9 @@ public class MainScreenListFragment extends Fragment implements AdapterView.OnIt
 		
 		detailedReportIntent.putExtra(EXTRA_REPORT, r);
 		startActivity(detailedReportIntent);
+	}
+	
+	public void dontShowOverlay() {
+		MainScreenActivity.overlay.setVisibility(View.INVISIBLE);
 	}
 }

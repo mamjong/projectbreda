@@ -6,17 +6,20 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import nl.gemeente.breda.bredaapp.MainScreenActivity;
 import nl.gemeente.breda.bredaapp.businesslogic.ReportManager;
 import nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment;
 import nl.gemeente.breda.bredaapp.fragment.MainScreenMapFragment;
 
 import nl.gemeente.breda.bredaapp.R;
+import nl.gemeente.breda.bredaapp.fragment.MainScreenUserInfoFragment;
 
 public class MainScreenSectionsPagerAdapter extends FragmentPagerAdapter {
 
 	private Context context;
 	private MainScreenMapFragment tab1;
 	private MainScreenListFragment tab2;
+	private MainScreenUserInfoFragment tab3;
 
 	//================================================================================
 	// Constructors
@@ -42,6 +45,10 @@ public class MainScreenSectionsPagerAdapter extends FragmentPagerAdapter {
 				tab2 = new MainScreenListFragment();
 				return tab2;
 			
+			case 2:
+				tab3 = new MainScreenUserInfoFragment();
+				return tab3;
+			
 			default:
 				return null;
 		}
@@ -54,10 +61,14 @@ public class MainScreenSectionsPagerAdapter extends FragmentPagerAdapter {
 	public Fragment getTab2(){
 		return tab2;
 	}
+	
+	public Fragment getTab3(){
+		return tab3;
+	}
 
 	@Override
 	public int getCount() {
-		return 2;
+		return 3;
 	}
 	
 	@Override
@@ -67,6 +78,8 @@ public class MainScreenSectionsPagerAdapter extends FragmentPagerAdapter {
 				return context.getResources().getString(R.string.homescreen_left_tab);
 			case 1:
 				return context.getResources().getString(R.string.homescreen_right_tab);
+			case 2:
+				return context.getResources().getString(R.string.homescreen_right2_tab);
 		}
 		return null;
 	}
@@ -74,4 +87,12 @@ public class MainScreenSectionsPagerAdapter extends FragmentPagerAdapter {
 	public void removeMarkers(){
 		tab1.removeMarkers();
 	}
+	
+	public void showOverlay() {
+		
+		tab1.showOverlay();
+		tab2.dontShowOverlay();
+		tab3.showOverlay();
+	}
+	
 }

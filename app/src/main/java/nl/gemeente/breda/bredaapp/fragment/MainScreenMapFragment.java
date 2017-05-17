@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import nl.gemeente.breda.bredaapp.MainScreenActivity;
 import nl.gemeente.breda.bredaapp.R;
 import nl.gemeente.breda.bredaapp.businesslogic.ReportManager;
 import nl.gemeente.breda.bredaapp.domain.Report;
@@ -32,7 +34,7 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 	
 	private GoogleMap map;
 	private ArrayList<Report> reports;
-	
+	private ImageView overlay;
 	//================================================================================
 	// Accessors
 	//================================================================================
@@ -102,4 +104,9 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 			map.clear();
 		}
 	}
+	
+	public void showOverlay() {
+		MainScreenActivity.overlay.setVisibility(View.VISIBLE);
+	}
+
 }
