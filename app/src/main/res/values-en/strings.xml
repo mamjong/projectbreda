@@ -35,4 +35,9 @@
     <string name="activityCreateNewReport_text_imageTooLarge">An error has occured with your image. Please try another one.</string>
     <string name="activitySplashScreen_tv_appVersion">Version</string>
     <string name="activitySplashScreen_text_unknownVersion">unknown</string>
+    <string name="add_email_label">Add your e-mailaddress</string>
+    <string name="check_data_label">Check data</string>
+    <string name="create_new_report_label">Create new report</string>
+    <string name="detailed_report_label">Details</string>
+    <string name="terms_and_conditions_label">Terms &amp; Conditions</string>
 </resources>

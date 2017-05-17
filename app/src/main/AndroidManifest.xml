@@ -44,21 +44,22 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name=".DetailedReportActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".CheckDataActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".CreateNewReportActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".TermsAndConditionsActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".AddEmailActivity"
-            android:screenOrientation="portrait"/>
+        <activity android:name=".DetailedReportActivity"
+                  android:label="@string/detailed_report_label"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".CheckDataActivity"
+                  android:label="@string/check_data_label"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".CreateNewReportActivity"
+                  android:label="@string/create_new_report_label"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".TermsAndConditionsActivity"
+                  android:label="@string/terms_and_conditions_label"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".AddEmailActivity"
+                  android:label="@string/add_email_label"
+                  android:screenOrientation="portrait"/>
+
         <activity
             android:name=".MainScreenActivity"
             android:configChanges="orientation"
