@@ -26,6 +26,11 @@
     <string name="action_settings">Instellingen</string>
     <string name="latitude_label" translatable="false">Latitude</string>
     <string name="longitude_label" translatable="false">Longitude</string>
+    <string name="detailed_report_label">Details</string>
+    <string name="check_data_label">Controleer gegevens</string>
+    <string name="create_new_report_label">Maak nieuwe melding</string>
+    <string name="terms_and_conditions_label">Algemene voorwaarden</string>
+    <string name="add_email_label">Voeg uw e-mail toe</string>
 
     <string name="no_location_permission_title">Permissies nodig</string>
     <string name="no_location_permission_description">Locatie permissies zijn nodig om de app te kunnen gebruiken. Wilt u deze toestaan?</string>
@@ -86,8 +91,9 @@
 
     <string name="DetailedReportActivity_tv_categoryText">Categorie:</string>
     <string name="DetailedReportActivity_tv_kindOfDefectText">Soort defect:</string>
-    <string name="DetailedReportActivity_tv_reportText">Ik wil dit ook melden!</string>
-    
+    <string name="DetailedReportActivity_tv_reportText">Dit is al</string>
+    <string name="DetailedReportActivity_tv_reportText2">x gemeld</string>
+
     <string name="activitySplashScreen_tv_appVersion">Versie</string>
     <string name="activitySplashScreen_text_unknownVersion">onbekend</string>
 </resources>
