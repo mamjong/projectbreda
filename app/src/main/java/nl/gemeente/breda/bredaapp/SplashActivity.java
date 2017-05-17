@@ -21,6 +21,9 @@ import android.widget.TextView;
 import java.util.Random;
 
 import nl.gemeente.breda.bredaapp.eastereggs.TestEasterEgg;
+import nl.gemeente.breda.bredaapp.eastereggs.snake.Snake;
+import nl.gemeente.breda.bredaapp.eastereggs.spaceinvaders.MainActivity;
+import nl.gemeente.breda.bredaapp.eastereggs.spaceinvaders.SpaceInvadersGame;
 import nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment;
 import nl.gemeente.breda.bredaapp.fragment.MainScreenMapFragment;
 
@@ -77,9 +80,18 @@ public class SplashActivity extends AppCompatActivity {
 					int rand = r.nextInt(10) + 1;
 					Log.i("RANDOM", "" + rand);
 					
+					rand = 2;
+					
 					switch (rand) {
-//						case 1:
-//						case 2:
+						case 1:
+							Intent spaceinvaders = new Intent(getApplicationContext(), MainActivity.class);
+							startActivity(spaceinvaders);
+							break;
+						
+						case 2:
+							Intent snake = new Intent(getApplicationContext(), Snake.class);
+							startActivity(snake);
+							break;
 //						case 3:
 //						case 4:
 //						case 5:
@@ -92,6 +104,7 @@ public class SplashActivity extends AppCompatActivity {
 						default:
 							Intent easteregg = new Intent(getApplicationContext(), TestEasterEgg.class);
 							startActivity(easteregg);
+							break;
 					}
 				}
 			    

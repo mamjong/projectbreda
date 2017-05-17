@@ -67,6 +67,8 @@
                   android:screenOrientation="portrait"/>
         <activity android:name=".ReportReceivedActivity"
                   android:screenOrientation="portrait"/>
+        <activity android:name=".eastereggs.spaceinvaders.MainActivity"></activity>
+        <activity android:name=".eastereggs.snake.Snake"></activity>
     </application>
 
 </manifest>
