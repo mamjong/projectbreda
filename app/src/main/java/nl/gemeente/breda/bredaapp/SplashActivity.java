@@ -91,15 +91,6 @@ public class SplashActivity extends AppCompatActivity {
 							startActivity(snake);
 							break;
 						
-//						case 3:
-//						case 4:
-//						case 5:
-//						case 6:
-//						case 7:
-//						case 8:
-//						case 9:
-//						case 10:
-						
 						default:
 							Intent easteregg = new Intent(getApplicationContext(), TestEasterEgg.class);
 							startActivity(easteregg);

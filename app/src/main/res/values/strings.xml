@@ -1,9 +1,15 @@
 <resources>
+    <string name="yes">Ja</string>
+    <string name="no">Nee</string>
+    
+    <string name="appClose">Afsluiten</string>
+    <string name="appCloseMessage">Weet je zeker dat je InfraMeld wilt afsluiten?</string>
+    
     <string name="CheckDataActivity_tv_category">Categorie:</string>
     <string name="CheckDataActivity_tv_kindOfDefect">Soort defect:</string>
     <string name="CheckDataActivity_bt_confirmReportButton">Bevestig melding</string>
 
-    <string name="activityCreateNewReport_tv_noPicture">Heb je geen foto?</string>
+    <string name="activityCreateNewReport_tv_noPicture">Ik heb geen foto.</string>
     <string name="activityCreateNewReport_bt_makePicture">Kies/maak foto</string>
     <string name="activityCreateNewReport_bt_continue">Doorgaan</string>
     <string name="activityCreateNewReport_text_chooseSource">Bron kiezen</string>
@@ -11,6 +17,7 @@
     <string name="activityCreateNewReport_text_itemCamera">Camera</string>
     <string name="activityCreateNewReport_text_itemGallery">Gallerij</string>
     <string name="activityCreateNewReport_text_imageTooLarge">Er is een fout opgetreden met je afbeelding. Probeer een andere afbeelding.</string>
+    <string name="activityCreateNewReport_text_noImageSelected">Geen afbeelding geselecteerd. Heeft u geen afbeelding, selecteer dan \"Ik heb geen foto.\".</string>
 
     <string name="activityTermsAndConditions_bt_accept">Accepteren</string>
     <string name="activityTermsAndConditions_bt_decline">Niet accepteren</string>
@@ -19,6 +26,11 @@
     <string name="action_settings">Instellingen</string>
     <string name="latitude_label" translatable="false">Latitude</string>
     <string name="longitude_label" translatable="false">Longitude</string>
+    <string name="detailed_report_label">Details</string>
+    <string name="check_data_label">Controleer gegevens</string>
+    <string name="create_new_report_label">Maak nieuwe melding</string>
+    <string name="terms_and_conditions_label">Algemene voorwaarden</string>
+    <string name="add_email_label">Voeg uw e-mail toe</string>
 
     <string name="no_location_permission_title">Permissies nodig</string>
     <string name="no_location_permission_description">Locatie permissies zijn nodig om de app te kunnen gebruiken. Wilt u deze toestaan?</string>
@@ -79,7 +91,8 @@
 
     <string name="DetailedReportActivity_tv_categoryText">Categorie:</string>
     <string name="DetailedReportActivity_tv_kindOfDefectText">Soort defect:</string>
-    <string name="DetailedReportActivity_tv_reportText">Ik wil dit ook melden!</string>
+    <string name="DetailedReportActivity_tv_reportText">Dit is al</string>
+    <string name="DetailedReportActivity_tv_reportText2">x gemeld</string>
 
     <string name="activitySplashScreen_tv_appVersion">Versie</string>
     <string name="activitySplashScreen_text_unknownVersion">onbekend</string>
