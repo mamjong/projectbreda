@@ -77,10 +77,8 @@ public class SplashActivity extends AppCompatActivity {
 					timer.cancel();
 
 					Random r = new Random();
-					int rand = r.nextInt(10) + 1;
+					int rand = r.nextInt(2) + 1;
 					Log.i("RANDOM", "" + rand);
-					
-					rand = 2;
 					
 					switch (rand) {
 						case 1:
@@ -92,6 +90,7 @@ public class SplashActivity extends AppCompatActivity {
 							Intent snake = new Intent(getApplicationContext(), Snake.class);
 							startActivity(snake);
 							break;
+						
 //						case 3:
 //						case 4:
 //						case 5:
