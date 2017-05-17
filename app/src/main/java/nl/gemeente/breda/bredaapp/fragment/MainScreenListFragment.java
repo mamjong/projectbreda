@@ -10,11 +10,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
