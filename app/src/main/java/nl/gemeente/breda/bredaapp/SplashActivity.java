@@ -134,5 +134,6 @@ public class SplashActivity extends AppCompatActivity {
 	public void onResume(){
 	    super.onResume();
 	    timer.start();
+	    i = 1;
     }
 }
