@@ -41,15 +41,14 @@
         android:id="@+id/DetailedReportActivity_tv_reportCounter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@+id/DetailedReportActivity_tv_reportText"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/DetailedReportActivity_tv_reportText"
+        app:layout_constraintLeft_toRightOf="@id/DetailedReportActivity_iv_image"
         app:layout_constraintVertical_bias="0.03"
+        android:layout_marginLeft="8dp"
         android:text="10000"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginLeft="3dp"
-        android:layout_marginStart="3dp"/>
+        />
 
     <TextView
         android:id="@+id/DetailedReportActivity_tv_reportText2"
@@ -59,8 +58,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toRightOf="@+id/DetailedReportActivity_tv_reportCounter"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/DetailedReportActivity_tv_reportText"
         app:layout_constraintVertical_bias="0.03"
         />
 
