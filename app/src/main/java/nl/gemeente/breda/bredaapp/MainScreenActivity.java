@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
@@ -49,6 +50,8 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 	private double longtitude;
 	private Context context;
 	private String serviceCode;
+	
+	private int backPressAmount = 0;
 
 	//================================================================================
 	// Accessors
@@ -223,22 +226,42 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 	
 	@Override
 	public void onBackPressed() {
-		AlertCreator exit = new AlertCreator(MainScreenActivity.this);
-		exit.setIcon(R.mipmap.ic_launcher);
-		exit.setTitle(getResources().getString(R.string.appClose));
-		exit.setMessage(getResources().getString(R.string.appCloseMessage));
-		exit.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				System.exit(0);
-			}
-		});
-		exit.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
+//		AlertCreator exit = new AlertCreator(MainScreenActivity.this);
+//		exit.setIcon(R.mipmap.ic_launcher);
+//		exit.setTitle(getResources().getString(R.string.appClose));
+//		exit.setMessage(getResources().getString(R.string.appCloseMessage));
+//		exit.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+//			@Override
+//			public void onClick(DialogInterface dialog, int which) {
+//				System.exit(0);
+//			}
+//		});
+//		exit.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+//			@Override
+//			public void onClick(DialogInterface dialog, int which) {
+//				
+//			}
+//		});
+//		exit.show();
+		
+		if (backPressAmount == 0) {
+			Toast toast = Toast.makeText(MainScreenActivity.this, "Press again to exit.", Toast.LENGTH_LONG);
+			toast.show();
+			backPressAmount = 1;
+			
+			new CountDownTimer(2000, 1000) {
+				@Override
+				public void onTick(long millisUntilFinished) {
+					
+				}
 				
-			}
-		});
-		exit.show();
+				@Override
+				public void onFinish() {
+					backPressAmount = 0;
+				}
+			}.start();
+		} else if (backPressAmount == 1) {
+			System.exit(0);
+		}
 	}
 }
