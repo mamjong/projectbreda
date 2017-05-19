@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +51,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 	private double longtitude;
 	private Context context;
 	private String serviceCode;
+	private TabLayout tabs;
 	
 	private int backPressAmount = 0;
 
@@ -65,7 +67,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 		sectionsPagerAdapter = new MainScreenSectionsPagerAdapter(getSupportFragmentManager(), getApplicationContext());
-
+		
 		latitude = 0;
 		longtitude = 0;
 		serviceCode = "0";
