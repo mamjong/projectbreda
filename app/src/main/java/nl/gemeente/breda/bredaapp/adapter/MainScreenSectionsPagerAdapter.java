@@ -14,7 +14,6 @@ public class MainScreenSectionsPagerAdapter extends FragmentPagerAdapter {
 	private Context context;
 	private MainScreenMapFragment tab1;
 	private MainScreenListFragment tab2;
-
 	//================================================================================
 	// Constructors
 	//================================================================================
@@ -69,6 +68,9 @@ public class MainScreenSectionsPagerAdapter extends FragmentPagerAdapter {
 	}
 
 	public void removeMarkers(){
-		tab1.removeMarkers();
+		
+		if (tab1 != null) {
+			tab1.removeMarkers();
+		}
 	}
 }
