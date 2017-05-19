@@ -15,6 +15,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import nl.gemeente.breda.bredaapp.domain.Report;
+
+import static nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment.EXTRA_REPORT;
+
 public class CheckDataActivity extends AppCompatActivity {
 	
 	private Bitmap bitmap;
@@ -25,15 +29,17 @@ public class CheckDataActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_check_data);
 		
 		final Button confirmBtn = (Button) findViewById(R.id.CheckDataActivity_bt_confirmReportButton);
+		final ImageView itemImageView = (ImageView) findViewById(R.id.CheckDataActivity_iv_defectImage);
+		TextView serviceTypeInput = (TextView) findViewById(R.id.CheckDataActivity_tv_categoryInput);
 		
 		Intent i =  getIntent();
 		Bundle extras = getIntent().getExtras();
 		
-		ImageView itemImageView = (ImageView) findViewById(R.id.CheckDataActivity_iv_defectImage);
-		TextView serviceTypeInput = (TextView) findViewById(R.id.CheckDataActivity_tv_categoryInput);
 		bitmap = loadBitmap(CheckDataActivity.this, "inframeld.jpeg");
 		itemImageView.setImageBitmap(bitmap);
-		Bitmap inputImage;
+//		Bitmap inputImage;
+		
+		final Report r = (Report) extras.getSerializable(EXTRA_REPORT);
 		
 //		if ( getIntent().hasExtra("IMAGE") ) {
 //			inputImage = BitmapFactory.decodeByteArray(
@@ -44,6 +50,14 @@ public class CheckDataActivity extends AppCompatActivity {
 		if ( i.hasExtra("SERVICE") ){
 			serviceTypeInput.setText(extras.getString("SERVICE"));
 		}
+		
+		itemImageView.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent fullscreenCheckDataImageIntent = new Intent(getApplicationContext(), CheckDataImageActivity.class);
+				startActivity(fullscreenCheckDataImageIntent);
+			}
+		});
 		
 		confirmBtn.setOnClickListener(new View.OnClickListener(){
 			@Override
