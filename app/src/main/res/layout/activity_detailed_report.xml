@@ -79,15 +79,6 @@
         app:layout_constraintTop_toBottomOf="@+id/DetailedReportActivity_tv_reportText"
         app:layout_constraintVertical_bias="0.04"/>
 
-    <!--<com.google.android.gms.maps.MapView-->
-        <!--android:id="@+id/fragmentMapView_FL_mapLayout"-->
-        <!--android:name="com.google.android.gms.maps.SupportMapsFragment"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="185dp"-->
-        <!--android:layout_marginBottom="8dp"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--tools:layout_editor_absoluteX="-8dp" />-->
-
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
