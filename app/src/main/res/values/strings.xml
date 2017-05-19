@@ -1,9 +1,15 @@
 <resources>
+    <string name="yes">Ja</string>
+    <string name="no">Nee</string>
+    
+    <string name="appClose">Afsluiten</string>
+    <string name="appCloseMessage">Weet je zeker dat je InfraMeld wilt afsluiten?</string>
+    
     <string name="CheckDataActivity_tv_category">Categorie:</string>
     <string name="CheckDataActivity_tv_kindOfDefect">Soort defect:</string>
     <string name="CheckDataActivity_bt_confirmReportButton">Bevestig melding</string>
 
-    <string name="activityCreateNewReport_tv_noPicture">Heb je geen foto?</string>
+    <string name="activityCreateNewReport_tv_noPicture">Ik heb geen foto.</string>
     <string name="activityCreateNewReport_bt_makePicture">Kies/maak foto</string>
     <string name="activityCreateNewReport_bt_continue">Doorgaan</string>
     <string name="activityCreateNewReport_text_chooseSource">Bron kiezen</string>
@@ -11,6 +17,7 @@
     <string name="activityCreateNewReport_text_itemCamera">Camera</string>
     <string name="activityCreateNewReport_text_itemGallery">Gallerij</string>
     <string name="activityCreateNewReport_text_imageTooLarge">Er is een fout opgetreden met je afbeelding. Probeer een andere afbeelding.</string>
+    <string name="activityCreateNewReport_text_noImageSelected">Geen afbeelding geselecteerd. Heeft u geen afbeelding, selecteer dan \"Ik heb geen foto.\".</string>
 
     <string name="activityTermsAndConditions_bt_accept">Accepteren</string>
     <string name="activityTermsAndConditions_bt_decline">Niet accepteren</string>
@@ -85,8 +92,13 @@
 
     <string name="DetailedReportActivity_tv_categoryText">Categorie:</string>
     <string name="DetailedReportActivity_tv_kindOfDefectText">Soort defect:</string>
-    <string name="DetailedReportActivity_tv_reportText">Ik wil dit ook melden!</string>
+    <string name="DetailedReportActivity_tv_reportText">Dit is al</string>
+    <string name="DetailedReportActivity_tv_reportText2">x gemeld</string>
 
     <string name="activitySplashScreen_tv_appVersion">Versie</string>
     <string name="activitySplashScreen_text_unknownVersion">onbekend</string>
+	
+	<string name="mode_ready">Snake\nPress Up To Play</string>
+	<string name="mode_pause">Paused\nPress Up To Resume</string>
+	<string name="mode_lose">Game Over\nScore: %1$d \nPress Up To Play</string>
 </resources>

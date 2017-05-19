@@ -9,15 +9,16 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import nl.gemeente.breda.bredaapp.api.ImageLoader;
 import nl.gemeente.breda.bredaapp.domain.Report;
 import static nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment.EXTRA_REPORT;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 public class DetailedReportActivity extends AppCompatActivity {
 	
 	private static final String TAG = "DetailedReportActivity";
-	private TextView description;
+	private TextView description, category;
 	private ImageView mediaUrl;
 	private Button extraReport;
 	private boolean isPressed;
@@ -30,10 +31,13 @@ public class DetailedReportActivity extends AppCompatActivity {
 		description = (TextView) findViewById(R.id.DetailedReportActivity_tv_kindOfDefect);
 		mediaUrl = (ImageView) findViewById(R.id.DetailedReportActivity_iv_image);
 		extraReport = (Button) findViewById(R.id.DetailedReportActivity_bt_extraReportBtn);
+		category = (TextView) findViewById(R.id.DetailedReportActivity_tv_categoryInput);
 		
 		Bundle extras = getIntent().getExtras();
 		
 		final Report r = (Report) extras.getSerializable(EXTRA_REPORT);
+		
+		category.setText(r.getServiceName());
 		
 		description.setText(r.getDescription());
 		new ImageLoader(mediaUrl).execute(r.getMediaUrl());
