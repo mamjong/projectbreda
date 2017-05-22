@@ -11,6 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -243,7 +244,7 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 	
 	@Override
 	public void onLocationAvailable(double latitude, double longtitude) {
-		//Log.i("LOCATION", latitude + ":" + longtitude);
+		Log.i("LOCATION", latitude + ":" + longtitude);
 		this.latitude = latitude;
 		this.longtitude = longtitude;
 		getReports(serviceCode, latitude, longtitude, 500);
