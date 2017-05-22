@@ -12,6 +12,7 @@ import android.widget.TextView;
 import nl.gemeente.breda.bredaapp.api.ImageLoader;
 import nl.gemeente.breda.bredaapp.domain.Report;
 import static nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment.EXTRA_REPORT;
+import com.squareup.picasso.Picasso;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -35,13 +36,20 @@ public class DetailedReportActivity extends AppBaseActivity {
 		category = (TextView) findViewById(R.id.DetailedReportActivity_tv_categoryInput);
 		
 		Bundle extras = getIntent().getExtras();
+		String getMediaUrl = extras.getString("MediaUrl");
 		
 		final Report r = (Report) extras.getSerializable(EXTRA_REPORT);
 		
 		category.setText(r.getServiceName());
 		
 		description.setText(r.getDescription());
-		new ImageLoader(mediaUrl).execute(r.getMediaUrl());
+		if(r.getMediaUrl() == null){
+			Picasso.with(getApplicationContext()).load(R.drawable.nopicturefound).into(mediaUrl);
+		}
+		else {
+			Picasso.with(getApplicationContext()).load(getMediaUrl).into(mediaUrl);
+		}
+//		new ImageLoader(mediaUrl).execute(r.getMediaUrl());
 		
 		mediaUrl.setOnClickListener(new View.OnClickListener() {
 	
