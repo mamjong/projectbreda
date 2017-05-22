@@ -1,18 +1,15 @@
 package nl.gemeente.breda.bredaapp.testing;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.annotation.StringRes;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -30,22 +27,22 @@ public class LocationActivity extends AppCompatActivity implements ConnectionCal
 	protected GoogleApiClient mGoogleApiClient;
 	public Location mLastLocation;
 	
-	protected String mLatitudeLabel;
-	protected String mLongitudeLabel;
-	protected TextView mLatitudeText;
-	protected TextView mLongitudeText;
+//	protected String mLatitudeLabel;
+//	protected String mLongitudeLabel;
+//	protected TextView mLatitudeText;
+//	protected TextView mLongitudeText;
 	
-	final Context context = this;
+	private Context context = getApplicationContext();
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_location);
 		
-		mLatitudeLabel = getResources().getString(R.string.latitude_label);
-		mLongitudeLabel = getResources().getString(R.string.longitude_label);
-		mLatitudeText = (TextView) findViewById((R.id.latitude_text));
-		mLongitudeText = (TextView) findViewById((R.id.longitude_text));
+//		mLatitudeLabel = getResources().getString(R.string.latitude_label);
+//		mLongitudeLabel = getResources().getString(R.string.longitude_label);
+//		mLatitudeText = (TextView) findViewById((R.id.latitude_text));
+//		mLongitudeText = (TextView) findViewById((R.id.longitude_text));
 		
 		buildGoogleApiClient();
 	}
@@ -81,8 +78,10 @@ public class LocationActivity extends AppCompatActivity implements ConnectionCal
 		}
 		mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 		if (mLastLocation != null) {
-			mLatitudeText.setText(String.format("%s: %f", mLatitudeLabel, mLastLocation.getLatitude()));
-			mLongitudeText.setText(String.format("%s: %f", mLongitudeLabel, mLastLocation.getLongitude()));
+//			mLatitudeText.setText(String.format("%s: %f", mLatitudeLabel, mLastLocation.getLatitude()));
+//			mLongitudeText.setText(String.format("%s: %f", mLongitudeLabel, mLastLocation.getLongitude()));
+			
+			
 		} else {
 			// No location found
 			// plantVirus();
@@ -90,8 +89,7 @@ public class LocationActivity extends AppCompatActivity implements ConnectionCal
 	}
 	
 	@Override
-	public void onRequestPermissionsResult(int requestCode,
-	                                       String permissions[], int[] grantResults) {
+	public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
 		switch (requestCode) {
 			case 1: {
 				if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {

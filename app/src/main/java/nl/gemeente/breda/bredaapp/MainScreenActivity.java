@@ -1,43 +1,37 @@
 package nl.gemeente.breda.bredaapp;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.StringRes;
+import android.os.CountDownTimer;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.vision.text.Text;
-
-import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import nl.gemeente.breda.bredaapp.adapter.MainScreenSectionsPagerAdapter;
-import nl.gemeente.breda.bredaapp.adapter.ReportAdapter;
 import nl.gemeente.breda.bredaapp.adapter.ServiceAdapter;
 import nl.gemeente.breda.bredaapp.api.ApiHomeScreen;
 import nl.gemeente.breda.bredaapp.api.ApiServices;
+import nl.gemeente.breda.bredaapp.api.LocationApi;
 import nl.gemeente.breda.bredaapp.businesslogic.ReportManager;
 import nl.gemeente.breda.bredaapp.businesslogic.ServiceManager;
 import nl.gemeente.breda.bredaapp.domain.Report;
 import nl.gemeente.breda.bredaapp.domain.Service;
-import nl.gemeente.breda.bredaapp.fragment.MainScreenMapFragment;
+import nl.gemeente.breda.bredaapp.util.AlertCreator;
 
-public class MainScreenActivity extends AppCompatActivity implements ApiHomeScreen.Listener, ApiServices.Listener, ApiHomeScreen.NumberOfReports, AdapterView.OnItemSelectedListener {
+public class MainScreenActivity extends AppCompatActivity implements ApiHomeScreen.Listener, ApiServices.Listener, ApiHomeScreen.NumberOfReports, AdapterView.OnItemSelectedListener, LocationApi.LocationListener {
 	
 	//================================================================================
 	// Properties
@@ -52,6 +46,12 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 	private int numberOfReports;
 	private TextView loading;
 	private ImageView overlay;
+	private double latitude;
+	private double longtitude;
+	private Context context;
+	private String serviceCode;
+	
+	private int backPressAmount = 0;
 
 	//================================================================================
 	// Accessors
@@ -66,6 +66,9 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		setSupportActionBar(toolbar);
 		sectionsPagerAdapter = new MainScreenSectionsPagerAdapter(getSupportFragmentManager(), getApplicationContext());
 
+		latitude = 0;
+		longtitude = 0;
+		serviceCode = "0";
 
 		viewPager = (ViewPager) findViewById(R.id.container);
 		viewPager.setAdapter(sectionsPagerAdapter);
@@ -82,10 +85,12 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 				startActivity(i);
 			}
 		});
-
-//		getReports();
-		getReports("0");
+		
+		context = getApplicationContext();
+		
+		getReports("0", 60.1892477, 24.9707467, 10000);
 		getServices();
+		getLocation();
 
 		numberOfReports = -1;
 
@@ -103,21 +108,29 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		homescreenDropdown.setPrompt(getResources().getString(R.string.spinner_loading));
 	}
 
-	public void getReports(String serviceCode) {
+	public void getReports(String serviceCode, double latitude, double longtitude, int radius) {
+		ReportManager.emptyArray();
 		ApiHomeScreen apiHomeScreen = new ApiHomeScreen(this, this);
-		String[] urls = new String[] {"https://asiointi.hel.fi/palautews/rest/v1/requests.json?status=open&service_code=" + serviceCode + "&lat=60.1892477&long=24.9707467&radius=5000"};
+		String[] urls = new String[] {"https://asiointi.hel.fi/palautews/rest/v1/requests.json?status=open&service_code=" + serviceCode + "&lat=" + latitude + "&long=" + longtitude + "&radius=" + radius};
 		apiHomeScreen.execute(urls);
 	}
 
 	public void getServices() {
+		ServiceManager.emptyArray();
 		ApiServices apiServices = new ApiServices(this);
 		String[] urls = new String[] {"https://asiointi.hel.fi/palautews/rest/v1/services.json"};
 		apiServices.execute(urls);
 	}
+	
+	public void getLocation(){
+		LocationApi locationApi = new LocationApi(this);
+		locationApi.setContext(context, this);
+		locationApi.search();
+	}
 
 	@Override
 	public void onReportAvailable(Report report) {
-		Log.i("Report", report.getDescription());
+		//Log.i("Report", report.getDescription());
 		ReportManager.addReport(report);
 	}
 
@@ -134,8 +147,15 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		ReportManager.emptyArray();
 		sectionsPagerAdapter.removeMarkers();
 		Service service = ServiceManager.getServices().get(position);
-		String serviceCode = service.getServiceCode();
-		getReports(serviceCode);
+		serviceCode = service.getServiceCode();
+		
+		if(latitude == 0 || longtitude == 0) {
+			getReports(serviceCode, 60.1892477, 24.9707467, 10000);
+		}
+		else {
+			getReports(serviceCode, latitude, longtitude, 500);
+		}
+		
 		loading.setText(R.string.spinner_loading);
 		overlay.setVisibility(View.VISIBLE);
 	}
@@ -163,5 +183,85 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		Toast toast = Toast.makeText(this, "No connection available.", Toast.LENGTH_LONG);
 		toast.setGravity(Gravity.CENTER, 0, 0);
 		toast.show();
+	}
+	
+	@Override
+	public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+		switch (requestCode) {
+			case 1: {
+				if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+					finish();
+					startActivity(getIntent());
+				} else {
+					AlertCreator alertCreator = new AlertCreator(MainScreenActivity.this);
+					
+					alertCreator.setTitle(R.string.no_location_permission_title);
+					alertCreator.setMessage(R.string.no_location_permission_description);
+					alertCreator.setNegativeButton(R.string.no_location_permission_negative, new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							finish();
+						}
+					});
+					alertCreator.setPositiveButton(R.string.no_location_permission_positive, new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							ActivityCompat.requestPermissions(MainScreenActivity.this, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+						}
+					});
+					alertCreator.show();
+				}
+				return;
+			}
+		}
+	}
+	
+	@Override
+	public void onLocationAvailable(double latitude, double longtitude) {
+		//Log.i("LOCATION", latitude + ":" + longtitude);
+		this.latitude = latitude;
+		this.longtitude = longtitude;
+		getReports(serviceCode, latitude, longtitude, 500);
+	}
+	
+	@Override
+	public void onBackPressed() {
+//		AlertCreator exit = new AlertCreator(MainScreenActivity.this);
+//		exit.setIcon(R.mipmap.ic_launcher);
+//		exit.setTitle(getResources().getString(R.string.appClose));
+//		exit.setMessage(getResources().getString(R.string.appCloseMessage));
+//		exit.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+//			@Override
+//			public void onClick(DialogInterface dialog, int which) {
+//				System.exit(0);
+//			}
+//		});
+//		exit.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+//			@Override
+//			public void onClick(DialogInterface dialog, int which) {
+//				
+//			}
+//		});
+//		exit.show();
+		
+		if (backPressAmount == 0) {
+			Toast toast = Toast.makeText(MainScreenActivity.this, "Press again to exit.", Toast.LENGTH_LONG);
+			toast.show();
+			backPressAmount = 1;
+			
+			new CountDownTimer(2000, 1000) {
+				@Override
+				public void onTick(long millisUntilFinished) {
+					
+				}
+				
+				@Override
+				public void onFinish() {
+					backPressAmount = 0;
+				}
+			}.start();
+		} else if (backPressAmount == 1) {
+			System.exit(0);
+		}
 	}
 }

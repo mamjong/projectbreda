@@ -1,6 +1,8 @@
 package nl.gemeente.breda.bredaapp.domain;
 
-public class Report {
+import java.io.Serializable;
+
+public class Report implements Serializable {
     private String serviceRequestId;
     private String serviceCode;
     private String description;

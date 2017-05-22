@@ -7,7 +7,7 @@
     tools:context="nl.gemeente.breda.bredaapp.DetailedReportActivity">
 
     <ImageView
-        android:id="@+id/detailedActivityReportImage"
+        android:id="@+id/DetailedReportActivity_iv_image"
         android:layout_width="150dp"
         android:layout_height="150dp"
         app:srcCompat="@color/colorPrimaryDark"
@@ -18,7 +18,9 @@
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"
-        app:layout_constraintVertical_bias="0.00999999" />
+        app:layout_constraintVertical_bias="0.00999999"
+        android:adjustViewBounds="true"
+        />
 
     <TextView
         android:id="@+id/DetailedReportActivity_tv_reportText"
@@ -28,32 +30,121 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="7dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/detailedActivityReportImage"
-        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/DetailedReportActivity_iv_image"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.03"
+        />
 
-    <!--<com.google.android.gms.maps.MapView-->
-        <!--android:id="@+id/fragmentMapView_FL_mapLayout"-->
-        <!--android:name="com.google.android.gms.maps.SupportMapsFragment"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="185dp"-->
-        <!--android:layout_marginBottom="8dp"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--tools:layout_editor_absoluteX="-8dp" />-->
+    <TextView
+        android:id="@+id/DetailedReportActivity_tv_reportCounter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/DetailedReportActivity_tv_reportText"
+        app:layout_constraintLeft_toRightOf="@id/DetailedReportActivity_iv_image"
+        app:layout_constraintVertical_bias="0.03"
+        android:layout_marginLeft="8dp"
+        android:text="10000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/DetailedReportActivity_tv_reportText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/DetailedReportActivity_tv_reportText2"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@+id/DetailedReportActivity_tv_reportCounter"
+        app:layout_constraintTop_toBottomOf="@id/DetailedReportActivity_tv_reportText"
+        app:layout_constraintVertical_bias="0.03"
+        />
+
+    <Button
+        android:id="@+id/DetailedReportActivity_bt_extraReportBtn"
+        android:layout_width="168dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/offimage"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/DetailedReportActivity_iv_image"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/DetailedReportActivity_tv_reportText"
+        app:layout_constraintVertical_bias="0.04"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/DetailedReportActivity_iv_image"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="parent"
+        >
+
+        <TextView
+            android:id="@+id/DetailedReportActivity_tv_categoryText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="35dp"
+            android:text="@string/DetailedReportActivity_tv_categoryText"
+            android:textSize="18sp"
+            />
+
+        <TextView
+            android:id="@+id/DetailedReportActivity_tv_categoryInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            android:textSize="16sp"
+            />
+
+        <TextView
+            android:id="@+id/DetailedReportActivity_tv_kindOfDefectText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="35dp"
+            android:text="@string/DetailedReportActivity_tv_kindOfDefectText"
+            android:textSize="18sp"
+            />
+
+        <TextView
+            android:id="@+id/DetailedReportActivity_tv_kindOfDefect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="7dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            android:textSize="16sp"
+            />
+
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/fragmentMapView_FL_mapLayout"
         android:name="com.google.android.gms.maps.SupportMapsFragment"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="82dp"
-        android:layout_marginBottom="-10dp"
         android:layout_marginLeft="3dp"
         android:layout_marginRight="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -62,86 +153,8 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
-        app:layout_constraintVertical_bias="1.0"></FrameLayout>
+        app:layout_constraintVertical_bias="1.0"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="8dp"></FrameLayout>
 
-    <TextView
-        android:id="@+id/DetailedReportActivity_tv_categoryText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/DetailedReportActivity_tv_categoryText"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/detailedActivityReportImage"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.023"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/fragmentMapView_FL_mapLayout"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/DetailedReportActivity_tv_kindOfDefectText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/DetailedReportActivity_tv_kindOfDefectText"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="35dp"
-        app:layout_constraintTop_toBottomOf="@+id/detailedActivityExtraPriorityBtn"
-        android:layout_marginRight="6dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/DetailedReportActivity_tv_categoryText"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintHorizontal_bias="0.5" />
-
-    <Button
-        android:id="@+id/detailedActivityExtraPriorityBtn"
-        android:layout_width="162dp"
-        android:layout_height="97dp"
-        android:text="+1 "
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/detailedActivityReportImage"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/DetailedReportActivity_tv_reportText"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintVertical_bias="0.01999998" />
-
-    <TextView
-        android:id="@+id/DetailedReportActivity_tv_categoryInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/fragmentMapView_FL_mapLayout"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/DetailedReportActivity_tv_categoryText"
-        app:layout_constraintVertical_bias="0.060000002"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.025" />
-
-    <TextView
-        android:id="@+id/DetailedReportActivity_tv_kindOfDefect"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_marginBottom="7dp"
-        app:layout_constraintBottom_toTopOf="@+id/fragmentMapView_FL_mapLayout"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/DetailedReportActivity_tv_categoryInput"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintHorizontal_bias="0.461"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/DetailedReportActivity_tv_kindOfDefectText"
-        app:layout_constraintVertical_bias="0.060000002" />
 </android.support.constraint.ConstraintLayout>

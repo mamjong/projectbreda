@@ -1,23 +1,19 @@
 package nl.gemeente.breda.bredaapp.adapter;
 
 import android.content.Context;
-import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import nl.gemeente.breda.bredaapp.businesslogic.ReportManager;
+import nl.gemeente.breda.bredaapp.R;
 import nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment;
 import nl.gemeente.breda.bredaapp.fragment.MainScreenMapFragment;
-
-import nl.gemeente.breda.bredaapp.R;
 
 public class MainScreenSectionsPagerAdapter extends FragmentPagerAdapter {
 
 	private Context context;
 	private MainScreenMapFragment tab1;
 	private MainScreenListFragment tab2;
-
 	//================================================================================
 	// Constructors
 	//================================================================================
@@ -72,6 +68,9 @@ public class MainScreenSectionsPagerAdapter extends FragmentPagerAdapter {
 	}
 
 	public void removeMarkers(){
-		tab1.removeMarkers();
+		
+		if (tab1 != null) {
+			tab1.removeMarkers();
+		}
 	}
 }
