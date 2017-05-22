@@ -68,6 +68,9 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_screen);
+		Bundle bundle = new Bundle();
+		bundle.putInt("menuID", R.id.nav_reports);
+		super.setMenuSelected(bundle);
 
 //		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //		setSupportActionBar(toolbar);
