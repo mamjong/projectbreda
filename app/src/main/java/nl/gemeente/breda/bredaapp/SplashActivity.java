@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.graphics.Color;
 import android.media.Image;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,9 @@ import android.widget.TextView;
 
 import java.util.Random;
 
+import nl.gemeente.breda.bredaapp.api.ApiServices;
+import nl.gemeente.breda.bredaapp.businesslogic.ServiceManager;
+import nl.gemeente.breda.bredaapp.domain.Service;
 import nl.gemeente.breda.bredaapp.eastereggs.TestEasterEgg;
 import nl.gemeente.breda.bredaapp.eastereggs.snake.Snake;
 import nl.gemeente.breda.bredaapp.eastereggs.spaceinvaders.MainActivity;
@@ -29,10 +33,11 @@ import nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment;
 import nl.gemeente.breda.bredaapp.fragment.MainScreenMapFragment;
 
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity implements ApiServices.Listener{
 
 	private int i;
 	private CountDownTimer timer;
+	private ApiServices apiServices;
 	
     //================================================================================
     // Mutators
@@ -59,7 +64,10 @@ public class SplashActivity extends AppCompatActivity {
 	    } else {
 		    version = getResources().getString(R.string.activitySplashScreen_text_unknownVersion);
 	    }
-    
+	
+	    apiServices = new ApiServices(this);
+	    getServices();
+	    
         TextView appVersion = (TextView) findViewById(R.id.activitySplashScreen_tv_appVersion);
 	    appVersion.setText(getResources().getString(R.string.activitySplashScreen_tv_appVersion) + " " + version);
 
@@ -102,29 +110,20 @@ public class SplashActivity extends AppCompatActivity {
 		    }
 	    });
 	    
-        timer = new CountDownTimer(2543, 1000) {
+        timer = new CountDownTimer(10000, 250) {
 
             @Override
             public void onTick(long millisUntilFinished) {
-
+	            Log.i("LOADING", millisUntilFinished + ":" + apiServices.getStatus());
+	            if(apiServices.getStatus() == AsyncTask.Status.FINISHED){
+		            finishSplashScreen();
+		            timer.cancel();
+	            }
             }
 
             @Override
             public void onFinish() {
-
-                DatabaseHandler dbh = new DatabaseHandler(getApplicationContext(), null, null, 1);
-
-                Intent returnUser = new Intent(getApplicationContext(), MainScreenActivity.class);
-                Intent newUser = new Intent(getApplicationContext(), AddEmailActivity.class);
-                returnUser.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                newUser.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-                if (dbh.checkUser()) {
-                    startActivity(returnUser);
-                } else {
-                    startActivity(newUser);
-                }
-                finish();
+	            finishSplashScreen();
             }
         };
 	    
@@ -137,4 +136,32 @@ public class SplashActivity extends AppCompatActivity {
 	    timer.start();
 	    i = 1;
     }
+	
+	@Override
+	public void onServiceAvailable(Service service) {
+		Log.i("Service", service.getServiceName());
+		ServiceManager.addService(service);
+	}
+	
+	public void getServices() {
+		ServiceManager.emptyArray();
+		String[] urls = new String[] {"https://asiointi.hel.fi/palautews/rest/v1/services.json"};
+		apiServices.execute(urls);
+	}
+	
+	public void finishSplashScreen(){
+		DatabaseHandler dbh = new DatabaseHandler(getApplicationContext(), null, null, 1);
+		
+		Intent returnUser = new Intent(getApplicationContext(), MainScreenActivity.class);
+		Intent newUser = new Intent(getApplicationContext(), AddEmailActivity.class);
+		returnUser.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		newUser.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		
+		if (dbh.checkUser()) {
+			startActivity(returnUser);
+		} else {
+			startActivity(newUser);
+		}
+		finish();
+	}
 }

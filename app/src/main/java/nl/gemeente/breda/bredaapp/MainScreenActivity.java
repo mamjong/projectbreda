@@ -100,7 +100,7 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		context = getApplicationContext();
 		
 		getReports("0", 60.1892477, 24.9707467, 10000);
-		getServices();
+		//getServices();
 		getLocation();
 
 		numberOfReports = -1;
@@ -112,11 +112,13 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		
 		homescreenDropdown = (Spinner) findViewById(R.id.homescreen_dropdown);
 
-		homescreenDropdown.setVisibility(View.INVISIBLE);
+		//homescreenDropdown.setVisibility(View.INVISIBLE);
 		spinnerAdapter = new ServiceAdapter(getApplicationContext(), ServiceManager.getServices(), R.layout.spinner_layout_adapter);
 		homescreenDropdown.setAdapter(spinnerAdapter);
 		homescreenDropdown.setOnItemSelectedListener(this);
 		homescreenDropdown.setPrompt(getResources().getString(R.string.spinner_loading));
+		
+		spinnerAdapter.notifyDataSetChanged();
 		
 		floatingActionMenu = (FloatingActionMenu) findViewById(R.id.fam);
 		floatingActionMenu.setOnFloatingActionMenuSelectedListener(new OnFloatingActionMenuSelectedListener() {
@@ -162,7 +164,7 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 
 	@Override
 	public void onServiceAvailable(Service service) {
-		//Log.i("Service", service.getServiceName());
+		Log.i("Service", service.getServiceName());
 		homescreenDropdown.setVisibility(View.VISIBLE);
 		ServiceManager.addService(service);
 		spinnerAdapter.notifyDataSetChanged();
