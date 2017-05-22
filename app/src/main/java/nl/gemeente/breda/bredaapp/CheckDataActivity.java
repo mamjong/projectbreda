@@ -15,7 +15,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class CheckDataActivity extends AppCompatActivity {
+public class CheckDataActivity extends AppBaseActivity {
 	
 	private Bitmap bitmap;
 	
@@ -23,6 +23,7 @@ public class CheckDataActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_check_data);
+		super.setMenuSelected(getIntent().getExtras());
 		
 		final Button confirmBtn = (Button) findViewById(R.id.CheckDataActivity_bt_confirmReportButton);
 		

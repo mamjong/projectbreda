@@ -42,7 +42,7 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 		
 		toolbarSimple = (Toolbar) findViewById(R.id.toolbar);
 		toolbarSimple.setTitle("App");
-		toolbarSimple.setNavigationIcon(R.drawable.menu_hamburger);
+		toolbarSimple.setNavigationIcon(R.drawable.ic_menu_white_24dp);
 		setSupportActionBar(toolbarSimple);
 		
 		navigationView = (NavigationView) findViewById(R.id.navigation_view);
@@ -50,7 +50,9 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 		drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, 0, 0);
 		drawerToggle.setDrawerIndicatorEnabled(true);
 		drawerLayout.addDrawerListener(drawerToggle);
-		getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+		//getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		toolbarSimple.setNavigationIcon(R.drawable.ic_menu_white_24dp);
 		
 		menu = navigationView.getMenu();
 		for (int i = 0; i < menu.size(); i++) {

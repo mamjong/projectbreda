@@ -124,7 +124,7 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 					FloatingActionButton fab = (FloatingActionButton) floatingActionButton;
 					String label = fab.getLabelText();
 					Toast.makeText(getApplicationContext(), label, Toast.LENGTH_SHORT).show();
-					//onMenuClick(Test2Activity.class, R.id.fab_location, false);
+					MainScreenActivity.super.onMenuClick(CreateNewReportActivity.class, -1, false);
 				}
 			}
 		});

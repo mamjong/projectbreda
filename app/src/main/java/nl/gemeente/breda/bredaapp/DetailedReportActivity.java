@@ -15,7 +15,7 @@ import static nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment.EXTRA_R
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-public class DetailedReportActivity extends AppCompatActivity {
+public class DetailedReportActivity extends AppBaseActivity {
 	
 	private static final String TAG = "DetailedReportActivity";
 	private TextView description, category;
@@ -27,6 +27,7 @@ public class DetailedReportActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detailed_report);
+		super.setMenuSelected(getIntent().getExtras());
 		
 		description = (TextView) findViewById(R.id.DetailedReportActivity_tv_kindOfDefect);
 		mediaUrl = (ImageView) findViewById(R.id.DetailedReportActivity_iv_image);

@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="drawerArrowStyle">@style/DrawerIcon</item>
         <!--<item name="android:windowActionBar">false</item>-->
     </style>
 
@@ -21,6 +22,10 @@
     <style name="fab_labels_style">
         <item name="android:background">@color/colorPrimary</item>
         <item name="android:textColor">#ffffff</item>
+    </style>
+    
+    <style name="DrawerIcon" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/colorWhite</item>
     </style>
 
 </resources>
