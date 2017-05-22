@@ -32,8 +32,6 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 	private ActionBarDrawerToggle drawerToggle;
 	private Menu menu;
 	
-	private FloatingActionMenu floatingActionMenu;
-	
 	private ImageView shareButton;
 	
 	@Override
@@ -59,20 +57,7 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 			menu.getItem(i).setOnMenuItemClickListener(this);
 		}
 		
-		floatingActionMenu = (FloatingActionMenu) findViewById(R.id.fam);
-		floatingActionMenu.setOnFloatingActionMenuSelectedListener(new OnFloatingActionMenuSelectedListener() {
-			@Override
-			public void onFloatingActionMenuSelected(FloatingActionButton floatingActionButton) {
-				if (floatingActionButton instanceof FloatingActionToggleButton) {
-					FloatingActionToggleButton fatb = (FloatingActionToggleButton) floatingActionButton;
-				} else if (floatingActionButton instanceof FloatingActionButton) {
-					FloatingActionButton fab = (FloatingActionButton) floatingActionButton;
-					String label = fab.getLabelText();
-					Toast.makeText(getApplicationContext(), label, Toast.LENGTH_SHORT).show();
-					//onMenuClick(Test2Activity.class, R.id.fab_location, false);
-				}
-			}
-		});
+		
 		
 		shareButton = (ImageView) findViewById(R.id.toolbar_share);
 		shareButton.setOnClickListener(new View.OnClickListener() {
@@ -185,14 +170,6 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 		if (items != null) {
 			int itemID = items.getInt("menuID");
 			navigationView.setCheckedItem(itemID);
-		}
-	}
-	
-	public void setFABVisibility(boolean visible) {
-		if (visible) {
-			floatingActionMenu.setVisibility(View.VISIBLE);
-		} else {
-			floatingActionMenu.setVisibility(View.INVISIBLE);
 		}
 	}
 }

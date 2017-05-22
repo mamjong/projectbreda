@@ -18,6 +18,9 @@ public class ImageLoader extends AsyncTask<String, Void, Bitmap> {
 	
 	protected Bitmap doInBackground(String... urls) {
 		String imageURL = urls[0];
+		if (imageURL == null) {
+			return null;
+		}
 		Bitmap bitmap = null;
 		try {
 			InputStream in = new java.net.URL(imageURL).openStream();
@@ -31,6 +34,9 @@ public class ImageLoader extends AsyncTask<String, Void, Bitmap> {
 	}
 	
 	protected void onPostExecute(Bitmap result) {
+		if (result == null) {
+			return;
+		}
 		imageView.setImageBitmap(result);
 	}
 }

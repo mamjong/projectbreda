@@ -68,6 +68,41 @@
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp"/>
 
+        <com.flask.floatingactionmenu.FloatingActionMenu
+            android:id="@+id/fam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp">
+
+            <com.flask.floatingactionmenu.FloatingActionButton
+                android:id="@+id/fab_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_labelStyle="@style/fab_labels_style"
+                app:fab_labelText="I'm at the current location"
+                app:fab_normal_icon="@drawable/ic_add_black_24dp"/>
+
+            <com.flask.floatingactionmenu.FloatingActionButton
+                android:id="@+id/fab_other"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_labelStyle="@style/fab_labels_style"
+                app:fab_labelText="I'm somewhere else"
+                app:fab_normal_icon="@drawable/ic_add_black_24dp"/>
+
+            <com.flask.floatingactionmenu.FloatingActionToggleButton
+                android:id="@+id/fab_toggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_labelStyle="@style/fab_labels_style"
+                app:fab_labelText="Create report"
+                app:fab_normal_icon="@drawable/ic_add_black_24dp"
+                app:fab_toggle_icon="@drawable/ic_info_black_24dp"/>
+
+        </com.flask.floatingactionmenu.FloatingActionMenu>
+
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
