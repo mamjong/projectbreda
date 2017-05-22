@@ -21,7 +21,7 @@ import nl.gemeente.breda.bredaapp.domain.Report;
 import static android.R.attr.spacing;
 import static nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment.EXTRA_REPORT;
 
-public class DetailedReportActivityImage extends AppCompatActivity /*implements View.OnTouchListener*/{
+public class DetailedReportActivityImage extends AppCompatActivity{
 	private ImageView mediaUrl;
 	
 		
