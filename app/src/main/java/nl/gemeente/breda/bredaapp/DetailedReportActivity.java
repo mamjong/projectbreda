@@ -43,7 +43,12 @@ public class DetailedReportActivity extends AppCompatActivity {
 		category.setText(r.getServiceName());
 		
 		description.setText(r.getDescription());
-		Picasso.with(getApplicationContext()).load(getMediaUrl).into(mediaUrl);
+		if(r.getMediaUrl() == null){
+			Picasso.with(getApplicationContext()).load(R.drawable.nopicturefound).into(mediaUrl);
+		}
+		else {
+			Picasso.with(getApplicationContext()).load(getMediaUrl).into(mediaUrl);
+		}
 //		new ImageLoader(mediaUrl).execute(r.getMediaUrl());
 		
 		mediaUrl.setOnClickListener(new View.OnClickListener() {
