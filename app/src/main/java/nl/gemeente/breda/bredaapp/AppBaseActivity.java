@@ -128,7 +128,7 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 	public boolean onMenuItemClick(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.nav_reports:
-				//onMenuClick(Test1Activity.class, R.id.nav_reports, true);
+				onMenuClick(MainScreenActivity.class, R.id.nav_reports, true);
 				break;
 			
 			case R.id.nav_my_reports:
