@@ -41,7 +41,7 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 		view_stub = (FrameLayout) findViewById(R.id.view_stub);
 		
 		toolbarSimple = (Toolbar) findViewById(R.id.toolbar);
-		toolbarSimple.setTitle("App");
+		toolbarSimple.setTitle(getResources().getString(R.string.app_name));
 		toolbarSimple.setNavigationIcon(R.drawable.ic_menu_white_24dp);
 		setSupportActionBar(toolbarSimple);
 		
