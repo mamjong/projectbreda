@@ -23,10 +23,10 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:largeHeap="true">
+        android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCcz-pjn-ihhR23Gp5x0tqoiS7muvFrqWk"/>
@@ -45,27 +45,34 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".DetailedReportActivity"
-                  android:label="@string/detailed_report_label"/>
-        <activity android:name=".CheckDataActivity"
-                  android:label="@string/check_data_label"/>
-        <activity android:name=".CreateNewReportActivity"
-                  android:label="@string/create_new_report_label"/>
-        <activity android:name=".TermsAndConditionsActivity"
-                  android:label="@string/terms_and_conditions_label"/>
-        <activity android:name=".AddEmailActivity"
-                  android:label="@string/add_email_label"/>
+        <activity
+            android:name=".DetailedReportActivity"
+            android:label="@string/detailed_report_label"/>
+        <activity
+            android:name=".CheckDataActivity"
+            android:label="@string/check_data_label"/>
+        <activity
+            android:name=".CreateNewReportActivity"
+            android:label="@string/create_new_report_label"/>
+        <activity
+            android:name=".TermsAndConditionsActivity"
+            android:label="@string/terms_and_conditions_label"/>
+        <activity
+            android:name=".AddEmailActivity"
+            android:label="@string/add_email_label"/>
         <activity android:name=".eastereggs.TestEasterEgg"/>
         <activity
             android:name=".MainScreenActivity"
-            android:configChanges="orientation"
+            android:configChanges="orientation|screenSize"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".testing.LocationActivity"/>
         <activity android:name=".ReportReceivedActivity"/>
-        <activity android:name=".eastereggs.spaceinvaders.MainActivity"></activity>
-        <activity android:name=".eastereggs.snake.Snake"></activity>
+        <activity android:name=".eastereggs.spaceinvaders.MainActivity"/>
+        <activity android:name=".eastereggs.snake.Snake"/>
         <activity android:name=".DetailedReportActivityImage">
+        </activity>
+        <activity android:name=".CheckDataImageActivity">
         </activity>
     </application>
 

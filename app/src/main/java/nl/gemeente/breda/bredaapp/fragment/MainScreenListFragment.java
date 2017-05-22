@@ -70,7 +70,7 @@ public class MainScreenListFragment extends Fragment implements AdapterView.OnIt
 		
 		Report r = ReportManager.getReports().get(position);
 		Intent detailedReportIntent = new Intent(getContext(), DetailedReportActivity.class);
-		
+		detailedReportIntent.putExtra("MediaUrl", r.getMediaUrl());
 		detailedReportIntent.putExtra(EXTRA_REPORT, r);
 		startActivity(detailedReportIntent);
 	}
