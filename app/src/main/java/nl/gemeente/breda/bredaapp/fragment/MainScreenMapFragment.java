@@ -102,4 +102,8 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 			map.clear();
 		}
 	}
+	
+	public GoogleMap getMap() {
+		return map;
+	}
 }

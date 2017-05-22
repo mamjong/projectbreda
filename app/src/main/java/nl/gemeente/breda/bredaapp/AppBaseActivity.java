@@ -41,7 +41,7 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 		view_stub = (FrameLayout) findViewById(R.id.view_stub);
 		
 		toolbarSimple = (Toolbar) findViewById(R.id.toolbar);
-		toolbarSimple.setTitle("App");
+		toolbarSimple.setTitle(getResources().getString(R.string.app_name));
 		toolbarSimple.setNavigationIcon(R.drawable.ic_menu_white_24dp);
 		setSupportActionBar(toolbarSimple);
 		
@@ -128,7 +128,7 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 	public boolean onMenuItemClick(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.nav_reports:
-				//onMenuClick(Test1Activity.class, R.id.nav_reports, true);
+				onMenuClick(MainScreenActivity.class, R.id.nav_reports, true);
 				break;
 			
 			case R.id.nav_my_reports:
