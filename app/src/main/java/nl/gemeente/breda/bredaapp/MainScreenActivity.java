@@ -183,12 +183,16 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 	public void onNumberOfReportsAvailable(int number) {
 		this.numberOfReports = number;
 		if(number > 0){
-			sectionsPagerAdapter.getMap().getUiSettings().setScrollGesturesEnabled(true);
+			if (sectionsPagerAdapter.getMap() != null) {
+				sectionsPagerAdapter.getMap().getUiSettings().setScrollGesturesEnabled(true);
+			}
 			loading.setText("");
 			overlay.setVisibility(View.INVISIBLE);
 		}
 		else if(number == 0){
-			sectionsPagerAdapter.getMap().getUiSettings().setScrollGesturesEnabled(false);
+			if (sectionsPagerAdapter.getMap() != null) {
+				sectionsPagerAdapter.getMap().getUiSettings().setScrollGesturesEnabled(false);
+			}
 			loading.setText(R.string.no_reports_found);
 			overlay.setVisibility(View.VISIBLE);
 		}
