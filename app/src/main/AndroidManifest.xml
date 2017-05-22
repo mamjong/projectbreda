@@ -76,8 +76,6 @@
         </activity>
         <activity android:name=".UserSettingsActivity">
         </activity>
-        <activity android:name=".UserChangeSettingsActivity">
-        </activity>
     </application>
 
 </manifest>

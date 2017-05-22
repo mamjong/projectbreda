@@ -1,5 +1,6 @@
 package nl.gemeente.breda.bredaapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -14,7 +15,7 @@ import nl.gemeente.breda.bredaapp.domain.User;
 public class UserSettingsActivity extends AppCompatActivity{
 	
 	private User user;
-	private Button changeInfo;
+	private Button changeEmail, applyNewEmail;
 	private EditText currentEmail;
 	
 	@Override
@@ -22,44 +23,39 @@ public class UserSettingsActivity extends AppCompatActivity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_settings);
 		
-		DatabaseHandler dbh = new DatabaseHandler(getApplicationContext(), null, null, 1);
+		final DatabaseHandler dbh = new DatabaseHandler(getApplicationContext(), null, null, 1);
 		
 		currentEmail = (EditText) findViewById(R.id.UserSettingsActivity_et_currentEmail);
+		
 		currentEmail.setEnabled(false);
 		
 		user = dbh.getUser();
 		currentEmail.setText(user.getMailAccount());
 		
-		changeInfo = (Button) findViewById(R.id.UserSettingsActivity_bt_changeInfoBtn);
-		changeInfo.setOnClickListener(new View.OnClickListener() {
+		changeEmail = (Button) findViewById(R.id.UserSettingsActivity_bt_changeInfoBtn);
+		applyNewEmail = (Button) findViewById(R.id.UserSettingsActivity_bt_applyInfoBtn);
+		applyNewEmail.setVisibility(View.GONE);
+		
+		changeEmail.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
-				changeInfo.setVisibility(View.GONE);
 				currentEmail.setEnabled(true);
+				applyNewEmail.setVisibility(View.VISIBLE);
+				changeEmail.setVisibility(View.GONE);
 			}
 		});
 		
-		currentEmail.addTextChangedListener(new TextWatcher() {
+		applyNewEmail.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-				
-			}
-			
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				if (s.toString().trim().length() == 0) {
-					//button.setEnabled(false);
-				} else if (Patterns.EMAIL_ADDRESS.matcher(s).matches()){
-					//button.setEnabled(true);
+			public void onClick(View v) {
+				CharSequence s = currentEmail.getText();
+				String email = currentEmail.toString();
+				if (Patterns.EMAIL_ADDRESS.matcher(s).matches()) {
+					dbh.updateUser(email);
+				} else {
+					currentEmail.setText("WRONG");
 				}
 			}
-			
-			@Override
-			public void afterTextChanged(Editable s) {
-				
-			}
 		});
-		
 	}
 }
