@@ -30,7 +30,7 @@ public class DetailedReportActivity extends AppBaseActivity {
 		setContentView(R.layout.activity_detailed_report);
 		super.setMenuSelected(getIntent().getExtras());
 		
-		description = (TextView) findViewById(R.id.DetailedReportActivity_tv_kindOfDefect);
+		description = (TextView) findViewById(R.id.DetailedReportActivity_tv_kindOfDefectInput);
 		mediaUrl = (ImageView) findViewById(R.id.DetailedReportActivity_iv_image);
 		extraReport = (Button) findViewById(R.id.DetailedReportActivity_bt_extraReportBtn);
 		category = (TextView) findViewById(R.id.DetailedReportActivity_tv_categoryInput);

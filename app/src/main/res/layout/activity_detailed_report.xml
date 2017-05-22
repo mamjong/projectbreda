@@ -126,7 +126,7 @@
             />
 
         <TextView
-            android:id="@+id/DetailedReportActivity_tv_kindOfDefect"
+            android:id="@+id/DetailedReportActivity_tv_kindOfDefectInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="7dp"

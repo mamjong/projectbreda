@@ -81,7 +81,7 @@
 
                     <Button
                         android:id="@+id/DetailedReportActivity_bt_extraReportBtn"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/cast_expanded_controller_ad_layout_height"
                         android:layout_height="100dp"
                         android:layout_marginStart="100dp"
                         android:layout_marginEnd="8dp"
