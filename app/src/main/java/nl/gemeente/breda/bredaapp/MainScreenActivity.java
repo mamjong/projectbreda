@@ -11,6 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,6 +21,11 @@ import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.flask.floatingactionmenu.FloatingActionButton;
+import com.flask.floatingactionmenu.FloatingActionMenu;
+import com.flask.floatingactionmenu.FloatingActionToggleButton;
+import com.flask.floatingactionmenu.OnFloatingActionMenuSelectedListener;
 
 import nl.gemeente.breda.bredaapp.adapter.MainScreenSectionsPagerAdapter;
 import nl.gemeente.breda.bredaapp.adapter.ServiceAdapter;
@@ -32,7 +38,7 @@ import nl.gemeente.breda.bredaapp.domain.Report;
 import nl.gemeente.breda.bredaapp.domain.Service;
 import nl.gemeente.breda.bredaapp.util.AlertCreator;
 
-public class MainScreenActivity extends AppCompatActivity implements ApiHomeScreen.Listener, ApiServices.Listener, ApiHomeScreen.NumberOfReports, AdapterView.OnItemSelectedListener, LocationApi.LocationListener {
+public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen.Listener, ApiServices.Listener, ApiHomeScreen.NumberOfReports, AdapterView.OnItemSelectedListener, LocationApi.LocationListener {
 	
 	//================================================================================
 	// Properties
@@ -41,7 +47,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 	private MainScreenSectionsPagerAdapter sectionsPagerAdapter;
 	private ViewPager viewPager;
 	private ReportManager reportManager;
-	private Button newReportActivityBtn;
+	//private Button newReportActivityBtn;
 	private ServiceAdapter spinnerAdapter;
 	private Spinner homescreenDropdown;
 	private int numberOfReports;
@@ -54,6 +60,8 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 	private TabLayout tabs;
 	
 	private int backPressAmount = 0;
+	
+	private FloatingActionMenu floatingActionMenu;
 
 	//================================================================================
 	// Accessors
@@ -63,9 +71,12 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_screen);
+		Bundle bundle = new Bundle();
+		bundle.putInt("menuID", R.id.nav_reports);
+		super.setMenuSelected(bundle);
 
-		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-		setSupportActionBar(toolbar);
+//		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//		setSupportActionBar(toolbar);
 		sectionsPagerAdapter = new MainScreenSectionsPagerAdapter(getSupportFragmentManager(), getApplicationContext());
 		
 		latitude = 0;
@@ -78,15 +89,15 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 		tabLayout.setupWithViewPager(viewPager);
 
-		newReportActivityBtn = (Button) findViewById(R.id.mainScreenActivity_Btn_MakeReport);
+		//newReportActivityBtn = (Button) findViewById(R.id.mainScreenActivity_Btn_MakeReport);
 
-		newReportActivityBtn.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent i = new Intent(getApplicationContext(), CreateNewReportActivity.class);
-				startActivity(i);
-			}
-		});
+//		newReportActivityBtn.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				Intent i = new Intent(getApplicationContext(), CreateNewReportActivity.class);
+//				startActivity(i);
+//			}
+//		});
 		
 		context = getApplicationContext();
 		
@@ -108,6 +119,21 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		homescreenDropdown.setAdapter(spinnerAdapter);
 		homescreenDropdown.setOnItemSelectedListener(this);
 		homescreenDropdown.setPrompt(getResources().getString(R.string.spinner_loading));
+		
+		floatingActionMenu = (FloatingActionMenu) findViewById(R.id.fam);
+		floatingActionMenu.setOnFloatingActionMenuSelectedListener(new OnFloatingActionMenuSelectedListener() {
+			@Override
+			public void onFloatingActionMenuSelected(FloatingActionButton floatingActionButton) {
+				if (floatingActionButton instanceof FloatingActionToggleButton) {
+					FloatingActionToggleButton fatb = (FloatingActionToggleButton) floatingActionButton;
+				} else if (floatingActionButton instanceof FloatingActionButton) {
+					FloatingActionButton fab = (FloatingActionButton) floatingActionButton;
+					String label = fab.getLabelText();
+					Toast.makeText(getApplicationContext(), label, Toast.LENGTH_SHORT).show();
+					MainScreenActivity.super.onMenuClick(CreateNewReportActivity.class, -1, false);
+				}
+			}
+		});
 	}
 
 	public void getReports(String serviceCode, double latitude, double longtitude, int radius) {
@@ -220,7 +246,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 	
 	@Override
 	public void onLocationAvailable(double latitude, double longtitude) {
-		//Log.i("LOCATION", latitude + ":" + longtitude);
+		Log.i("LOCATION", latitude + ":" + longtitude);
 		this.latitude = latitude;
 		this.longtitude = longtitude;
 		getReports(serviceCode, latitude, longtitude, 500);

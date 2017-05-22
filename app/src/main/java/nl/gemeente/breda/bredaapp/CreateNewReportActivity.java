@@ -32,7 +32,7 @@ import nl.gemeente.breda.bredaapp.businesslogic.ServiceManager;
 import nl.gemeente.breda.bredaapp.util.AlertCreator;
 
 
-public class CreateNewReportActivity extends AppCompatActivity {
+public class CreateNewReportActivity extends AppBaseActivity {
 	
 	private static final int CAMERA_PIC_REQUEST = 1337;
 	private static final int GALLERY_PIC_REQUEST = 1338;
@@ -49,6 +49,8 @@ public class CreateNewReportActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_new_report);
+		
+		super.setMenuSelected(getIntent().getExtras());
 		
 		cameraButton = (Button) findViewById(R.id.activityCreateNewReport_bt_makePicture);
 		continueToMap = (Button) findViewById(R.id.activityCreateNewReport_bt_continue);
