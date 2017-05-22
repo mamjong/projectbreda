@@ -24,6 +24,7 @@ public class DetailedReportActivity extends AppCompatActivity {
 	private ImageView mediaUrl;
 	private Button extraReport;
 	private boolean isPressed;
+	private Button test;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,7 @@ public class DetailedReportActivity extends AppCompatActivity {
 		mediaUrl = (ImageView) findViewById(R.id.DetailedReportActivity_iv_image);
 		extraReport = (Button) findViewById(R.id.DetailedReportActivity_bt_extraReportBtn);
 		category = (TextView) findViewById(R.id.DetailedReportActivity_tv_categoryInput);
-		
+		test = (Button) findViewById((R.id.test));
 		Bundle extras = getIntent().getExtras();
 		String getMediaUrl = extras.getString("MediaUrl");
 		
@@ -66,6 +67,15 @@ public class DetailedReportActivity extends AppCompatActivity {
 		}
 		
 		});
+		
+		test.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent testIntent = new Intent(getApplicationContext(), UserSettingsActivity.class);
+				startActivity(testIntent);
+			}
+		});
+		
 		
 		extraReport.setOnClickListener(new View.OnClickListener(){
 			

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -113,5 +114,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         db.close();
         return reports;
+    }
+    
+    public Cursor getUsersEmailaccount() {
+        String query = "SELECT * FROM" + USERS_COLUMN_MAILACCOUNT + "LIMIT 1";
+	    Log.i(TAG, "Query: " + query);
+	
+	    SQLiteDatabase db = this.getReadableDatabase();
+	    Cursor cursor = db.rawQuery(query, null);
+
+
+	    db.close();
+	    return cursor;
     }
 }
