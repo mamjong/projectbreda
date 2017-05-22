@@ -31,7 +31,7 @@ import nl.gemeente.breda.bredaapp.domain.Report;
 import nl.gemeente.breda.bredaapp.domain.Service;
 import nl.gemeente.breda.bredaapp.util.AlertCreator;
 
-public class MainScreenActivity extends AppCompatActivity implements ApiHomeScreen.Listener, ApiServices.Listener, ApiHomeScreen.NumberOfReports, AdapterView.OnItemSelectedListener, LocationApi.LocationListener {
+public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen.Listener, ApiServices.Listener, ApiHomeScreen.NumberOfReports, AdapterView.OnItemSelectedListener, LocationApi.LocationListener {
 	
 	//================================================================================
 	// Properties
@@ -40,7 +40,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 	private MainScreenSectionsPagerAdapter sectionsPagerAdapter;
 	private ViewPager viewPager;
 	private ReportManager reportManager;
-	private Button newReportActivityBtn;
+	//private Button newReportActivityBtn;
 	private ServiceAdapter spinnerAdapter;
 	private Spinner homescreenDropdown;
 	private int numberOfReports;
@@ -62,8 +62,8 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_screen);
 
-		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-		setSupportActionBar(toolbar);
+//		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//		setSupportActionBar(toolbar);
 		sectionsPagerAdapter = new MainScreenSectionsPagerAdapter(getSupportFragmentManager(), getApplicationContext());
 
 		latitude = 0;
@@ -76,15 +76,15 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 		tabLayout.setupWithViewPager(viewPager);
 
-		newReportActivityBtn = (Button) findViewById(R.id.mainScreenActivity_Btn_MakeReport);
+		//newReportActivityBtn = (Button) findViewById(R.id.mainScreenActivity_Btn_MakeReport);
 
-		newReportActivityBtn.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent i = new Intent(getApplicationContext(), CreateNewReportActivity.class);
-				startActivity(i);
-			}
-		});
+//		newReportActivityBtn.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				Intent i = new Intent(getApplicationContext(), CreateNewReportActivity.class);
+//				startActivity(i);
+//			}
+//		});
 		
 		context = getApplicationContext();
 		

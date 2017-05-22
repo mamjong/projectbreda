@@ -35,4 +35,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'de.cketti.library.changelog:ckchangelog:1.2.2'
     compile 'com.github.chrisbanes:PhotoView:2.0.0'
+    compile 'com.github.QuadFlask:FloatingActionMenu:0.0.1@aar'
 }

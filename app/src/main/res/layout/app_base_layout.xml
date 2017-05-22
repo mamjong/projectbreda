@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    android:id="@+id/drawer_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/Theme.AppCompat">
+
+                <ImageView
+                    android:id="@+id/toolbar_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="20dp"
+                    app:srcCompat="@drawable/ic_share_black_24dp"/>
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <!--<android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_add_report"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
+            android:clickable="true"
+            app:fabSize="normal"
+            app:srcCompat="@drawable/ic_add_black_24dp"/>-->
+
+        <com.flask.floatingactionmenu.FloatingActionMenu
+            android:id="@+id/fam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp">
+
+            <com.flask.floatingactionmenu.FloatingActionButton
+                android:id="@+id/fab_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_labelText="I'm at the current location"
+                app:fab_normal_icon="@drawable/ic_add_black_24dp"
+                app:fab_labelStyle="@style/fab_labels_style"/>
+
+            <com.flask.floatingactionmenu.FloatingActionButton
+                android:id="@+id/fab_other"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_labelText="I'm somewhere else"
+                app:fab_normal_icon="@drawable/ic_add_black_24dp"
+                app:fab_labelStyle="@style/fab_labels_style"/>
+
+            <com.flask.floatingactionmenu.FloatingActionToggleButton
+                android:id="@+id/fab_toggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_labelText="Create report"
+                app:fab_normal_icon="@drawable/ic_add_black_24dp"
+                app:fab_toggle_icon="@drawable/ic_info_black_24dp"
+                app:fab_labelStyle="@style/fab_labels_style"/>
+
+        </com.flask.floatingactionmenu.FloatingActionMenu>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+    <FrameLayout
+        android:id="@+id/view_stub"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/navigation_view"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/navigation_header"
+        app:menu="@menu/menu_navigation"
+        />
+</android.support.v4.widget.DrawerLayout>
