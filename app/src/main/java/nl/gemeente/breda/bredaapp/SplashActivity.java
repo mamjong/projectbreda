@@ -5,10 +5,13 @@
 package nl.gemeente.breda.bredaapp;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.graphics.Color;
 import android.media.Image;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -19,6 +22,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.google.android.gms.vision.text.Text;
 
 import java.util.Random;
 
@@ -70,7 +75,18 @@ public class SplashActivity extends AppCompatActivity implements ApiServices.Lis
 	    
         TextView appVersion = (TextView) findViewById(R.id.activitySplashScreen_tv_appVersion);
 	    appVersion.setText(getResources().getString(R.string.activitySplashScreen_tv_appVersion) + " " + version);
-
+	
+	    TextView no_wifi = (TextView) findViewById(R.id.no_wifi);
+	    no_wifi.setVisibility(View.INVISIBLE);
+	
+	    Context context = this;
+	    ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+	
+	    if (activeNetwork.getType() != ConnectivityManager.TYPE_WIFI) {
+		    no_wifi.setVisibility(View.VISIBLE);
+	    }
+	    
         ProgressBar pb = (ProgressBar) findViewById(R.id.activitySplashScreen_pb_loader);
         pb.getIndeterminateDrawable().setColorFilter(Color.parseColor("#d91d49"), android.graphics.PorterDuff.Mode.SRC_ATOP);
 	
@@ -123,7 +139,14 @@ public class SplashActivity extends AppCompatActivity implements ApiServices.Lis
 
             @Override
             public void onFinish() {
-	            finishSplashScreen();
+	            if(apiServices.getStatus() == AsyncTask.Status.FINISHED){
+		            finishSplashScreen();
+		            timer.cancel();
+	            }
+	            else {
+		            timer.start();
+		            Log.i("RESTART", "Restart timer");
+	            }
             }
         };
 	    
