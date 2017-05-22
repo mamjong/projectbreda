@@ -37,7 +37,7 @@ import nl.gemeente.breda.bredaapp.domain.Report;
 import nl.gemeente.breda.bredaapp.domain.Service;
 import nl.gemeente.breda.bredaapp.util.AlertCreator;
 
-public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen.Listener, ApiServices.Listener, ApiHomeScreen.NumberOfReports, AdapterView.OnItemSelectedListener, LocationApi.LocationListener {
+public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen.Listener, ApiHomeScreen.NumberOfReports, AdapterView.OnItemSelectedListener, LocationApi.LocationListener {
 	
 	//================================================================================
 	// Properties
@@ -100,7 +100,6 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		context = getApplicationContext();
 		
 		getReports("0", 60.1892477, 24.9707467, 10000);
-		getServices();
 		getLocation();
 
 		numberOfReports = -1;
@@ -112,11 +111,12 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		
 		homescreenDropdown = (Spinner) findViewById(R.id.homescreen_dropdown);
 
-		homescreenDropdown.setVisibility(View.INVISIBLE);
 		spinnerAdapter = new ServiceAdapter(getApplicationContext(), ServiceManager.getServices(), R.layout.spinner_layout_adapter);
 		homescreenDropdown.setAdapter(spinnerAdapter);
 		homescreenDropdown.setOnItemSelectedListener(this);
 		homescreenDropdown.setPrompt(getResources().getString(R.string.spinner_loading));
+		
+		spinnerAdapter.notifyDataSetChanged();
 		
 		floatingActionMenu = (FloatingActionMenu) findViewById(R.id.fam);
 		floatingActionMenu.setOnFloatingActionMenuSelectedListener(new OnFloatingActionMenuSelectedListener() {
@@ -140,13 +140,6 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		String[] urls = new String[] {"https://asiointi.hel.fi/palautews/rest/v1/requests.json?status=open&service_code=" + serviceCode + "&lat=" + latitude + "&long=" + longtitude + "&radius=" + radius};
 		apiHomeScreen.execute(urls);
 	}
-
-	public void getServices() {
-		ServiceManager.emptyArray();
-		ApiServices apiServices = new ApiServices(this);
-		String[] urls = new String[] {"https://asiointi.hel.fi/palautews/rest/v1/services.json"};
-		apiServices.execute(urls);
-	}
 	
 	public void getLocation(){
 		LocationApi locationApi = new LocationApi(this);
@@ -159,15 +152,7 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		//Log.i("Report", report.getDescription());
 		ReportManager.addReport(report);
 	}
-
-	@Override
-	public void onServiceAvailable(Service service) {
-		//Log.i("Service", service.getServiceName());
-		homescreenDropdown.setVisibility(View.VISIBLE);
-		ServiceManager.addService(service);
-		spinnerAdapter.notifyDataSetChanged();
-	}
-
+	
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 		ReportManager.emptyArray();
@@ -198,12 +183,16 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 	public void onNumberOfReportsAvailable(int number) {
 		this.numberOfReports = number;
 		if(number > 0){
-			sectionsPagerAdapter.getMap().getUiSettings().setScrollGesturesEnabled(true);
+			if (sectionsPagerAdapter.getMap() != null) {
+				sectionsPagerAdapter.getMap().getUiSettings().setScrollGesturesEnabled(true);
+			}
 			loading.setText("");
 			overlay.setVisibility(View.INVISIBLE);
 		}
 		else if(number == 0){
-			sectionsPagerAdapter.getMap().getUiSettings().setScrollGesturesEnabled(false);
+			if (sectionsPagerAdapter.getMap() != null) {
+				sectionsPagerAdapter.getMap().getUiSettings().setScrollGesturesEnabled(false);
+			}
 			loading.setText(R.string.no_reports_found);
 			overlay.setVisibility(View.VISIBLE);
 		}
