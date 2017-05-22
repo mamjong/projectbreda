@@ -33,6 +33,7 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.github.cdflynn:checkview:v1.0'
     compile 'de.cketti.library.changelog:ckchangelog:1.2.2'
+    compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.github.chrisbanes:PhotoView:2.0.0'
     testCompile 'junit:junit:4.12'
 }

@@ -1,6 +1,7 @@
 package nl.gemeente.breda.bredaapp;
 
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +17,7 @@ import static nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment.EXTRA_R
 
 public class CheckDataImageActivity extends AppCompatActivity {
 	private ImageView itemImageView;
+	private Bitmap bitmap;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,5 +39,8 @@ public class CheckDataImageActivity extends AppCompatActivity {
 		itemImageView = (ImageView) findViewById(R.id.CheckDataImageActivity_iv_defectImage);
 		PhotoViewAttacher photoView = new PhotoViewAttacher(itemImageView);
 		photoView.update();
+		
+		bitmap = CheckDataActivity.loadBitmap(CheckDataImageActivity.this, "inframeld.jpeg");
+		itemImageView.setImageBitmap(bitmap);
 	}
 }

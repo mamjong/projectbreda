@@ -55,6 +55,7 @@ public class CheckDataActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				Intent fullscreenCheckDataImageIntent = new Intent(getApplicationContext(), CheckDataImageActivity.class);
+				fullscreenCheckDataImageIntent.putExtra(EXTRA_REPORT, r);
 				startActivity(fullscreenCheckDataImageIntent);
 			}
 		});
@@ -70,7 +71,7 @@ public class CheckDataActivity extends AppCompatActivity {
 		});
 	}
 	
-	private Bitmap loadBitmap(Context context, String name) {
+	protected static Bitmap loadBitmap(Context context, String name) {
 		Bitmap bitmap = null;
 		FileInputStream fis;
 		

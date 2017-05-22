@@ -1,5 +1,7 @@
 package nl.gemeente.breda.bredaapp.domain;
 
+import android.widget.ImageView;
+
 import java.io.Serializable;
 
 public class Report implements Serializable {
@@ -13,6 +15,7 @@ public class Report implements Serializable {
     private String agencyResponsible;
     private String serviceName;
     private String mediaUrl;
+    private ImageView itemImageView;
     private double latitude;
     private double longitude;
 
@@ -56,6 +59,10 @@ public class Report implements Serializable {
 
     public void setMediaUrl(String mediaUrl) {
         this.mediaUrl = mediaUrl;
+    }
+    
+    public void setitemImageView(ImageView itemImageView) {
+        this.itemImageView = itemImageView;
     }
 
     public void setLatitude(double latitude) {
@@ -106,6 +113,10 @@ public class Report implements Serializable {
         return mediaUrl;
     }
 
+    public ImageView getItemImageView(){
+        return itemImageView;
+    }
+    
     public double getLatitude() {
         return latitude;
     }
