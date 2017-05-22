@@ -85,7 +85,7 @@ public class ReportAdapter extends ArrayAdapter<Report> {
 //		SimpleDateFormat reqDateFormat = new SimpleDateFormat("dd-MM-YYYY 'om' HH:mm");
 		
 		// Format example = 10-10-1010
-		SimpleDateFormat reqDateFormat = new SimpleDateFormat("dd-MM-YYYY");
+		SimpleDateFormat reqDateFormat = new SimpleDateFormat("dd-MM-yyyy");
 		
 		Date date = null;
 		try {
