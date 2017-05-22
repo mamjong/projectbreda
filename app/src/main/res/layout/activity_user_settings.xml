@@ -26,20 +26,23 @@
 
     <EditText
         android:id="@+id/UserSettingsActivity_et_currentEmail"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="5dp"
         android:ems="10"
         android:inputType="textEmailAddress"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:textAlignment="center"
+        app:layout_constraintHorizontal_bias="0.052"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/UserSettingsActivity_tv_currentEmailText"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintHorizontal_bias="0.052"/>
+        android:textCursorDrawable="@null"/>
 
     <Button
         android:id="@+id/UserSettingsActivity_bt_changeInfoBtn"
@@ -82,6 +85,14 @@
         app:layout_constraintLeft_toRightOf="@+id/UserSettingsActivity_et_currentEmail"
         app:layout_constraintRight_toRightOf="parent"
         tools:layout_editor_absoluteY="43dp"/>
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Switch"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="145dp"/>
 
 
 </android.support.constraint.ConstraintLayout>
