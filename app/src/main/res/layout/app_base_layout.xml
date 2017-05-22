@@ -10,6 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <FrameLayout
+            android:id="@+id/view_stub"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
+
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -46,13 +53,6 @@
             app:srcCompat="@drawable/ic_add_black_24dp"/>-->
 
     </android.support.design.widget.CoordinatorLayout>
-
-    <FrameLayout
-        android:id="@+id/view_stub"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </FrameLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation_view"
