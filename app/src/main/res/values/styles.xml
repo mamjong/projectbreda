@@ -12,6 +12,12 @@
         <item name="normalBackground">@color/colorPrimary</item>
         <item name="fabBackground">@color/colorPrimary</item>
         <item name="fabBackgroundPressed">@color/colorPrimaryDark</item>
+        <item name="menuBackground">@color/colorWhite</item>
+        <item name="menuTextColor">@color/colorBlack</item>
+
+        <item name="menuReports">@drawable/ic_view_list_black_24dp</item>
+        <item name="menuSettings">@drawable/ic_settings_black_24dp</item>
+        <item name="menuInfo">@drawable/ic_info_black_24dp</item>
         
     </style>
     
@@ -25,6 +31,12 @@
         <item name="normalBackground">@color/colorPrimaryNight</item>
         <item name="fabBackground">@color/colorPrimaryNight</item>
         <item name="fabBackgroundPressed">@color/colorPrimaryDarkNight</item>
+        <item name="menuBackground">@color/colorPrimaryNight</item>
+        <item name="menuTextColor">@color/colorWhite</item>
+        
+        <item name="menuReports">@drawable/ic_view_list_white_24dp</item>
+        <item name="menuSettings">@drawable/ic_settings_white_24dp</item>
+        <item name="menuInfo">@drawable/ic_info_white_24dp</item>
     </style>
 
     <!--<style name="AppTheme.NoActionBar">

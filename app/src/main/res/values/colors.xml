@@ -26,4 +26,5 @@
     <color name="muted_green">#ff004000</color>
     <color name="text_violet">#ff8888ff</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="colorBlack">#000000</color>
 </resources>
