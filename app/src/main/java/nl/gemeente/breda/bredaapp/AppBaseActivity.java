@@ -3,12 +3,14 @@ package nl.gemeente.breda.bredaapp;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +25,12 @@ import com.flask.floatingactionmenu.FloatingActionMenu;
 import com.flask.floatingactionmenu.FloatingActionToggleButton;
 import com.flask.floatingactionmenu.OnFloatingActionMenuSelectedListener;
 
+import java.util.Random;
+
+import nl.gemeente.breda.bredaapp.eastereggs.TestEasterEgg;
+import nl.gemeente.breda.bredaapp.eastereggs.snake.Snake;
+import nl.gemeente.breda.bredaapp.eastereggs.spaceinvaders.MainActivity;
+
 public abstract class AppBaseActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
 	
 	private FrameLayout view_stub;
@@ -33,6 +41,9 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 	private Menu menu;
 	
 	private ImageView shareButton;
+	private ImageView logo;
+	
+	private int i;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +70,43 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 			menu.getItem(i).setOnMenuItemClickListener(this);
 		}
 		
-		
+		View headerLayout = navigationView.getHeaderView(0);
+		logo = (ImageView) headerLayout.findViewById(R.id.navigation_header_logo);
+		i = 1;
+		logo.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(i < 5){
+					i++;
+				}
+				else if(i == 5){
+					Random r = new Random();
+					int rand = r.nextInt(2) + 1;
+					Log.i("RANDOM", "" + rand);
+					
+					switch (rand) {
+						case 1:
+							Intent spaceinvaders = new Intent(getApplicationContext(), MainActivity.class);
+							startActivity(spaceinvaders);
+							i = 1;
+							break;
+						
+						case 2:
+							Intent snake = new Intent(getApplicationContext(), Snake.class);
+							startActivity(snake);
+							i = 1;
+							break;
+						
+						default:
+							Intent easteregg = new Intent(getApplicationContext(), TestEasterEgg.class);
+							startActivity(easteregg);
+							i = 1;
+							break;
+					}
+				}
+				
+			}
+		});
 		
 		shareButton = (ImageView) findViewById(R.id.toolbar_share);
 		shareButton.setOnClickListener(new View.OnClickListener() {
@@ -135,11 +182,13 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 				//onMenuClick(Test3Activity.class, R.id.nav_my_reports, true);
 				break;
 			
-			case R.id.nav_account:
 			case R.id.nav_settings:
-			case R.id.nav_info:
 				Toast toast = Toast.makeText(getApplicationContext(), "Function not implemented.", Toast.LENGTH_LONG);
 				toast.show();
+				break;
+			
+			case R.id.nav_info:
+				onMenuClick(InfoActivity.class, R.id.nav_info, false);
 				break;
 		}
 		
@@ -173,5 +222,13 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 			int itemID = items.getInt("menuID");
 			navigationView.setCheckedItem(itemID);
 		}
+	}
+	
+	public void setToolbarTitle(String title) {
+		toolbarSimple.setTitle(title);
+	}
+	
+	public void setToolbarTitle(@StringRes int title) {
+		toolbarSimple.setTitle(title);
 	}
 }

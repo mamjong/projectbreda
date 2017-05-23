@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.google.android.gms.maps.GoogleMap;
+
 import nl.gemeente.breda.bredaapp.R;
 import nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment;
 import nl.gemeente.breda.bredaapp.fragment.MainScreenMapFragment;
@@ -72,5 +74,12 @@ public class MainScreenSectionsPagerAdapter extends FragmentPagerAdapter {
 		if (tab1 != null) {
 			tab1.removeMarkers();
 		}
+	}
+	
+	public GoogleMap getMap() {
+		if (tab1 != null) {
+			return tab1.getMap();
+		}
+		return null;
 	}
 }

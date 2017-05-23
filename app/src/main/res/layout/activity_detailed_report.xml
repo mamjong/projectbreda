@@ -36,6 +36,7 @@
 
     </RelativeLayout>
 
+
     <TextView
         android:id="@+id/DetailedReportActivity_tv_reportText"
         android:layout_width="wrap_content"
@@ -50,7 +51,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.029"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="56dp"/>
+        android:layout_marginTop="0dp"/>
 
     <TextView
         android:id="@+id/DetailedReportActivity_tv_reportCounter"
