@@ -46,6 +46,8 @@
     <string name="appCloseMessage">Are you sure you want to exit InfraMeld?</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
-    <string name="UserSettingsActivity_tv_currentEmailText">Your email address:</string>
-    <string name="UserSettingsActivity_bt_changeInfoBtn">Update info</string>
+    <string name="UserSettingsActivity_tv_currentEmailText">Email Address:</string>
+    <string name="UserSettingsActivity_tv_AppSettings">App Settings</string>
+    <string name="UserSettingsActivity_tv_AccSettings">Account Settings</string>
+    <string name="UserSettingsActivity_sw_ChangeSettings">Change Settings</string>
 </resources>

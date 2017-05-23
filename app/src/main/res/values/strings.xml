@@ -100,8 +100,10 @@
     <string name="mode_ready">Snake\nPress Up To Play</string>
     <string name="mode_pause">Paused\nPress Up To Resume</string>
     <string name="mode_lose">Game Over\nScore: %1$d \nPress Up To Play</string>
-    <string name="UserSettingsActivity_tv_currentEmailText">Uw e-mailadres is:</string>
-    <string name="UserSettingsActivity_bt_changeInfoBtn">Gegevens wijzigen</string>
-    <string name="UserSettingsActivity_bt_changeInfoApplyBtn">Gegevens opslaan</string>
+    <string name="UserSettingsActivity_tv_currentEmailText">E-mailadres:</string>
+    <string name="UserSettingsActivity_tv_AppSettings">App Instellingen</string>
+    <string name="UserSettingsActivity_tv_AccSettings">Account Instellingen</string>
+    <string name="UserSettingsActivity_sw_ChangeSettings">Instellingen Bewerken</string>
+
 
 </resources>
