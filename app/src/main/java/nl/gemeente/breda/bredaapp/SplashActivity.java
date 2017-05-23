@@ -40,7 +40,6 @@ import nl.gemeente.breda.bredaapp.fragment.MainScreenMapFragment;
 
 public class SplashActivity extends AppCompatActivity implements ApiServices.Listener{
 
-	private int i;
 	private CountDownTimer timer;
 	private ApiServices apiServices;
 	
@@ -51,7 +50,6 @@ public class SplashActivity extends AppCompatActivity implements ApiServices.Lis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //getSupportActionBar().hide();
         setContentView(R.layout.activity_splash);
 	    
 	    PackageInfo packageInfo = null;
@@ -89,42 +87,6 @@ public class SplashActivity extends AppCompatActivity implements ApiServices.Lis
 	    
         ProgressBar pb = (ProgressBar) findViewById(R.id.activitySplashScreen_pb_loader);
         pb.getIndeterminateDrawable().setColorFilter(Color.parseColor("#d91d49"), android.graphics.PorterDuff.Mode.SRC_ATOP);
-	
-	    i = 1;
-	    ImageView logo = (ImageView) findViewById(R.id.activitySplashScreen_iv_logo);
-	    logo.setOnClickListener(new View.OnClickListener() {
-		    @Override
-		    public void onClick(View v) {
-				if(i < 5){
-					i++;
-				}
-				else if(i == 5){
-					timer.cancel();
-
-					Random r = new Random();
-					int rand = r.nextInt(2) + 1;
-					Log.i("RANDOM", "" + rand);
-					
-					switch (rand) {
-						case 1:
-							Intent spaceinvaders = new Intent(getApplicationContext(), MainActivity.class);
-							startActivity(spaceinvaders);
-							break;
-						
-						case 2:
-							Intent snake = new Intent(getApplicationContext(), Snake.class);
-							startActivity(snake);
-							break;
-						
-						default:
-							Intent easteregg = new Intent(getApplicationContext(), TestEasterEgg.class);
-							startActivity(easteregg);
-							break;
-					}
-				}
-			    
-		    }
-	    });
 	    
         timer = new CountDownTimer(10000, 250) {
 
@@ -157,7 +119,6 @@ public class SplashActivity extends AppCompatActivity implements ApiServices.Lis
 	public void onResume(){
 	    super.onResume();
 	    timer.start();
-	    i = 1;
     }
 	
 	@Override
