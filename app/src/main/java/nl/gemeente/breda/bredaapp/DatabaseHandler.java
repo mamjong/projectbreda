@@ -133,11 +133,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
     
     public void updateUser(String newMailAccount) {
-	    String query = "UPDATE " + USERS_TABLE_NAME + " SET " + USERS_COLUMN_MAILACCOUNT + " = '" +
-			    newMailAccount + "'";
-	    
+        ContentValues values = new ContentValues();
+	    values.put(USERS_COLUMN_MAILACCOUNT, newMailAccount);
+        
 	    SQLiteDatabase db = this.getWritableDatabase();
-	    Cursor cursor = db.rawQuery(query, null);
+        db.update(USERS_TABLE_NAME, values, null, null);
 	    db.close();
     }
 }

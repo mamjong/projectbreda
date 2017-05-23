@@ -40,6 +40,9 @@ public class UserSettingsActivity extends AppCompatActivity{
 					currentEmail.setEnabled(true);
 				} else {
 					currentEmail.setEnabled(false);
+					dbh.updateUser(currentEmail.getText().toString());
+					user = dbh.getUser();
+					currentEmail.setText(user.getMailAccount());
 				}
 			}
 		});
