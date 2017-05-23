@@ -1,6 +1,7 @@
 package nl.gemeente.breda.bredaapp.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import java.util.Date;
 import nl.gemeente.breda.bredaapp.R;
 //import nl.gemeente.breda.bredaapp.api.ImageLoader;
 import nl.gemeente.breda.bredaapp.domain.Report;
+
+import static android.media.CamcorderProfile.get;
 
 
 public class ReportAdapter extends ArrayAdapter<Report> {
@@ -41,7 +44,7 @@ public class ReportAdapter extends ArrayAdapter<Report> {
 		// Select row items
 		ImageView mediaUrl = (ImageView) convertView.findViewById(R.id.fragmentListViewRow_IV_mediaUrl);
 		TextView description = (TextView) convertView.findViewById(R.id.fragmentListViewRow_TV_description);
-//		TextView status = (TextView) convertView.findViewById(R.id.fragmentListViewRow_TV_status);
+		TextView status = (TextView) convertView.findViewById(R.id.fragmentListViewRow_TV_status);
 		TextView category = (TextView) convertView.findViewById(R.id.fragmentListViewRow_TV_category);
 		
 		// Tijdelijk om timestamp te testen
@@ -56,9 +59,20 @@ public class ReportAdapter extends ArrayAdapter<Report> {
 //		description.setText("subCategoryDescription");
 		
 		// First letter uppercase
-//		String reportStatus = report.getStatus();
-//		String upperCaseStatus = reportStatus.substring(0,1).toUpperCase() + reportStatus.substring(1);
-//		status.setText(upperCaseStatus);
+		String reportStatus = report.getStatus();
+		
+		// Open = green, Closed = red
+		if(reportStatus.equals("open")){
+			String colorGreen = "#58D68D";
+			status.setTextColor(Color.parseColor(colorGreen));
+		} else if (reportStatus.equals("closed")) {
+			String colorRed = "#E74C3C";
+			status.setTextColor(Color.parseColor(colorRed));
+		}
+		
+		// First letter uppercase
+		String upperCaseStatus = reportStatus.substring(0,1).toUpperCase() + reportStatus.substring(1);
+		status.setText(upperCaseStatus);
 		
 		// When image is not available
 		if(report.getMediaUrl() == null) {
