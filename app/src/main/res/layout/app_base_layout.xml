@@ -53,6 +53,7 @@
         app:menu="@menu/menu_navigation"
         android:background="?attr/menuBackground"
         app:itemTextColor="?attr/menuTextColor"
+        app:itemIconTint="?attr/menuIcon"
         />
 
 </android.support.v4.widget.DrawerLayout>

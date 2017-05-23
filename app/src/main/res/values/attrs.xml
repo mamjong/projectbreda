@@ -38,5 +38,6 @@
   <attr name="menuReports" format="reference" />
   <attr name="menuSettings" format="reference" />
   <attr name="menuInfo" format="reference" />
+  <attr name="menuIcon" format="color" />
 
 </resources>

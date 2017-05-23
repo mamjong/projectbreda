@@ -8,6 +8,7 @@
     <color name="colorDark">#1a1918</color>
     <color name="colorAccentDark">#EFEFEF</color>
     <color name="colorBackground">#ffffff</color>
+    <color name="colorMenuIcon">#000000</color>
     
     <!-- Night Theme -->
     <color name="colorPrimaryNight">#2b2b2b</color>
@@ -17,6 +18,7 @@
     <color name="colorDarkNight">#1a1918</color>
     <color name="colorAccentDarkNight">#EFEFEF</color>
     <color name="colorBackGroundNight">#000000</color>
+    <color name="colorMenuIconNight">#ffffff</color>
     
     <!-- Other colors -->
     <color name="image_overlay">#a4ffffff</color>
