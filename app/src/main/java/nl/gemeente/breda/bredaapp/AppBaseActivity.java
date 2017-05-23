@@ -3,6 +3,7 @@ package nl.gemeente.breda.bredaapp;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -222,5 +223,13 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 			int itemID = items.getInt("menuID");
 			navigationView.setCheckedItem(itemID);
 		}
+	}
+	
+	public void setToolbarTitle(String title) {
+		toolbarSimple.setTitle(title);
+	}
+	
+	public void setToolbarTitle(@StringRes int title) {
+		toolbarSimple.setTitle(title);
 	}
 }
