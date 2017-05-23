@@ -182,7 +182,6 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 				//onMenuClick(Test3Activity.class, R.id.nav_my_reports, true);
 				break;
 			
-			case R.id.nav_account:
 			case R.id.nav_settings:
 				Toast toast = Toast.makeText(getApplicationContext(), "Function not implemented.", Toast.LENGTH_LONG);
 				toast.show();

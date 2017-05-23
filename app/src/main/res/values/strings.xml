@@ -103,5 +103,9 @@
     <string name="no_wifi">Verbind met een WiFi netwerk voor een betere werking van deze app</string>
     <string name="info_textview">Deze app is gemaakt in opdracht van gemeente Breda en is ontwikkelt door: Thomas Lucas, Thimo Koolen, Giede van Gils, Mark Meijer, Quoc-Sy Luong, Cas de Pender, Mark de Jong en Thomas Mout.</string>
     <string name="info_title">Over deze app</string>
+    <string name="menu_view_reports">Bekijk alle meldingen</string>
+    <string name="menu_view_your_reports">Bekijk uw meldingen</string>
+    <string name="menu_settings">Instellingen</string>
+    <string name="menu_about">Over</string>
 
 </resources>

@@ -11,6 +11,6 @@ public class InfoActivity extends AppBaseActivity {
 		setContentView(R.layout.activity_info);
 		super.setMenuSelected(getIntent().getExtras());
 		
-		
+		super.setToolbarTitle(R.string.info_title);
 	}
 }
