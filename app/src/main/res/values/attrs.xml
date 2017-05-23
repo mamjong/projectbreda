@@ -26,5 +26,8 @@
     <attr name="colorSegmentThree" format="color" />
     <attr name="colorSegmentFour" format="color" />
   </declare-styleable>
+  
+  <attr name="lightBackground" format="color" />
+  <attr name="normalBackground" format="color" />
 
 </resources>
