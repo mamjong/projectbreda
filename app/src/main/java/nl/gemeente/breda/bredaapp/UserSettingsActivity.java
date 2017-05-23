@@ -24,7 +24,7 @@ public class UserSettingsActivity extends AppCompatActivity{
 	private Switch changeSettings;
 	private int reportRadius;
 	private TextView reportRadiusView;
-//	public static final String PREFS_NAME = "PrefsFile";
+	public static final String PREFS_NAME = "PrefsFile";
 	private SeekBar changeRadius;
 	
 	@Override
@@ -32,11 +32,7 @@ public class UserSettingsActivity extends AppCompatActivity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_settings);
 		
-//		reportRadius = 1000;
-//
-//		SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
-//		editor.putInt("ReportRadius", reportRadius);
-//		editor.commit();
+		reportRadius = 1000;
 		
 		final DatabaseHandler dbh = new DatabaseHandler(getApplicationContext(), null, null, 1);
 		currentEmail = (EditText) findViewById(R.id.UserSettingsActivity_et_currentEmail);
@@ -57,6 +53,10 @@ public class UserSettingsActivity extends AppCompatActivity{
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 				reportRadius = progress * 100 + 100;
 				reportRadiusView.setText(reportRadius + " meters");
+				
+				SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+				editor.putInt("ReportRadius", reportRadius);
+				editor.commit();
 			}
 			
 			@Override
