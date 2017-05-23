@@ -10,6 +10,8 @@
         <item name="drawerArrowStyle">@style/DrawerIcon</item>
         <item name="lightBackground">@color/colorPrimaryLight</item>
         <item name="normalBackground">@color/colorPrimary</item>
+        <item name="fabBackground">@color/colorPrimary</item>
+        <item name="fabBackgroundPressed">@color/colorPrimaryDark</item>
         
     </style>
     
@@ -21,6 +23,8 @@
         <item name="drawerArrowStyle">@style/DrawerIcon</item>
         <item name="lightBackground">@color/colorPrimaryLightNight</item>
         <item name="normalBackground">@color/colorPrimaryNight</item>
+        <item name="fabBackground">@color/colorPrimaryNight</item>
+        <item name="fabBackgroundPressed">@color/colorPrimaryDarkNight</item>
     </style>
 
     <!--<style name="AppTheme.NoActionBar">

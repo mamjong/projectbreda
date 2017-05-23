@@ -29,5 +29,7 @@
   
   <attr name="lightBackground" format="color" />
   <attr name="normalBackground" format="color" />
+  <attr name="fabBackground" format="color" />
+  <attr name="fabBackgroundPressed" format="color" />
 
 </resources>
