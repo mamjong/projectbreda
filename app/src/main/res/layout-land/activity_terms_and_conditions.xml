@@ -44,7 +44,8 @@
 
         <View
             android:layout_width="1dp"
-            android:layout_height="1dp" />
+            android:layout_height="1dp"
+            />
 
         <Button
             android:id="@+id/activityTermsAndConditions_bt_decline"
