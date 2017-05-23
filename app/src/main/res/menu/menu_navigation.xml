@@ -8,12 +8,12 @@
         <item
             android:id="@+id/nav_reports"
             android:icon="@drawable/ic_view_list_black_24dp"
-            android:title="View all reports" />
+            android:title="@string/menu_view_reports"/>
 
         <item
             android:id="@+id/nav_my_reports"
             android:icon="@drawable/ic_view_list_black_24dp"
-            android:title="View your reports" />
+            android:title="@string/menu_view_your_reports"/>
 
     </group>
 
@@ -22,17 +22,12 @@
         android:checkableBehavior="single">
 
         <item
-            android:id="@+id/nav_account"
-            android:icon="@drawable/ic_account_circle_black_24dp"
-            android:title="Account" />
-
-        <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_settings_black_24dp"
-            android:title="Settings" />
+            android:title="@string/menu_settings"/>
         <item
             android:id="@+id/nav_info"
             android:icon="@drawable/ic_info_black_24dp"
-            android:title="About" />
+            android:title="@string/menu_about"/>
     </group>
 </menu>
