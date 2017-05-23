@@ -7,7 +7,7 @@
               android:layout_height="match_parent">
 
     <ProgressBar
-        android:id="@+id/DetailedReportActivity_pb_imageProgressBar"
+        android:id="@+id/DetailedReportActivityFullscreenImage_pb_imageProgressBar"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:visibility="visible"
