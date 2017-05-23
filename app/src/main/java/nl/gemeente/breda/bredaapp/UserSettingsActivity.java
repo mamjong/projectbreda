@@ -19,6 +19,7 @@ public class UserSettingsActivity extends AppCompatActivity{
 	private User user;
 	private EditText currentEmail;
 	private Switch changeSettings;
+	private CharSequence currentEmailSequence;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,26 @@ public class UserSettingsActivity extends AppCompatActivity{
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if (isChecked == true) {
 					currentEmail.setEnabled(true);
+					currentEmail.addTextChangedListener(new TextWatcher() {
+						@Override
+						public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+							
+						}
+						
+						@Override
+						public void onTextChanged(CharSequence s, int start, int before, int count) {
+							if (Patterns.EMAIL_ADDRESS.matcher(s).matches()) {
+								changeSettings.setEnabled(true);
+							} else {
+								changeSettings.setEnabled(false);
+							}
+						}
+						
+						@Override
+						public void afterTextChanged(Editable s) {
+							
+						}
+					});
 				} else {
 					currentEmail.setEnabled(false);
 					dbh.updateUser(currentEmail.getText().toString());
