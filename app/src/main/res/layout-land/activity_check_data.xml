@@ -116,7 +116,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="157dp"
                 android:layout_marginBottom="48dp"
-                app:srcCompat="@color/colorPrimaryDark"/>
+                app:srcCompat="?attr/darkBackground"/>
 
         </LinearLayout>
 
@@ -126,7 +126,7 @@
         android:id="@+id/CheckDataActivity_bt_confirmReportButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="?attr/normalBackground"
         android:text="@string/CheckDataActivity_bt_confirmReportButton"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
