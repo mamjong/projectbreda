@@ -5,10 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 
 import nl.gemeente.breda.bredaapp.domain.Report;
+import nl.gemeente.breda.bredaapp.domain.User;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String TAG = "InfraDBHandler";
@@ -113,5 +115,29 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         db.close();
         return reports;
+    }
+    
+    public User getUser() {
+        String query = "SELECT " + USERS_COLUMN_MAILACCOUNT + " FROM " + USERS_TABLE_NAME;
+	    User user = new User();
+	    Log.i(TAG, "Query: " + query);
+	
+	    SQLiteDatabase db = this.getReadableDatabase();
+	    Cursor cursor = db.rawQuery(query, null);
+
+        cursor.moveToFirst();
+	    user.setMailAccount(cursor.getString(cursor.getColumnIndex(USERS_COLUMN_MAILACCOUNT)));
+
+	    db.close();
+	    return user;
+    }
+    
+    public void updateUser(String newMailAccount) {
+        ContentValues values = new ContentValues();
+	    values.put(USERS_COLUMN_MAILACCOUNT, newMailAccount);
+        
+	    SQLiteDatabase db = this.getWritableDatabase();
+        db.update(USERS_TABLE_NAME, values, null, null);
+	    db.close();
     }
 }
