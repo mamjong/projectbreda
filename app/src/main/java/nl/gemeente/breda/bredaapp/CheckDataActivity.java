@@ -19,7 +19,8 @@ import nl.gemeente.breda.bredaapp.domain.Report;
 
 import static nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment.EXTRA_REPORT;
 
-public class CheckDataActivity extends AppCompatActivity {
+public class CheckDataActivity extends AppBaseActivity {
+
 	
 	private Bitmap bitmap;
 	
@@ -27,6 +28,7 @@ public class CheckDataActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_check_data);
+		super.setMenuSelected(getIntent().getExtras());
 		
 		final Button confirmBtn = (Button) findViewById(R.id.CheckDataActivity_bt_confirmReportButton);
 		final ImageView itemImageView = (ImageView) findViewById(R.id.CheckDataActivity_iv_defectImage);

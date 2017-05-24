@@ -1,5 +1,6 @@
 package nl.gemeente.breda.bredaapp.fragment;
 
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +15,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
@@ -61,6 +63,17 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 	@Override
 	public void onMapReady(GoogleMap googleMap) {
 		map = googleMap;
+		int themeID = R.style.AppTheme;
+		try {
+			themeID = getContext().getPackageManager().getPackageInfo(getContext().getPackageName(), 0).applicationInfo.theme;
+		} catch (PackageManager.NameNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		if (themeID == R.style.AppThemeNight) {
+			MapStyleOptions style = MapStyleOptions.loadRawResourceStyle(getContext(), R.raw.map_night);
+			map.setMapStyle(style);
+		}
 		
 		LatLngBounds helsinki = new LatLngBounds(new LatLng(60.08, 24.76), new LatLng(60.26, 25.08));
 		map.setLatLngBoundsForCameraTarget(helsinki);
@@ -101,5 +114,9 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 		if(map != null) {
 			map.clear();
 		}
+	}
+	
+	public GoogleMap getMap() {
+		return map;
 	}
 }

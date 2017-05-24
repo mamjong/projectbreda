@@ -12,14 +12,21 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.flask.floatingactionmenu.FloatingActionButton;
+import com.flask.floatingactionmenu.FloatingActionMenu;
+import com.flask.floatingactionmenu.FloatingActionToggleButton;
+import com.flask.floatingactionmenu.OnFloatingActionMenuSelectedListener;
 
 import nl.gemeente.breda.bredaapp.adapter.MainScreenSectionsPagerAdapter;
 import nl.gemeente.breda.bredaapp.adapter.ServiceAdapter;
@@ -34,7 +41,7 @@ import nl.gemeente.breda.bredaapp.util.AlertCreator;
 
 import static nl.gemeente.breda.bredaapp.UserSettingsActivity.PREFS_NAME;
 
-public class MainScreenActivity extends AppCompatActivity implements ApiHomeScreen.Listener, ApiServices.Listener, ApiHomeScreen.NumberOfReports, AdapterView.OnItemSelectedListener, LocationApi.LocationListener {
+public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen.Listener, ApiHomeScreen.NumberOfReports, AdapterView.OnItemSelectedListener, LocationApi.LocationListener {
 	
 	//================================================================================
 	// Properties
@@ -43,7 +50,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 	private MainScreenSectionsPagerAdapter sectionsPagerAdapter;
 	private ViewPager viewPager;
 	private ReportManager reportManager;
-	private Button newReportActivityBtn;
+	//private Button newReportActivityBtn;
 	private ServiceAdapter spinnerAdapter;
 	private Spinner homescreenDropdown;
 	private int numberOfReports;
@@ -54,8 +61,11 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 	private Context context;
 	private String serviceCode;
 	protected int reportRadius;
+	private TabLayout tabs;
 	
 	private int backPressAmount = 0;
+	
+	private FloatingActionMenu floatingActionMenu;
 
 	//================================================================================
 	// Accessors
@@ -65,11 +75,14 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_screen);
+		Bundle bundle = new Bundle();
+		bundle.putInt("menuID", R.id.nav_reports);
+		super.setMenuSelected(bundle);
 
-		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-		setSupportActionBar(toolbar);
+//		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//		setSupportActionBar(toolbar);
 		sectionsPagerAdapter = new MainScreenSectionsPagerAdapter(getSupportFragmentManager(), getApplicationContext());
-
+		
 		latitude = 0;
 		longtitude = 0;
 		serviceCode = "0";
@@ -80,20 +93,19 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 		tabLayout.setupWithViewPager(viewPager);
 
-		newReportActivityBtn = (Button) findViewById(R.id.mainScreenActivity_Btn_MakeReport);
+		//newReportActivityBtn = (Button) findViewById(R.id.mainScreenActivity_Btn_MakeReport);
 
-		newReportActivityBtn.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent i = new Intent(getApplicationContext(), CreateNewReportActivity.class);
-				startActivity(i);
-			}
-		});
+//		newReportActivityBtn.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				Intent i = new Intent(getApplicationContext(), CreateNewReportActivity.class);
+//				startActivity(i);
+//			}
+//		});
 		
 		context = getApplicationContext();
 		
 		getReports("0", 60.1892477, 24.9707467, 10000);
-		getServices();
 		getLocation();
 
 		numberOfReports = -1;
@@ -105,7 +117,6 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		
 		homescreenDropdown = (Spinner) findViewById(R.id.homescreen_dropdown);
 
-		homescreenDropdown.setVisibility(View.INVISIBLE);
 		spinnerAdapter = new ServiceAdapter(getApplicationContext(), ServiceManager.getServices(), R.layout.spinner_layout_adapter);
 		homescreenDropdown.setAdapter(spinnerAdapter);
 		homescreenDropdown.setOnItemSelectedListener(this);
@@ -113,6 +124,23 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		
 		SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 		reportRadius = preferences.getInt("ReportRadius", 500);
+
+		spinnerAdapter.notifyDataSetChanged();
+		
+		floatingActionMenu = (FloatingActionMenu) findViewById(R.id.fam);
+		floatingActionMenu.setOnFloatingActionMenuSelectedListener(new OnFloatingActionMenuSelectedListener() {
+			@Override
+			public void onFloatingActionMenuSelected(FloatingActionButton floatingActionButton) {
+				if (floatingActionButton instanceof FloatingActionToggleButton) {
+					FloatingActionToggleButton fatb = (FloatingActionToggleButton) floatingActionButton;
+				} else if (floatingActionButton instanceof FloatingActionButton) {
+					FloatingActionButton fab = (FloatingActionButton) floatingActionButton;
+					String label = fab.getLabelText();
+					Toast.makeText(getApplicationContext(), label, Toast.LENGTH_SHORT).show();
+					MainScreenActivity.super.onMenuClick(CreateNewReportActivity.class, -1, false);
+				}
+			}
+		});
 	}
 
 	public void getReports(String serviceCode, double latitude, double longtitude, int radius) {
@@ -120,13 +148,6 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		ApiHomeScreen apiHomeScreen = new ApiHomeScreen(this, this);
 		String[] urls = new String[] {"https://asiointi.hel.fi/palautews/rest/v1/requests.json?status=open&service_code=" + serviceCode + "&lat=" + latitude + "&long=" + longtitude + "&radius=" + radius};
 		apiHomeScreen.execute(urls);
-	}
-
-	public void getServices() {
-		ServiceManager.emptyArray();
-		ApiServices apiServices = new ApiServices(this);
-		String[] urls = new String[] {"https://asiointi.hel.fi/palautews/rest/v1/services.json"};
-		apiServices.execute(urls);
 	}
 	
 	public void getLocation(){
@@ -140,15 +161,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		//Log.i("Report", report.getDescription());
 		ReportManager.addReport(report);
 	}
-
-	@Override
-	public void onServiceAvailable(Service service) {
-		//Log.i("Service", service.getServiceName());
-		homescreenDropdown.setVisibility(View.VISIBLE);
-		ServiceManager.addService(service);
-		spinnerAdapter.notifyDataSetChanged();
-	}
-
+	
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 		ReportManager.emptyArray();
@@ -165,6 +178,9 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 		
 		loading.setText(R.string.spinner_loading);
 		overlay.setVisibility(View.VISIBLE);
+		if (sectionsPagerAdapter.getMap() != null) {
+			sectionsPagerAdapter.getMap().getUiSettings().setScrollGesturesEnabled(false);
+		}
 	}
 
 	@Override
@@ -176,10 +192,16 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 	public void onNumberOfReportsAvailable(int number) {
 		this.numberOfReports = number;
 		if(number > 0){
+			if (sectionsPagerAdapter.getMap() != null) {
+				sectionsPagerAdapter.getMap().getUiSettings().setScrollGesturesEnabled(true);
+			}
 			loading.setText("");
 			overlay.setVisibility(View.INVISIBLE);
 		}
 		else if(number == 0){
+			if (sectionsPagerAdapter.getMap() != null) {
+				sectionsPagerAdapter.getMap().getUiSettings().setScrollGesturesEnabled(false);
+			}
 			loading.setText(R.string.no_reports_found);
 			overlay.setVisibility(View.VISIBLE);
 		}
@@ -225,7 +247,7 @@ public class MainScreenActivity extends AppCompatActivity implements ApiHomeScre
 	
 	@Override
 	public void onLocationAvailable(double latitude, double longtitude) {
-		//Log.i("LOCATION", latitude + ":" + longtitude);
+		Log.i("LOCATION", latitude + ":" + longtitude);
 		this.latitude = latitude;
 		this.longtitude = longtitude;
 		getReports(serviceCode, latitude, longtitude, reportRadius);

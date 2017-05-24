@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/menu_top"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_reports"
+            android:icon="?attr/menuReports"
+            android:title="@string/menu_view_reports"/>
+
+        <item
+            android:id="@+id/nav_my_reports"
+            android:icon="?attr/menuReports"
+            android:title="@string/menu_view_your_reports"/>
+
+    </group>
+
+    <group
+        android:id="@+id/menu_bottom"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="?attr/menuSettings"
+            android:title="@string/menu_settings"/>
+        <item
+            android:id="@+id/nav_info"
+            android:icon="?attr/menuInfo"
+            android:title="@string/menu_about"/>
+    </group>
+</menu>
