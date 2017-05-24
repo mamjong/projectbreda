@@ -27,6 +27,7 @@
     <attr name="colorSegmentFour" format="color" />
   </declare-styleable>
   
+  <!-- Background colors -->
   <attr name="lightBackground" format="color" />
   <attr name="normalBackground" format="color" />
   <attr name="fabBackground" format="color" />
@@ -34,7 +35,10 @@
   <attr name="menuBackground" format="color" />
   <attr name="menuTextColor" format="color" />
   
-  <!--Menu drawables -->
+  <!-- Text colors -->
+  <attr name="mainText" format="color" />
+  
+  <!-- Menu drawables -->
   <attr name="menuReports" format="reference" />
   <attr name="menuSettings" format="reference" />
   <attr name="menuInfo" format="reference" />
