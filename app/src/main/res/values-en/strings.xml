@@ -50,6 +50,8 @@
     <string name="UserSettingsActivity_tv_AppSettings">App Settings</string>
     <string name="UserSettingsActivity_tv_AccSettings">Account Settings</string>
     <string name="UserSettingsActivity_sw_ChangeSettings">Change Settings</string>
+    <string name="UserSettingsActivity_tv_ChangeLanguage">Choose language</string>
+
     <string name="no_wifi">Verbind met een WiFi netwerk voor een betere werking van deze app</string>
     <string name="info_title">About this app</string>
     <string name="info_textview" translatable="false">This app was created on behalf of the municipality of Breda and was developed by: Thomas Lucas, Thimo Koolen, Giede van Gils, Mark Meijer, Quoc-Sy Luong, Cas de Pender, Mark de Jong and Thomas Mout.</string>
