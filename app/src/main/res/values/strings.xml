@@ -38,6 +38,11 @@
     <string name="no_location_permission_negative">Nee</string>
     <string name="activityEmail_no_submit">Vul een geldig e-mailadres in en accepteer de algemene voorwaarden om door te gaan.</string>
 
+    <string-array name="themeSpinner">
+        <item>Standaard Thema</item>
+        <item>Donker Thema</item>
+    </string-array>
+
     <string-array name="spinnerPlaceHolderData">
         <item>Groen</item>
         <item>Openbare verlichting</item>
