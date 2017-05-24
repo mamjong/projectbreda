@@ -18,6 +18,7 @@
         
         <item name="mainText">@color/colorPrimary</item>
 
+        <item name="menuHeader">@drawable/header_image</item>
         <item name="menuReports">@drawable/ic_view_list_black_24dp</item>
         <item name="menuSettings">@drawable/ic_settings_black_24dp</item>
         <item name="menuInfo">@drawable/ic_info_black_24dp</item>
@@ -40,7 +41,8 @@
         <item name="menuTextColor">@color/colorWhite</item>
 
         <item name="mainText">@color/colorPrimaryNight</item>
-        
+
+        <item name="menuHeader">@drawable/header_image_dark</item>
         <item name="menuReports">@drawable/ic_view_list_white_24dp</item>
         <item name="menuSettings">@drawable/ic_settings_white_24dp</item>
         <item name="menuInfo">@drawable/ic_info_white_24dp</item>

@@ -140,7 +140,7 @@ public class CreateNewReportActivity extends AppBaseActivity {
 				Log.i("Create report", "Next clicked");
 				continueToMap.setEnabled(false);
 				continueToMap.setText(getResources().getString(R.string.spinner_loading));
-				continueToMap.setBackgroundResource(R.color.colorPrimaryLight);
+				//continueToMap.setBackgroundResource(R.color.colorPrimaryLight);
 				
 				new Timer().schedule(new TimerTask() {
 					@Override
@@ -198,7 +198,7 @@ public class CreateNewReportActivity extends AppBaseActivity {
 		super.onResume();
 		continueToMap.setEnabled(true);
 		continueToMap.setText(getResources().getString(R.string.activityCreateNewReport_bt_continue));
-		continueToMap.setBackgroundResource(R.color.colorPrimary);
+		//continueToMap.setBackgroundResource(R.color.colorPrimary);
 	}
 	
 	private void noPicture() {
