@@ -22,7 +22,7 @@ public class UserSettingsActivity extends AppCompatActivity{
 	private User user;
 	private EditText currentEmail;
 	private Switch changeSettings;
-	private int reportRadius;
+	private int reportRadius, seekBarPos;
 	private TextView reportRadiusView;
 	public static final String PREFS_NAME = "PrefsFile";
 	private SeekBar changeRadius;
@@ -32,31 +32,30 @@ public class UserSettingsActivity extends AppCompatActivity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_settings);
 		
-		reportRadius = 1000;
+		SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+		reportRadius = preferences.getInt("ReportRadius", 500);
+		seekBarPos = preferences.getInt("SeekBarPos", 4);
 		
 		final DatabaseHandler dbh = new DatabaseHandler(getApplicationContext(), null, null, 1);
 		currentEmail = (EditText) findViewById(R.id.UserSettingsActivity_et_currentEmail);
 		changeSettings = (Switch) findViewById(R.id.UserSettingsActivity_sw_ChangeSettings);
 		changeRadius = (SeekBar) findViewById(R.id.UserSettingsActivity_sb_ChangeRadius);
 		reportRadiusView = (TextView) findViewById(R.id.UserSettingsActivity_tv_currentRadius);
-		reportRadiusView.setText("100 meters");
+		reportRadiusView.setText(reportRadius + " meters");
 		
 		currentEmail.setEnabled(false);
 		
 		user = dbh.getUser();
 		currentEmail.setText(user.getMailAccount());
 		
-		changeRadius.setProgress(0);
+		changeRadius.setProgress(seekBarPos);
 		changeRadius.setMax(19);
 		changeRadius.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 				reportRadius = progress * 100 + 100;
 				reportRadiusView.setText(reportRadius + " meters");
-				
-				SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
-				editor.putInt("ReportRadius", reportRadius);
-				editor.commit();
+				seekBarPos = progress;
 			}
 			
 			@Override
@@ -66,7 +65,10 @@ public class UserSettingsActivity extends AppCompatActivity{
 			
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
-				
+				SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+				editor.putInt("ReportRadius", reportRadius);
+				editor.putInt("SeekBarPos", seekBarPos);
+				editor.commit();
 			}
 		});
 		
