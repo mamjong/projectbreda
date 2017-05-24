@@ -30,6 +30,7 @@
   <!-- Background colors -->
   <attr name="lightBackground" format="color" />
   <attr name="normalBackground" format="color" />
+  <attr name="darkBackground" format="color" />
   <attr name="fabBackground" format="color" />
   <attr name="fabBackgroundPressed" format="color" />
   <attr name="menuBackground" format="color" />

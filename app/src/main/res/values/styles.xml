@@ -10,6 +10,7 @@
         <item name="drawerArrowStyle">@style/DrawerIcon</item>
         <item name="lightBackground">@color/colorPrimaryLight</item>
         <item name="normalBackground">@color/colorPrimary</item>
+        <item name="darkBackground">@color/colorPrimaryDark</item>
         <item name="fabBackground">@color/colorPrimary</item>
         <item name="fabBackgroundPressed">@color/colorPrimaryDark</item>
         <item name="menuBackground">@color/colorWhite</item>
@@ -32,6 +33,7 @@
         <item name="drawerArrowStyle">@style/DrawerIcon</item>
         <item name="lightBackground">@color/colorPrimaryLightNight</item>
         <item name="normalBackground">@color/colorPrimaryNight</item>
+        <item name="darkBackground">@color/colorPrimaryDarkNight</item>
         <item name="fabBackground">@color/colorPrimaryNight</item>
         <item name="fabBackgroundPressed">@color/colorPrimaryDarkNight</item>
         <item name="menuBackground">@color/colorPrimaryNight</item>
