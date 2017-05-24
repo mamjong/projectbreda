@@ -12,13 +12,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
-        android:background="@color/colorPrimary"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tabSelectedTextColor="@android:color/white"
-        app:tabTextColor="@android:color/white"/>
+        app:tabTextColor="@android:color/white"
+        app:tabBackground="?attr/normalBackground"/>
 
     <LinearLayout
         android:id="@+id/linear"
@@ -38,7 +38,8 @@
                 android:id="@+id/homescreen_dropdown"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"/>
+                android:background="?attr/normalBackground"
+                android:popupBackground="?attr/normalBackground"/>
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -120,8 +121,8 @@
                 android:id="@+id/fab_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:fab_colorNormal="@color/colorPrimary"
-                app:fab_colorPressed="@color/colorPrimaryDark"
+                app:fab_colorNormal="?attr/fabBackground"
+                app:fab_colorPressed="?attr/fabBackgroundPressed"
                 app:fab_labelStyle="@style/fab_labels_style"
                 app:fab_labelText="I'm at the current location"
                 app:fab_normal_icon="@drawable/ic_location_on_white_24dp"/>
@@ -130,8 +131,8 @@
                 android:id="@+id/fab_other"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:fab_colorNormal="@color/colorPrimary"
-                app:fab_colorPressed="@color/colorPrimaryDark"
+                app:fab_colorNormal="?attr/fabBackground"
+                app:fab_colorPressed="?attr/fabBackgroundPressed"
                 app:fab_labelStyle="@style/fab_labels_style"
                 app:fab_labelText="I'm somewhere else"
                 app:fab_normal_icon="@drawable/ic_home_white_24dp"/>
@@ -140,8 +141,8 @@
                 android:id="@+id/fab_toggle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:fab_colorNormal="@color/colorPrimary"
-                app:fab_colorPressed="@color/colorPrimaryDark"
+                app:fab_colorNormal="?attr/fabBackground"
+                app:fab_colorPressed="?attr/fabBackgroundPressed"
                 app:fab_labelStyle="@style/fab_labels_style"
                 app:fab_labelText="Create report"
                 app:fab_normal_icon="@drawable/ic_add_white_24dp"
