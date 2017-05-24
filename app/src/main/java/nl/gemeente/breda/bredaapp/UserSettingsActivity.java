@@ -6,8 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -17,9 +19,11 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import java.util.Arrays;
+
 import nl.gemeente.breda.bredaapp.domain.User;
 
-public class UserSettingsActivity extends AppCompatActivity{
+public class UserSettingsActivity extends AppBaseActivity {
 	
 	private User user;
 	private EditText currentEmail;
@@ -30,16 +34,19 @@ public class UserSettingsActivity extends AppCompatActivity{
 	public static final String PREFS_NAME = "PrefsFile";
 	private SeekBar changeRadius;
 	private String[] themeSpinnerEntries;
+	private String selectedTheme;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		super.setMenuSelected(getIntent().getExtras());
 		setContentView(R.layout.activity_user_settings);
 		
 		SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 		reportRadius = preferences.getInt("ReportRadius", 500);
 		seekBarPos = preferences.getInt("SeekBarPos", 4);
-		
+		selectedTheme = preferences.getString("theme", "standard");
+		Log.i("Settings loaded", selectedTheme);
 		
 		
 		final DatabaseHandler dbh = new DatabaseHandler(getApplicationContext(), null, null, 1);
@@ -52,8 +59,19 @@ public class UserSettingsActivity extends AppCompatActivity{
 		
 		this.themeSpinnerEntries = getResources().getStringArray(R.array.themeSpinner);
 		
+		int selectedThemeIndex = 0;
+		if (selectedTheme.equals("standard")) {
+			selectedThemeIndex = Arrays.asList(themeSpinnerEntries).indexOf("standard");
+			Log.i("Selected theme index", "standard: " + selectedThemeIndex);
+		} else if (selectedTheme.equals("dark")) {
+			selectedThemeIndex = Arrays.asList(themeSpinnerEntries).indexOf("dark");
+			Log.i("Selected theme index", "night: " +selectedThemeIndex);
+		}
+		
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_layout_custom_row, themeSpinnerEntries);
 		themeSpinner.setAdapter(adapter);
+		themeSpinner.setEnabled(false);
+		themeSpinner.setSelection(selectedThemeIndex);
 		
 		currentEmail.setEnabled(false);
 		
@@ -61,33 +79,39 @@ public class UserSettingsActivity extends AppCompatActivity{
 		currentEmail.setText(user.getMailAccount());
 		
 		changeRadius.setProgress(seekBarPos);
+		changeRadius.setEnabled(false);
 		changeRadius.setMax(19);
-		changeRadius.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+		
+		themeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
-			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-				reportRadius = progress * 100 + 100;
-				reportRadiusView.setText(reportRadius + " meters");
-				seekBarPos = progress;
-			}
-			
-			@Override
-			public void onStartTrackingTouch(SeekBar seekBar) {
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				String selected = parent.getItemAtPosition(position).toString();
 				
+				if (selected.equals(getResources().getString(R.string.themeStandard))) {
+					SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+					editor.putString("theme", "standard");
+					editor.commit();
+				} else if (selected.equals(getResources().getString(R.string.themeNight))) {
+					SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+					editor.putString("theme", "dark");
+					editor.commit();
+				}
 			}
 			
 			@Override
-			public void onStopTrackingTouch(SeekBar seekBar) {
-				SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
-				editor.putInt("ReportRadius", reportRadius);
-				editor.putInt("SeekBarPos", seekBarPos);
-				editor.commit();
+			public void onNothingSelected(AdapterView<?> parent) {
+				
 			}
 		});
 		
+		
 		changeSettings.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked == true) {
-					currentEmail.setEnabled(true);
+				currentEmail.setEnabled(isChecked);
+				changeRadius.setEnabled(isChecked);
+				themeSpinner.setEnabled(isChecked);
+				
+				if (isChecked) {
 					currentEmail.addTextChangedListener(new TextWatcher() {
 						@Override
 						public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -109,11 +133,36 @@ public class UserSettingsActivity extends AppCompatActivity{
 						}
 					});
 				} else {
-					currentEmail.setEnabled(false);
+					//User
 					dbh.updateUser(currentEmail.getText().toString());
 					user = dbh.getUser();
 					currentEmail.setText(user.getMailAccount());
+					
+					//Radius
+					SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+					editor.putInt("ReportRadius", reportRadius);
+					editor.putInt("SeekBarPos", seekBarPos);
+					editor.commit();
 				}
+			}
+		});
+		
+		changeRadius.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+				reportRadius = progress * 100 + 100;
+				reportRadiusView.setText(reportRadius + " meters");
+				seekBarPos = progress;
+			}
+			
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {
+				
+			}
+			
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				
 			}
 		});
 	}

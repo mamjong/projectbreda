@@ -15,7 +15,7 @@ import nl.gemeente.breda.bredaapp.domain.User;
 public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String TAG = "InfraDBHandler";
 
-    private static final int DB_VERSION = 5;
+    private static final int DB_VERSION = 6;
     private static final String DB_NAME = "inframeld.db";
 
     private static final String USERS_TABLE_NAME = "users";
@@ -25,6 +25,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String REPORTS_TABLE_NAME = "reports";
 
     private static final String REPORTS_COLUMN_ID = "_id";
+    
+    private static final String SETTINGS_TABLE_NAME = "settings";
+	
+	private static final String SETTINGS_COLUMN_TYPE = "_type";
+	
+	private static final String SETTINGS_COLUMN_VALUE = "value";
 
     public DatabaseHandler(Context context, String name,
                            SQLiteDatabase.CursorFactory factory, int version) {
@@ -42,15 +48,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 "(" +
                 REPORTS_COLUMN_ID + " INTEGER PRIMARY KEY" +
                 ")";
+	    
+	    String CREATE_SETTINGS_TABLE = "CREATE TABLE " + SETTINGS_TABLE_NAME +
+			    "(" +
+			    SETTINGS_COLUMN_TYPE + " TEXT PRIMARY KEY, " +
+			    SETTINGS_COLUMN_VALUE + " TEXT" + 
+			    ")";
 
         db.execSQL(CREATE_USERS_TABLE);
         db.execSQL(CREATE_REPORTS_TABLE);
+	    db.execSQL(CREATE_SETTINGS_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + USERS_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + REPORTS_TABLE_NAME);
+	    db.execSQL("DROP TABLE IF EXISTS " + SETTINGS_TABLE_NAME);
         onCreate(db);
     }
 
@@ -138,6 +152,30 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         
 	    SQLiteDatabase db = this.getWritableDatabase();
         db.update(USERS_TABLE_NAME, values, null, null);
+	    db.close();
+    }
+    
+    public String getSettingsValue(String key) {
+	    String query = "SELECT " + SETTINGS_COLUMN_VALUE + " FROM " + SETTINGS_TABLE_NAME
+			    + " WHERE " + SETTINGS_COLUMN_TYPE + "=\"" + key + "\";";
+	    
+	    SQLiteDatabase db = this.getReadableDatabase();
+	    Cursor cursor = db.rawQuery(query, null);
+	    
+	    cursor.moveToFirst();
+	    
+	    String result = cursor.getString(cursor.getColumnIndex(SETTINGS_COLUMN_VALUE));
+	    db.close();
+	    
+	    return result;
+    }
+    
+    public void updateSettingsValue(String key, String value) {
+	    ContentValues values = new ContentValues();
+	    values.put(key, value);
+	    
+	    SQLiteDatabase db = this.getWritableDatabase();
+	    db.update(SETTINGS_TABLE_NAME, values, SETTINGS_COLUMN_TYPE + "=" + key, null);
 	    db.close();
     }
 }
