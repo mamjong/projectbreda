@@ -69,7 +69,7 @@ public class ApiServices extends AsyncTask<String, Void, String> {
 			return;
 		}
 		
-		Log.i("RESPONSE", response);
+		//Log.i("RESPONSE", response);
 		
 		try {
 			JSONArray services = new JSONArray(response);

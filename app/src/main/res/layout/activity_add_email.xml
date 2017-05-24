@@ -16,21 +16,23 @@
         android:textAlignment="center"
         android:textSize="18sp"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="60dp"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintHorizontal_bias="0.506"/>
 
-    <Space
+    <View
         android:id="@+id/AddEmailActivity_sp_introEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/AddEmailActivity_tv_introText"
+        app:layout_constraintTop_toBottomOf="@+id/AddEmailActivity_tv_introText"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintRight_toLeftOf="parent"
-        tools:layout_editor_absoluteY="51dp"
-        tools:layout_editor_absoluteX="192dp" />
+        />
 
     <TextView
         android:id="@+id/AddEmailActivity_tv_emailaddress"
@@ -39,11 +41,13 @@
         android:text="@string/AddEmailActivity_tv_emailaddress"
         android:textSize="16sp"
         app:layout_constraintTop_toTopOf="@+id/AddEmailActivity_sp_introEmail"
-        android:layout_marginTop="135dp"
+        android:layout_marginTop="91dp"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"/>
 
     <EditText
         android:id="@+id/AddEmailActivity_et_emailInput"
@@ -60,25 +64,21 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/AddEmailActivity_tv_emailaddress"/>
 
-    <Space
+    <View
         android:id="@+id/AddEmailActivity_sp_emailInputTerms"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/AddEmailActivity_et_emailInput"
+        app:layout_constraintTop_toBottomOf="@+id/AddEmailActivity_et_emailInput"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintRight_toLeftOf="parent"/>
 
     <Button
         android:id="@+id/AddEmailActivity_tv_TermsText"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginStart="0dp"
         android:layout_marginTop="20dp"
-        android:background="@color/colorPrimary"
+        android:background="?attr/normalBackground"
         android:text="@string/AddEmailActivity_tv_TermsText"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/AddEmailActivity_bt_emailConfirmButton"
@@ -92,14 +92,13 @@
         android:id="@+id/AddEmailActivity_cb_termsAccepted"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="0dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
         android:text="@string/AddEmailActivity_cb_termsAccepted"
-        app:buttonTint="@color/colorPrimary"
+        android:buttonTint="?attr/normalBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -111,7 +110,7 @@
         android:id="@+id/AddEmailActivity_bt_emailConfirmButton"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:background="@color/colorPrimary"
+        android:background="?attr/normalBackground"
         android:text="@string/AddEmailActivity_bt_emailConfirmButton"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -120,7 +119,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        android:layout_marginBottom="0dp"
         />
 
 

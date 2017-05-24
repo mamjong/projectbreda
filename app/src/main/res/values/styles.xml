@@ -1,20 +1,70 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        
+        <item name="drawerArrowStyle">@style/DrawerIcon</item>
+        <item name="lightBackground">@color/colorPrimaryLight</item>
+        <item name="normalBackground">@color/colorPrimary</item>
+        <item name="darkBackground">@color/colorPrimaryDark</item>
+        <item name="fabBackground">@color/colorPrimary</item>
+        <item name="fabBackgroundPressed">@color/colorPrimaryDark</item>
+        <item name="menuBackground">@color/colorWhite</item>
+        <item name="menuTextColor">@color/colorBlack</item>
+        
+        <item name="mainText">@color/colorPrimary</item>
+
+        <item name="menuHeader">@drawable/header_image</item>
+        <item name="menuReports">@drawable/ic_view_list_black_24dp</item>
+        <item name="menuSettings">@drawable/ic_settings_black_24dp</item>
+        <item name="menuInfo">@drawable/ic_info_black_24dp</item>
+        <item name="menuIcon">@color/colorMenuIcon</item>
+        
+    </style>
+    
+    <style name="AppThemeNight" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimaryNight</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkNight</item>
+        <item name="colorAccent">@color/colorAccentNight</item>
+        
+        <item name="drawerArrowStyle">@style/DrawerIcon</item>
+        <item name="lightBackground">@color/colorPrimaryLightNight</item>
+        <item name="normalBackground">@color/colorPrimaryNight</item>
+        <item name="darkBackground">@color/colorPrimaryDarkNight</item>
+        <item name="fabBackground">@color/colorPrimaryNight</item>
+        <item name="fabBackgroundPressed">@color/colorPrimaryDarkNight</item>
+        <item name="menuBackground">@color/colorPrimaryNight</item>
+        <item name="menuTextColor">@color/colorWhite</item>
+
+        <item name="mainText">@color/colorPrimaryNight</item>
+
+        <item name="menuHeader">@drawable/header_image_dark</item>
+        <item name="menuReports">@drawable/ic_view_list_white_24dp</item>
+        <item name="menuSettings">@drawable/ic_settings_white_24dp</item>
+        <item name="menuInfo">@drawable/ic_info_white_24dp</item>
+        <item name="menuIcon">@color/colorMenuIconNight</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
+    <!--<style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-    </style>
+    </style>-->
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+    <style name="fab_labels_style">
+        <item name="android:background">@drawable/fab_label_background</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+    
+    <style name="DrawerIcon" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/colorWhite</item>
+    </style>
 
 </resources>

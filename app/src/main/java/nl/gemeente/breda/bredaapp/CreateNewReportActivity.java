@@ -3,16 +3,17 @@ package nl.gemeente.breda.bredaapp;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.TransactionTooLargeException;
-import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,15 +22,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import nl.gemeente.breda.bredaapp.adapter.ServiceAdapter;
 import nl.gemeente.breda.bredaapp.businesslogic.ServiceManager;
 import nl.gemeente.breda.bredaapp.util.AlertCreator;
 
 
-public class CreateNewReportActivity extends AppCompatActivity {
+public class CreateNewReportActivity extends AppBaseActivity {
 	
 	private static final int CAMERA_PIC_REQUEST = 1337;
 	private static final int GALLERY_PIC_REQUEST = 1338;
@@ -47,17 +51,20 @@ public class CreateNewReportActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_new_report);
 		
+		super.setMenuSelected(getIntent().getExtras());
+		
 		cameraButton = (Button) findViewById(R.id.activityCreateNewReport_bt_makePicture);
 		continueToMap = (Button) findViewById(R.id.activityCreateNewReport_bt_continue);
 		noPicture = (TextView) findViewById(R.id.activityCreateNewReport_tv_noPicture);
 		selectedPictureView = (ImageView) findViewById(R.id.activityCreateNewReport_iv_defectImage); 
 		serviceAdapter = new ServiceAdapter(getApplicationContext(), ServiceManager.getServices(), R.layout.spinner_layout_custom_row);
 		
+		continueToMap.setEnabled(false);
+		
 		noPicture.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				itemImage = BitmapFactory.decodeResource(getResources(), R.drawable.nopicturefound);
-				selectedPictureView.setImageBitmap(itemImage);
+				noPicture();
 			}
 		});
 		
@@ -125,30 +132,36 @@ public class CreateNewReportActivity extends AppCompatActivity {
 		continueToMap.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View v){
-				Log.i("Create report", "Next clicked");
-				ByteArrayOutputStream bs = new ByteArrayOutputStream();
-				
-				try {
-					// Write file
-					String filename = "bitmap.png";
-					FileOutputStream stream = CreateNewReportActivity.this.openFileOutput(filename, Context.MODE_PRIVATE);
-					itemImage.compress(Bitmap.CompressFormat.PNG, 100, bs);
-					
-					// Cleanup
-					stream.close();
-					
-					// Pop intent
-					Intent continueToMapIntent = new Intent(getApplicationContext(), CheckDataActivity.class);
-					continueToMapIntent.putExtra("SERVICE", chosenService);
-					continueToMapIntent.putExtra("IMAGE", bs.toByteArray());
-					
-					startActivity(continueToMapIntent);
-				} catch (RuntimeException e) {
-					Toast toastError = Toast.makeText(CreateNewReportActivity.this, getResources().getString(R.string.activityCreateNewReport_text_imageTooLarge), Toast.LENGTH_LONG);
-					toastError.show();
-				} catch (Exception e) {
-					e.printStackTrace();
+				if (itemImage == null) {
+					Toast toast = Toast.makeText(CreateNewReportActivity.this, getResources().getString(R.string.activityCreateNewReport_text_noImageSelected), Toast.LENGTH_LONG);
+					toast.show();
+					return;
 				}
+				Log.i("Create report", "Next clicked");
+				continueToMap.setEnabled(false);
+				continueToMap.setText(getResources().getString(R.string.spinner_loading));
+				//continueToMap.setBackgroundResource(R.color.colorPrimaryLight);
+				
+				new Timer().schedule(new TimerTask() {
+					@Override
+					public void run() {
+						try {
+							String filename = "inframeld.jpeg";
+							
+							saveImage(CreateNewReportActivity.this, itemImage, filename);
+							
+							Intent continueToMapIntent = new Intent(getApplicationContext(), CheckDataActivity.class);
+							continueToMapIntent.putExtra("SERVICE", chosenService);
+							
+							startActivity(continueToMapIntent);
+						} catch (RuntimeException e) {
+							Toast toastError = Toast.makeText(CreateNewReportActivity.this, getResources().getString(R.string.activityCreateNewReport_text_imageTooLarge), Toast.LENGTH_LONG);
+							toastError.show();
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				}, 1);
 			}
 		});
 		
@@ -180,6 +193,20 @@ public class CreateNewReportActivity extends AppCompatActivity {
 		});
 	}
 	
+	@Override
+	public void onResume() {
+		super.onResume();
+		continueToMap.setEnabled(true);
+		continueToMap.setText(getResources().getString(R.string.activityCreateNewReport_bt_continue));
+		//continueToMap.setBackgroundResource(R.color.colorPrimary);
+	}
+	
+	private void noPicture() {
+		itemImage = BitmapFactory.decodeResource(getResources(), R.drawable.nopicturefound);
+		selectedPictureView.setImageBitmap(itemImage);
+		continueToMap.setEnabled(true);
+	}
+	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK) {
 			switch (requestCode) {
@@ -187,6 +214,7 @@ public class CreateNewReportActivity extends AppCompatActivity {
 					Bitmap defectImage = (Bitmap) data.getExtras().get("data");
 					this.itemImage = defectImage;
 					selectedPictureView.setImageBitmap(defectImage);
+					continueToMap.setEnabled(true);
 					break;
 				
 				case GALLERY_PIC_REQUEST:
@@ -195,11 +223,26 @@ public class CreateNewReportActivity extends AppCompatActivity {
 						Bitmap picture = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
 						this.itemImage = picture;
 						selectedPictureView.setImageBitmap(picture);
+						continueToMap.setEnabled(true);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 					break;
 			}
+		}
+	}
+	
+	private void saveImage(Context context, Bitmap bitmap, String name) {
+		FileOutputStream fos;
+		
+		try {
+			fos = context.openFileOutput(name, Context.MODE_PRIVATE);
+			bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+			fos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }

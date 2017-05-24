@@ -1,10 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Main theme -->
     <color name="colorPrimary">#d91d49</color>
     <color name="colorPrimaryDark">#af1338</color>
     <color name="colorPrimaryLight">#d33258</color>
     <color name="colorAccent">#ffffff</color>
     <color name="colorDark">#1a1918</color>
     <color name="colorAccentDark">#EFEFEF</color>
+    <color name="colorBackground">#ffffff</color>
+    <color name="colorMenuIcon">#000000</color>
+    
+    <!-- Night Theme -->
+    <color name="colorPrimaryNight">#2b2b2b</color>
+    <color name="colorPrimaryDarkNight">#171717</color>
+    <color name="colorPrimaryLightNight">#464646</color>
+    <color name="colorAccentNight">#ffffff</color>
+    <color name="colorDarkNight">#1a1918</color>
+    <color name="colorAccentDarkNight">#EFEFEF</color>
+    <color name="colorBackGroundNight">#000000</color>
+    <color name="colorMenuIconNight">#ffffff</color>
+    
+    <!-- Other colors -->
     <color name="image_overlay">#a4ffffff</color>
+    <color name="muted_red">#ff400010</color>
+    <color name="muted_yellow">#ff404000</color>
+    <color name="muted_blue">#ff100050</color>
+    <color name="muted_green">#ff004000</color>
+    <color name="text_violet">#ff8888ff</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorBlack">#000000</color>
 </resources>
