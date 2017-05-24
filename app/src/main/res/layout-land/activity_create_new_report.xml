@@ -25,9 +25,7 @@
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="60dp"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="0dp">
+                android:layout_marginTop="10dp">
 
                 <Spinner
                     android:id="@+id/activityCreateNewReport_spr_categories"

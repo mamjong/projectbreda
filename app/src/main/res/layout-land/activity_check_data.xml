@@ -17,10 +17,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="60dp"/>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -35,6 +31,7 @@
                     android:layout_weight="1"
                     android:paddingBottom="8dp"
                     android:paddingTop="8dp"
+                    android:layout_marginStart="8dp"
                     android:src="@color/colorAccentDark"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"

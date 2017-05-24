@@ -1,6 +1,13 @@
 package nl.gemeente.breda.bredaapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.media.MediaRouteProvider;
@@ -15,6 +22,11 @@ import nl.gemeente.breda.bredaapp.api.ImageLoader;
 import nl.gemeente.breda.bredaapp.domain.Report;
 import static nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment.EXTRA_REPORT;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import android.os.Bundle;
@@ -35,13 +47,14 @@ public class DetailedReportActivity extends AppBaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detailed_report);
 		super.setMenuSelected(getIntent().getExtras());
-
-		progressBar = (ProgressBar)findViewById(R.id.DetailedReportActivity_pb_imageProgressBar);
+		
 		description = (TextView) findViewById(R.id.DetailedReportActivity_tv_kindOfDefectInput);
 		mediaUrl = (ImageView) findViewById(R.id.DetailedReportActivity_iv_image);
 		extraReport = (Button) findViewById(R.id.DetailedReportActivity_bt_extraReportBtn);
 		category = (TextView) findViewById(R.id.DetailedReportActivity_tv_categoryInput);
 		test = (Button) findViewById((R.id.test));
+		progressBar = (ProgressBar)findViewById(R.id.DetailedReportActivity_pb_imageProgressBar);
+		
 		Bundle extras = getIntent().getExtras();
 		String getMediaUrl = extras.getString("MediaUrl");
 		
@@ -49,28 +62,44 @@ public class DetailedReportActivity extends AppBaseActivity {
 		
 		category.setText(r.getServiceName());
 
-        mediaUrl.setVisibility(View.INVISIBLE);
-        progressBar.setVisibility(View.VISIBLE);
-
 		description.setText(r.getDescription());
-		if(r.getMediaUrl() == null){
-			Picasso.with(getApplicationContext()).load(R.drawable.nopicturefound).into(mediaUrl);
-		}
-		else {
-			Picasso.with(getApplicationContext()).load(getMediaUrl).into(mediaUrl, new Callback(){
-                @Override
-				public void onSuccess(){
-					progressBar.setVisibility(View.GONE);
-                    mediaUrl.setVisibility(View.VISIBLE);
-				}
-
-                @Override
-                public void onError() {
-                    Picasso.with(getApplicationContext()).load(R.drawable.nopicturefound).into(mediaUrl);
-                    progressBar.setVisibility(View.GONE);
-                }
-            });
-		}
+		
+		progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#d91d49"), PorterDuff.Mode.SRC_ATOP);
+		
+		Glide.with(this)
+				.load(getMediaUrl)
+				.listener(new RequestListener<Drawable>() {
+					@Override
+					public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+						progressBar.setVisibility(View.GONE);
+						return false;
+					}
+					
+					@Override
+					public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+						progressBar.setVisibility(View.GONE);
+						return false;
+					}
+				})
+				.into(mediaUrl);
+		
+//		if(r.getMediaUrl() == null){
+//			Picasso.with(getApplicationContext()).load(R.drawable.nopicturefound).into(mediaUrl);
+//		} else {
+//			Picasso.with(getApplicationContext()).load(getMediaUrl).into(mediaUrl, new Callback(){
+//                @Override
+//				public void onSuccess(){
+//					progressBar.setVisibility(View.GONE);
+//                    mediaUrl.setVisibility(View.VISIBLE);
+//				}
+//
+//                @Override
+//                public void onError() {
+//                    Picasso.with(getApplicationContext()).load(R.drawable.nopicturefound).into(mediaUrl);
+//                    progressBar.setVisibility(View.GONE);
+//                }
+//            });
+//		}
 //		new ImageLoader(mediaUrl).execute(r.getMediaUrl());
 		
 		mediaUrl.setOnClickListener(new View.OnClickListener() {
