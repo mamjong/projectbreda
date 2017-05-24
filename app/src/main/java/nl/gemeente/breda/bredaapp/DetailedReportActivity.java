@@ -39,7 +39,6 @@ public class DetailedReportActivity extends AppBaseActivity {
 	private ImageView mediaUrl;
 	private Button extraReport;
 	private boolean isPressed;
-	private Button test;
     private ProgressBar progressBar;
 	
 	@Override
@@ -52,7 +51,6 @@ public class DetailedReportActivity extends AppBaseActivity {
 		mediaUrl = (ImageView) findViewById(R.id.DetailedReportActivity_iv_image);
 		extraReport = (Button) findViewById(R.id.DetailedReportActivity_bt_extraReportBtn);
 		category = (TextView) findViewById(R.id.DetailedReportActivity_tv_categoryInput);
-		test = (Button) findViewById((R.id.test));
 		progressBar = (ProgressBar)findViewById(R.id.DetailedReportActivity_pb_imageProgressBar);
 		
 		Bundle extras = getIntent().getExtras();
@@ -117,15 +115,6 @@ public class DetailedReportActivity extends AppBaseActivity {
 		}
 		
 		});
-		
-		test.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent testIntent = new Intent(getApplicationContext(), UserSettingsActivity.class);
-				startActivity(testIntent);
-			}
-		});
-		
 		
 		extraReport.setOnClickListener(new View.OnClickListener(){
 			
