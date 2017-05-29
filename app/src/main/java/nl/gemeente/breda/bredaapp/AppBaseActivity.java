@@ -183,9 +183,9 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 				break;
 			
 			case R.id.nav_settings:
-				Toast toast = Toast.makeText(getApplicationContext(), "Function not implemented.", Toast.LENGTH_LONG);
-				toast.show();
+				onMenuClick(UserSettingsActivity.class, R.id.nav_settings, false);
 				break;
+
 			
 			case R.id.nav_info:
 				onMenuClick(InfoActivity.class, R.id.nav_info, false);

@@ -37,6 +37,14 @@
     <string name="no_location_permission_positive">Ja</string>
     <string name="no_location_permission_negative">Nee</string>
     <string name="activityEmail_no_submit">Vul een geldig e-mailadres in en accepteer de algemene voorwaarden om door te gaan.</string>
+    
+    <string name="themeStandard">Standaard thema</string>
+    <string name="themeNight">Donker thema</string>
+
+    <string-array name="themeSpinner">
+        <item>@string/themeStandard</item>
+        <item>@string/themeNight</item>
+    </string-array>
 
     <string-array name="spinnerPlaceHolderData">
         <item>Groen</item>
@@ -96,6 +104,12 @@
 
     <string name="activitySplashScreen_tv_appVersion">Versie</string>
     <string name="activitySplashScreen_text_unknownVersion">onbekend</string>
+
+    <string name="UserSettingsActivity_tv_currentEmailText">E-mailadres:</string>
+    <string name="UserSettingsActivity_tv_AppSettings">App Instellingen</string>
+    <string name="UserSettingsActivity_tv_AccSettings">Account Instellingen</string>
+    <string name="UserSettingsActivity_sw_ChangeSettings">Instellingen Bewerken</string>
+    <string name="UserSettingsActivity_tv_ChangeLanguage">Kies taal</string>
 
     <string name="mode_ready" translatable="false">Snake\nPress Up To Play</string>
     <string name="mode_pause" translatable="false">Paused\nPress Up To Resume</string>

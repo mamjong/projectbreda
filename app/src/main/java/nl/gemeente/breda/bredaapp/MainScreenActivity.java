@@ -3,6 +3,7 @@ package nl.gemeente.breda.bredaapp;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -38,6 +39,8 @@ import nl.gemeente.breda.bredaapp.domain.Report;
 import nl.gemeente.breda.bredaapp.domain.Service;
 import nl.gemeente.breda.bredaapp.util.AlertCreator;
 
+import static nl.gemeente.breda.bredaapp.UserSettingsActivity.PREFS_NAME;
+
 public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen.Listener, ApiHomeScreen.NumberOfReports, AdapterView.OnItemSelectedListener, LocationApi.LocationListener {
 	
 	//================================================================================
@@ -57,6 +60,7 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 	private double longtitude;
 	private Context context;
 	private String serviceCode;
+	protected int reportRadius;
 	private TabLayout tabs;
 	
 	private int backPressAmount = 0;
@@ -118,6 +122,9 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		homescreenDropdown.setOnItemSelectedListener(this);
 		homescreenDropdown.setPrompt(getResources().getString(R.string.spinner_loading));
 		
+		SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+		reportRadius = preferences.getInt("ReportRadius", 500);
+
 		spinnerAdapter.notifyDataSetChanged();
 		
 		floatingActionMenu = (FloatingActionMenu) findViewById(R.id.fam);
@@ -166,7 +173,7 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 			getReports(serviceCode, 60.1892477, 24.9707467, 10000);
 		}
 		else {
-			getReports(serviceCode, latitude, longtitude, 500);
+			getReports(serviceCode, latitude, longtitude, reportRadius);
 		}
 		
 		loading.setText(R.string.spinner_loading);
@@ -243,7 +250,7 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		Log.i("LOCATION", latitude + ":" + longtitude);
 		this.latitude = latitude;
 		this.longtitude = longtitude;
-		getReports(serviceCode, latitude, longtitude, 500);
+		getReports(serviceCode, latitude, longtitude, reportRadius);
 	}
 	
 	@Override
