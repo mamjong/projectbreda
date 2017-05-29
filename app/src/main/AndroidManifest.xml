@@ -73,6 +73,7 @@
         </activity>
         <activity android:name=".CheckDataImageActivity">
         </activity>
+        <activity android:name=".UserSettingsActivity"></activity>
         <activity android:name=".InfoActivity">
         </activity>
     </application>

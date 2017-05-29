@@ -39,6 +39,7 @@ public class DetailedReportActivity extends AppBaseActivity {
 	private ImageView mediaUrl;
 	private Button extraReport;
 	private boolean isPressed;
+    private ProgressBar progressBar;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class DetailedReportActivity extends AppBaseActivity {
 		mediaUrl = (ImageView) findViewById(R.id.DetailedReportActivity_iv_image);
 		extraReport = (Button) findViewById(R.id.DetailedReportActivity_bt_extraReportBtn);
 		category = (TextView) findViewById(R.id.DetailedReportActivity_tv_categoryInput);
-		final ProgressBar progressBar = (ProgressBar)findViewById(R.id.DetailedReportActivity_pb_imageProgressBar);
+		progressBar = (ProgressBar)findViewById(R.id.DetailedReportActivity_pb_imageProgressBar);
 		
 		Bundle extras = getIntent().getExtras();
 		String getMediaUrl = extras.getString("MediaUrl");
