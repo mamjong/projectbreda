@@ -1,9 +1,4 @@
 <resources>
-    <string name="yes">Ja</string>
-    <string name="no">Nee</string>
-
-    <string name="appClose">Afsluiten</string>
-    <string name="appCloseMessage">Weet je zeker dat je InfraMeld wilt afsluiten?</string>
 
     <string name="CheckDataActivity_tv_category">Categorie:</string>
     <string name="CheckDataActivity_tv_kindOfDefect">Soort defect:</string>
@@ -27,9 +22,6 @@
     <string name="activityTermsAndConditions_bt_decline">Niet accepteren</string>
     <string name="activityTermsAndConditios_tv_termsAndConditions" translatable="false">Alle informatie, die u ons doorgeeft, behandelt de gemeente vertrouwelijk. Persoons- of adresgegevens gebruikt de gemeente uitsluitend waarvoor u deze heeft doorgegeven. De gemeente Breda behandelt uw e-mail vertrouwelijk, maar sluit niet helemaal uit dat een e-mail door derden ingezien wordt. \n \nDe gemeente Breda probeert om e-mailberichten, die bij het centrale e-mailadres contact@breda.nl (link stuurt een e-mail) of als reactie via het contactformulier op de site binnenkomen, binnen 5 werkdagen te beantwoorden.</string>
     <string name="app_name" translatable="false">InfraMeld Breda</string>
-    <string name="action_settings">Instellingen</string>
-    <string name="latitude_label" translatable="false">Latitude</string>
-    <string name="longitude_label" translatable="false">Longitude</string>
     <string name="detailed_report_label">Details</string>
     <string name="check_data_label">Controleer gegevens</string>
     <string name="create_new_report_label">Maak nieuwe melding</string>
@@ -93,7 +85,6 @@
 
     <string name="ReportReceivedActivity_tv_ReceivedText">Melding ontvangen!</string>
 
-    <string name="button_create_report">Melding aanmaken</string>
     <string name="homescreen_left_tab">Kaart</string>
     <string name="homescreen_right_tab">Overzicht</string>
 
@@ -113,7 +104,7 @@
     <string name="UserSettingsActivity_tv_AppSettings">App Instellingen</string>
     <string name="UserSettingsActivity_tv_AccSettings">Account Instellingen</string>
     <string name="UserSettingsActivity_sw_ChangeSettings">Instellingen Bewerken</string>
-    <string name="UserSettingsActivity_tv_ChangeLanguage">Kies taal</string>
+    <string name="UserSettingsAcitivity_name">Instellingen</string>
 
     <string name="mode_ready" translatable="false">Snake\nPress Up To Play</string>
     <string name="mode_pause" translatable="false">Paused\nPress Up To Resume</string>

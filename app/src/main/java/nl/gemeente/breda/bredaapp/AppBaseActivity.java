@@ -18,18 +18,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.Toast;
-
-import com.flask.floatingactionmenu.FloatingActionButton;
-import com.flask.floatingactionmenu.FloatingActionMenu;
-import com.flask.floatingactionmenu.FloatingActionToggleButton;
-import com.flask.floatingactionmenu.OnFloatingActionMenuSelectedListener;
 
 import java.util.Random;
 
 import nl.gemeente.breda.bredaapp.eastereggs.TestEasterEgg;
 import nl.gemeente.breda.bredaapp.eastereggs.snake.Snake;
 import nl.gemeente.breda.bredaapp.eastereggs.spaceinvaders.MainActivity;
+import nl.gemeente.breda.bredaapp.util.ThemeManager;
 
 public abstract class AppBaseActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
 	
@@ -47,6 +42,7 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		ThemeManager.setTheme(AppBaseActivity.this);
 		super.onCreate(savedInstanceState);
 		super.setContentView(R.layout.app_base_layout);
 		view_stub = (FrameLayout) findViewById(R.id.view_stub);
@@ -76,10 +72,9 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 		logo.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if(i < 5){
+				if (i < 5) {
 					i++;
-				}
-				else if(i == 5){
+				} else if (i == 5) {
 					Random r = new Random();
 					int rand = r.nextInt(2) + 1;
 					Log.i("RANDOM", "" + rand);
@@ -134,6 +129,13 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 	}
 	
 	@Override
+	public void onRestart() {
+		super.onRestart();
+		finish();
+		startActivity(getIntent());
+	}
+	
+	@Override
 	public void setContentView(int layoutResID) {
 		if (view_stub != null) {
 			LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -185,7 +187,7 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 			case R.id.nav_settings:
 				onMenuClick(UserSettingsActivity.class, R.id.nav_settings, false);
 				break;
-
+			
 			
 			case R.id.nav_info:
 				onMenuClick(InfoActivity.class, R.id.nav_info, false);

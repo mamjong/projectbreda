@@ -1,8 +1,6 @@
 package nl.gemeente.breda.bredaapp;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,7 +9,6 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.SeekBar;
@@ -22,16 +19,17 @@ import android.widget.TextView;
 import java.util.Arrays;
 
 import nl.gemeente.breda.bredaapp.domain.User;
+import nl.gemeente.breda.bredaapp.util.ThemeManager;
 
 public class UserSettingsActivity extends AppBaseActivity {
 	
+	public static final String PREFS_NAME = "PrefsFile";
 	private User user;
 	private EditText currentEmail;
 	private Switch changeSettings;
 	private Spinner themeSpinner;
 	private int reportRadius, seekBarPos;
 	private TextView reportRadiusView;
-	public static final String PREFS_NAME = "PrefsFile";
 	private SeekBar changeRadius;
 	private String[] themeSpinnerEntries;
 	private String selectedTheme;
@@ -40,6 +38,7 @@ public class UserSettingsActivity extends AppBaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		super.setMenuSelected(getIntent().getExtras());
+		super.setToolbarTitle(R.string.UserSettingsAcitivity_name);
 		setContentView(R.layout.activity_user_settings);
 		
 		SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
@@ -61,10 +60,10 @@ public class UserSettingsActivity extends AppBaseActivity {
 		
 		int selectedThemeIndex = 0;
 		if (selectedTheme.equals("standard")) {
-			selectedThemeIndex = Arrays.asList(themeSpinnerEntries).indexOf("standard");
+			selectedThemeIndex = Arrays.asList(themeSpinnerEntries).indexOf(getResources().getString(R.string.themeStandard));
 			Log.i("Selected theme index", "standard: " + selectedThemeIndex);
-		} else if (selectedTheme.equals("dark")) {
-			selectedThemeIndex = Arrays.asList(themeSpinnerEntries).indexOf("dark");
+		} else if (selectedTheme.equals("night")) {
+			selectedThemeIndex = Arrays.asList(themeSpinnerEntries).indexOf(getResources().getString(R.string.themeNight));
 			Log.i("Selected theme index", "night: " +selectedThemeIndex);
 		}
 		
@@ -93,7 +92,7 @@ public class UserSettingsActivity extends AppBaseActivity {
 					editor.commit();
 				} else if (selected.equals(getResources().getString(R.string.themeNight))) {
 					SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
-					editor.putString("theme", "dark");
+					editor.putString("theme", "night");
 					editor.commit();
 				}
 			}

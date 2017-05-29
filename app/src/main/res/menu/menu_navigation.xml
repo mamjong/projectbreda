@@ -2,7 +2,6 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:android="http://schemas.android.com/apk/res/android">
     <group
-        android:id="@+id/menu_top"
         android:checkableBehavior="single">
 
         <item
@@ -18,7 +17,6 @@
     </group>
 
     <group
-        android:id="@+id/menu_bottom"
         android:checkableBehavior="single">
 
         <item

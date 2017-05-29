@@ -16,7 +16,7 @@ public class ReportReceivedActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_report_received);
 		
 		final CheckView checkView = (CheckView) findViewById(R.id.ReportReceivedActivity_cv_checkview);
-		final TextView textView = (TextView) findViewById(R.id.ReportReceivedActivity_tv_ReceivedText); 
+		final TextView textView = (TextView) findViewById(R.id.ReportReceivedActivity_tv_ReceivedText);
 		//checkView.check();
 		
 		new CountDownTimer(1000, 1000) {
