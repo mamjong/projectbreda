@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccentDark">
+    android:background="?attr/splashBackground">
 
     <TextView
         android:id="@+id/activitySplashScreen_tv_appName"
@@ -16,7 +16,7 @@
         android:layout_marginTop="50dp"
         android:fontFamily="Frutiger"
         android:text="@string/app_name"
-        android:textColor="?attr/mainText"
+        android:textColor="?attr/splashText"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -36,6 +36,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="0dp"
         android:background="@drawable/rounded_corners"
+        android:textColor="?attr/splashText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -51,7 +52,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:indeterminateDuration="5000"
-        android:progressTint="@color/colorPrimary"
+        android:progressTint="?attr/splashText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -66,7 +67,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/splash_loading"
-        android:textColor="?attr/mainText"
+        android:textColor="?attr/splashText"
         android:textColorLink="@color/colorPrimary"
         android:textSize="20dp"
         android:textStyle="bold"
@@ -83,7 +84,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
-        android:textColor="?attr/mainText"
+        android:textColor="?attr/splashText"
         android:textSize="16dp"
         android:text="@string/activitySplashScreen_tv_appVersion"
         app:layout_constraintLeft_toLeftOf="parent"
