@@ -19,6 +19,7 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import java.lang.reflect.GenericArrayType;
 import java.util.Arrays;
 
 import nl.gemeente.breda.bredaapp.domain.User;
@@ -26,15 +27,16 @@ import nl.gemeente.breda.bredaapp.domain.User;
 public class UserSettingsActivity extends AppBaseActivity {
 	
 	private User user;
+	private Button changeEmailButton;
 	private EditText currentEmail;
 	private Switch changeSettings;
-	private Spinner themeSpinner;
+	private Spinner themeSpinner, languageSpinner;
 	private int reportRadius, seekBarPos;
 	private TextView reportRadiusView;
 	public static final String PREFS_NAME = "PrefsFile";
 	private SeekBar changeRadius;
-	private String[] themeSpinnerEntries;
-	private String selectedTheme;
+	private String[] themeSpinnerEntries, languageSpinnerEntries;
+	private String selectedTheme, selectedLanguage;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +54,17 @@ public class UserSettingsActivity extends AppBaseActivity {
 		
 		final DatabaseHandler dbh = new DatabaseHandler(getApplicationContext(), null, null, 1);
 		currentEmail = (EditText) findViewById(R.id.UserSettingsActivity_et_currentEmail);
-		changeSettings = (Switch) findViewById(R.id.UserSettingsActivity_sw_ChangeSettings);
 		changeRadius = (SeekBar) findViewById(R.id.UserSettingsActivity_sb_ChangeRadius);
 		themeSpinner = (Spinner) findViewById(R.id.UserSettingsActivity_sp_ChangeTheme);
+		languageSpinner = (Spinner) findViewById(R.id.UserSettingsActivity_sp_ChangeLanguage);
 		reportRadiusView = (TextView) findViewById(R.id.UserSettingsActivity_tv_currentRadius);
+		changeEmailButton = (Button) findViewById(R.id.UserSettingsActivity_btn_confirmEmail);
 		reportRadiusView.setText(reportRadius + " meters");
 		
+		
+		
 		this.themeSpinnerEntries = getResources().getStringArray(R.array.themeSpinner);
+		languageSpinnerEntries = getResources().getStringArray(R.array.spinnerLanguageData);
 		
 		int selectedThemeIndex = 0;
 		if (selectedTheme.equals("standard")) {
@@ -71,8 +77,12 @@ public class UserSettingsActivity extends AppBaseActivity {
 		
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_layout_custom_row, themeSpinnerEntries);
 		themeSpinner.setAdapter(adapter);
-		themeSpinner.setEnabled(false);
 		themeSpinner.setSelection(selectedThemeIndex);
+		
+		ArrayAdapter<String> languageAdapter = new ArrayAdapter<String>(this, R.layout.spinner_layout_custom_row, languageSpinnerEntries);
+		languageSpinner.setAdapter(languageAdapter);
+		
+		
 		
 		currentEmail.setEnabled(false);
 		
@@ -80,7 +90,6 @@ public class UserSettingsActivity extends AppBaseActivity {
 		currentEmail.setText(user.getMailAccount());
 		
 		changeRadius.setProgress(seekBarPos);
-		changeRadius.setEnabled(false);
 		changeRadius.setMax(19);
 		
 		themeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -105,46 +114,56 @@ public class UserSettingsActivity extends AppBaseActivity {
 			}
 		});
 		
+		changeEmailButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				dbh.updateUser(currentEmail.getText().toString());
+				user = dbh.getUser();
+				currentEmail.setText(user.getMailAccount());
+			}
+		});
 		
-		changeSettings.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				currentEmail.setEnabled(isChecked);
-				changeRadius.setEnabled(isChecked);
-				themeSpinner.setEnabled(isChecked);
+		languageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				String selected = parent.getItemAtPosition(position).toString();
 				
-				if (isChecked) {
-					currentEmail.addTextChangedListener(new TextWatcher() {
-						@Override
-						public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-							
-						}
-						
-						@Override
-						public void onTextChanged(CharSequence s, int start, int before, int count) {
-							if (Patterns.EMAIL_ADDRESS.matcher(s).matches()) {
-								changeSettings.setEnabled(true);
-							} else {
-								changeSettings.setEnabled(false);
-							}
-						}
-						
-						@Override
-						public void afterTextChanged(Editable s) {
-							
-						}
-					});
-				} else {
-					//User
-					dbh.updateUser(currentEmail.getText().toString());
-					user = dbh.getUser();
-					currentEmail.setText(user.getMailAccount());
-					
-					//Radius
+				if (selected.equals("Nederlands")) {
 					SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
-					editor.putInt("ReportRadius", reportRadius);
-					editor.putInt("SeekBarPos", seekBarPos);
+					editor.putString("language", "nl");
+					editor.commit();
+				} else if (selected.equals("Engels")) {
+					SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+					editor.putString("language", "en");
 					editor.commit();
 				}
+			}
+			
+			@Override
+			public void onNothingSelected(AdapterView<?> parent){
+				
+			}
+		});
+		
+		
+		currentEmail.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+				
+			}
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				if (Patterns.EMAIL_ADDRESS.matcher(s).matches()) {
+					changeSettings.setEnabled(true);
+				} else {
+					changeSettings.setEnabled(false);
+				}
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+				
 			}
 		});
 		
@@ -154,6 +173,10 @@ public class UserSettingsActivity extends AppBaseActivity {
 				reportRadius = progress * 100 + 100;
 				reportRadiusView.setText(reportRadius + " meters");
 				seekBarPos = progress;
+				SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+				editor.putInt("ReportRadius", reportRadius);
+				editor.putInt("SeekBarPos", seekBarPos);
+				editor.commit();
 			}
 			
 			@Override
