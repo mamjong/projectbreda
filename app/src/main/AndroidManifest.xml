@@ -73,8 +73,12 @@
         </activity>
         <activity android:name=".CheckDataImageActivity">
         </activity>
-        <activity android:name=".UserSettingsActivity"></activity>
+        <activity android:name=".UserSettingsActivity"/>
         <activity android:name=".InfoActivity">
+        </activity>
+        <activity
+            android:name=".FavoriteReportsActivity"
+            android:label="@string/FavoriteReportsActivity_Label">
         </activity>
     </application>
 

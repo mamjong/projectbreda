@@ -37,7 +37,7 @@
     <string name="no_location_permission_positive">Ja</string>
     <string name="no_location_permission_negative">Nee</string>
     <string name="activityEmail_no_submit">Vul een geldig e-mailadres in en accepteer de algemene voorwaarden om door te gaan.</string>
-    
+
     <string name="themeStandard">Standaard thema</string>
     <string name="themeNight">Donker thema</string>
 
@@ -119,8 +119,9 @@
     <string name="info_textview">Deze app is gemaakt in opdracht van gemeente Breda en is ontwikkelt door: Thomas Lucas, Thimo Koolen, Giede van Gils, Mark Meijer, Quoc-Sy Luong, Cas de Pender, Mark de Jong en Thomas Mout.</string>
     <string name="info_title">Over deze app</string>
     <string name="menu_view_reports">Bekijk alle meldingen</string>
-    <string name="menu_view_your_reports">Bekijk uw meldingen</string>
+    <string name="menu_view_your_reports">Bekijk favorite meldingen</string>
     <string name="menu_settings">Instellingen</string>
     <string name="menu_about">Over</string>
+    <string name="FavoriteReportsActivity_Label">Favoriete Meldingen</string>
 
 </resources>

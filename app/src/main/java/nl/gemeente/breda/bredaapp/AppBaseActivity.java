@@ -179,7 +179,7 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 				break;
 			
 			case R.id.nav_my_reports:
-				//onMenuClick(Test3Activity.class, R.id.nav_my_reports, true);
+				onMenuClick(FavoriteReportsActivity.class, R.id.nav_my_reports, true);
 				break;
 			
 			case R.id.nav_settings:
