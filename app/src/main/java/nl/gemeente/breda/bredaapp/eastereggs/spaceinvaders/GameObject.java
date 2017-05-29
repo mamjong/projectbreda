@@ -10,7 +10,7 @@ public abstract class GameObject {
 	private float floatSpeed;
 	private boolean visible;
 	private Rect aabb;
-
+	
 	public float getFloatSpeed() {
 		return floatSpeed;
 	}

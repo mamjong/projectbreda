@@ -18,8 +18,8 @@ import com.google.android.gms.location.LocationServices;
 
 public class LocationApi implements ConnectionCallbacks, OnConnectionFailedListener {
 	
-	protected GoogleApiClient mGoogleApiClient;
 	public Location mLastLocation;
+	protected GoogleApiClient mGoogleApiClient;
 	private Context context;
 	private Activity activity;
 	private double latitude;
@@ -35,7 +35,7 @@ public class LocationApi implements ConnectionCallbacks, OnConnectionFailedListe
 		this.activity = activity;
 	}
 	
-	public void search(){
+	public void search() {
 		buildGoogleApiClient();
 		mGoogleApiClient.connect();
 	}

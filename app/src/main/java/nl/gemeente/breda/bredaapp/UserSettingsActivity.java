@@ -1,8 +1,6 @@
 package nl.gemeente.breda.bredaapp;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,7 +9,6 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.SeekBar;
@@ -25,13 +22,13 @@ import nl.gemeente.breda.bredaapp.domain.User;
 
 public class UserSettingsActivity extends AppBaseActivity {
 	
+	public static final String PREFS_NAME = "PrefsFile";
 	private User user;
 	private EditText currentEmail;
 	private Switch changeSettings;
 	private Spinner themeSpinner;
 	private int reportRadius, seekBarPos;
 	private TextView reportRadiusView;
-	public static final String PREFS_NAME = "PrefsFile";
 	private SeekBar changeRadius;
 	private String[] themeSpinnerEntries;
 	private String selectedTheme;
@@ -66,7 +63,7 @@ public class UserSettingsActivity extends AppBaseActivity {
 			Log.i("Selected theme index", "standard: " + selectedThemeIndex);
 		} else if (selectedTheme.equals("dark")) {
 			selectedThemeIndex = Arrays.asList(themeSpinnerEntries).indexOf("dark");
-			Log.i("Selected theme index", "night: " +selectedThemeIndex);
+			Log.i("Selected theme index", "night: " + selectedThemeIndex);
 		}
 		
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_layout_custom_row, themeSpinnerEntries);

@@ -8,12 +8,8 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -78,7 +74,7 @@ public class CreateNewReportActivity extends AppBaseActivity {
 		// Service spinner -- Wordt opgehaald van de API
 		final Spinner sprSubCategories = (Spinner) findViewById(R.id.activityCreateNewReport_spr_defects);
 		Spinner sprCategories = (Spinner) findViewById(R.id.activityCreateNewReport_spr_categories);
-		
+
 //		ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
 //				android.R.layout.simple_spinner_item, arraySpinnerDataMain);
 		
@@ -129,9 +125,9 @@ public class CreateNewReportActivity extends AppBaseActivity {
 			}
 		});
 		
-		continueToMap.setOnClickListener(new View.OnClickListener(){
+		continueToMap.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View v){
+			public void onClick(View v) {
 				if (itemImage == null) {
 					Toast toast = Toast.makeText(CreateNewReportActivity.this, getResources().getString(R.string.activityCreateNewReport_text_noImageSelected), Toast.LENGTH_LONG);
 					toast.show();

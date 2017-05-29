@@ -23,22 +23,20 @@ import nl.gemeente.breda.bredaapp.util.AlertCreator;
 public class LocationActivity extends AppCompatActivity implements ConnectionCallbacks, OnConnectionFailedListener {
 	
 	protected static final String TAG = "LocationActivity";
-	
-	protected GoogleApiClient mGoogleApiClient;
 	public Location mLastLocation;
-	
+	protected GoogleApiClient mGoogleApiClient;
+
 //	protected String mLatitudeLabel;
 //	protected String mLongitudeLabel;
 //	protected TextView mLatitudeText;
 //	protected TextView mLongitudeText;
-	
 	private Context context = getApplicationContext();
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_location);
-		
+
 //		mLatitudeLabel = getResources().getString(R.string.latitude_label);
 //		mLongitudeLabel = getResources().getString(R.string.longitude_label);
 //		mLatitudeText = (TextView) findViewById((R.id.latitude_text));

@@ -1,8 +1,8 @@
 package nl.gemeente.breda.bredaapp.fragment;
 
 import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,15 +21,14 @@ import nl.gemeente.breda.bredaapp.domain.Report;
 
 public class MainScreenListFragment extends Fragment implements AdapterView.OnItemClickListener {
 	
+	public final static String EXTRA_REPORT = "REPORT";
 	//================================================================================
 	// Properties
 	//================================================================================
 	private static final String TAG = "MainScreenListFragment";
-	public final static String EXTRA_REPORT = "REPORT";
-	
 	private ListView reportsListView;
 	private ReportAdapter reportAdapter;
-
+	
 	//================================================================================
 	// Accessors
 	//================================================================================
@@ -49,7 +48,7 @@ public class MainScreenListFragment extends Fragment implements AdapterView.OnIt
 			
 			@Override
 			public void run() {
-				if(getActivity() == null)
+				if (getActivity() == null)
 					return;
 				
 				getActivity().runOnUiThread(new Runnable() {
@@ -59,7 +58,7 @@ public class MainScreenListFragment extends Fragment implements AdapterView.OnIt
 					}
 				});
 			}
-		},0,750);
+		}, 0, 750);
 		
 		return rootView;
 	}

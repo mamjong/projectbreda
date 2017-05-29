@@ -24,23 +24,23 @@ public class ButtonDefine {
 	// Mutators
 	//================================================================================
 	
-	public void setText(String text) {
-		this.text = text;
+	public String getText() {
+		return text;
 	}
 	
-	public void setEvent(DialogInterface.OnClickListener event) {
-		this.event = event;
+	public void setText(String text) {
+		this.text = text;
 	}
 	
 	//================================================================================
 	// Accessors
 	//================================================================================
 	
-	public String getText() {
-		return text;
-	}
-	
 	public DialogInterface.OnClickListener getEvent() {
 		return event;
+	}
+	
+	public void setEvent(DialogInterface.OnClickListener event) {
+		this.event = event;
 	}
 }
