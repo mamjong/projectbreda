@@ -49,7 +49,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		
 		String CREATE_REPORTS_TABLE = "CREATE TABLE " + REPORTS_TABLE_NAME +
 				"(" +
-				REPORTS_COLUMN_ID + " INTEGER PRIMARY KEY" +
+				REPORTS_COLUMN_ID + " INTEGER PRIMARY KEY " +
 				REPORTS_COLUMN_IS_FAVORITE + " INTEGER" +
 				")";
 		
@@ -110,6 +110,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		ContentValues values = new ContentValues();
 		
 		values.put(REPORTS_COLUMN_ID, report.getServiceRequestId());
+		values.put(REPORTS_COLUMN_IS_FAVORITE, report.isFavorite());
 		
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.insert(REPORTS_TABLE_NAME, null, values);
@@ -196,20 +197,36 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 ////        db.close();
 //	}
 //
-//	public List<Report> getAllFavoriteReports() {
-//		Log.i(TAG, "getAllFavoriteReports");
-//
-//		// Als dit er heel veel zouden zijn - 1000 of meer -
-//		// kun je de records beter in stukjes ophalen. Dan moet je
-//		// dus een aantal en startpunt meegeven m.b.v. LIMIT (aantal en startpunt).
-//		String query = "SELECT * FROM " + REPORTS_TABLE_NAME + " LIMIT 100";
-//		Log.i(TAG, "Query: " + query);
-//
-//		ArrayList   <Report> result = new ArrayList<>();
-//
-//		SQLiteDatabase db = this.getReadableDatabase();
-//		Cursor cursor = db.rawQuery(query, null);
-//
+	public ArrayList<Report> getAllFavoriteReports() {
+		Log.i(TAG, "getAllFavoriteReports");
+
+		// Als dit er heel veel zouden zijn - 1000 of meer -
+		// kun je de records beter in stukjes ophalen. Dan moet je
+		// dus een aantal en startpunt meegeven m.b.v. LIMIT (aantal en startpunt).
+		String query = "SELECT * FROM " + REPORTS_TABLE_NAME + " LIMIT 100";
+		Log.i(TAG, "Query: " + query);
+
+		ArrayList<Report> result = new ArrayList<>();
+
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.rawQuery(query, null);
+		
+		while(cursor.moveToNext() ) {
+			Report report = new Report();
+			
+			report.setServiceRequestId(cursor.getString(cursor.getColumnIndex(REPORTS_COLUMN_ID)));
+			int isFavorite = cursor.getInt(cursor.getColumnIndex(REPORTS_COLUMN_IS_FAVORITE));
+			if (0 == isFavorite) {
+				report.setFavorite(false);
+			} else {
+				report.setFavorite(true);
+			}
+			result.add(report);
+		}
+		
+		db.close();
+		return result;
+
 //		for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
 //			Report report = new Report();
 //			report.setServiceRequestId(cursor.getString(cursor.getColumnIndex(REPORTS_COLUMN_ID)));
@@ -225,9 +242,5 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //			Log.i(TAG, "Found " + report + ", adding to list");
 //			result.add(report);
 //		}
-//
-//		db.close();
-//		Log.i(TAG, "Returning " + result.size() + " items");
-//		return result;
-//	}
+	}
 }
