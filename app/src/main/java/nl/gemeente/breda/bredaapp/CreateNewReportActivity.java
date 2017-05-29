@@ -56,7 +56,7 @@ public class CreateNewReportActivity extends AppBaseActivity {
 		cameraButton = (Button) findViewById(R.id.activityCreateNewReport_bt_makePicture);
 		continueToMap = (Button) findViewById(R.id.activityCreateNewReport_bt_continue);
 		noPicture = (TextView) findViewById(R.id.activityCreateNewReport_tv_noPicture);
-		selectedPictureView = (ImageView) findViewById(R.id.activityCreateNewReport_iv_defectImage); 
+		selectedPictureView = (ImageView) findViewById(R.id.activityCreateNewReport_iv_defectImage);
 		serviceAdapter = new ServiceAdapter(getApplicationContext(), ServiceManager.getServices(), R.layout.spinner_layout_custom_row);
 		
 		continueToMap.setEnabled(false);
