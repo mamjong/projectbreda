@@ -121,5 +121,6 @@
     <string name="menu_view_your_reports">Bekijk uw meldingen</string>
     <string name="menu_settings">Instellingen</string>
     <string name="menu_about">Over</string>
+    <string name="radius_title">Radius:</string>
 
 </resources>
