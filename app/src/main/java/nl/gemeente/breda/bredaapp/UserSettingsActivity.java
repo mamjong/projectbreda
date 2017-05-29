@@ -40,6 +40,7 @@ public class UserSettingsActivity extends AppBaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		super.setMenuSelected(getIntent().getExtras());
+		super.setToolbarTitle(R.string.UserSettingsAcitivity_name);
 		setContentView(R.layout.activity_user_settings);
 		
 		SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);

@@ -110,6 +110,7 @@
     <string name="UserSettingsActivity_tv_AccSettings">Account Instellingen</string>
     <string name="UserSettingsActivity_sw_ChangeSettings">Instellingen Bewerken</string>
     <string name="UserSettingsActivity_tv_ChangeLanguage">Kies taal</string>
+    <string name="UserSettingsAcitivity_name">Instellingen</string>
 
     <string name="mode_ready" translatable="false">Snake\nPress Up To Play</string>
     <string name="mode_pause" translatable="false">Paused\nPress Up To Resume</string>

@@ -62,4 +62,5 @@
     <string name="themeStandard">Default theme</string>
     <string name="themeNight">Dark theme</string>
     <string name="radius_title">Radius:</string>
+    <string name="UserSettingsAcitivity_name">Settings</string>
 </resources>
