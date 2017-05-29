@@ -85,7 +85,7 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 			
 			@Override
 			public void run() {
-				if(getActivity() == null)
+				if (getActivity() == null)
 					return;
 				
 				getActivity().runOnUiThread(new Runnable() {
@@ -111,7 +111,7 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 	
 	public void removeMarkers() {
 		reports.clear();
-		if(map != null) {
+		if (map != null) {
 			map.clear();
 		}
 	}

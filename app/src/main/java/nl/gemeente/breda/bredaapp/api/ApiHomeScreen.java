@@ -146,6 +146,7 @@ public class ApiHomeScreen extends AsyncTask<String, Void, String> {
 	
 	public interface Listener {
 		void onReportAvailable(Report report);
+		
 		void noConnectionAvailable();
 	}
 	

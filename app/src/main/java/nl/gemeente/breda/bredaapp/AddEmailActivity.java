@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 public class AddEmailActivity extends AppCompatActivity {
 	
+	private final int ACCEPT_TERMS = 999;
 	private Button emailConfirmBtn;
 	private EditText emailInputBox;
 	private String email;
@@ -26,7 +27,13 @@ public class AddEmailActivity extends AppCompatActivity {
 	private boolean mailOkay;
 	private boolean termsOkay;
 	
-	private final int ACCEPT_TERMS = 999;
+	public final static boolean isValidEmail(CharSequence target) {
+		if (target == null) {
+			return false;
+		} else {
+			return Patterns.EMAIL_ADDRESS.matcher(target).matches();
+		}
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -101,14 +108,6 @@ public class AddEmailActivity extends AppCompatActivity {
 				}
 			}
 		});
-	}
-	
-	public final static boolean isValidEmail(CharSequence target) {
-		if (target == null) {
-			return false;
-		} else {
-			return Patterns.EMAIL_ADDRESS.matcher(target).matches();
-		}
 	}
 	
 	@Override

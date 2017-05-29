@@ -13,32 +13,32 @@ import nl.gemeente.breda.bredaapp.R;
 import nl.gemeente.breda.bredaapp.domain.Service;
 
 public class ServiceAdapter extends ArrayAdapter<Service> {
-
+	
 	int layout;
 	
-    public ServiceAdapter(Context context, ArrayList<Service> services, int layout){
-        super(context, layout, services);
-	    this.layout = layout;
-	    
-    }
-
-    public View getView(int position, View convertView, ViewGroup parent){
-
-        // Create product
-        Service service = getItem(position);
-
-        // Check for existing view
-        if(convertView == null){
-            convertView = LayoutInflater.from(getContext()).inflate(layout, parent, false);
-        }
-
-        // Select row items
-        TextView serviceName = (TextView) convertView.findViewById(R.id.spinnerLayoutAdapter_tv_spinnerText);
-
-        // Get and set content
-        serviceName.setText( service.getServiceName() );
-
-        // Return view
-        return convertView;
-    }
+	public ServiceAdapter(Context context, ArrayList<Service> services, int layout) {
+		super(context, layout, services);
+		this.layout = layout;
+		
+	}
+	
+	public View getView(int position, View convertView, ViewGroup parent) {
+		
+		// Create product
+		Service service = getItem(position);
+		
+		// Check for existing view
+		if (convertView == null) {
+			convertView = LayoutInflater.from(getContext()).inflate(layout, parent, false);
+		}
+		
+		// Select row items
+		TextView serviceName = (TextView) convertView.findViewById(R.id.spinnerLayoutAdapter_tv_spinnerText);
+		
+		// Get and set content
+		serviceName.setText(service.getServiceName());
+		
+		// Return view
+		return convertView;
+	}
 }

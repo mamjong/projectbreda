@@ -12,7 +12,7 @@ import nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment;
 import nl.gemeente.breda.bredaapp.fragment.MainScreenMapFragment;
 
 public class MainScreenSectionsPagerAdapter extends FragmentPagerAdapter {
-
+	
 	private Context context;
 	private MainScreenMapFragment tab1;
 	private MainScreenListFragment tab2;
@@ -44,15 +44,15 @@ public class MainScreenSectionsPagerAdapter extends FragmentPagerAdapter {
 				return null;
 		}
 	}
-
-	public Fragment getTab1(){
+	
+	public Fragment getTab1() {
 		return tab1;
 	}
-
-	public Fragment getTab2(){
+	
+	public Fragment getTab2() {
 		return tab2;
 	}
-
+	
 	@Override
 	public int getCount() {
 		return 2;
@@ -68,8 +68,8 @@ public class MainScreenSectionsPagerAdapter extends FragmentPagerAdapter {
 		}
 		return null;
 	}
-
-	public void removeMarkers(){
+	
+	public void removeMarkers() {
 		
 		if (tab1 != null) {
 			tab1.removeMarkers();

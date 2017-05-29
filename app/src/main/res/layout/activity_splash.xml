@@ -60,7 +60,6 @@
         app:layout_constraintVertical_bias="0.538" />
 
     <TextView
-        android:id="@+id/activitySplashScreen_tv_loadingText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
