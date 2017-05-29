@@ -22,6 +22,7 @@ import android.widget.TextView;
 import java.util.Arrays;
 
 import nl.gemeente.breda.bredaapp.domain.User;
+import nl.gemeente.breda.bredaapp.util.ThemeManager;
 
 public class UserSettingsActivity extends AppBaseActivity {
 	
@@ -62,10 +63,10 @@ public class UserSettingsActivity extends AppBaseActivity {
 		
 		int selectedThemeIndex = 0;
 		if (selectedTheme.equals("standard")) {
-			selectedThemeIndex = Arrays.asList(themeSpinnerEntries).indexOf("standard");
+			selectedThemeIndex = Arrays.asList(themeSpinnerEntries).indexOf(getResources().getString(R.string.themeStandard));
 			Log.i("Selected theme index", "standard: " + selectedThemeIndex);
-		} else if (selectedTheme.equals("dark")) {
-			selectedThemeIndex = Arrays.asList(themeSpinnerEntries).indexOf("dark");
+		} else if (selectedTheme.equals("night")) {
+			selectedThemeIndex = Arrays.asList(themeSpinnerEntries).indexOf(getResources().getString(R.string.themeNight));
 			Log.i("Selected theme index", "night: " +selectedThemeIndex);
 		}
 		
@@ -94,7 +95,7 @@ public class UserSettingsActivity extends AppBaseActivity {
 					editor.commit();
 				} else if (selected.equals(getResources().getString(R.string.themeNight))) {
 					SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
-					editor.putString("theme", "dark");
+					editor.putString("theme", "night");
 					editor.commit();
 				}
 			}

@@ -30,6 +30,7 @@ import java.util.Random;
 import nl.gemeente.breda.bredaapp.eastereggs.TestEasterEgg;
 import nl.gemeente.breda.bredaapp.eastereggs.snake.Snake;
 import nl.gemeente.breda.bredaapp.eastereggs.spaceinvaders.MainActivity;
+import nl.gemeente.breda.bredaapp.util.ThemeManager;
 
 public abstract class AppBaseActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
 	
@@ -47,6 +48,7 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		ThemeManager.setTheme(AppBaseActivity.this);
 		super.onCreate(savedInstanceState);
 		super.setContentView(R.layout.app_base_layout);
 		view_stub = (FrameLayout) findViewById(R.id.view_stub);
