@@ -38,6 +38,9 @@
   
   <!-- Text colors -->
   <attr name="mainText" format="color" />
+  <attr name="splashText" format="color" />
+  
+  <attr name="splashBackground" format="color" />
   
   <!-- Menu drawables -->
   <attr name="menuHeader" format="reference" />
