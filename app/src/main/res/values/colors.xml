@@ -7,7 +7,6 @@
     <color name="colorAccent">#ffffff</color>
     <color name="colorDark">#1a1918</color>
     <color name="colorAccentDark">#EFEFEF</color>
-    <color name="colorBackground">#ffffff</color>
     <color name="colorMenuIcon">#000000</color>
     
     <!-- Night Theme -->
@@ -15,9 +14,6 @@
     <color name="colorPrimaryDarkNight">#171717</color>
     <color name="colorPrimaryLightNight">#464646</color>
     <color name="colorAccentNight">#ffffff</color>
-    <color name="colorDarkNight">#1a1918</color>
-    <color name="colorAccentDarkNight">#EFEFEF</color>
-    <color name="colorBackGroundNight">#000000</color>
     <color name="colorMenuIconNight">#ffffff</color>
     
     <!-- Other colors -->

@@ -2,18 +2,13 @@ package nl.gemeente.breda.bredaapp;
 
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.github.chrisbanes.photoview.PhotoViewAttacher;
-
-import nl.gemeente.breda.bredaapp.api.ImageLoader;
-import nl.gemeente.breda.bredaapp.domain.Report;
-
-import static nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment.EXTRA_REPORT;
 
 public class CheckDataImageActivity extends AppCompatActivity {
 	private ImageView itemImageView;

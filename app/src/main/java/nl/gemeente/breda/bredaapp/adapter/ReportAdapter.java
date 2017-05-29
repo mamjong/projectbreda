@@ -17,10 +17,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import nl.gemeente.breda.bredaapp.R;
-//import nl.gemeente.breda.bredaapp.api.ImageLoader;
 import nl.gemeente.breda.bredaapp.domain.Report;
 
-import static android.media.CamcorderProfile.get;
+//import nl.gemeente.breda.bredaapp.api.ImageLoader;
 
 
 public class ReportAdapter extends ArrayAdapter<Report> {
@@ -62,7 +61,7 @@ public class ReportAdapter extends ArrayAdapter<Report> {
 		String reportStatus = report.getStatus();
 		
 		// Open = green, Closed = red
-		if(reportStatus.equals("open")){
+		if (reportStatus.equals("open")) {
 			String colorGreen = "#58D68D";
 			status.setTextColor(Color.parseColor(colorGreen));
 		} else if (reportStatus.equals("closed")) {
@@ -71,14 +70,13 @@ public class ReportAdapter extends ArrayAdapter<Report> {
 		}
 		
 		// First letter uppercase
-		String upperCaseStatus = reportStatus.substring(0,1).toUpperCase() + reportStatus.substring(1);
+		String upperCaseStatus = reportStatus.substring(0, 1).toUpperCase() + reportStatus.substring(1);
 		status.setText(upperCaseStatus);
 		
 		// When image is not available
-		if(report.getMediaUrl() == null) {
+		if (report.getMediaUrl() == null) {
 			Picasso.with(getContext()).load(R.drawable.nopicturefound).into(mediaUrl);
-		}
-		else {
+		} else {
 			Picasso.with(getContext()).load(report.getMediaUrl()).into(mediaUrl);
 		}
 		
@@ -104,7 +102,7 @@ public class ReportAdapter extends ArrayAdapter<Report> {
 		Date date = null;
 		try {
 			date = sourceFormat.parse(report.getRequestedDatetime());
-		} catch (ParseException e){
+		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		String formatDateTime = reqDateFormat.format(date);
