@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -16,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import nl.gemeente.breda.bredaapp.DatabaseHandler;
 import nl.gemeente.breda.bredaapp.R;
 import nl.gemeente.breda.bredaapp.domain.Report;
 
@@ -45,6 +47,7 @@ public class ReportAdapter extends ArrayAdapter<Report> {
 		TextView description = (TextView) convertView.findViewById(R.id.fragmentListViewRow_TV_description);
 		TextView status = (TextView) convertView.findViewById(R.id.fragmentListViewRow_TV_status);
 		TextView category = (TextView) convertView.findViewById(R.id.fragmentListViewRow_TV_category);
+		final ImageView imageCheckbox = (ImageView) convertView.findViewById(R.id.fragmentListViewRow_IV_imageCheckbox);
 		
 		// Tijdelijk om timestamp te testen
 		TextView timestamp = (TextView) convertView.findViewById(R.id.fragmentListViewRow_TV_timeStamp);
@@ -79,6 +82,53 @@ public class ReportAdapter extends ArrayAdapter<Report> {
 		} else {
 			Picasso.with(getContext()).load(report.getMediaUrl()).into(mediaUrl);
 		}
+		
+		if (report.isFavorite()){
+			imageCheckbox.setImageResource(R.drawable.ic_check_box_black_24dp);
+		} else {
+			imageCheckbox.setImageResource(R.drawable.ic_check_box_outline_blank_black_24dp);
+		}
+		
+		// Handel het selecteren/deselecteren af
+		// Deze PersonAdapter wordt in meerdere ListViews gebruikt: in de lijst met nieuw
+		// toegevoegde personen, en in de lijst met Favorites.
+		imageCheckbox.setOnClickListener(new View.OnClickListener(){
+			@Override
+			public void onClick(View view) {
+				// Verander isFavorite: true wordt false, false wordt true
+				report.setFavorite(!report.isFavorite());
+				if(report.isFavorite()) {
+					// addPerson geeft de rowID van de person in de database terug, of -1 bij error.
+//					if(DatabaseHandler.addReport(report) > -1) {
+						// Zet de juiste checkbox image
+						imageCheckbox.setImageResource(R.drawable.ic_check_box_black_24dp);
+						// Laat een bericht zien dat het toevoegen gelukt is
+						Toast.makeText(getContext(), R.string.toast_report_added, Toast.LENGTH_SHORT).show();
+					}
+					else {
+						// Het toevoegen is niet gelukt!
+						Toast.makeText(getContext(), R.string.toast_report_added_error, Toast.LENGTH_SHORT).show();
+					}
+//				}
+//					else {
+//					if(DatabaseHandler.deletePerson(report) == 1) {
+//						// Zet de juiste checkbox image
+//						imageCheckbox.setImageResource(R.drawable.ic_check_box_outline_blank_black_24dp);
+//						// Als we in de Favorites lijst zitten verwijderen we deze persoon
+//						// ook uit de lijst.
+//						if (parent.getId() == R.id.favoritesListView)
+//							mPersonArrayList.remove(position);
+//						notifyDataSetChanged();
+//						// Laat een bericht zien dat het verwijderen gelukt is
+//						Toast.makeText(getContext(), R.string.toast_report_deleted, Toast.LENGTH_SHORT).show();
+//					} else {
+//						// Het verwijderen is niet gelukt!
+//						Toast.makeText(getContext(), R.string.toast_report_deleted_error, Toast.LENGTH_SHORT).show();
+//					}
+//				}
+			}
+		});
+		
 		
 		// ImageLoader sucks
 //		new ImageLoader(mediaUrl).execute(report.getMediaUrl());

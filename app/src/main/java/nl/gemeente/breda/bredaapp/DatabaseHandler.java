@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import nl.gemeente.breda.bredaapp.domain.Report;
 import nl.gemeente.breda.bredaapp.domain.User;
@@ -25,6 +26,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final String REPORTS_TABLE_NAME = "reports";
 	
 	private static final String REPORTS_COLUMN_ID = "_id";
+	
+	private static final String REPORTS_COLUMN_IS_FAVORITE = "isFavorite";
 	
 	private static final String SETTINGS_TABLE_NAME = "settings";
 	
@@ -47,6 +50,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		String CREATE_REPORTS_TABLE = "CREATE TABLE " + REPORTS_TABLE_NAME +
 				"(" +
 				REPORTS_COLUMN_ID + " INTEGER PRIMARY KEY" +
+				REPORTS_COLUMN_IS_FAVORITE + " INTEGER" +
 				")";
 		
 		String CREATE_SETTINGS_TABLE = "CREATE TABLE " + SETTINGS_TABLE_NAME +
@@ -178,4 +182,52 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.update(SETTINGS_TABLE_NAME, values, SETTINGS_COLUMN_TYPE + "=" + key, null);
 		db.close();
 	}
+	
+//	public Long addReport(Report report) {
+//		ContentValues values = new ContentValues();
+//
+//		values.put(REPORTS_COLUMN_ID, report.getServiceRequestId());
+//		values.put(REPORTS_COLUMN_IS_FAVORITE, report.isFavorite());
+//
+//		SQLiteDatabase db = this.getWritableDatabase();
+//
+//		return db.insert(REPORTS_TABLE_NAME, null, values);
+////	    db.insert(REPORTS_TABLE_NAME, null, values);
+////        db.close();
+//	}
+//
+//	public List<Report> getAllFavoriteReports() {
+//		Log.i(TAG, "getAllFavoriteReports");
+//
+//		// Als dit er heel veel zouden zijn - 1000 of meer -
+//		// kun je de records beter in stukjes ophalen. Dan moet je
+//		// dus een aantal en startpunt meegeven m.b.v. LIMIT (aantal en startpunt).
+//		String query = "SELECT * FROM " + REPORTS_TABLE_NAME + " LIMIT 100";
+//		Log.i(TAG, "Query: " + query);
+//
+//		ArrayList   <Report> result = new ArrayList<>();
+//
+//		SQLiteDatabase db = this.getReadableDatabase();
+//		Cursor cursor = db.rawQuery(query, null);
+//
+//		for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+//			Report report = new Report();
+//			report.setServiceRequestId(cursor.getString(cursor.getColumnIndex(REPORTS_COLUMN_ID)));
+//
+//
+//			int isFavorite = cursor.getInt(cursor.getColumnIndex(REPORTS_COLUMN_IS_FAVORITE));
+//			if(0 == isFavorite){
+//				report.setFavorite(false);
+//			} else {
+//				report.setFavorite(true);
+//			}
+//
+//			Log.i(TAG, "Found " + report + ", adding to list");
+//			result.add(report);
+//		}
+//
+//		db.close();
+//		Log.i(TAG, "Returning " + result.size() + " items");
+//		return result;
+//	}
 }

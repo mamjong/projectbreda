@@ -114,4 +114,10 @@
     <string name="menu_about">Over</string>
     <string name="FavoriteReportsActivity_Label">Favoriete Meldingen</string>
 
+    <!-- Toasts-->
+    <string name="toast_report_added">Melding toegevoegd aan favorieten</string>
+    <string name="toast_report_added_error">Fout! Melding kon niet toegevoegd worden!</string>
+    <string name="toast_report_deleted">Melding verwijderd uit favorieten</string>
+    <string name="toast_report_deleted_error">Fout! Melding kon niet verwijderd worden!</string>
+
 </resources>
