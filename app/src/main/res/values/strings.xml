@@ -89,5 +89,6 @@
     <string name="settings_theme">Thema:</string>
     <string name="settings_language">Taal:</string>
     <string name="confirm_email">E-mail bevestigen</string>
+    <string name="incorrect_email">E-mail geupdate.</string>
 
 </resources>

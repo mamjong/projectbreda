@@ -9,12 +9,14 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.lang.reflect.GenericArrayType;
 import java.util.Arrays;
@@ -34,7 +36,7 @@ public class UserSettingsActivity extends AppBaseActivity {
 	private TextView reportRadiusView;
 	private SeekBar changeRadius;
 	private String[] themeSpinnerEntries, languageSpinnerEntries;
-	private String selectedTheme, selectedLanguage;
+	private String selectedTheme, selectedLanguage, toastInvalidEmail;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +60,7 @@ public class UserSettingsActivity extends AppBaseActivity {
 		reportRadiusView = (TextView) findViewById(R.id.UserSettingsActivity_tv_currentRadius);
 		changeEmailButton = (Button) findViewById(R.id.UserSettingsActivity_btn_confirmEmail);
 		reportRadiusView.setText(reportRadius + " meters");
-		
+		toastInvalidEmail = getResources().getString(R.string.incorrect_email);
 		
 		
 		this.themeSpinnerEntries = getResources().getStringArray(R.array.themeSpinner);
@@ -79,11 +81,7 @@ public class UserSettingsActivity extends AppBaseActivity {
 		
 		ArrayAdapter<String> languageAdapter = new ArrayAdapter<String>(this, R.layout.spinner_layout_custom_row, languageSpinnerEntries);
 		languageSpinner.setAdapter(languageAdapter);
-		
-		
-		
-		currentEmail.setEnabled(false);
-		
+				
 		user = dbh.getUser();
 		currentEmail.setText(user.getMailAccount());
 		
@@ -118,6 +116,10 @@ public class UserSettingsActivity extends AppBaseActivity {
 				dbh.updateUser(currentEmail.getText().toString());
 				user = dbh.getUser();
 				currentEmail.setText(user.getMailAccount());
+				
+				Toast toast = Toast.makeText(getApplicationContext(), toastInvalidEmail, Toast.LENGTH_SHORT);
+				toast.show();
+				
 			}
 		});
 		
@@ -152,16 +154,16 @@ public class UserSettingsActivity extends AppBaseActivity {
 			
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				if (Patterns.EMAIL_ADDRESS.matcher(s).matches()) {
-					changeSettings.setEnabled(true);
-				} else {
-					changeSettings.setEnabled(false);
-				}
+				
 			}
 			
 			@Override
 			public void afterTextChanged(Editable s) {
-				
+				if (Patterns.EMAIL_ADDRESS.matcher(s).matches()) {
+					currentEmail.setBackgroundResource(R.drawable.email_border_correct);
+				} else {
+					currentEmail.setBackgroundResource(R.drawable.email_border_wrong);
+				}
 			}
 		});
 		
