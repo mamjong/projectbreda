@@ -192,7 +192,7 @@
         android:layout_height="wrap_content"
         android:background="?attr/normalBackground"
         android:text="@string/confirm_email"
-        android:textColor="?attr/splashText"
+        android:textColor="?attr/mainTextColor"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="8dp"/>
 
