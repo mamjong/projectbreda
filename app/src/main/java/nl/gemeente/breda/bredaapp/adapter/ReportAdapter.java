@@ -2,6 +2,7 @@ package nl.gemeente.breda.bredaapp.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,8 @@ public class ReportAdapter extends ArrayAdapter<Report> {
 	}
 	
 	public View getView(int position, View convertView, ViewGroup parent) {
+		
+		final DatabaseHandler dbh = new DatabaseHandler(getContext(), null, null, 1);
 		
 		// Create report
 		report = getItem(position);
@@ -83,11 +86,13 @@ public class ReportAdapter extends ArrayAdapter<Report> {
 			Picasso.with(getContext()).load(report.getMediaUrl()).into(mediaUrl);
 		}
 		
-		if (report.isFavorite()){
-			imageCheckbox.setImageResource(R.drawable.ic_check_box_black_24dp);
-		} else {
-			imageCheckbox.setImageResource(R.drawable.ic_check_box_outline_blank_black_24dp);
-		}
+		imageCheckbox.setImageResource(R.drawable.ic_check_box_outline_blank_black_24dp);
+		
+//		if (report.isFavorite()){
+//			imageCheckbox.setImageResource(R.drawable.ic_check_box_black_24dp);
+//		} else {
+//			imageCheckbox.setImageResource(R.drawable.ic_check_box_outline_blank_black_24dp);
+//		}
 		
 		// Handel het selecteren/deselecteren af
 		// Deze PersonAdapter wordt in meerdere ListViews gebruikt: in de lijst met nieuw
@@ -95,37 +100,20 @@ public class ReportAdapter extends ArrayAdapter<Report> {
 		imageCheckbox.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View view) {
-				// Verander isFavorite: true wordt false, false wordt true
-				report.setFavorite(!report.isFavorite());
-				if(report.isFavorite()) {
-					// addPerson geeft de rowID van de person in de database terug, of -1 bij error.
-//					if(DatabaseHandler.addReport(report) > -1) {
-						// Zet de juiste checkbox image
-						imageCheckbox.setImageResource(R.drawable.ic_check_box_black_24dp);
-						// Laat een bericht zien dat het toevoegen gelukt is
-						Toast.makeText(getContext(), R.string.toast_report_added, Toast.LENGTH_SHORT).show();
-					}
-					else {
-						// Het toevoegen is niet gelukt!
-						Toast.makeText(getContext(), R.string.toast_report_added_error, Toast.LENGTH_SHORT).show();
-					}
-//				}
-//					else {
-//					if(DatabaseHandler.deletePerson(report) == 1) {
-//						// Zet de juiste checkbox image
-//						imageCheckbox.setImageResource(R.drawable.ic_check_box_outline_blank_black_24dp);
-//						// Als we in de Favorites lijst zitten verwijderen we deze persoon
-//						// ook uit de lijst.
-//						if (parent.getId() == R.id.favoritesListView)
-//							mPersonArrayList.remove(position);
-//						notifyDataSetChanged();
-//						// Laat een bericht zien dat het verwijderen gelukt is
-//						Toast.makeText(getContext(), R.string.toast_report_deleted, Toast.LENGTH_SHORT).show();
-//					} else {
-//						// Het verwijderen is niet gelukt!
-//						Toast.makeText(getContext(), R.string.toast_report_deleted_error, Toast.LENGTH_SHORT).show();
-//					}
-//				}
+				if (report.isFavorite() == true) {
+					report.setFavorite(false);
+					dbh.updateFavorite(report.isFavorite());
+					
+				} else {
+					report.setFavorite(true);
+					dbh.updateFavorite(report.isFavorite());
+				}
+				
+				if (report.isFavorite()){
+					imageCheckbox.setImageResource(R.drawable.ic_check_box_black_24dp);
+				} else {
+					imageCheckbox.setImageResource(R.drawable.ic_check_box_outline_blank_black_24dp);
+				}
 			}
 		});
 		

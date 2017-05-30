@@ -49,7 +49,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		
 		String CREATE_REPORTS_TABLE = "CREATE TABLE " + REPORTS_TABLE_NAME +
 				"(" +
-				REPORTS_COLUMN_ID + " INTEGER PRIMARY KEY " +
+				REPORTS_COLUMN_ID + " INTEGER PRIMARY KEY, " +
 				REPORTS_COLUMN_IS_FAVORITE + " INTEGER" +
 				")";
 		
@@ -114,6 +114,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.insert(REPORTS_TABLE_NAME, null, values);
+		db.close();
+	}
+	
+	public void updateFavorite(boolean value) {
+		ContentValues values = new ContentValues();
+		values.put(REPORTS_COLUMN_IS_FAVORITE, value);
+		
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.update(REPORTS_TABLE_NAME, values, null, null);
 		db.close();
 	}
 	
@@ -184,19 +193,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.close();
 	}
 	
-//	public Long addReport(Report report) {
-//		ContentValues values = new ContentValues();
-//
-//		values.put(REPORTS_COLUMN_ID, report.getServiceRequestId());
-//		values.put(REPORTS_COLUMN_IS_FAVORITE, report.isFavorite());
-//
-//		SQLiteDatabase db = this.getWritableDatabase();
-//
-//		return db.insert(REPORTS_TABLE_NAME, null, values);
-////	    db.insert(REPORTS_TABLE_NAME, null, values);
-////        db.close();
-//	}
-//
 	public ArrayList<Report> getAllFavoriteReports() {
 		Log.i(TAG, "getAllFavoriteReports");
 
@@ -226,21 +222,5 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		
 		db.close();
 		return result;
-
-//		for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-//			Report report = new Report();
-//			report.setServiceRequestId(cursor.getString(cursor.getColumnIndex(REPORTS_COLUMN_ID)));
-//
-//
-//			int isFavorite = cursor.getInt(cursor.getColumnIndex(REPORTS_COLUMN_IS_FAVORITE));
-//			if(0 == isFavorite){
-//				report.setFavorite(false);
-//			} else {
-//				report.setFavorite(true);
-//			}
-//
-//			Log.i(TAG, "Found " + report + ", adding to list");
-//			result.add(report);
-//		}
 	}
 }

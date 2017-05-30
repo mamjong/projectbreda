@@ -18,7 +18,7 @@ public class Report implements Serializable {
 	private ImageView itemImageView;
 	private double latitude;
 	private double longitude;
-	private boolean isFavorite = false;
+	private boolean isFavorite;
 	
 	public Report() {
 	}
