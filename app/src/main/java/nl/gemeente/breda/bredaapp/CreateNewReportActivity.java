@@ -64,12 +64,6 @@ public class CreateNewReportActivity extends AppBaseActivity {
 			}
 		});
 		
-		// Placeholder spinner data
-		this.arraySpinnerDataMain = getResources().getStringArray(R.array.spinnerPlaceHolderData);
-		this.arraySpinnerAfvalSubs = getResources().getStringArray(R.array.spinnerAfvalSubs);
-		this.arraySpinnerDierenEnOngedierteSubs = getResources().getStringArray(R.array.spinnerDierenEnOngedierteSubs);
-		this.arraySpinnerGroenSubs = getResources().getStringArray(R.array.spinnerGroenSubs);
-		this.arraySpinnerOpenbareVerlichtingSubs = getResources().getStringArray(R.array.spinnerOpenbareVerlichtingSubs);
 		
 		// Service spinner -- Wordt opgehaald van de API
 		final Spinner sprSubCategories = (Spinner) findViewById(R.id.activityCreateNewReport_spr_defects);
