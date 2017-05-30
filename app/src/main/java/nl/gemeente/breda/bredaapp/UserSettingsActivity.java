@@ -1,5 +1,6 @@
 package nl.gemeente.breda.bredaapp;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
@@ -37,6 +38,7 @@ public class UserSettingsActivity extends AppBaseActivity {
 	private SeekBar changeRadius;
 	private String[] themeSpinnerEntries, languageSpinnerEntries;
 	private String selectedTheme, selectedLanguage, toastInvalidEmail;
+	private boolean initialStart;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +53,7 @@ public class UserSettingsActivity extends AppBaseActivity {
 		selectedTheme = preferences.getString("theme", "standard");
 		Log.i("Settings loaded", selectedTheme);
 		
-		
+		initialStart = true;
 		final DatabaseHandler dbh = new DatabaseHandler(getApplicationContext(), null, null, 1);
 		currentEmail = (EditText) findViewById(R.id.UserSettingsActivity_et_currentEmail);
 		changeRadius = (SeekBar) findViewById(R.id.UserSettingsActivity_sb_ChangeRadius);
@@ -93,6 +95,15 @@ public class UserSettingsActivity extends AppBaseActivity {
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 				String selected = parent.getItemAtPosition(position).toString();
 				
+				
+				if (!initialStart) {
+					Intent i = new Intent(UserSettingsActivity.this, UserSettingsActivity.class);
+					startActivity(i);
+					finish();
+				}
+				
+				initialStart = false;
+				
 				if (selected.equals(getResources().getString(R.string.themeStandard))) {
 					SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
 					editor.putString("theme", "standard");
@@ -102,7 +113,13 @@ public class UserSettingsActivity extends AppBaseActivity {
 					editor.putString("theme", "night");
 					editor.commit();
 				}
+				
+				
+				
+				
 			}
+			
+			
 			
 			@Override
 			public void onNothingSelected(AdapterView<?> parent) {

@@ -39,7 +39,7 @@
   <!-- Text colors -->
   <attr name="mainText" format="color" />
   <attr name="splashText" format="color" />
-  
+  <attr name="mainTextColor" format="color" />
   <attr name="splashBackground" format="color" />
   
   <!-- Menu drawables -->

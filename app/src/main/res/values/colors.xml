@@ -4,7 +4,7 @@
     <color name="colorPrimary">#d91d49</color>
     <color name="colorPrimaryDark">#af1338</color>
     <color name="colorPrimaryLight">#d33258</color>
-    <color name="colorAccent">#ffffff</color>
+    <color name="colorAccent">#d33258</color>
     <color name="colorDark">#1a1918</color>
     <color name="colorAccentDark">#EFEFEF</color>
     <color name="colorMenuIcon">#000000</color>
@@ -13,7 +13,7 @@
     <color name="colorPrimaryNight">#2b2b2b</color>
     <color name="colorPrimaryDarkNight">#171717</color>
     <color name="colorPrimaryLightNight">#464646</color>
-    <color name="colorAccentNight">#ffffff</color>
+    <color name="colorAccentNight">#171717</color>
     <color name="colorMenuIconNight">#ffffff</color>
     
     <!-- Other colors -->
