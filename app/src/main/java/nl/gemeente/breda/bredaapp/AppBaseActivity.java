@@ -39,6 +39,7 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 	private ImageView logo;
 	
 	private int i;
+	private String shareText = "Check out InfraMeld! It's insane!";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +110,7 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 			public void onClick(View v) {
 				Intent shareIntent = new Intent();
 				shareIntent.setAction(Intent.ACTION_SEND);
-				shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out InfraMeld! It's insane!");
+				shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
 				shareIntent.setType("text/plain");
 				startActivity(shareIntent);
 			}
@@ -232,5 +233,21 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 	
 	public void setToolbarTitle(@StringRes int title) {
 		toolbarSimple.setTitle(title);
+	}
+	
+	public void setShareText(String text) {
+		shareText = text;
+	}
+	
+	public void setShareText(@StringRes int text) {
+		shareText = getResources().getString(text).toString();
+	}
+	
+	public void setShareVisible(boolean visible) {
+		if (visible) {
+			shareButton.setVisibility(View.VISIBLE);
+		} else {
+			shareButton.setVisibility(View.INVISIBLE);
+		}
 	}
 }

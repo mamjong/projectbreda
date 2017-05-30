@@ -46,8 +46,8 @@ public class CreateNewReportActivity extends AppBaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_new_report);
-		
 		super.setMenuSelected(getIntent().getExtras());
+		super.setShareVisible(false);
 		
 		cameraButton = (Button) findViewById(R.id.activityCreateNewReport_bt_makePicture);
 		continueToMap = (Button) findViewById(R.id.activityCreateNewReport_bt_continue);
