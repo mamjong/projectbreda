@@ -15,7 +15,7 @@ public class TermsAndConditionsActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_terms_and_conditions);
 		
 		Button acceptButton = (Button) findViewById(R.id.activityTermsAndConditions_bt_accept);
-		Button declineButton = (Button) findViewById(R.id.activityTermsAndConditions_bt_decline); 
+		Button declineButton = (Button) findViewById(R.id.activityTermsAndConditions_bt_decline);
 		
 		acceptButton.setOnClickListener(new View.OnClickListener() {
 			@Override

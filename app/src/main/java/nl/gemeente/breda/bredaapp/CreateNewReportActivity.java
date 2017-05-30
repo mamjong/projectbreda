@@ -8,12 +8,8 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -56,7 +52,7 @@ public class CreateNewReportActivity extends AppBaseActivity {
 		cameraButton = (Button) findViewById(R.id.activityCreateNewReport_bt_makePicture);
 		continueToMap = (Button) findViewById(R.id.activityCreateNewReport_bt_continue);
 		noPicture = (TextView) findViewById(R.id.activityCreateNewReport_tv_noPicture);
-		selectedPictureView = (ImageView) findViewById(R.id.activityCreateNewReport_iv_defectImage); 
+		selectedPictureView = (ImageView) findViewById(R.id.activityCreateNewReport_iv_defectImage);
 		serviceAdapter = new ServiceAdapter(getApplicationContext(), ServiceManager.getServices(), R.layout.spinner_layout_custom_row);
 		
 		continueToMap.setEnabled(false);
@@ -68,17 +64,11 @@ public class CreateNewReportActivity extends AppBaseActivity {
 			}
 		});
 		
-		// Placeholder spinner data
-		this.arraySpinnerDataMain = getResources().getStringArray(R.array.spinnerPlaceHolderData);
-		this.arraySpinnerAfvalSubs = getResources().getStringArray(R.array.spinnerAfvalSubs);
-		this.arraySpinnerDierenEnOngedierteSubs = getResources().getStringArray(R.array.spinnerDierenEnOngedierteSubs);
-		this.arraySpinnerGroenSubs = getResources().getStringArray(R.array.spinnerGroenSubs);
-		this.arraySpinnerOpenbareVerlichtingSubs = getResources().getStringArray(R.array.spinnerOpenbareVerlichtingSubs);
 		
 		// Service spinner -- Wordt opgehaald van de API
 		final Spinner sprSubCategories = (Spinner) findViewById(R.id.activityCreateNewReport_spr_defects);
 		Spinner sprCategories = (Spinner) findViewById(R.id.activityCreateNewReport_spr_categories);
-		
+
 //		ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
 //				android.R.layout.simple_spinner_item, arraySpinnerDataMain);
 		
@@ -129,9 +119,9 @@ public class CreateNewReportActivity extends AppBaseActivity {
 			}
 		});
 		
-		continueToMap.setOnClickListener(new View.OnClickListener(){
+		continueToMap.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View v){
+			public void onClick(View v) {
 				if (itemImage == null) {
 					Toast toast = Toast.makeText(CreateNewReportActivity.this, getResources().getString(R.string.activityCreateNewReport_text_noImageSelected), Toast.LENGTH_LONG);
 					toast.show();

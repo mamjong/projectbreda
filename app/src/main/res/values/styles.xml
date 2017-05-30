@@ -17,6 +17,9 @@
         <item name="menuTextColor">@color/colorBlack</item>
         
         <item name="mainText">@color/colorPrimary</item>
+        <item name="mainTextColor">@color/colorWhite</item>
+        <item name="splashText">@color/colorPrimary</item>
+        <item name="splashBackground">@color/colorWhite</item>
 
         <item name="menuHeader">@drawable/header_image</item>
         <item name="menuReports">@drawable/ic_view_list_black_24dp</item>
@@ -41,6 +44,9 @@
         <item name="menuTextColor">@color/colorWhite</item>
 
         <item name="mainText">@color/colorPrimaryNight</item>
+        <item name="mainTextColor">@color/colorWhite</item>
+        <item name="splashText">@color/colorWhite</item>
+        <item name="splashBackground">@color/colorPrimaryNight</item>
 
         <item name="menuHeader">@drawable/header_image_dark</item>
         <item name="menuReports">@drawable/ic_view_list_white_24dp</item>

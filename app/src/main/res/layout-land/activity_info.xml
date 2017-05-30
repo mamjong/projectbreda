@@ -9,14 +9,12 @@
     tools:context="nl.gemeente.breda.bredaapp.InfoActivity">
 
     <ImageView
-        android:id="@+id/imageView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="5.6"
         app:srcCompat="@drawable/groep_klein"/>
 
     <TextView
-        android:id="@+id/infoText"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="4"

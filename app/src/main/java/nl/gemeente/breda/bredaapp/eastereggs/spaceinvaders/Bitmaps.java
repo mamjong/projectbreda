@@ -25,6 +25,7 @@ public class Bitmaps {
 	public static final int ENEMY_BULLET = 12;
 	private static Bitmaps instance = null;
 	private Context context;
+	
 	private Bitmaps() {
 	}
 	

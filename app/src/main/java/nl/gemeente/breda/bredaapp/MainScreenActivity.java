@@ -2,7 +2,6 @@ package nl.gemeente.breda.bredaapp;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -10,16 +9,12 @@ import android.os.CountDownTimer;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +26,6 @@ import com.flask.floatingactionmenu.OnFloatingActionMenuSelectedListener;
 import nl.gemeente.breda.bredaapp.adapter.MainScreenSectionsPagerAdapter;
 import nl.gemeente.breda.bredaapp.adapter.ServiceAdapter;
 import nl.gemeente.breda.bredaapp.api.ApiHomeScreen;
-import nl.gemeente.breda.bredaapp.api.ApiServices;
 import nl.gemeente.breda.bredaapp.api.LocationApi;
 import nl.gemeente.breda.bredaapp.businesslogic.ReportManager;
 import nl.gemeente.breda.bredaapp.businesslogic.ServiceManager;
@@ -47,6 +41,7 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 	// Properties
 	//================================================================================
 	
+	protected int reportRadius;
 	private MainScreenSectionsPagerAdapter sectionsPagerAdapter;
 	private ViewPager viewPager;
 	private ReportManager reportManager;
@@ -60,13 +55,12 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 	private double longtitude;
 	private Context context;
 	private String serviceCode;
-	protected int reportRadius;
 	private TabLayout tabs;
 	
 	private int backPressAmount = 0;
 	
 	private FloatingActionMenu floatingActionMenu;
-
+	
 	//================================================================================
 	// Accessors
 	//================================================================================
@@ -86,13 +80,13 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		latitude = 0;
 		longtitude = 0;
 		serviceCode = "0";
-
+		
 		viewPager = (ViewPager) findViewById(R.id.container);
 		viewPager.setAdapter(sectionsPagerAdapter);
 		
 		TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 		tabLayout.setupWithViewPager(viewPager);
-
+		
 		//newReportActivityBtn = (Button) findViewById(R.id.mainScreenActivity_Btn_MakeReport);
 
 //		newReportActivityBtn.setOnClickListener(new View.OnClickListener() {
@@ -107,16 +101,16 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		
 		getReports("0", 60.1892477, 24.9707467, 10000);
 		getLocation();
-
+		
 		numberOfReports = -1;
-
+		
 		loading = (TextView) findViewById(R.id.activityMainscreen_tv_loading);
 		overlay = (ImageView) findViewById(R.id.activityMainscreen_overlay_image);
 		overlay.setVisibility(View.INVISIBLE);
 		loading.setText(R.string.spinner_loading);
 		
 		homescreenDropdown = (Spinner) findViewById(R.id.homescreen_dropdown);
-
+		
 		spinnerAdapter = new ServiceAdapter(getApplicationContext(), ServiceManager.getServices(), R.layout.spinner_layout_adapter);
 		homescreenDropdown.setAdapter(spinnerAdapter);
 		homescreenDropdown.setOnItemSelectedListener(this);
@@ -124,7 +118,7 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		
 		SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 		reportRadius = preferences.getInt("ReportRadius", 500);
-
+		
 		spinnerAdapter.notifyDataSetChanged();
 		
 		floatingActionMenu = (FloatingActionMenu) findViewById(R.id.fam);
@@ -142,20 +136,20 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 			}
 		});
 	}
-
+	
 	public void getReports(String serviceCode, double latitude, double longtitude, int radius) {
 		ReportManager.emptyArray();
 		ApiHomeScreen apiHomeScreen = new ApiHomeScreen(this, this);
-		String[] urls = new String[] {"https://asiointi.hel.fi/palautews/rest/v1/requests.json?status=open&service_code=" + serviceCode + "&lat=" + latitude + "&long=" + longtitude + "&radius=" + radius};
+		String[] urls = new String[]{"https://asiointi.hel.fi/palautews/rest/v1/requests.json?status=open&service_code=" + serviceCode + "&lat=" + latitude + "&long=" + longtitude + "&radius=" + radius};
 		apiHomeScreen.execute(urls);
 	}
 	
-	public void getLocation(){
+	public void getLocation() {
 		LocationApi locationApi = new LocationApi(this);
 		locationApi.setContext(context, this);
 		locationApi.search();
 	}
-
+	
 	@Override
 	public void onReportAvailable(Report report) {
 		//Log.i("Report", report.getDescription());
@@ -169,10 +163,9 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		Service service = ServiceManager.getServices().get(position);
 		serviceCode = service.getServiceCode();
 		
-		if(latitude == 0 || longtitude == 0) {
+		if (latitude == 0 || longtitude == 0) {
 			getReports(serviceCode, 60.1892477, 24.9707467, 10000);
-		}
-		else {
+		} else {
 			getReports(serviceCode, latitude, longtitude, reportRadius);
 		}
 		
@@ -182,23 +175,22 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 			sectionsPagerAdapter.getMap().getUiSettings().setScrollGesturesEnabled(false);
 		}
 	}
-
+	
 	@Override
 	public void onNothingSelected(AdapterView<?> parent) {
-
+		
 	}
-
+	
 	@Override
 	public void onNumberOfReportsAvailable(int number) {
 		this.numberOfReports = number;
-		if(number > 0){
+		if (number > 0) {
 			if (sectionsPagerAdapter.getMap() != null) {
 				sectionsPagerAdapter.getMap().getUiSettings().setScrollGesturesEnabled(true);
 			}
 			loading.setText("");
 			overlay.setVisibility(View.INVISIBLE);
-		}
-		else if(number == 0){
+		} else if (number == 0) {
 			if (sectionsPagerAdapter.getMap() != null) {
 				sectionsPagerAdapter.getMap().getUiSettings().setScrollGesturesEnabled(false);
 			}
