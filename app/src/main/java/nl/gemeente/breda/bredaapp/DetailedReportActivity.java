@@ -55,6 +55,8 @@ public class DetailedReportActivity extends AppBaseActivity {
 		
 		progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#d91d49"), PorterDuff.Mode.SRC_ATOP);
 		
+		super.setShareText(getResources().getString(R.string.created_report_share_text_prefix).toString().trim() + " " + r.getDescription());
+		
 		Glide.with(this)
 				.load(getMediaUrl)
 				.listener(new RequestListener<Drawable>() {
