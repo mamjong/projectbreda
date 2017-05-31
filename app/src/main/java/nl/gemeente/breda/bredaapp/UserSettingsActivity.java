@@ -37,7 +37,7 @@ public class UserSettingsActivity extends AppBaseActivity {
 	private TextView reportRadiusView;
 	private SeekBar changeRadius;
 	private String[] themeSpinnerEntries, languageSpinnerEntries;
-	private String selectedTheme, selectedLanguage, toastInvalidEmail;
+	private String selectedTheme, toastEmailUpdated;
 	private boolean initialStart;
 	
 	@Override
@@ -63,7 +63,7 @@ public class UserSettingsActivity extends AppBaseActivity {
 		reportRadiusView = (TextView) findViewById(R.id.UserSettingsActivity_tv_currentRadius);
 		changeEmailButton = (Button) findViewById(R.id.UserSettingsActivity_btn_confirmEmail);
 		reportRadiusView.setText(reportRadius + " meters");
-		toastInvalidEmail = getResources().getString(R.string.incorrect_email);
+		toastEmailUpdated = getResources().getString(R.string.incorrect_email);
 		
 		
 		this.themeSpinnerEntries = getResources().getStringArray(R.array.themeSpinner);
@@ -135,7 +135,7 @@ public class UserSettingsActivity extends AppBaseActivity {
 				user = dbh.getUser();
 				currentEmail.setText(user.getMailAccount());
 				
-				Toast toast = Toast.makeText(getApplicationContext(), toastInvalidEmail, Toast.LENGTH_SHORT);
+				Toast toast = Toast.makeText(getApplicationContext(), toastEmailUpdated, Toast.LENGTH_SHORT);
 				toast.show();
 				
 			}
