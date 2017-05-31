@@ -75,14 +75,20 @@
         android:textSize="16dp"
         android:layout_marginStart="8dp"/>
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/activityCreateNewReportDifferentLocation_mv_locationMap"
+
+    <EditText
+        android:id="@+id/activityCreateNewReportDifferentLocation_et_commentText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/activityCreateNewReportDifferentLocation_tv_locationTextView"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="10dp"></com.google.android.gms.maps.MapView>
+        android:inputType="textMultiLine"
+        android:lines="8"
+        android:minLines="1"
+        android:maxLines="12"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/activityCreateNewReportDifferentLocation_tv_locationTextView"
+        android:gravity="top|left"
+        />
 
     <Button
         android:id="@+id/activityCreateNewReportDifferentLocation_bt_continue"

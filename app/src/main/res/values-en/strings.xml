@@ -56,7 +56,7 @@
     <string name="themeNight">Dark theme</string>
 
     <string name="activityCreateNewReportDifferentLocation_bt_addImage">Choose an image</string>
-    <string name="activityCreateNewReportDifferentLocation_tv_locationTextView">Location</string>
+    <string name="activityCreateNewReportDifferentLocation_tv_locationTextView">Comment</string>
     <string name="activityCreateNewReportDifferentLocation_et_streetHint">Street</string>
     <string name="fab_location">I\'m at the current location</string>
     <string name="fab_other">I\'m somewhere else</string>

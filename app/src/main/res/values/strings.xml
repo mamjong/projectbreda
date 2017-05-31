@@ -15,7 +15,7 @@
     <string name="activityCreateNewReport_text_noImageSelected">Geen afbeelding geselecteerd. Heeft u geen afbeelding, selecteer dan \"Ik heb geen foto.\".</string>
 
     <string name="activityCreateNewReportDifferentLocation_bt_addImage">Kies een afbeelding</string>
-    <string name="activityCreateNewReportDifferentLocation_tv_locationTextView">Locatie</string>
+    <string name="activityCreateNewReportDifferentLocation_tv_locationTextView">Commentaar</string>
     <string name="activityCreateNewReportDifferentLocation_et_streetHint">Straat</string>
 
     <string name="activityTermsAndConditions_bt_accept">Accepteren</string>

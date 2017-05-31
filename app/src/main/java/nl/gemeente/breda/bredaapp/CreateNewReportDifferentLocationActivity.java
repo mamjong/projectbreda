@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -34,6 +35,8 @@ public class CreateNewReportDifferentLocationActivity extends AppCompatActivity 
 	private ServiceAdapter serviceAdapter;
 	private String chosenService;
 	private String[] arraySpinnerDataMain, arraySpinnerGroenSubs, arraySpinnerAfvalSubs, arraySpinnerDierenEnOngedierteSubs, arraySpinnerOpenbareVerlichtingSubs;
+	private EditText commentEditText;
+	private String commentText;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,7 @@ public class CreateNewReportDifferentLocationActivity extends AppCompatActivity 
 		continueButton = (Button)findViewById(R.id.activityCreateNewReportDifferentLocation_bt_continue);
 		selectedPicture = (ImageView)findViewById(R.id.activityCreateNewReportDifferentLocation_iv_defectImage);
 		serviceAdapter = new ServiceAdapter(getApplicationContext(), ServiceManager.getServices(), R.layout.spinner_layout_custom_row);
+		commentEditText = (EditText)findViewById(R.id.activityCreateNewReportDifferentLocation_et_commentText);
 		
 		continueButton.setEnabled(false);
 		
@@ -57,66 +61,40 @@ public class CreateNewReportDifferentLocationActivity extends AppCompatActivity 
 			}
 		});
 		
+		commentText = commentEditText.toString();
+		
 		// Placeholder spinner data
-		this.arraySpinnerDataMain = getResources().getStringArray(R.array.spinnerPlaceHolderData);
-		this.arraySpinnerAfvalSubs = getResources().getStringArray(R.array.spinnerAfvalSubs);
-		this.arraySpinnerDierenEnOngedierteSubs = getResources().getStringArray(R.array.spinnerDierenEnOngedierteSubs);
-		this.arraySpinnerGroenSubs = getResources().getStringArray(R.array.spinnerGroenSubs);
-		this.arraySpinnerOpenbareVerlichtingSubs = getResources().getStringArray(R.array.spinnerOpenbareVerlichtingSubs);
-		
-		// Service spinner -- Wordt opgehaald van de API
-		final Spinner sprSubCategories = (Spinner) findViewById(R.id.activityCreateNewReport_spr_defects);
-		Spinner sprCategories = (Spinner) findViewById(R.id.activityCreateNewReport_spr_categories);
-
-//		ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
-//				android.R.layout.simple_spinner_item, arraySpinnerDataMain);
-		
-		sprCategories.setAdapter(serviceAdapter);
-		
-		// Subcategories: TODO: Maken aan de hand van de API
-		sprCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-//                Toast.makeText(parent.getContext(),
-//                        "OnItemSelectedListener: " + parent.getItemAtPosition(pos).toString(),
-//                        Toast.LENGTH_SHORT).show();
-				
-				chosenService = parent.getItemAtPosition(pos).toString();
-				
-				switch (parent.getItemAtPosition(pos).toString()) {
-					case "Groen":
-						ArrayAdapter<String> sprSubGroenAdapter = new ArrayAdapter<String>(CreateNewReportDifferentLocationActivity.this,
-								android.R.layout.simple_spinner_item, arraySpinnerGroenSubs);
-						sprSubCategories.setAdapter(sprSubGroenAdapter);
-						
-						
-						// On Item Selected --
-						
-						break;
-					case "Openbare verlichting":
-						ArrayAdapter<String> sprSubOVAdapter = new ArrayAdapter<String>(CreateNewReportDifferentLocationActivity.this,
-								android.R.layout.simple_spinner_item, arraySpinnerOpenbareVerlichtingSubs);
-						sprSubCategories.setAdapter(sprSubOVAdapter);
-						
-						break;
-					case "Afval":
-						ArrayAdapter<String> sprSubAfvalAdapter = new ArrayAdapter<String>(CreateNewReportDifferentLocationActivity.this,
-								android.R.layout.simple_spinner_item, arraySpinnerAfvalSubs);
-						sprSubCategories.setAdapter(sprSubAfvalAdapter);
-						break;
-					case "Dieren en ongedierte":
-						ArrayAdapter<String> sprSubDierAdapter = new ArrayAdapter<String>(CreateNewReportDifferentLocationActivity.this,
-								android.R.layout.simple_spinner_item, arraySpinnerDierenEnOngedierteSubs);
-						sprSubCategories.setAdapter(sprSubDierAdapter);
-						break;
-				}
-			}
-			
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-				Toast.makeText(parent.getContext(), "Nothing selected", Toast.LENGTH_LONG).show();
-			}
-		});
+//		this.arraySpinnerDataMain = getResources().getStringArray(R.array.spinnerPlaceHolderData);
+//		this.arraySpinnerAfvalSubs = getResources().getStringArray(R.array.spinnerAfvalSubs);
+//		this.arraySpinnerDierenEnOngedierteSubs = getResources().getStringArray(R.array.spinnerDierenEnOngedierteSubs);
+//		this.arraySpinnerGroenSubs = getResources().getStringArray(R.array.spinnerGroenSubs);
+//		this.arraySpinnerOpenbareVerlichtingSubs = getResources().getStringArray(R.array.spinnerOpenbareVerlichtingSubs);
+//
+//		// Service spinner -- Wordt opgehaald van de API
+//		final Spinner sprSubCategories = (Spinner) findViewById(R.id.activityCreateNewReport_spr_defects);
+//		Spinner sprCategories = (Spinner) findViewById(R.id.activityCreateNewReport_spr_categories);
+//
+////		ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
+////				android.R.layout.simple_spinner_item, arraySpinnerDataMain);
+//
+//		sprCategories.setAdapter(serviceAdapter);
+//
+//		// Subcategories: TODO: Maken aan de hand van de API
+//		sprCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//			@Override
+//			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+////                Toast.makeText(parent.getContext(),
+////                        "OnItemSelectedListener: " + parent.getItemAtPosition(pos).toString(),
+////                        Toast.LENGTH_SHORT).show();
+//
+//				chosenService = parent.getItemAtPosition(pos).toString();
+//			}
+//
+//			@Override
+//			public void onNothingSelected(AdapterView<?> parent) {
+//				Toast.makeText(parent.getContext(), "Nothing selected", Toast.LENGTH_LONG).show();
+//			}
+//		});
 		
 		continueButton.setOnClickListener(new View.OnClickListener(){
 			@Override
