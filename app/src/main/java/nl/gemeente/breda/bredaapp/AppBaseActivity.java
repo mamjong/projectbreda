@@ -24,6 +24,7 @@ import java.util.Random;
 import nl.gemeente.breda.bredaapp.eastereggs.TestEasterEgg;
 import nl.gemeente.breda.bredaapp.eastereggs.snake.Snake;
 import nl.gemeente.breda.bredaapp.eastereggs.spaceinvaders.MainActivity;
+import nl.gemeente.breda.bredaapp.util.ThemeManager;
 
 public abstract class AppBaseActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
 	
@@ -38,9 +39,11 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 	private ImageView logo;
 	
 	private int i;
+	private String shareText = "Check out InfraMeld! It's insane!";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		ThemeManager.setTheme(AppBaseActivity.this);
 		super.onCreate(savedInstanceState);
 		super.setContentView(R.layout.app_base_layout);
 		view_stub = (FrameLayout) findViewById(R.id.view_stub);
@@ -107,7 +110,7 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 			public void onClick(View v) {
 				Intent shareIntent = new Intent();
 				shareIntent.setAction(Intent.ACTION_SEND);
-				shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out InfraMeld! It's insane!");
+				shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
 				shareIntent.setType("text/plain");
 				startActivity(shareIntent);
 			}
@@ -124,6 +127,13 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 	public void onConfigurationChanged(Configuration configuration) {
 		super.onConfigurationChanged(configuration);
 		drawerToggle.onConfigurationChanged(configuration);
+	}
+	
+	@Override
+	public void onRestart() {
+		super.onRestart();
+		finish();
+		startActivity(getIntent());
 	}
 	
 	@Override
@@ -223,5 +233,21 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 	
 	public void setToolbarTitle(@StringRes int title) {
 		toolbarSimple.setTitle(title);
+	}
+	
+	public void setShareText(String text) {
+		shareText = text;
+	}
+	
+	public void setShareText(@StringRes int text) {
+		shareText = getResources().getString(text).toString();
+	}
+	
+	public void setShareVisible(boolean visible) {
+		if (visible) {
+			shareButton.setVisibility(View.VISIBLE);
+		} else {
+			shareButton.setVisibility(View.INVISIBLE);
+		}
 	}
 }

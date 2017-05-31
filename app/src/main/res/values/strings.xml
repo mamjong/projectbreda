@@ -38,40 +38,10 @@
         <item>@string/themeNight</item>
     </string-array>
 
-    <string-array name="spinnerPlaceHolderData">
-        <item>Groen</item>
-        <item>Openbare verlichting</item>
-        <item>Afval</item>
-        <item>Dieren en ongedierte</item>
+    <string-array name="spinnerLanguageData">
+        <item>English</item>
+        <item>Nederlands</item>
     </string-array>
-
-    <string-array name="spinnerGroenSubs">
-        <item>Beplanting</item>
-        <item>Gazon/Berm</item>
-        <item>Bomen</item>
-    </string-array>
-
-    <string-array name="spinnerAfvalSubs">
-        <item>Afvalcontainers</item>
-        <item>Inzamelen GFT afval</item>
-        <item>Inzamelen paper</item>
-        <item>Inzamelen resafval</item>
-        <item>Kleding, -glascontainers</item>
-        <item>Zwergafval</item>
-    </string-array>
-
-    <string-array name="spinnerDierenEnOngedierteSubs">
-        <item>Dode dieren (kadavers)</item>
-        <item>Insecten of loslopende dieren</item>
-        <item>Ratten/Muizen/Steenmatter</item>
-        <item>Lechnesh</item>
-    </string-array>
-
-    <string-array name="spinnerOpenbareVerlichtingSubs">
-        <item>Defecte lamp</item>
-        <item>Kappote lichtmast</item>
-    </string-array>
-
 
     <string name="AddEmailActivity_tv_introText">Uw e-mailadres is nodig om gebruik \nte kunnen maken van deze app</string>
     <string name="AddEmailActivity_tv_emailaddress">E-mailadres:</string>
@@ -113,5 +83,11 @@
     <string name="menu_settings">Instellingen</string>
     <string name="menu_about">Over</string>
     <string name="no_internet">Geen internet</string>
-
+    <string name="radius_title">Radius:</string>
+    <string name="settings_theme">Thema:</string>
+    <string name="settings_language">Taal:</string>
+    <string name="confirm_email">E-mail bevestigen</string>
+    <string name="incorrect_email">E-mail geupdate.</string>
+    <string name="about_share_text">Dit coole team heeft InfraMeld gemaakt!</string>
+    <string name="created_report_share_text_prefix">Ik heb een melding met InfraMeld gemaakt: </string>
 </resources>

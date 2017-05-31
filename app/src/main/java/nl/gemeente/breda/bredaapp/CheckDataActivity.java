@@ -45,6 +45,7 @@ public class CheckDataActivity extends AppBaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_check_data);
 		super.setMenuSelected(getIntent().getExtras());
+		super.setShareVisible(false);
 		
 		final Button confirmBtn = (Button) findViewById(R.id.CheckDataActivity_bt_confirmReportButton);
 		final ImageView itemImageView = (ImageView) findViewById(R.id.CheckDataActivity_iv_defectImage);

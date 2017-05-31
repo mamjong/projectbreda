@@ -23,6 +23,7 @@ import android.widget.TextView;
 import nl.gemeente.breda.bredaapp.api.ApiServices;
 import nl.gemeente.breda.bredaapp.businesslogic.ServiceManager;
 import nl.gemeente.breda.bredaapp.domain.Service;
+import nl.gemeente.breda.bredaapp.util.ThemeManager;
 
 
 public class SplashActivity extends AppCompatActivity implements ApiServices.Listener {
@@ -36,6 +37,7 @@ public class SplashActivity extends AppCompatActivity implements ApiServices.Lis
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		ThemeManager.setTheme(SplashActivity.this);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
 		
