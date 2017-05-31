@@ -39,6 +39,23 @@ public class SplashActivity extends AppCompatActivity implements ApiServices.Lis
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
 		
+		Context context = this;
+		ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+		
+		TextView no_wifi = (TextView) findViewById(R.id.no_wifi);
+		no_wifi.setVisibility(View.INVISIBLE);
+		
+		if((activeNetwork == null) || !(activeNetwork.isConnected())){
+			Intent noInternet = new Intent(getApplicationContext(), NoInternet.class);
+			noInternet.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+			startActivity(noInternet);
+		}
+		
+		if (activeNetwork.getType() != ConnectivityManager.TYPE_WIFI) {
+			no_wifi.setVisibility(View.VISIBLE);
+		}
+		
 		PackageInfo packageInfo = null;
 		
 		try {
@@ -60,17 +77,6 @@ public class SplashActivity extends AppCompatActivity implements ApiServices.Lis
 		
 		TextView appVersion = (TextView) findViewById(R.id.activitySplashScreen_tv_appVersion);
 		appVersion.setText(getResources().getString(R.string.activitySplashScreen_tv_appVersion) + " " + version);
-		
-		TextView no_wifi = (TextView) findViewById(R.id.no_wifi);
-		no_wifi.setVisibility(View.INVISIBLE);
-		
-		Context context = this;
-		ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
-		
-		if (activeNetwork.getType() != ConnectivityManager.TYPE_WIFI) {
-			no_wifi.setVisibility(View.VISIBLE);
-		}
 		
 		ProgressBar pb = (ProgressBar) findViewById(R.id.activitySplashScreen_pb_loader);
 		pb.getIndeterminateDrawable().setColorFilter(Color.parseColor("#d91d49"), android.graphics.PorterDuff.Mode.SRC_ATOP);

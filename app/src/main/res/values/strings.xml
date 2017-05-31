@@ -29,7 +29,7 @@
     <string name="no_location_permission_positive">Ja</string>
     <string name="no_location_permission_negative">Nee</string>
     <string name="activityEmail_no_submit">Vul een geldig e-mailadres in en accepteer de algemene voorwaarden om door te gaan.</string>
-    
+
     <string name="themeStandard">Standaard thema</string>
     <string name="themeNight">Donker thema</string>
 
@@ -112,5 +112,6 @@
     <string name="menu_view_your_reports">Bekijk uw meldingen</string>
     <string name="menu_settings">Instellingen</string>
     <string name="menu_about">Over</string>
+    <string name="no_internet">Geen internet</string>
 
 </resources>
