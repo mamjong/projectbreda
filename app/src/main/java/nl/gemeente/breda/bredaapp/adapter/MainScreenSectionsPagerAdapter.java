@@ -8,13 +8,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.google.android.gms.maps.GoogleMap;
 
 import nl.gemeente.breda.bredaapp.R;
+import nl.gemeente.breda.bredaapp.fragment.MainScreenJsMapFragment;
 import nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment;
 import nl.gemeente.breda.bredaapp.fragment.MainScreenMapFragment;
 
 public class MainScreenSectionsPagerAdapter extends FragmentPagerAdapter {
 	
 	private Context context;
-	private MainScreenMapFragment tab1;
+	private MainScreenJsMapFragment tab1;
 	private MainScreenListFragment tab2;
 	//================================================================================
 	// Constructors
@@ -33,7 +34,7 @@ public class MainScreenSectionsPagerAdapter extends FragmentPagerAdapter {
 	public Fragment getItem(int position) {
 		switch (position) {
 			case 0:
-				tab1 = new MainScreenMapFragment();
+				tab1 = new MainScreenJsMapFragment();
 				return tab1;
 			
 			case 1:
@@ -72,13 +73,13 @@ public class MainScreenSectionsPagerAdapter extends FragmentPagerAdapter {
 	public void removeMarkers() {
 		
 		if (tab1 != null) {
-			tab1.removeMarkers();
+			//tab1.removeMarkers();
 		}
 	}
 	
 	public GoogleMap getMap() {
 		if (tab1 != null) {
-			return tab1.getMap();
+			//return tab1.getMap();
 		}
 		return null;
 	}
