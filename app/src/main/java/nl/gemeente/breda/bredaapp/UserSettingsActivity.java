@@ -1,7 +1,9 @@
 package nl.gemeente.breda.bredaapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -21,11 +23,13 @@ import android.widget.Toast;
 
 import java.lang.reflect.GenericArrayType;
 import java.util.Arrays;
+import java.util.Locale;
 
 import nl.gemeente.breda.bredaapp.domain.User;
+import nl.gemeente.breda.bredaapp.util.LocalizationManager;
 import nl.gemeente.breda.bredaapp.util.ThemeManager;
 
-public class UserSettingsActivity extends AppBaseActivity {
+public class UserSettingsActivity extends LocalizationManager {
 	
 	public static final String PREFS_NAME = "PrefsFile";
 	private User user;
@@ -145,21 +149,25 @@ public class UserSettingsActivity extends AppBaseActivity {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 				String selected = parent.getItemAtPosition(position).toString();
+				String language;
 				
-				if (selected.equals("Nederlands")) {
-					SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
-					editor.putString("language", "nl");
-					editor.commit();
-				} else if (selected.equals("Engels")) {
-					SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
-					editor.putString("language", "en");
-					editor.commit();
+				if (selected.equals(getResources().getString(R.string.languageDutch))) {
+					language = "nl";
+					setLanguage(language);
+//					SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+//					editor.putString("language", "nl");
+//					editor.commit();
+				} else if (selected.equals(getResources().getString(R.string.languageEnglish))) {
+					language = "en";
+					setLanguage(language);
+//					SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+//					editor.putString("language", "en");
+//					editor.commit();
 				}
 			}
 			
 			@Override
 			public void onNothingSelected(AdapterView<?> parent){
-				
 			}
 		});
 		
