@@ -49,7 +49,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		
 		String CREATE_REPORTS_TABLE = "CREATE TABLE " + REPORTS_TABLE_NAME +
 				"(" +
-				REPORTS_COLUMN_ID + " INTEGER PRIMARY KEY, " +
+				REPORTS_COLUMN_ID + " TEXT PRIMARY KEY, " +
 				REPORTS_COLUMN_IS_FAVORITE + " INTEGER" +
 				")";
 		
@@ -117,12 +117,35 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.close();
 	}
 	
-	public void updateFavorite(boolean value) {
+	public Boolean getFavorite(String serviceRequestId) {
+		String query = "SELECT * FROM " + REPORTS_COLUMN_IS_FAVORITE+ " WHERE " + REPORTS_COLUMN_ID +
+				" = '" + serviceRequestId + "'";
+		Log.i(TAG, "Query: " + query);
+		
+		int favoriteInt;
+		boolean favoriteBoolean = false;
+		
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.rawQuery(query, null);
+		
+		cursor.moveToFirst();
+		favoriteInt = cursor.getInt(cursor.getColumnIndex(REPORTS_COLUMN_IS_FAVORITE));
+		
+		if (favoriteInt == 0) {
+			favoriteBoolean = false;
+		} else if (favoriteInt == 1) {
+			favoriteBoolean = true;
+		}
+		
+		return favoriteBoolean;
+	}
+	
+	public void updateFavorite(boolean value, Report report) {
 		ContentValues values = new ContentValues();
 		values.put(REPORTS_COLUMN_IS_FAVORITE, value);
 		
 		SQLiteDatabase db = this.getWritableDatabase();
-		db.update(REPORTS_TABLE_NAME, values, null, null);
+		db.update(REPORTS_TABLE_NAME, values, "_id= '" + report.getServiceRequestId() + "'", null);
 		db.close();
 	}
 	
@@ -195,11 +218,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	
 	public ArrayList<Report> getAllFavoriteReports() {
 		Log.i(TAG, "getAllFavoriteReports");
-
-		// Als dit er heel veel zouden zijn - 1000 of meer -
-		// kun je de records beter in stukjes ophalen. Dan moet je
-		// dus een aantal en startpunt meegeven m.b.v. LIMIT (aantal en startpunt).
-		String query = "SELECT * FROM " + REPORTS_TABLE_NAME + " LIMIT 100";
+		
+		String query = "SELECT * FROM " + REPORTS_TABLE_NAME +  " WHERE " + REPORTS_COLUMN_IS_FAVORITE + "= 1";
 		Log.i(TAG, "Query: " + query);
 
 		ArrayList<Report> result = new ArrayList<>();

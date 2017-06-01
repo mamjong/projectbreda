@@ -48,12 +48,15 @@ public class DetailedReportActivity extends AppBaseActivity {
 		String getMediaUrl = extras.getString("MediaUrl");
 		
 		final Report r = (Report) extras.getSerializable(EXTRA_REPORT);
+		final DatabaseHandler dbh = new DatabaseHandler(getApplicationContext(), null, null, 1);
 		
 		category.setText(r.getServiceName());
 		
 		description.setText(r.getDescription());
 		
 		progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#d91d49"), PorterDuff.Mode.SRC_ATOP);
+		
+		r.setFavorite(dbh.getFavorite(r.getServiceRequestId()));
 		
 		Glide.with(this)
 				.load(getMediaUrl)
@@ -112,9 +115,12 @@ public class DetailedReportActivity extends AppBaseActivity {
 			@Override
 			public void onClick(View v) {
 				if (isPressed == false) {
+					dbh.updateFavorite(true, r);
 					extraReport.setBackgroundResource(R.drawable.onimage2);
 					isPressed = true;
+					
 				} else if (isPressed == true) {
+					dbh.updateFavorite(false, r);
 					extraReport.setBackgroundResource(R.drawable.offimage);
 					isPressed = false;
 				}

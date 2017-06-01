@@ -35,8 +35,6 @@ public class ReportAdapter extends ArrayAdapter<Report> {
 	
 	public View getView(int position, View convertView, ViewGroup parent) {
 		
-		final DatabaseHandler dbh = new DatabaseHandler(getContext(), null, null, 1);
-		
 		// Create report
 		report = getItem(position);
 		
@@ -97,25 +95,25 @@ public class ReportAdapter extends ArrayAdapter<Report> {
 		// Handel het selecteren/deselecteren af
 		// Deze PersonAdapter wordt in meerdere ListViews gebruikt: in de lijst met nieuw
 		// toegevoegde personen, en in de lijst met Favorites.
-		imageCheckbox.setOnClickListener(new View.OnClickListener(){
-			@Override
-			public void onClick(View view) {
-				if (report.isFavorite() == true) {
-					report.setFavorite(false);
-					dbh.updateFavorite(report.isFavorite());
-					
-				} else {
-					report.setFavorite(true);
-					dbh.updateFavorite(report.isFavorite());
-				}
-				
-				if (report.isFavorite()){
-					imageCheckbox.setImageResource(R.drawable.ic_check_box_black_24dp);
-				} else {
-					imageCheckbox.setImageResource(R.drawable.ic_check_box_outline_blank_black_24dp);
-				}
-			}
-		});
+//		imageCheckbox.setOnClickListener(new View.OnClickListener(){
+//			@Override
+//			public void onClick(View view) {
+//				if (report.isFavorite() == true) {
+//					report.setFavorite(false);
+//					dbh.updateFavorite(report.isFavorite());
+//
+//				} else {
+//					report.setFavorite(true);
+//					dbh.updateFavorite(report.isFavorite());
+//				}
+//
+//				if (report.isFavorite()){
+//					imageCheckbox.setImageResource(R.drawable.ic_check_box_black_24dp);
+//				} else {
+//					imageCheckbox.setImageResource(R.drawable.ic_check_box_outline_blank_black_24dp);
+//				}
+//			}
+//		});
 		
 		
 		// ImageLoader sucks
