@@ -77,6 +77,8 @@
         <activity android:name=".InfoActivity">
         </activity>
         <activity android:name=".CreateNewReportDifferentLocationActivity">
+            </activity>
+        <activity android:name=".NoInternet">
         </activity>
     </application>
 
