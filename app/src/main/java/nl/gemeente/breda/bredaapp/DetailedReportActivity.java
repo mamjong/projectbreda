@@ -56,7 +56,11 @@ public class DetailedReportActivity extends AppBaseActivity {
 		
 		progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#d91d49"), PorterDuff.Mode.SRC_ATOP);
 		
-		r.setFavorite(dbh.getFavorite(r.getServiceRequestId()));
+		if (dbh.checkReport(r) == true) {
+			extraReport.setBackgroundResource(R.drawable.onimage2);
+		} else if (dbh.checkReport(r) == false) {
+			extraReport.setBackgroundResource(R.drawable.offimage);
+		}
 		
 		Glide.with(this)
 				.load(getMediaUrl)
@@ -115,13 +119,15 @@ public class DetailedReportActivity extends AppBaseActivity {
 			@Override
 			public void onClick(View v) {
 				if (isPressed == false) {
-					dbh.updateFavorite(true, r);
+					dbh.addReport(r);
 					extraReport.setBackgroundResource(R.drawable.onimage2);
+					Log.i(TAG, "melding = checked");
 					isPressed = true;
 					
 				} else if (isPressed == true) {
-					dbh.updateFavorite(false, r);
+					dbh.deleteReport(r);
 					extraReport.setBackgroundResource(R.drawable.offimage);
+					Log.i(TAG, "melding = unchecked");
 					isPressed = false;
 				}
 			}

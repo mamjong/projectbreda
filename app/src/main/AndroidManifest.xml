@@ -80,6 +80,8 @@
             android:name=".FavoriteReportsActivity"
             android:label="@string/FavoriteReportsActivity_Label">
         </activity>
+        <activity android:name=".adapter.FavoriteReportsAdapter">
+        </activity>
     </application>
 
 </manifest>

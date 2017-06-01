@@ -3,6 +3,7 @@ package nl.gemeente.breda.bredaapp;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -117,39 +118,31 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.close();
 	}
 	
-	public Boolean getFavorite(String serviceRequestId) {
-		String query = "SELECT * FROM " + REPORTS_COLUMN_IS_FAVORITE+ " WHERE " + REPORTS_COLUMN_ID +
-				" = '" + serviceRequestId + "'";
-		Log.i(TAG, "Query: " + query);
-		
-		int favoriteInt;
-		boolean favoriteBoolean = false;
+	public void deleteReport(Report report) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.delete(REPORTS_TABLE_NAME, "_id= '" + report.getServiceRequestId() + "'", null);
+		db.close();
+	}
+	
+	public Boolean checkReport(Report report) {
+		String query = "SELECT * FROM " + REPORTS_TABLE_NAME + " WHERE " + REPORTS_COLUMN_ID +
+				" = '" + report.getServiceRequestId() + "'";
 		
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.rawQuery(query, null);
 		
-		cursor.moveToFirst();
-		favoriteInt = cursor.getInt(cursor.getColumnIndex(REPORTS_COLUMN_IS_FAVORITE));
+		Boolean reportCheck = false;
 		
-		if (favoriteInt == 0) {
-			favoriteBoolean = false;
-		} else if (favoriteInt == 1) {
-			favoriteBoolean = true;
+		if(cursor.moveToFirst()){
+			reportCheck = true;
+		} else if (!cursor.moveToFirst()) {
+			reportCheck = false;
 		}
 		
-		return favoriteBoolean;
+		return reportCheck;
 	}
 	
-	public void updateFavorite(boolean value, Report report) {
-		ContentValues values = new ContentValues();
-		values.put(REPORTS_COLUMN_IS_FAVORITE, value);
-		
-		SQLiteDatabase db = this.getWritableDatabase();
-		db.update(REPORTS_TABLE_NAME, values, "_id= '" + report.getServiceRequestId() + "'", null);
-		db.close();
-	}
-	
-	public ArrayList getAllReportIDs() {
+	public ArrayList getAllReports() {
 		String query = "SELECT * FROM " + REPORTS_TABLE_NAME;
 		ArrayList<Report> reports = new ArrayList<>();
 		
@@ -214,33 +207,5 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.update(SETTINGS_TABLE_NAME, values, SETTINGS_COLUMN_TYPE + "=" + key, null);
 		db.close();
-	}
-	
-	public ArrayList<Report> getAllFavoriteReports() {
-		Log.i(TAG, "getAllFavoriteReports");
-		
-		String query = "SELECT * FROM " + REPORTS_TABLE_NAME +  " WHERE " + REPORTS_COLUMN_IS_FAVORITE + "= 1";
-		Log.i(TAG, "Query: " + query);
-
-		ArrayList<Report> result = new ArrayList<>();
-
-		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor cursor = db.rawQuery(query, null);
-		
-		while(cursor.moveToNext() ) {
-			Report report = new Report();
-			
-			report.setServiceRequestId(cursor.getString(cursor.getColumnIndex(REPORTS_COLUMN_ID)));
-			int isFavorite = cursor.getInt(cursor.getColumnIndex(REPORTS_COLUMN_IS_FAVORITE));
-			if (0 == isFavorite) {
-				report.setFavorite(false);
-			} else {
-				report.setFavorite(true);
-			}
-			result.add(report);
-		}
-		
-		db.close();
-		return result;
 	}
 }
