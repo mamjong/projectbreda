@@ -5,6 +5,7 @@
     <string name="CheckDataActivity_bt_confirmReportButton">Bevestig melding</string>
 
     <string name="activityCreateNewReport_tv_noPicture">Ik heb geen foto.</string>
+    <string name="activityCreateNewReport_tv_category">Categorie</string>
     <string name="activityCreateNewReport_bt_makePicture">Kies/maak foto</string>
     <string name="activityCreateNewReport_bt_continue">Doorgaan</string>
     <string name="activityCreateNewReport_text_chooseSource">Bron kiezen</string>
