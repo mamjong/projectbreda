@@ -19,9 +19,6 @@ import java.util.Date;
 import nl.gemeente.breda.bredaapp.R;
 import nl.gemeente.breda.bredaapp.domain.Report;
 
-//import nl.gemeente.breda.bredaapp.api.ImageLoader;
-
-
 public class ReportAdapter extends ArrayAdapter<Report> {
 	
 	private Report report;
@@ -79,9 +76,6 @@ public class ReportAdapter extends ArrayAdapter<Report> {
 		} else {
 			Picasso.with(getContext()).load(report.getMediaUrl()).into(mediaUrl);
 		}
-		
-		// ImageLoader sucks
-//		new ImageLoader(mediaUrl).execute(report.getMediaUrl());
 		
 		// Return view
 		return convertView;

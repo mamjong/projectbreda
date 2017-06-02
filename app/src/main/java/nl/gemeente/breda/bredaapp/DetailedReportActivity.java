@@ -91,7 +91,6 @@ public class DetailedReportActivity extends AppBaseActivity {
 //                }
 //            });
 //		}
-//		new ImageLoader(mediaUrl).execute(r.getMediaUrl());
 		
 		mediaUrl.setOnClickListener(new View.OnClickListener() {
 			
@@ -100,7 +99,6 @@ public class DetailedReportActivity extends AppBaseActivity {
 				Log.i(TAG, "onClick geactiveerd.");
 //			setContentView(R.layout.activity_detailed_report_fullscreen_image);
 //			mediaUrl = (ImageView) findViewById(R.id.DetailedReportActivityFullscreenImage_IV_Image);
-//			new ImageLoader(mediaUrl).execute(r.getMediaUrl());
 //			Toast.makeText(getApplicationContext(), "FULLSCREEN!", Toast.LENGTH_LONG).show();
 				Intent fullscreenImageIntent = new Intent(getApplicationContext(), DetailedReportActivityImage.class);
 				fullscreenImageIntent.putExtra(EXTRA_REPORT, r);
