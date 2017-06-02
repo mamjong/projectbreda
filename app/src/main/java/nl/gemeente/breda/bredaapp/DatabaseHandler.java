@@ -142,8 +142,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		return reportCheck;
 	}
 	
-	public ArrayList getAllReports(ArrayList<Report> reports) {
+	public ArrayList getAllReports() {
 		String query = "SELECT * FROM " + REPORTS_TABLE_NAME;
+		ArrayList<Report> reports = new ArrayList<>();
 		
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.rawQuery(query, null);
