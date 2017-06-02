@@ -1,6 +1,7 @@
 package nl.gemeente.breda.bredaapp;
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class FavoriteReportsActivity extends AppBaseActivity {
 	private ListView favoriteReportsListView;
 	private FavoriteReportsAdapter favoriteReportsAdapter;
 	private ArrayList<Report> reports = new ArrayList<Report>();
+	private DatabaseHandler dbh;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +24,14 @@ public class FavoriteReportsActivity extends AppBaseActivity {
 		setContentView(R.layout.activity_favorite_reports);
 		super.setMenuSelected(getIntent().getExtras());
 		
+		final DatabaseHandler dbh = new DatabaseHandler(getApplicationContext(), null, null, 1);
+		
 		favoriteReportsListView = (ListView) findViewById(R.id.favoritescreen_lv);
-		//favoriteReportsAdapter = new FavoriteReportsAdapter();
+		reports = dbh.getAllReports();
+		favoriteReportsAdapter = new FavoriteReportsAdapter(getApplicationContext(), reports);
+		
 		favoriteReportsListView.setAdapter(favoriteReportsAdapter);
+		
 		
 	}
 }

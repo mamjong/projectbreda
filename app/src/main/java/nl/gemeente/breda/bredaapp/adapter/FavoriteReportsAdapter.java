@@ -54,7 +54,7 @@ public class FavoriteReportsAdapter extends ArrayAdapter<Report> {
 		// Get and set content
 		category.setText(report.getServiceName());
 		
-		timestamp.setText(convertTimeStamp(report.getRequestedDatetime()));
+//		timestamp.setText(convertTimeStamp(report.getRequestedDatetime()));
 		
 		description.setText(report.getDescription());
 //		description.setText("subCategoryDescription");
@@ -90,25 +90,25 @@ public class FavoriteReportsAdapter extends ArrayAdapter<Report> {
 		return convertView;
 	}
 	
-	// Format time/date from JSON object
-	public String convertTimeStamp(String dateTime) {
-
-//		// Format: 2017-05-17T20:50:27+03:00 van Helsinki
-		SimpleDateFormat sourceFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-
-//		// Format example = 10-10-1010 om 10:10
-//		SimpleDateFormat reqDateFormat = new SimpleDateFormat("dd-MM-YYYY 'om' HH:mm");
-		
-		// Format example = 10-10-1010
-		SimpleDateFormat reqDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-		
-		Date date = null;
-		try {
-			date = sourceFormat.parse(report.getRequestedDatetime());
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		String formatDateTime = reqDateFormat.format(date);
-		return formatDateTime;
-	}
+//	// Format time/date from JSON object
+//	public String convertTimeStamp(String dateTime) {
+//
+////		// Format: 2017-05-17T20:50:27+03:00 van Helsinki
+//		SimpleDateFormat sourceFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+//
+////		// Format example = 10-10-1010 om 10:10
+////		SimpleDateFormat reqDateFormat = new SimpleDateFormat("dd-MM-YYYY 'om' HH:mm");
+//
+//		// Format example = 10-10-1010
+//		SimpleDateFormat reqDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+//
+//		Date date = null;
+//		try {
+//			date = sourceFormat.parse(report.getRequestedDatetime());
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//		}
+//		String formatDateTime = reqDateFormat.format(date);
+//		return formatDateTime;
+//	}
 }
