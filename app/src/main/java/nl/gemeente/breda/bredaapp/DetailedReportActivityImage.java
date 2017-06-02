@@ -56,7 +56,6 @@ public class DetailedReportActivityImage extends AppCompatActivity {
 		Bundle extras = getIntent().getExtras();
 		final Report r = (Report) extras.getSerializable(EXTRA_REPORT);
 //
-//		new ImageLoader(mediaUrl).execute(r.getMediaUrl());
 		
 		Glide.with(this)
 				.load(r.getMediaUrl())

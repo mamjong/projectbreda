@@ -56,7 +56,6 @@ public class ApiServices extends AsyncTask<String, Void, String> {
 					reader.close();
 				} catch (IOException e) {
 					Log.e("ERROR", e.getLocalizedMessage());
-					return null;
 				}
 			}
 		}

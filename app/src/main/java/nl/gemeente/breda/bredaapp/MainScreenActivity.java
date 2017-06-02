@@ -163,7 +163,7 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		Service service = ServiceManager.getServices().get(position);
 		serviceCode = service.getServiceCode();
 		
-		if (latitude == 0 || longtitude == 0) {
+		if (latitude == 0.f || longtitude == 0.f) {
 			getReports(serviceCode, 60.1892477, 24.9707467, 10000);
 		} else {
 			getReports(serviceCode, latitude, longtitude, reportRadius);
