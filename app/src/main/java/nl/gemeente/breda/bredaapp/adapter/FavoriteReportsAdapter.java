@@ -63,17 +63,17 @@ public class FavoriteReportsAdapter extends ArrayAdapter<Report> {
 		String reportStatus = report.getStatus();
 		
 		// Open = green, Closed = red
-		if (reportStatus.equals("open")) {
-			String colorGreen = "#58D68D";
-			status.setTextColor(Color.parseColor(colorGreen));
-		} else if (reportStatus.equals("closed")) {
-			String colorRed = "#E74C3C";
-			status.setTextColor(Color.parseColor(colorRed));
-		}
+//		if (reportStatus.equals("open")) {
+//			String colorGreen = "#58D68D";
+//			status.setTextColor(Color.parseColor(colorGreen));
+//		} else if (reportStatus.equals("closed")) {
+//			String colorRed = "#E74C3C";
+//			status.setTextColor(Color.parseColor(colorRed));
+//		}
 		
-		// First letter uppercase
-		String upperCaseStatus = reportStatus.substring(0, 1).toUpperCase() + reportStatus.substring(1);
-		status.setText(upperCaseStatus);
+//		// First letter uppercase
+//		String upperCaseStatus = reportStatus.substring(0, 1).toUpperCase() + reportStatus.substring(1);
+//		status.setText(upperCaseStatus);
 		
 		// When image is not available
 		if (report.getMediaUrl() == null) {

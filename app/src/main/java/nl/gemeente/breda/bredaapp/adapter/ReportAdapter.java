@@ -22,9 +22,6 @@ import nl.gemeente.breda.bredaapp.DatabaseHandler;
 import nl.gemeente.breda.bredaapp.R;
 import nl.gemeente.breda.bredaapp.domain.Report;
 
-//import nl.gemeente.breda.bredaapp.api.ImageLoader;
-
-
 public class ReportAdapter extends ArrayAdapter<Report> {
 	
 	private Report report;
