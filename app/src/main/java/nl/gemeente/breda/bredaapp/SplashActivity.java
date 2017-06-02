@@ -45,8 +45,8 @@ public class SplashActivity extends AppCompatActivity implements ApiServices.Lis
 		ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
 		
-		TextView no_wifi = (TextView) findViewById(R.id.no_wifi);
-		no_wifi.setVisibility(View.INVISIBLE);
+		TextView noWifi = (TextView) findViewById(R.id.no_wifi);
+		noWifi.setVisibility(View.INVISIBLE);
 		
 		if((activeNetwork == null) || !(activeNetwork.isConnected())){
 			Intent noInternet = new Intent(getApplicationContext(), NoInternet.class);
@@ -55,7 +55,7 @@ public class SplashActivity extends AppCompatActivity implements ApiServices.Lis
 		}
 		
 		if (activeNetwork.getType() != ConnectivityManager.TYPE_WIFI) {
-			no_wifi.setVisibility(View.VISIBLE);
+			noWifi.setVisibility(View.VISIBLE);
 		}
 		
 		PackageInfo packageInfo = null;
@@ -63,7 +63,7 @@ public class SplashActivity extends AppCompatActivity implements ApiServices.Lis
 		try {
 			packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Log.e("ERR", e.getMessage());
 		}
 		
 		String version = "";

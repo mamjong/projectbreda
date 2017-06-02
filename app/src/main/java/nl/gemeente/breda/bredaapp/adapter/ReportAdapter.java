@@ -2,6 +2,7 @@ package nl.gemeente.breda.bredaapp.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,13 +28,15 @@ public class ReportAdapter extends ArrayAdapter<Report> {
 		super(context, R.layout.fragment_list_view_row, reports);
 	}
 	
-	public View getView(int position, View convertView, ViewGroup parent) {
+	@Override
+	public View getView(int position, View convertViewInitial, ViewGroup parent) {
 		
 		// Create report
 		report = getItem(position);
+		View convertView = convertViewInitial;
 		
 		// Check for existing view
-		if (convertView == null) {
+		if (convertViewInitial == null) {
 			convertView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_list_view_row, parent, false);
 		}
 		
@@ -49,10 +52,9 @@ public class ReportAdapter extends ArrayAdapter<Report> {
 		// Get and set content
 		category.setText(report.getServiceName());
 		
-		timestamp.setText(convertTimeStamp(report.getRequestedDatetime()));
+		timestamp.setText(convertTimeStamp());
 		
 		description.setText(report.getDescription());
-//		description.setText("subCategoryDescription");
 		
 		// First letter uppercase
 		String reportStatus = report.getStatus();
@@ -82,13 +84,10 @@ public class ReportAdapter extends ArrayAdapter<Report> {
 	}
 	
 	// Format time/date from JSON object
-	public String convertTimeStamp(String dateTime) {
+	public String convertTimeStamp() {
 
 //		// Format: 2017-05-17T20:50:27+03:00 van Helsinki
 		SimpleDateFormat sourceFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-
-//		// Format example = 10-10-1010 om 10:10
-//		SimpleDateFormat reqDateFormat = new SimpleDateFormat("dd-MM-YYYY 'om' HH:mm");
 		
 		// Format example = 10-10-1010
 		SimpleDateFormat reqDateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -97,9 +96,8 @@ public class ReportAdapter extends ArrayAdapter<Report> {
 		try {
 			date = sourceFormat.parse(report.getRequestedDatetime());
 		} catch (ParseException e) {
-			e.printStackTrace();
+			Log.e("ERR", e.getMessage());
 		}
-		String formatDateTime = reqDateFormat.format(date);
-		return formatDateTime;
+		return reqDateFormat.format(date);
 	}
 }

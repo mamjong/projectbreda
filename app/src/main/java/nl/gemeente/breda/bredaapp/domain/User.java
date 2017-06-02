@@ -5,6 +5,7 @@ public class User {
 	private String mailAccount;
 	
 	public User() {
+		// to do
 	}
 	
 	public String getMailAccount() {

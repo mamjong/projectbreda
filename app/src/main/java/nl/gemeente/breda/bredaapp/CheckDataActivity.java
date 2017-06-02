@@ -29,7 +29,7 @@ public class CheckDataActivity extends AppBaseActivity {
 			bitmap = BitmapFactory.decodeStream(fis);
 			fis.close();
 		} catch (IOException e) {
-			Log.e("ERROR", String.valueOf(e));
+			Log.e("ERR", String.valueOf(e));
 		}
 		
 		return bitmap;

@@ -42,20 +42,20 @@ public class ApiServices extends AsyncTask<String, Void, String> {
 				response += line;
 			}
 		} catch (MalformedURLException e) {
-			Log.e("ERROR", e.getLocalizedMessage());
+			Log.e("ERR", e.getLocalizedMessage());
 			return null;
 		} catch (IOException e) {
-			Log.e("ERROR", e.getLocalizedMessage());
+			Log.e("ERR", e.getLocalizedMessage());
 			return null;
 		} catch (Exception e) {
-			Log.e("ERROR", e.getLocalizedMessage());
+			Log.e("ERR", e.getLocalizedMessage());
 			return null;
 		} finally {
 			if (reader != null) {
 				try {
 					reader.close();
 				} catch (IOException e) {
-					Log.e("ERROR", e.getLocalizedMessage());
+					Log.e("ERR", e.getLocalizedMessage());
 				}
 			}
 		}
@@ -114,7 +114,7 @@ public class ApiServices extends AsyncTask<String, Void, String> {
 				listener.onServiceAvailable(service);
 			}
 		} catch (JSONException e) {
-			Log.e("ERROR", e.getLocalizedMessage());
+			Log.e("ERR", e.getLocalizedMessage());
 		}
 	}
 	

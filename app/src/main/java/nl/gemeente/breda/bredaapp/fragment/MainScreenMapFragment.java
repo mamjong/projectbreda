@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +68,7 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 		try {
 			themeID = getContext().getPackageManager().getPackageInfo(getContext().getPackageName(), 0).applicationInfo.theme;
 		} catch (PackageManager.NameNotFoundException e) {
-			e.printStackTrace();
+			Log.e("ERR", e.getMessage());
 		}
 		
 		if (themeID == R.style.AppThemeNight) {

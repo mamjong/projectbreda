@@ -1,7 +1,5 @@
 package nl.gemeente.breda.bredaapp.domain;
 
-import android.widget.ImageView;
-
 import java.io.Serializable;
 
 public class Report implements Serializable {
@@ -19,6 +17,7 @@ public class Report implements Serializable {
 	private double longitude;
 	
 	public Report() {
+		// to do
 	}
 	
 	public String getServiceRequestId() {

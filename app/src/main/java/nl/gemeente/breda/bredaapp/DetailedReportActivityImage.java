@@ -23,9 +23,6 @@ import nl.gemeente.breda.bredaapp.domain.Report;
 import static nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment.EXTRA_REPORT;
 
 public class DetailedReportActivityImage extends AppCompatActivity {
-	private ImageView mediaUrl;
-	
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -44,18 +41,13 @@ public class DetailedReportActivityImage extends AppCompatActivity {
 			getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE);
 		}
 		
-		mediaUrl = (ImageView) findViewById(R.id.DetailedReportActivityFullscreenImage_IV_Image);
+		ImageView mediaUrl = (ImageView) findViewById(R.id.DetailedReportActivityFullscreenImage_IV_Image);
 		final ProgressBar progressBar = (ProgressBar) findViewById(R.id.DetailedReportActivityFullscreenImage_pb_imageProgressBar);
 		
 		progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#d91d49"), PorterDuff.Mode.SRC_ATOP);
 
-
-//		PhotoViewAttacher photoView = new PhotoViewAttacher(mediaUrl);
-//		photoView.update();
-//
 		Bundle extras = getIntent().getExtras();
 		final Report r = (Report) extras.getSerializable(EXTRA_REPORT);
-//
 		
 		Glide.with(this)
 				.load(r.getMediaUrl())

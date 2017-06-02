@@ -11,8 +11,6 @@ import android.widget.ImageView;
 import com.github.chrisbanes.photoview.PhotoViewAttacher;
 
 public class CheckDataImageActivity extends AppCompatActivity {
-	private ImageView itemImageView;
-	private Bitmap bitmap;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +29,11 @@ public class CheckDataImageActivity extends AppCompatActivity {
 			getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		}
 		
-		itemImageView = (ImageView) findViewById(R.id.CheckDataImageActivity_iv_defectImage);
+		ImageView itemImageView = (ImageView) findViewById(R.id.CheckDataImageActivity_iv_defectImage);
 		PhotoViewAttacher photoView = new PhotoViewAttacher(itemImageView);
 		photoView.update();
 		
-		bitmap = CheckDataActivity.loadBitmap(CheckDataImageActivity.this, "inframeld.jpeg");
+		Bitmap bitmap = CheckDataActivity.loadBitmap(CheckDataImageActivity.this, "inframeld.jpeg");
 		itemImageView.setImageBitmap(bitmap);
 	}
 }
