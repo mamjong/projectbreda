@@ -58,8 +58,10 @@ public class DetailedReportActivity extends AppBaseActivity {
 		
 		if (dbh.checkReport(r) == true) {
 			extraReport.setBackgroundResource(R.drawable.onimage2);
+			isPressed = true;
 		} else if (dbh.checkReport(r) == false) {
 			extraReport.setBackgroundResource(R.drawable.offimage);
+			isPressed = false;
 		}
 		
 		Glide.with(this)
