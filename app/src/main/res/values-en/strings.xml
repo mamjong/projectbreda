@@ -56,4 +56,5 @@
     <string name="themeNight">Dark theme</string>
     <string name="UserSettingsAcitivity_name">Settings</string>
     <string name="FavoriteReportsActivity_Label">Favorite Reports</string>
+    <string name="FavoriteReportsActivity_name">My favorite reports</string>
 </resources>
