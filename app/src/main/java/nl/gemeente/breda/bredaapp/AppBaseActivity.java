@@ -81,18 +81,6 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 					Log.i("RANDOM", "" + rand);
 					
 					switch (rand) {
-						case 1:
-							Intent spaceinvaders = new Intent(getApplicationContext(), MainActivity.class);
-							startActivity(spaceinvaders);
-							i = 1;
-							break;
-						
-						case 2:
-							Intent snake = new Intent(getApplicationContext(), Snake.class);
-							startActivity(snake);
-							i = 1;
-							break;
-						
 						default:
 							Intent easteregg = new Intent(getApplicationContext(), TestEasterEgg.class);
 							startActivity(easteregg);
