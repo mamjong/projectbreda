@@ -22,8 +22,6 @@ import android.widget.ImageView;
 import java.util.Random;
 
 import nl.gemeente.breda.bredaapp.eastereggs.TestEasterEgg;
-import nl.gemeente.breda.bredaapp.eastereggs.snake.Snake;
-import nl.gemeente.breda.bredaapp.eastereggs.spaceinvaders.MainActivity;
 import nl.gemeente.breda.bredaapp.util.ThemeManager;
 
 public abstract class AppBaseActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
