@@ -37,22 +37,22 @@ public class ReportAdapter extends ArrayAdapter<Report> {
 		
 		// Check for existing view
 		if (convertViewInitial == null) {
-			convertView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_list_view_row, parent, false);
+			convertViewInitial = LayoutInflater.from(getContext()).inflate(R.layout.fragment_list_view_row, parent, false);
 		}
 		
 		// Select row items
-		ImageView mediaUrl = (ImageView) convertView.findViewById(R.id.fragmentListViewRow_IV_mediaUrl);
-		TextView description = (TextView) convertView.findViewById(R.id.fragmentListViewRow_TV_description);
-		TextView status = (TextView) convertView.findViewById(R.id.fragmentListViewRow_TV_status);
-		TextView category = (TextView) convertView.findViewById(R.id.fragmentListViewRow_TV_category);
+		ImageView mediaUrl = (ImageView) convertViewInitial.findViewById(R.id.fragmentListViewRow_IV_mediaUrl);
+		TextView description = (TextView) convertViewInitial.findViewById(R.id.fragmentListViewRow_TV_description);
+		TextView status = (TextView) convertViewInitial.findViewById(R.id.fragmentListViewRow_TV_status);
+		TextView category = (TextView) convertViewInitial.findViewById(R.id.fragmentListViewRow_TV_category);
 		
 		// Tijdelijk om timestamp te testen
-		TextView timestamp = (TextView) convertView.findViewById(R.id.fragmentListViewRow_TV_timeStamp);
+		TextView timestamp = (TextView) convertViewInitial.findViewById(R.id.fragmentListViewRow_TV_timeStamp);
 		
 		// Get and set content
 		category.setText(report.getServiceName());
 		
-		timestamp.setText(convertTimeStamp());
+		timestamp.setText(convertTimeStamp(report.getRequestedDatetime()));
 		
 		description.setText(report.getDescription());
 		
@@ -67,7 +67,7 @@ public class ReportAdapter extends ArrayAdapter<Report> {
 			String colorRed = "#E74C3C";
 			status.setTextColor(Color.parseColor(colorRed));
 		}
-		
+
 		// First letter uppercase
 		String upperCaseStatus = reportStatus.substring(0, 1).toUpperCase() + reportStatus.substring(1);
 		status.setText(upperCaseStatus);
@@ -80,24 +80,25 @@ public class ReportAdapter extends ArrayAdapter<Report> {
 		}
 		
 		// Return view
-		return convertView;
+		return convertViewInitial;
 	}
 	
 	// Format time/date from JSON object
-	public String convertTimeStamp() {
+	public String convertTimeStamp(String requestedDate) {
 
 //		// Format: 2017-05-17T20:50:27+03:00 van Helsinki
 		SimpleDateFormat sourceFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-		
+
 		// Format example = 10-10-1010
 		SimpleDateFormat reqDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-		
+
 		Date date = null;
 		try {
-			date = sourceFormat.parse(report.getRequestedDatetime());
+			date = sourceFormat.parse(requestedDate);
 		} catch (ParseException e) {
 			Log.e("ERR", e.getMessage());
 		}
+
 		return reqDateFormat.format(date);
 	}
 }

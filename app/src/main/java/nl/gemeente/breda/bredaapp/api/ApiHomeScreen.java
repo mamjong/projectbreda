@@ -86,47 +86,47 @@ public class ApiHomeScreen extends AsyncTask<String, Void, String> {
 					String serviceRequestId = thisReport.getString("service_request_id");
 					report.setServiceRequestId(serviceRequestId);
 				}
-				else if (thisReport.has("service_code")) {
+				if (thisReport.has("service_code")) {
 					String serviceCode = thisReport.getString("service_code");
 					report.setServiceCode(serviceCode);
 				}
-				else if (thisReport.has("description")) {
+				if (thisReport.has("description")) {
 					String description = thisReport.getString("description");
 					report.setDescription(description);
 				}
-				else if (thisReport.has("requested_datetime")) {
+				if (thisReport.has("requested_datetime")) {
 					String requestedDatetime = thisReport.getString("requested_datetime");
 					report.setRequestedDatetime(requestedDatetime);
 				}
-				else if (thisReport.has("updated_datetime")) {
+				if (thisReport.has("updated_datetime")) {
 					String updatedDatetime = thisReport.getString("updated_datetime");
 					report.setUpdatedDatetime(updatedDatetime);
 				}
-				else if (thisReport.has("status")) {
+				if (thisReport.has("status")) {
 					String status = thisReport.getString("status");
 					report.setStatus(status);
 				}
-				else if (thisReport.has("status_notes")) {
+				if (thisReport.has("status_notes")) {
 					String statusNotes = thisReport.getString("status_notes");
 					report.setStatusNotes(statusNotes);
 				}
-				else if (thisReport.has("agency_responsible")) {
+				if (thisReport.has("agency_responsible")) {
 					String agencyResponsible = thisReport.getString("agency_responsible");
 					report.setAgencyResponsible(agencyResponsible);
 				}
-				else if (thisReport.has("service_name")) {
+				if (thisReport.has("service_name")) {
 					String serviceName = thisReport.getString("service_name");
 					report.setServiceName(serviceName);
 				}
-				else if (thisReport.has("lat")) {
+				if (thisReport.has("lat")) {
 					double lat = thisReport.getDouble("lat");
 					report.setLatitude(lat);
 				}
-				else if (thisReport.has("media_url")) {
+				if (thisReport.has("media_url")) {
 					String mediaUrl = thisReport.getString("media_url");
 					report.setMediaUrl(mediaUrl);
 				}
-				else if (thisReport.has("long")) {
+				if (thisReport.has("long")) {
 					double longtitude = thisReport.getDouble("long");
 					report.setLongitude(longtitude);
 				}
