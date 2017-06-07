@@ -217,16 +217,12 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 	
 	@Override
 	public void onLocationAvailable(double latitude, double longtitude) {
-		
-		
 		Log.i("LOCATION", latitude + ":" + longtitude);
 		this.latitude = latitude;
 		this.longtitude = longtitude;
 		getReports(serviceCode, latitude, longtitude, reportRadius);
 		
-		ReverseGeocoder geocoder = new ReverseGeocoder(latitude, longtitude, this);
-		String address = geocoder.getAddress();
-		
+		new ReverseGeocoder(latitude, longtitude, this);
 	}
 	
 	@Override

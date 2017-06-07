@@ -12,7 +12,6 @@ import nl.gemeente.breda.bredaapp.R;
 
 public class ReverseGeocoder {
 	
-	
 	private double lat;
 	private double lng;
 	private String address;
@@ -24,10 +23,9 @@ public class ReverseGeocoder {
 		Geocoder geocoder = new Geocoder(c, Locale.getDefault());
 		
 		try	{
-			
 			List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
 			
-			if(addresses != null && addresses.size() > 0) {
+			if(addresses != null && !addresses.isEmpty()) {
 				address = addresses.get(0).getAddressLine(0) + " " + addresses.get(0).getAddressLine(1);
 				if(address != null) {
 					Log.i("Address: ", address);
@@ -35,18 +33,12 @@ public class ReverseGeocoder {
 					address = c.getString(R.string.addressNotFound);
 				}
 			}
-			
-			
-			
 		} catch (Exception e) {
-			e.printStackTrace();
+			Log.e("REVERSRELOCATION", e.getMessage());
 		}
 	}
 	
 	public String getAddress(){
 		return address;
 	}
-	
-	
-	
 }
