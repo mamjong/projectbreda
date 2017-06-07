@@ -13,6 +13,16 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/nl/gemeente/breda/bredaapp/CreateNewReportActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/nl/gemeente/breda/bredaapp/MainScreenActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/nl/gemeente/breda/bredaapp/adapter/ReportAdapter.java">
           <value>
             <set />
