@@ -14,6 +14,7 @@
     <string name="activityCreateNewReport_text_itemGallery">Gallerij</string>
     <string name="activityCreateNewReport_text_imageTooLarge">Er is een fout opgetreden met je afbeelding. Probeer een andere afbeelding.</string>
     <string name="activityCreateNewReport_text_noImageSelected">Geen afbeelding geselecteerd. Heeft u geen afbeelding, selecteer dan \"Ik heb geen foto.\".</string>
+    <string name="activityCreateNewReport_tv_CommentTextView">Commentaar</string>
 
     <string name="activityCreateNewReportDifferentLocation_bt_addImage">Kies een afbeelding</string>
     <string name="activityCreateNewReportDifferentLocation_tv_locationTextView">Commentaar</string>

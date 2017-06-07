@@ -97,7 +97,7 @@
                 android:id="@+id/activityCreateNewReport_tv_category"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:text="@string/activityCreateNewReport_tv_category"
+                android:text="@string/activityCreateNewReport_tv_CommentTextView"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:textAlignment="viewStart"
