@@ -32,6 +32,7 @@ import nl.gemeente.breda.bredaapp.businesslogic.ServiceManager;
 import nl.gemeente.breda.bredaapp.domain.Report;
 import nl.gemeente.breda.bredaapp.domain.Service;
 import nl.gemeente.breda.bredaapp.util.AlertCreator;
+import nl.gemeente.breda.bredaapp.util.ReverseGeocoder;
 
 import static nl.gemeente.breda.bredaapp.UserSettingsActivity.PREFS_NAME;
 
@@ -213,10 +214,16 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 	
 	@Override
 	public void onLocationAvailable(double latitude, double longtitude) {
+		
+		
 		Log.i("LOCATION", latitude + ":" + longtitude);
 		this.latitude = latitude;
 		this.longtitude = longtitude;
 		getReports(serviceCode, latitude, longtitude, reportRadius);
+		
+		ReverseGeocoder geocoder = new ReverseGeocoder(latitude, longtitude, this);
+		String address = geocoder.getAddress();
+		
 	}
 	
 	@Override

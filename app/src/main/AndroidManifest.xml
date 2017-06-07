@@ -45,6 +45,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".util.ReverseGeocoder"
+            android:exported="false"/>
+
         <activity
             android:name=".DetailedReportActivity"
             android:label="@string/detailed_report_label"/>
@@ -66,8 +71,6 @@
             android:configChanges="orientation|screenSize"
             android:label="@string/app_name"/>
         <activity android:name=".ReportReceivedActivity"/>
-        <activity android:name=".eastereggs.spaceinvaders.MainActivity"/>
-        <activity android:name=".eastereggs.snake.Snake"/>
         <activity android:name=".DetailedReportActivityImage">
         </activity>
         <activity android:name=".CheckDataImageActivity">

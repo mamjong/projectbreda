@@ -63,4 +63,5 @@
     <string name="incorrect_email">E-mail updated.</string>
     <string name="about_share_text">This epic team made InfraMeld!</string>
     <string name="created_report_share_text_prefix">I created a report with InfraMeld: </string>
+    <string name="addressNotFound">Address not found</string>
 </resources>
