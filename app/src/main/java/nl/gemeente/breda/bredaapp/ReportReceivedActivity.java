@@ -17,13 +17,12 @@ public class ReportReceivedActivity extends AppCompatActivity {
 		
 		final CheckView checkView = (CheckView) findViewById(R.id.ReportReceivedActivity_cv_checkview);
 		final TextView textView = (TextView) findViewById(R.id.ReportReceivedActivity_tv_ReceivedText);
-		//checkView.check();
 		
 		new CountDownTimer(1000, 1000) {
 			
 			@Override
 			public void onTick(long millisUntilFinished) {
-				
+				// to do
 			}
 			
 			@Override
@@ -38,7 +37,7 @@ public class ReportReceivedActivity extends AppCompatActivity {
 			
 			@Override
 			public void onTick(long millisUntilFinished) {
-				
+				// to do
 			}
 			
 			@Override

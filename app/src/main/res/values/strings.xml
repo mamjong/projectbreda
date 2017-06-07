@@ -100,4 +100,5 @@
     <string name="incorrect_email">E-mail geupdate.</string>
     <string name="about_share_text">Dit coole team heeft InfraMeld gemaakt!</string>
     <string name="created_report_share_text_prefix">Ik heb een melding met InfraMeld gemaakt: </string>
+    <string name="addressNotFound">Adres niet gevonden</string>
 </resources>

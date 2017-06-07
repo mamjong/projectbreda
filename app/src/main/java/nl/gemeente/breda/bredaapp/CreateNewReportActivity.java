@@ -33,7 +33,7 @@ public class CreateNewReportActivity extends AppBaseActivity {
 	
 	private static final int CAMERA_PIC_REQUEST = 1337;
 	private static final int GALLERY_PIC_REQUEST = 1338;
-	private String[] arraySpinnerDataMain, arraySpinnerGroenSubs, arraySpinnerAfvalSubs, arraySpinnerDierenEnOngedierteSubs, arraySpinnerOpenbareVerlichtingSubs;
+	private String[] arraySpinnerGroenSubs, arraySpinnerAfvalSubs, arraySpinnerDierenEnOngedierteSubs, arraySpinnerOpenbareVerlichtingSubs;
 	private ServiceAdapter serviceAdapter;
 	private String chosenService;
 	private Bitmap itemImage;
@@ -68,56 +68,52 @@ public class CreateNewReportActivity extends AppBaseActivity {
 		// Service spinner -- Wordt opgehaald van de API
 		final Spinner sprSubCategories = (Spinner) findViewById(R.id.activityCreateNewReport_spr_defects);
 		Spinner sprCategories = (Spinner) findViewById(R.id.activityCreateNewReport_spr_categories);
-
-//		ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
-//				android.R.layout.simple_spinner_item, arraySpinnerDataMain);
 		
 		sprCategories.setAdapter(serviceAdapter);
 		
 		// Subcategories: TODO: Maken aan de hand van de API
-		sprCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-//                Toast.makeText(parent.getContext(),
-//                        "OnItemSelectedListener: " + parent.getItemAtPosition(pos).toString(),
-//                        Toast.LENGTH_SHORT).show();
-				
-				chosenService = parent.getItemAtPosition(pos).toString();
-				
-				switch (parent.getItemAtPosition(pos).toString()) {
-					case "Groen":
-						ArrayAdapter<String> sprSubGroenAdapter = new ArrayAdapter<String>(CreateNewReportActivity.this,
-								android.R.layout.simple_spinner_item, arraySpinnerGroenSubs);
-						sprSubCategories.setAdapter(sprSubGroenAdapter);
-						
-						
-						// On Item Selected --
-						
-						break;
-					case "Openbare verlichting":
-						ArrayAdapter<String> sprSubOVAdapter = new ArrayAdapter<String>(CreateNewReportActivity.this,
-								android.R.layout.simple_spinner_item, arraySpinnerOpenbareVerlichtingSubs);
-						sprSubCategories.setAdapter(sprSubOVAdapter);
-						
-						break;
-					case "Afval":
-						ArrayAdapter<String> sprSubAfvalAdapter = new ArrayAdapter<String>(CreateNewReportActivity.this,
-								android.R.layout.simple_spinner_item, arraySpinnerAfvalSubs);
-						sprSubCategories.setAdapter(sprSubAfvalAdapter);
-						break;
-					case "Dieren en ongedierte":
-						ArrayAdapter<String> sprSubDierAdapter = new ArrayAdapter<String>(CreateNewReportActivity.this,
-								android.R.layout.simple_spinner_item, arraySpinnerDierenEnOngedierteSubs);
-						sprSubCategories.setAdapter(sprSubDierAdapter);
-						break;
-				}
-			}
-			
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-				Toast.makeText(parent.getContext(), "Nothing selected", Toast.LENGTH_LONG).show();
-			}
-		});
+//		sprCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//			@Override
+//			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+//				chosenService = parent.getItemAtPosition(pos).toString();
+//				
+//				switch (parent.getItemAtPosition(pos).toString()) {
+//					case "Groen":
+//						ArrayAdapter<String> sprSubGroenAdapter = new ArrayAdapter<String>(CreateNewReportActivity.this,
+//								android.R.layout.simple_spinner_item, arraySpinnerGroenSubs);
+//						sprSubCategories.setAdapter(sprSubGroenAdapter);
+//						
+//						
+//						// On Item Selected --
+//						
+//						break;
+//					case "Openbare verlichting":
+//						ArrayAdapter<String> sprSubOVAdapter = new ArrayAdapter<String>(CreateNewReportActivity.this,
+//								android.R.layout.simple_spinner_item, arraySpinnerOpenbareVerlichtingSubs);
+//						sprSubCategories.setAdapter(sprSubOVAdapter);
+//						
+//						break;
+//					case "Afval":
+//						ArrayAdapter<String> sprSubAfvalAdapter = new ArrayAdapter<String>(CreateNewReportActivity.this,
+//								android.R.layout.simple_spinner_item, arraySpinnerAfvalSubs);
+//						sprSubCategories.setAdapter(sprSubAfvalAdapter);
+//						break;
+//					case "Dieren en ongedierte":
+//						ArrayAdapter<String> sprSubDierAdapter = new ArrayAdapter<String>(CreateNewReportActivity.this,
+//								android.R.layout.simple_spinner_item, arraySpinnerDierenEnOngedierteSubs);
+//						sprSubCategories.setAdapter(sprSubDierAdapter);
+//						break;
+//					
+//					default:
+//						break;
+//				}
+//			}
+//			
+//			@Override
+//			public void onNothingSelected(AdapterView<?> parent) {
+//				Toast.makeText(parent.getContext(), "Nothing selected", Toast.LENGTH_LONG).show();
+//			}
+//		});
 		
 		continueToMap.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -130,7 +126,6 @@ public class CreateNewReportActivity extends AppBaseActivity {
 				Log.i("Create report", "Next clicked");
 				continueToMap.setEnabled(false);
 				continueToMap.setText(getResources().getString(R.string.spinner_loading));
-				//continueToMap.setBackgroundResource(R.color.colorPrimaryLight);
 				
 				new Timer().schedule(new TimerTask() {
 					@Override
@@ -148,7 +143,7 @@ public class CreateNewReportActivity extends AppBaseActivity {
 							Toast toastError = Toast.makeText(CreateNewReportActivity.this, getResources().getString(R.string.activityCreateNewReport_text_imageTooLarge), Toast.LENGTH_LONG);
 							toastError.show();
 						} catch (Exception e) {
-							e.printStackTrace();
+							Log.e("ERR", String.valueOf(e));
 						}
 					}
 				}, 1);
@@ -188,7 +183,6 @@ public class CreateNewReportActivity extends AppBaseActivity {
 		super.onResume();
 		continueToMap.setEnabled(true);
 		continueToMap.setText(getResources().getString(R.string.activityCreateNewReport_bt_continue));
-		//continueToMap.setBackgroundResource(R.color.colorPrimary);
 	}
 	
 	private void noPicture() {
@@ -197,6 +191,7 @@ public class CreateNewReportActivity extends AppBaseActivity {
 		continueToMap.setEnabled(true);
 	}
 	
+	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK) {
 			switch (requestCode) {
@@ -215,8 +210,11 @@ public class CreateNewReportActivity extends AppBaseActivity {
 						selectedPictureView.setImageBitmap(picture);
 						continueToMap.setEnabled(true);
 					} catch (Exception e) {
-						e.printStackTrace();
+						Log.e("ERR", String.valueOf(e));
 					}
+					break;
+				
+				default:
 					break;
 			}
 		}
@@ -230,9 +228,9 @@ public class CreateNewReportActivity extends AppBaseActivity {
 			bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
 			fos.close();
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			Log.e("ERR", String.valueOf(e));
 		} catch (IOException e) {
-			e.printStackTrace();
+			Log.e("ERR", String.valueOf(e));
 		}
 	}
 }

@@ -11,16 +11,11 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import nl.gemeente.breda.bredaapp.R;
 import nl.gemeente.breda.bredaapp.domain.Report;
-
-//import nl.gemeente.breda.bredaapp.api.ImageLoader;
-
+import nl.gemeente.breda.bredaapp.util.TimeStampFormat;
 
 public class ReportAdapter extends ArrayAdapter<Report> {
 	
@@ -30,32 +25,38 @@ public class ReportAdapter extends ArrayAdapter<Report> {
 		super(context, R.layout.fragment_list_view_row, reports);
 	}
 	
-	public View getView(int position, View convertView, ViewGroup parent) {
+	@Override
+	public View getView(int position, View convertViewInitial, ViewGroup parent) {
 		
 		// Create report
 		report = getItem(position);
+		TimeStampFormat tsf = new TimeStampFormat();
+		View convertView = convertViewInitial;
 		
 		// Check for existing view
-		if (convertView == null) {
-			convertView = LayoutInflater.from(getContext()).inflate(R.layout.fragment_list_view_row, parent, false);
+		if (convertViewInitial == null) {
+			convertViewInitial = LayoutInflater.from(getContext()).inflate(R.layout.fragment_list_view_row, parent, false);
 		}
 		
 		// Select row items
-		ImageView mediaUrl = (ImageView) convertView.findViewById(R.id.fragmentListViewRow_IV_mediaUrl);
-		TextView description = (TextView) convertView.findViewById(R.id.fragmentListViewRow_TV_description);
-		TextView status = (TextView) convertView.findViewById(R.id.fragmentListViewRow_TV_status);
-		TextView category = (TextView) convertView.findViewById(R.id.fragmentListViewRow_TV_category);
+		ImageView mediaUrl = (ImageView) convertViewInitial.findViewById(R.id.fragmentListViewRow_IV_mediaUrl);
+		TextView description = (TextView) convertViewInitial.findViewById(R.id.fragmentListViewRow_TV_description);
+		TextView status = (TextView) convertViewInitial.findViewById(R.id.fragmentListViewRow_TV_status);
+		TextView category = (TextView) convertViewInitial.findViewById(R.id.fragmentListViewRow_TV_category);
 		
 		// Tijdelijk om timestamp te testen
-		TextView timestamp = (TextView) convertView.findViewById(R.id.fragmentListViewRow_TV_timeStamp);
+		TextView timestamp = (TextView) convertViewInitial.findViewById(R.id.fragmentListViewRow_TV_timeStamp);
 		
 		// Get and set content
 		category.setText(report.getServiceName());
 		
-		timestamp.setText(convertTimeStamp(report.getRequestedDatetime()));
+		String getRequestedDate = report.getRequestedDatetime();
+		tsf.setTime(getRequestedDate);
+		String requestedDate = tsf.getTime();
+		String formattedDate = tsf.convertTimeStamp(requestedDate);
+		timestamp.setText(formattedDate);
 		
 		description.setText(report.getDescription());
-//		description.setText("subCategoryDescription");
 		
 		// First letter uppercase
 		String reportStatus = report.getStatus();
@@ -68,7 +69,7 @@ public class ReportAdapter extends ArrayAdapter<Report> {
 			String colorRed = "#E74C3C";
 			status.setTextColor(Color.parseColor(colorRed));
 		}
-		
+
 		// First letter uppercase
 		String upperCaseStatus = reportStatus.substring(0, 1).toUpperCase() + reportStatus.substring(1);
 		status.setText(upperCaseStatus);
@@ -80,32 +81,7 @@ public class ReportAdapter extends ArrayAdapter<Report> {
 			Picasso.with(getContext()).load(report.getMediaUrl()).into(mediaUrl);
 		}
 		
-		// ImageLoader sucks
-//		new ImageLoader(mediaUrl).execute(report.getMediaUrl());
-		
 		// Return view
-		return convertView;
-	}
-	
-	// Format time/date from JSON object
-	public String convertTimeStamp(String dateTime) {
-
-//		// Format: 2017-05-17T20:50:27+03:00 van Helsinki
-		SimpleDateFormat sourceFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-
-//		// Format example = 10-10-1010 om 10:10
-//		SimpleDateFormat reqDateFormat = new SimpleDateFormat("dd-MM-YYYY 'om' HH:mm");
-		
-		// Format example = 10-10-1010
-		SimpleDateFormat reqDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-		
-		Date date = null;
-		try {
-			date = sourceFormat.parse(report.getRequestedDatetime());
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		String formatDateTime = reqDateFormat.format(date);
-		return formatDateTime;
+		return convertViewInitial;
 	}
 }

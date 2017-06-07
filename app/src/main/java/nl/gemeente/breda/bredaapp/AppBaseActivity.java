@@ -10,7 +10,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,26 +18,18 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import java.util.Random;
-
-import nl.gemeente.breda.bredaapp.eastereggs.TestEasterEgg;
-import nl.gemeente.breda.bredaapp.eastereggs.snake.Snake;
-import nl.gemeente.breda.bredaapp.eastereggs.spaceinvaders.MainActivity;
 import nl.gemeente.breda.bredaapp.util.ThemeManager;
 
 public abstract class AppBaseActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
 	
-	private FrameLayout view_stub;
+	private FrameLayout viewStub;
 	private Toolbar toolbarSimple;
 	private NavigationView navigationView;
 	private DrawerLayout drawerLayout;
 	private ActionBarDrawerToggle drawerToggle;
-	private Menu menu;
 	
 	private ImageView shareButton;
-	private ImageView logo;
 	
-	private int i;
 	private String shareText = "Check out InfraMeld! It's insane!";
 	
 	@Override
@@ -46,7 +37,7 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 		ThemeManager.setTheme(AppBaseActivity.this);
 		super.onCreate(savedInstanceState);
 		super.setContentView(R.layout.app_base_layout);
-		view_stub = (FrameLayout) findViewById(R.id.view_stub);
+		viewStub = (FrameLayout) findViewById(R.id.view_stub);
 		
 		toolbarSimple = (Toolbar) findViewById(R.id.toolbar);
 		toolbarSimple.setTitle(getResources().getString(R.string.app_name));
@@ -58,51 +49,13 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 		drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, 0, 0);
 		drawerToggle.setDrawerIndicatorEnabled(true);
 		drawerLayout.addDrawerListener(drawerToggle);
-		//getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		toolbarSimple.setNavigationIcon(R.drawable.ic_menu_white_24dp);
 		
-		menu = navigationView.getMenu();
-		for (int i = 0; i < menu.size(); i++) {
-			menu.getItem(i).setOnMenuItemClickListener(this);
+		Menu menu = navigationView.getMenu();
+		for (int y = 0; y < menu.size(); y++) {
+			menu.getItem(y).setOnMenuItemClickListener(this);
 		}
-		
-		View headerLayout = navigationView.getHeaderView(0);
-		logo = (ImageView) headerLayout.findViewById(R.id.navigation_header_logo);
-		i = 1;
-		logo.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (i < 5) {
-					i++;
-				} else if (i == 5) {
-					Random r = new Random();
-					int rand = r.nextInt(2) + 1;
-					Log.i("RANDOM", "" + rand);
-					
-					switch (rand) {
-						case 1:
-							Intent spaceinvaders = new Intent(getApplicationContext(), MainActivity.class);
-							startActivity(spaceinvaders);
-							i = 1;
-							break;
-						
-						case 2:
-							Intent snake = new Intent(getApplicationContext(), Snake.class);
-							startActivity(snake);
-							i = 1;
-							break;
-						
-						default:
-							Intent easteregg = new Intent(getApplicationContext(), TestEasterEgg.class);
-							startActivity(easteregg);
-							i = 1;
-							break;
-					}
-				}
-				
-			}
-		});
 		
 		shareButton = (ImageView) findViewById(R.id.toolbar_share);
 		shareButton.setOnClickListener(new View.OnClickListener() {
@@ -138,30 +91,30 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 	
 	@Override
 	public void setContentView(int layoutResID) {
-		if (view_stub != null) {
+		if (viewStub != null) {
 			LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 			ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(
 					ViewGroup.LayoutParams.MATCH_PARENT,
 					ViewGroup.LayoutParams.MATCH_PARENT);
-			View stubView = inflater.inflate(layoutResID, view_stub, false);
-			view_stub.addView(stubView, lp);
+			View stubView = inflater.inflate(layoutResID, viewStub, false);
+			viewStub.addView(stubView, lp);
 		}
 	}
 	
 	@Override
 	public void setContentView(View view) {
-		if (view_stub != null) {
+		if (viewStub != null) {
 			ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(
 					ViewGroup.LayoutParams.MATCH_PARENT,
 					ViewGroup.LayoutParams.MATCH_PARENT);
-			view_stub.addView(view, lp);
+			viewStub.addView(view, lp);
 		}
 	}
 	
 	@Override
 	public void setContentView(View view, ViewGroup.LayoutParams params) {
-		if (view_stub != null) {
-			view_stub.addView(view, params);
+		if (viewStub != null) {
+			viewStub.addView(view, params);
 		}
 	}
 	
@@ -182,7 +135,6 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 				break;
 			
 			case R.id.nav_my_reports:
-				//onMenuClick(Test3Activity.class, R.id.nav_my_reports, true);
 				break;
 			
 			case R.id.nav_settings:
@@ -193,6 +145,8 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 			case R.id.nav_info:
 				onMenuClick(InfoActivity.class, R.id.nav_info, false);
 				break;
+			
+			default:break;
 		}
 		
 		if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -240,7 +194,7 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 	}
 	
 	public void setShareText(@StringRes int text) {
-		shareText = getResources().getString(text).toString();
+		shareText = getResources().getString(text);
 	}
 	
 	public void setShareVisible(boolean visible) {
