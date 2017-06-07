@@ -78,7 +78,7 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		
 		context = getApplicationContext();
 		
-		getReports("0", 60.1892477, 24.9707467, 10000);
+		getReports("OV", 51.585811, 4.792396, 10000);
 		getLocation();
 		
 		loading = (TextView) findViewById(R.id.activityMainscreen_tv_loading);
