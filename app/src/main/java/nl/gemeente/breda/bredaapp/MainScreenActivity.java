@@ -105,9 +105,6 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 				if (floatingActionButton instanceof FloatingActionToggleButton) {
 					// not used
 				} else if (floatingActionButton instanceof FloatingActionButton) {
-					FloatingActionButton fab = floatingActionButton;
-					String label = fab.getLabelText();
-					Toast.makeText(getApplicationContext(), label, Toast.LENGTH_SHORT).show();
 					MainScreenActivity.super.onMenuClick(CreateNewReportActivity.class, -1, false);
 				}
 			}

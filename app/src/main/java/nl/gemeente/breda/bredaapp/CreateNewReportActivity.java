@@ -72,48 +72,48 @@ public class CreateNewReportActivity extends AppBaseActivity {
 		sprCategories.setAdapter(serviceAdapter);
 		
 		// Subcategories: TODO: Maken aan de hand van de API
-		sprCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-				chosenService = parent.getItemAtPosition(pos).toString();
-				
-				switch (parent.getItemAtPosition(pos).toString()) {
-					case "Groen":
-						ArrayAdapter<String> sprSubGroenAdapter = new ArrayAdapter<String>(CreateNewReportActivity.this,
-								android.R.layout.simple_spinner_item, arraySpinnerGroenSubs);
-						sprSubCategories.setAdapter(sprSubGroenAdapter);
-						
-						
-						// On Item Selected --
-						
-						break;
-					case "Openbare verlichting":
-						ArrayAdapter<String> sprSubOVAdapter = new ArrayAdapter<String>(CreateNewReportActivity.this,
-								android.R.layout.simple_spinner_item, arraySpinnerOpenbareVerlichtingSubs);
-						sprSubCategories.setAdapter(sprSubOVAdapter);
-						
-						break;
-					case "Afval":
-						ArrayAdapter<String> sprSubAfvalAdapter = new ArrayAdapter<String>(CreateNewReportActivity.this,
-								android.R.layout.simple_spinner_item, arraySpinnerAfvalSubs);
-						sprSubCategories.setAdapter(sprSubAfvalAdapter);
-						break;
-					case "Dieren en ongedierte":
-						ArrayAdapter<String> sprSubDierAdapter = new ArrayAdapter<String>(CreateNewReportActivity.this,
-								android.R.layout.simple_spinner_item, arraySpinnerDierenEnOngedierteSubs);
-						sprSubCategories.setAdapter(sprSubDierAdapter);
-						break;
-					
-					default:
-						break;
-				}
-			}
-			
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-				Toast.makeText(parent.getContext(), "Nothing selected", Toast.LENGTH_LONG).show();
-			}
-		});
+//		sprCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//			@Override
+//			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+//				chosenService = parent.getItemAtPosition(pos).toString();
+//				
+//				switch (parent.getItemAtPosition(pos).toString()) {
+//					case "Groen":
+//						ArrayAdapter<String> sprSubGroenAdapter = new ArrayAdapter<String>(CreateNewReportActivity.this,
+//								android.R.layout.simple_spinner_item, arraySpinnerGroenSubs);
+//						sprSubCategories.setAdapter(sprSubGroenAdapter);
+//						
+//						
+//						// On Item Selected --
+//						
+//						break;
+//					case "Openbare verlichting":
+//						ArrayAdapter<String> sprSubOVAdapter = new ArrayAdapter<String>(CreateNewReportActivity.this,
+//								android.R.layout.simple_spinner_item, arraySpinnerOpenbareVerlichtingSubs);
+//						sprSubCategories.setAdapter(sprSubOVAdapter);
+//						
+//						break;
+//					case "Afval":
+//						ArrayAdapter<String> sprSubAfvalAdapter = new ArrayAdapter<String>(CreateNewReportActivity.this,
+//								android.R.layout.simple_spinner_item, arraySpinnerAfvalSubs);
+//						sprSubCategories.setAdapter(sprSubAfvalAdapter);
+//						break;
+//					case "Dieren en ongedierte":
+//						ArrayAdapter<String> sprSubDierAdapter = new ArrayAdapter<String>(CreateNewReportActivity.this,
+//								android.R.layout.simple_spinner_item, arraySpinnerDierenEnOngedierteSubs);
+//						sprSubCategories.setAdapter(sprSubDierAdapter);
+//						break;
+//					
+//					default:
+//						break;
+//				}
+//			}
+//			
+//			@Override
+//			public void onNothingSelected(AdapterView<?> parent) {
+//				Toast.makeText(parent.getContext(), "Nothing selected", Toast.LENGTH_LONG).show();
+//			}
+//		});
 		
 		continueToMap.setOnClickListener(new View.OnClickListener() {
 			@Override
