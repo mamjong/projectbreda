@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.design.widget.TabLayout;
@@ -219,7 +220,7 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		this.longtitude = longtitude;
 		getReports(serviceCode, latitude, longtitude, reportRadius);
 		
-		new ReverseGeocoder(latitude, longtitude, this);
+		ReverseGeocoder geocoder = new ReverseGeocoder(latitude, longtitude, this);
 	}
 	
 	@Override
