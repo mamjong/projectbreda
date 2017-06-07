@@ -123,7 +123,7 @@ public class SplashActivity extends AppCompatActivity implements ApiServices.Lis
 	
 	public void getServices() {
 		ServiceManager.emptyArray();
-		String[] urls = new String[]{"https://asiointi.hel.fi/palautews/rest/v1/services.json"};
+		String[] urls = new String[]{"http://37.34.59.50/breda/CitySDK/services.json"};
 		apiServices.execute(urls);
 	}
 	

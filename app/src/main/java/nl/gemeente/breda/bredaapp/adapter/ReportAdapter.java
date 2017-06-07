@@ -19,6 +19,7 @@ import java.util.Date;
 
 import nl.gemeente.breda.bredaapp.R;
 import nl.gemeente.breda.bredaapp.domain.Report;
+import nl.gemeente.breda.bredaapp.util.TimeStampFormat;
 
 public class ReportAdapter extends ArrayAdapter<Report> {
 	
@@ -33,6 +34,7 @@ public class ReportAdapter extends ArrayAdapter<Report> {
 		
 		// Create report
 		report = getItem(position);
+		TimeStampFormat tsf = new TimeStampFormat();
 		View convertView = convertViewInitial;
 		
 		// Check for existing view
@@ -52,7 +54,11 @@ public class ReportAdapter extends ArrayAdapter<Report> {
 		// Get and set content
 		category.setText(report.getServiceName());
 		
-		timestamp.setText(convertTimeStamp(report.getRequestedDatetime()));
+		String getRequestedDate = report.getRequestedDatetime();
+		tsf.setTime(getRequestedDate);
+		String requestedDate = tsf.getTime();
+		String formattedDate = tsf.convertTimeStamp(requestedDate);
+		timestamp.setText(formattedDate);
 		
 		description.setText(report.getDescription());
 		
@@ -81,24 +87,5 @@ public class ReportAdapter extends ArrayAdapter<Report> {
 		
 		// Return view
 		return convertViewInitial;
-	}
-	
-	// Format time/date from JSON object
-	public String convertTimeStamp(String requestedDate) {
-
-//		// Format: 2017-05-17T20:50:27+03:00 van Helsinki
-		SimpleDateFormat sourceFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-
-		// Format example = 10-10-1010
-		SimpleDateFormat reqDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-
-		Date date = null;
-		try {
-			date = sourceFormat.parse(requestedDate);
-		} catch (ParseException e) {
-			Log.e("ERR", e.getMessage());
-		}
-
-		return reqDateFormat.format(date);
 	}
 }
