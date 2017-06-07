@@ -76,10 +76,10 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 			map.setMapStyle(style);
 		}
 		
-		LatLngBounds helsinki = new LatLngBounds(new LatLng(60.08, 24.76), new LatLng(60.26, 25.08));
+		LatLngBounds helsinki = new LatLngBounds(new LatLng(51.482969, 4.654534), new LatLng(51.647188, 4.874748));
 		map.setLatLngBoundsForCameraTarget(helsinki);
 		map.setMinZoomPreference(11);
-		map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(60.192059, 24.945831)));
+		map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(51.585811, 4.792396)));
 		
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
