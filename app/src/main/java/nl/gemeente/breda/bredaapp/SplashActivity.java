@@ -41,12 +41,29 @@ public class SplashActivity extends AppCompatActivity implements ApiServices.Lis
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
 		
+		Context context = this;
+		ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+		
+		TextView noWifi = (TextView) findViewById(R.id.no_wifi);
+		noWifi.setVisibility(View.INVISIBLE);
+		
+		if((activeNetwork == null) || !(activeNetwork.isConnected())){
+			Intent noInternet = new Intent(getApplicationContext(), NoInternet.class);
+			noInternet.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+			startActivity(noInternet);
+		}
+		
+		if (activeNetwork.getType() != ConnectivityManager.TYPE_WIFI) {
+			noWifi.setVisibility(View.VISIBLE);
+		}
+		
 		PackageInfo packageInfo = null;
 		
 		try {
 			packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Log.e("ERR", e.getMessage());
 		}
 		
 		String version = "";
@@ -62,17 +79,6 @@ public class SplashActivity extends AppCompatActivity implements ApiServices.Lis
 		
 		TextView appVersion = (TextView) findViewById(R.id.activitySplashScreen_tv_appVersion);
 		appVersion.setText(getResources().getString(R.string.activitySplashScreen_tv_appVersion) + " " + version);
-		
-		TextView no_wifi = (TextView) findViewById(R.id.no_wifi);
-		no_wifi.setVisibility(View.INVISIBLE);
-		
-		Context context = this;
-		ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
-		
-		if (activeNetwork.getType() != ConnectivityManager.TYPE_WIFI) {
-			no_wifi.setVisibility(View.VISIBLE);
-		}
 		
 		ProgressBar pb = (ProgressBar) findViewById(R.id.activitySplashScreen_pb_loader);
 		pb.getIndeterminateDrawable().setColorFilter(Color.parseColor("#d91d49"), android.graphics.PorterDuff.Mode.SRC_ATOP);
@@ -117,7 +123,7 @@ public class SplashActivity extends AppCompatActivity implements ApiServices.Lis
 	
 	public void getServices() {
 		ServiceManager.emptyArray();
-		String[] urls = new String[]{"https://asiointi.hel.fi/palautews/rest/v1/services.json"};
+		String[] urls = new String[]{"http://37.34.59.50/breda/CitySDK/services.json"};
 		apiServices.execute(urls);
 	}
 	

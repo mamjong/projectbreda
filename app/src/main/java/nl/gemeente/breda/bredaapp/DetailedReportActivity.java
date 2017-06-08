@@ -26,8 +26,6 @@ import static nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment.EXTRA_R
 public class DetailedReportActivity extends AppBaseActivity {
 	
 	private static final String TAG = "DetailedReportActivity";
-	private TextView description, category;
-	private ImageView mediaUrl;
 	private Button extraReport;
 	private boolean isPressed;
 	private ProgressBar progressBar;
@@ -38,14 +36,15 @@ public class DetailedReportActivity extends AppBaseActivity {
 		setContentView(R.layout.activity_detailed_report);
 		super.setMenuSelected(getIntent().getExtras());
 		
-		description = (TextView) findViewById(R.id.DetailedReportActivity_tv_kindOfDefectInput);
-		mediaUrl = (ImageView) findViewById(R.id.DetailedReportActivity_iv_image);
+		TextView description = (TextView) findViewById(R.id.DetailedReportActivity_tv_kindOfDefectInput);
+		ImageView mediaUrl = (ImageView) findViewById(R.id.DetailedReportActivity_iv_image);
 		extraReport = (Button) findViewById(R.id.DetailedReportActivity_bt_extraReportBtn);
-		category = (TextView) findViewById(R.id.DetailedReportActivity_tv_categoryInput);
+		TextView category = (TextView) findViewById(R.id.DetailedReportActivity_tv_categoryInput);
 		progressBar = (ProgressBar) findViewById(R.id.DetailedReportActivity_pb_imageProgressBar);
 		
 		Bundle extras = getIntent().getExtras();
 		String getMediaUrl = extras.getString("MediaUrl");
+		int getNoImage = extras.getInt("NoImage");
 		
 		final Report r = (Report) extras.getSerializable(EXTRA_REPORT);
 		final DatabaseHandler dbh = new DatabaseHandler(getApplicationContext(), null, null, 1);
@@ -56,6 +55,7 @@ public class DetailedReportActivity extends AppBaseActivity {
 		
 		progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#d91d49"), PorterDuff.Mode.SRC_ATOP);
 		
+
 		if (dbh.checkReport(r) == true) {
 			extraReport.setBackgroundResource(R.drawable.onimage2);
 			isPressed = true;
@@ -64,8 +64,11 @@ public class DetailedReportActivity extends AppBaseActivity {
 			isPressed = false;
 		}
 		
+		super.setShareText(getResources().getString(R.string.created_report_share_text_prefix).trim() + " " + r.getDescription());
+		
+		if(getMediaUrl == null){
 		Glide.with(this)
-				.load(getMediaUrl)
+				.load(getNoImage)
 				.listener(new RequestListener<Drawable>() {
 					@Override
 					public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -80,35 +83,30 @@ public class DetailedReportActivity extends AppBaseActivity {
 					}
 				})
 				.into(mediaUrl);
-
-//		if(r.getMediaUrl() == null){
-//			Picasso.with(getApplicationContext()).load(R.drawable.nopicturefound).into(mediaUrl);
-//		} else {
-//			Picasso.with(getApplicationContext()).load(getMediaUrl).into(mediaUrl, new Callback(){
-//                @Override
-//				public void onSuccess(){
-//					progressBar.setVisibility(View.GONE);
-//                    mediaUrl.setVisibility(View.VISIBLE);
-//				}
-//
-//                @Override
-//                public void onError() {
-//                    Picasso.with(getApplicationContext()).load(R.drawable.nopicturefound).into(mediaUrl);
-//                    progressBar.setVisibility(View.GONE);
-//                }
-//            });
-//		}
-//		new ImageLoader(mediaUrl).execute(r.getMediaUrl());
+		} else {
+			Glide.with(this)
+					.load(getMediaUrl)
+					.listener(new RequestListener<Drawable>() {
+						@Override
+						public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+							progressBar.setVisibility(View.GONE);
+							return false;
+						}
+						
+						@Override
+						public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+							progressBar.setVisibility(View.GONE);
+							return false;
+						}
+					})
+					.into(mediaUrl);
+		}
 		
 		mediaUrl.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				Log.i(TAG, "onClick geactiveerd.");
-//			setContentView(R.layout.activity_detailed_report_fullscreen_image);
-//			mediaUrl = (ImageView) findViewById(R.id.DetailedReportActivityFullscreenImage_IV_Image);
-//			new ImageLoader(mediaUrl).execute(r.getMediaUrl());
-//			Toast.makeText(getApplicationContext(), "FULLSCREEN!", Toast.LENGTH_LONG).show();
 				Intent fullscreenImageIntent = new Intent(getApplicationContext(), DetailedReportActivityImage.class);
 				fullscreenImageIntent.putExtra(EXTRA_REPORT, r);
 				startActivity(fullscreenImageIntent);
@@ -120,6 +118,7 @@ public class DetailedReportActivity extends AppBaseActivity {
 			
 			@Override
 			public void onClick(View v) {
+
 				if (isPressed == false) {
 					dbh.addReport(r);
 					extraReport.setBackgroundResource(R.drawable.onimage2);

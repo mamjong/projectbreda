@@ -68,7 +68,8 @@ public class FavoriteReportsActivity extends AppBaseActivity implements ApiHomeS
 	public void getFavoriteReports(String serviceRequestId) {
 		FavoriteReportManager.emptyArray();
 		ApiHomeScreen apiHomeScreen = new ApiHomeScreen(this, this);
-		String[] urls = new String[]{"https://asiointi.hel.fi/palautews/rest/v1/requests/" + serviceRequestId + ".json"};
+		String[] urls = new String[]{"http://37.34.59.50/breda/CitySDK/request/" + serviceRequestId + ".json"};
+		//String[] urls = new String[]{"https://asiointi.hel.fi/palautews/rest/v1/requests/" + serviceRequestId + ".json"};
 		apiHomeScreen.execute(urls);
 	}
 		

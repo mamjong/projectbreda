@@ -17,6 +17,7 @@
         <item name="menuTextColor">@color/colorBlack</item>
         
         <item name="mainText">@color/colorPrimary</item>
+        <item name="mainTextColor">@color/colorWhite</item>
         <item name="splashText">@color/colorPrimary</item>
         <item name="splashBackground">@color/colorWhite</item>
 
@@ -43,6 +44,7 @@
         <item name="menuTextColor">@color/colorWhite</item>
 
         <item name="mainText">@color/colorPrimaryNight</item>
+        <item name="mainTextColor">@color/colorWhite</item>
         <item name="splashText">@color/colorWhite</item>
         <item name="splashBackground">@color/colorPrimaryNight</item>
 

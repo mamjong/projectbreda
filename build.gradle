@@ -12,6 +12,10 @@ buildscript {
     }
 }
 
+plugins {
+    id "org.sonarqube" version "2.2"
+}
+
 allprojects {
     repositories {
         jcenter()
@@ -21,4 +25,7 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+task wrapper(type: Wrapper){
+    gradleVersion = '2.3.2'
 }

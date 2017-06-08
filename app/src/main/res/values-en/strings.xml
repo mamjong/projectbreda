@@ -54,7 +54,19 @@
     <string name="menu_about">About</string>
     <string name="themeStandard">Default theme</string>
     <string name="themeNight">Dark theme</string>
+    <string name="radius_title">Radius:</string>
     <string name="UserSettingsAcitivity_name">Settings</string>
+
     <string name="FavoriteReportsActivity_Label">Favorite Reports</string>
     <string name="FavoriteReportsActivity_name">My favorite reports</string>
+
+    <string name="no_internet">No internet</string>
+    <string name="settings_theme">Theme:</string>
+    <string name="settings_language">Language:</string>
+    <string name="confirm_email">Confirm e-mail</string>
+    <string name="incorrect_email">E-mail updated.</string>
+    <string name="about_share_text">This epic team made InfraMeld!</string>
+    <string name="created_report_share_text_prefix">I created a report with InfraMeld: </string>
+    <string name="addressNotFound">Address not found</string>
+
 </resources>
