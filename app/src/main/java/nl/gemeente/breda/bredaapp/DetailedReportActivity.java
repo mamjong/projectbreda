@@ -32,6 +32,8 @@ public class DetailedReportActivity extends AppBaseActivity {
 	private Button extraReport;
 	private boolean isPressed;
 	private ProgressBar progressBar;
+	private int upvotes;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,7 @@ public class DetailedReportActivity extends AppBaseActivity {
 		extraReport = (Button) findViewById(R.id.DetailedReportActivity_bt_extraReportBtn);
 		TextView category = (TextView) findViewById(R.id.DetailedReportActivity_tv_categoryInput);
 		progressBar = (ProgressBar) findViewById(R.id.DetailedReportActivity_pb_imageProgressBar);
-		TextView count = (TextView) findViewById(R.id.DetailedReportActivity_tv_reportCounter); 
+		final TextView count = (TextView) findViewById(R.id.DetailedReportActivity_tv_reportCounter);
 		
 		Bundle extras = getIntent().getExtras();
 		String getMediaUrl = extras.getString("MediaUrl");
@@ -65,7 +67,8 @@ public class DetailedReportActivity extends AppBaseActivity {
 		
 		
 		category.setText(r.getServiceName());
-		count.setText(r.getUpvotes() + "");
+		upvotes = r.getUpvotes();
+		count.setText(Integer.toString(upvotes));
 		
 		description.setText(r.getDescription());
 		
@@ -139,12 +142,16 @@ public class DetailedReportActivity extends AppBaseActivity {
 					dbh.addReport(r);
 					extraReport.setBackgroundResource(R.drawable.onimage2);
 					Log.i(TAG, "melding = checked");
+					upvotes++;
+					count.setText(Integer.toString(upvotes));
 					isPressed = true;
 					
 				} else if (isPressed == true) {
 					dbh.deleteReport(r);
 					extraReport.setBackgroundResource(R.drawable.offimage);
 					Log.i(TAG, "melding = unchecked");
+					upvotes--;
+					count.setText(Integer.toString(upvotes));
 					isPressed = false;
 				}
 			}
