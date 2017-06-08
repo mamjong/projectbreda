@@ -100,7 +100,7 @@
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/DetailedReportActivity_rl_relativeLayout"
         app:layout_constraintLeft_toLeftOf="parent"
-        >
+        android:id="@+id/linearLayout">
 
         <TextView
             android:layout_width="match_parent"
@@ -174,5 +174,19 @@
             android:layout_height="wrap_content"
             android:text="Button"/>-->
     </FrameLayout>
+
+    <TextView
+        android:id="@+id/DetailedReportActivity_tv_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/DetailedReportActivity_bt_extraReportBtn"
+        app:layout_constraintLeft_toRightOf="@+id/DetailedReportActivity_rl_relativeLayout"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>

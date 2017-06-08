@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -18,8 +19,10 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.google.android.gms.vision.text.Text;
 
 import nl.gemeente.breda.bredaapp.domain.Report;
+import nl.gemeente.breda.bredaapp.util.ReverseGeocoder;
 
 import static nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment.EXTRA_REPORT;
 
@@ -47,8 +50,19 @@ public class DetailedReportActivity extends AppBaseActivity {
 		String getMediaUrl = extras.getString("MediaUrl");
 		int getNoImage = extras.getInt("NoImage");
 		
+		
 		final Report r = (Report) extras.getSerializable(EXTRA_REPORT);
 		final DatabaseHandler dbh = new DatabaseHandler(getApplicationContext(), null, null, 1);
+		
+		double lat = r.getLatitude();
+		double lng = r.getLongitude();
+		
+		ReverseGeocoder geocoder = new ReverseGeocoder(lat, lng, this);
+		TextView address = (TextView) findViewById(R.id.DetailedReportActivity_tv_address);
+		String address_content = geocoder.getAddress();
+		address_content = address_content.replaceAll("(?<=(^|\\G)\\S{0,100}\\s\\S{0,100})\\s", "\n");
+		address.setText(address_content);
+		
 		
 		category.setText(r.getServiceName());
 		count.setText(r.getUpvotes() + "");
