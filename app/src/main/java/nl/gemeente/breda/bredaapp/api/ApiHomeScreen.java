@@ -130,10 +130,14 @@ public class ApiHomeScreen extends AsyncTask<String, Void, String> {
 					double longtitude = thisReport.getDouble("long");
 					report.setLongitude(longtitude);
 				}
-				
 				if (thisReport.has("upvotes")) {
 					int upvotes = thisReport.getInt("upvotes");
 					report.setUpvotes(upvotes);
+				}
+				
+				// GetAddress according to location using Reverse Geocoder
+				if (report.getLatitude() != null && report.getLongitude() != null){
+					
 				}
 				
 				// Callback
