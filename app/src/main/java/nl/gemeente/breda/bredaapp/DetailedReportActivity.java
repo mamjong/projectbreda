@@ -47,12 +47,22 @@ public class DetailedReportActivity extends AppBaseActivity {
 		int getNoImage = extras.getInt("NoImage");
 		
 		final Report r = (Report) extras.getSerializable(EXTRA_REPORT);
+		final DatabaseHandler dbh = new DatabaseHandler(getApplicationContext(), null, null, 1);
 		
 		category.setText(r.getServiceName());
 		
 		description.setText(r.getDescription());
 		
 		progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#d91d49"), PorterDuff.Mode.SRC_ATOP);
+		
+
+		if (dbh.checkReport(r) == true) {
+			extraReport.setBackgroundResource(R.drawable.onimage2);
+			isPressed = true;
+		} else if (dbh.checkReport(r) == false) {
+			extraReport.setBackgroundResource(R.drawable.offimage);
+			isPressed = false;
+		}
 		
 		super.setShareText(getResources().getString(R.string.created_report_share_text_prefix).trim() + " " + r.getDescription());
 		
@@ -108,11 +118,17 @@ public class DetailedReportActivity extends AppBaseActivity {
 			
 			@Override
 			public void onClick(View v) {
-				if (!isPressed) {
+
+				if (isPressed == false) {
+					dbh.addReport(r);
 					extraReport.setBackgroundResource(R.drawable.onimage2);
+					Log.i(TAG, "melding = checked");
 					isPressed = true;
-				} else {
+					
+				} else if (isPressed == true) {
+					dbh.deleteReport(r);
 					extraReport.setBackgroundResource(R.drawable.offimage);
+					Log.i(TAG, "melding = unchecked");
 					isPressed = false;
 				}
 			}
