@@ -17,6 +17,7 @@ import nl.gemeente.breda.bredaapp.R;
 import nl.gemeente.breda.bredaapp.domain.Report;
 import nl.gemeente.breda.bredaapp.util.TimeStampFormat;
 
+
 public class ReportAdapter extends ArrayAdapter<Report> {
 	
 	private Report report;
@@ -69,7 +70,7 @@ public class ReportAdapter extends ArrayAdapter<Report> {
 			String colorRed = "#E74C3C";
 			status.setTextColor(Color.parseColor(colorRed));
 		}
-
+		
 		// First letter uppercase
 		String upperCaseStatus = reportStatus.substring(0, 1).toUpperCase() + reportStatus.substring(1);
 		status.setText(upperCaseStatus);

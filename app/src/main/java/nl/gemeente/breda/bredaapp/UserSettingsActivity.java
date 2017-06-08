@@ -61,7 +61,7 @@ public class UserSettingsActivity extends AppBaseActivity {
 		setContentView(R.layout.activity_user_settings);
 		
 		SeekBar changeRadius;
-		Button changeSettingsButton;
+		final Button changeSettingsButton;
 		Spinner themeSpinner;
 		final TextView reportRadiusView;
 		String selectedTheme;
@@ -158,8 +158,10 @@ public class UserSettingsActivity extends AppBaseActivity {
 					});
 					
 					creator.show();
+				} else {
+					Toast toast = Toast.makeText(UserSettingsActivity.this, getResources().getString(R.string.settingsSaved), Toast.LENGTH_SHORT);
+					toast.show();
 				}
-				
 			}
 		});
 		
@@ -167,12 +169,11 @@ public class UserSettingsActivity extends AppBaseActivity {
 		currentEmail.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-				Log.i(TAG, "beforeTextChanged not supported.");
+				
 			}
 			
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				Log.i(TAG, "onTextChanged not supported.");
 
 			}
 			
@@ -180,8 +181,10 @@ public class UserSettingsActivity extends AppBaseActivity {
 			public void afterTextChanged(Editable s) {
 				if (Patterns.EMAIL_ADDRESS.matcher(s).matches()) {
 					currentEmail.setBackgroundResource(R.drawable.email_border_correct);
+					changeSettingsButton.setEnabled(true);
 				} else {
 					currentEmail.setBackgroundResource(R.drawable.email_border_wrong);
+					changeSettingsButton.setEnabled(false);
 				}
 			}
 		});
@@ -198,13 +201,15 @@ public class UserSettingsActivity extends AppBaseActivity {
 			
 			@Override
 			public void onStartTrackingTouch(SeekBar seekBar) {
-				Log.i(TAG, "onStartTrackingTouch not supported.");
+				
 			}
 			
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
-				Log.i(TAG, "onStopTrackingTouch not supported.");
+				
 			}
 		});
+		
+		changeSettingsButton.setEnabled(Patterns.EMAIL_ADDRESS.matcher(currentEmail.getText()).matches());
 	}
 }

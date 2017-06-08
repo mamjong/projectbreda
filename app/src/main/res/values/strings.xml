@@ -72,6 +72,8 @@
     <string name="UserSettingsActivity_sw_ChangeSettings">Instellingen Bewerken</string>
     <string name="UserSettingsAcitivity_name">Instellingen</string>
 
+    <string name="FavoriteReportsActivity_name">Mijn favoriete meldingen</string>
+
     <string name="mode_ready" translatable="false">Snake\nPress Up To Play</string>
     <string name="mode_pause" translatable="false">Paused\nPress Up To Resume</string>
     <string name="mode_lose" translatable="false">Game Over\nScore: %1$d \nPress Up To Play</string>
@@ -79,9 +81,18 @@
     <string name="info_textview">Deze app is gemaakt in opdracht van gemeente Breda en is ontwikkelt door: Thomas Lucas, Thimo Koolen, Giede van Gils, Mark Meijer, Quoc-Sy Luong, Cas de Pender, Mark de Jong en Thomas Mout.</string>
     <string name="info_title">Over deze app</string>
     <string name="menu_view_reports">Bekijk alle meldingen</string>
-    <string name="menu_view_your_reports">Bekijk uw meldingen</string>
+    <string name="menu_view_your_reports">Bekijk favorite meldingen</string>
     <string name="menu_settings">Instellingen</string>
     <string name="menu_about">Over</string>
+
+    <string name="FavoriteReportsActivity_Label">Favoriete Meldingen</string>
+
+    <!-- Toasts-->
+    <string name="toast_report_added">Melding toegevoegd aan favorieten</string>
+    <string name="toast_report_added_error">Fout! Melding kon niet toegevoegd worden!</string>
+    <string name="toast_report_deleted">Melding verwijderd uit favorieten</string>
+    <string name="toast_report_deleted_error">Fout! Melding kon niet verwijderd worden!</string>
+
     <string name="no_internet">Geen internet</string>
     <string name="radius_title">Radius:</string>
     <string name="settings_theme">Thema:</string>
@@ -91,7 +102,7 @@
     <string name="about_share_text">Dit coole team heeft InfraMeld gemaakt!</string>
     <string name="created_report_share_text_prefix">Ik heb een melding met InfraMeld gemaakt: </string>
     <string name="addressNotFound">Adres niet gevonden</string>
-    
     <string name="apprestart_title">Opnieuw opstarten</string>
     <string name="apprestart_description">Om de wijzigingen goed weer te geven, dient de app opnieuw opgestart te worden.</string>
+    <string name="settingsSaved">Instellingingen opgeslagen</string>
 </resources>

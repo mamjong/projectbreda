@@ -15,9 +15,17 @@ public class Report implements Serializable {
 	private String mediaUrl;
 	private double latitude;
 	private double longitude;
+	private boolean isFavorite;
 	
 	public Report() {
-		// to do
+	}
+	
+	public boolean isFavorite() {
+		return isFavorite;
+	}
+	
+	public void setFavorite(boolean favorite) {
+		isFavorite = favorite;
 	}
 	
 	public String getServiceRequestId() {
