@@ -179,7 +179,7 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 	
 	@Override
 	public void noConnectionAvailable() {
-		Toast toast = Toast.makeText(this, "No connection available.", Toast.LENGTH_LONG);
+		Toast toast = Toast.makeText(this, getResources().getString(R.string.no_internet), Toast.LENGTH_SHORT);
 		toast.setGravity(Gravity.CENTER, 0, 0);
 		toast.show();
 	}
