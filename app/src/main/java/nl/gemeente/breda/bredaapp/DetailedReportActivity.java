@@ -41,6 +41,7 @@ public class DetailedReportActivity extends AppBaseActivity {
 		extraReport = (Button) findViewById(R.id.DetailedReportActivity_bt_extraReportBtn);
 		TextView category = (TextView) findViewById(R.id.DetailedReportActivity_tv_categoryInput);
 		progressBar = (ProgressBar) findViewById(R.id.DetailedReportActivity_pb_imageProgressBar);
+		TextView count = (TextView) findViewById(R.id.DetailedReportActivity_tv_reportCounter); 
 		
 		Bundle extras = getIntent().getExtras();
 		String getMediaUrl = extras.getString("MediaUrl");
@@ -50,6 +51,7 @@ public class DetailedReportActivity extends AppBaseActivity {
 		final DatabaseHandler dbh = new DatabaseHandler(getApplicationContext(), null, null, 1);
 		
 		category.setText(r.getServiceName());
+		count.setText(r.getUpvotes() + "");
 		
 		description.setText(r.getDescription());
 		

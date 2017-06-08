@@ -74,8 +74,8 @@
         android:textStyle="bold"
         app:layout_constraintLeft_toRightOf="@+id/DetailedReportActivity_tv_reportCounter"
         app:layout_constraintTop_toBottomOf="@+id/DetailedReportActivity_tv_reportText"
-        app:layout_constraintVertical_bias="0.03"
-        />
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="-1dp"/>
 
     <Button
         android:id="@+id/DetailedReportActivity_bt_extraReportBtn"

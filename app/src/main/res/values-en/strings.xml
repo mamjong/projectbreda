@@ -38,7 +38,7 @@
     <string name="create_new_report_label">Create new report</string>
     <string name="detailed_report_label">Details</string>
     <string name="terms_and_conditions_label">Terms &amp; Conditions</string>
-    <string name="DetailedReportActivity_tv_reportText2">x</string>
+    <string name="DetailedReportActivity_tv_reportText2">times</string>
     <string name="activityCreateNewReport_text_noImageSelected">No picture has been selected. If you don\'t have a picture, select \"I don\'t have a picture.\".</string>
     <string name="UserSettingsActivity_tv_currentEmailText">Email Address:</string>
     <string name="UserSettingsActivity_tv_AppSettings">App Settings</string>
