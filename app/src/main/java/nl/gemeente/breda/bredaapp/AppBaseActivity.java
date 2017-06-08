@@ -82,12 +82,12 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 		drawerToggle.onConfigurationChanged(configuration);
 	}
 	
-	@Override
-	public void onRestart() {
-		super.onRestart();
-		finish();
-		startActivity(getIntent());
-	}
+//	@Override
+//	public void onRestart() {
+//		super.onRestart();
+//		finish();
+//		startActivity(getIntent());
+//	}
 	
 	@Override
 	public void setContentView(int layoutResID) {

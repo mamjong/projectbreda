@@ -44,6 +44,7 @@ public class DetailedReportActivity extends AppBaseActivity {
 		
 		Bundle extras = getIntent().getExtras();
 		String getMediaUrl = extras.getString("MediaUrl");
+		int getNoImage = extras.getInt("NoImage");
 		
 		final Report r = (Report) extras.getSerializable(EXTRA_REPORT);
 		
@@ -55,8 +56,9 @@ public class DetailedReportActivity extends AppBaseActivity {
 		
 		super.setShareText(getResources().getString(R.string.created_report_share_text_prefix).trim() + " " + r.getDescription());
 		
+		if(getMediaUrl == null){
 		Glide.with(this)
-				.load(getMediaUrl)
+				.load(getNoImage)
 				.listener(new RequestListener<Drawable>() {
 					@Override
 					public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -71,6 +73,24 @@ public class DetailedReportActivity extends AppBaseActivity {
 					}
 				})
 				.into(mediaUrl);
+		} else {
+			Glide.with(this)
+					.load(getMediaUrl)
+					.listener(new RequestListener<Drawable>() {
+						@Override
+						public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+							progressBar.setVisibility(View.GONE);
+							return false;
+						}
+						
+						@Override
+						public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+							progressBar.setVisibility(View.GONE);
+							return false;
+						}
+					})
+					.into(mediaUrl);
+		}
 		
 		mediaUrl.setOnClickListener(new View.OnClickListener() {
 			
