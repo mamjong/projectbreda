@@ -22,6 +22,8 @@ import nl.gemeente.breda.bredaapp.DatabaseHandler;
 import nl.gemeente.breda.bredaapp.R;
 import nl.gemeente.breda.bredaapp.domain.Report;
 
+import static nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment.EXTRA_REPORT;
+
 public class FavoriteReportsAdapter extends ArrayAdapter<Report> {
 	
 	private Report report;
@@ -31,7 +33,7 @@ public class FavoriteReportsAdapter extends ArrayAdapter<Report> {
 	}
 	
 	public View getView(int position, View convertView, ViewGroup parent) {
-		
+
 //		final DatabaseHandler dbh = new DatabaseHandler(getContext(), null, null, 1);
 		
 		// Create report

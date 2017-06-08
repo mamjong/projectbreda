@@ -153,6 +153,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			Report report = new Report();
 			
 			report.setServiceRequestId(cursor.getString(cursor.getColumnIndex(REPORTS_COLUMN_ID)));
+			report.setServiceName(cursor.getString(cursor.getColumnIndex(REPORTS_COLUMN_IS_FAVORITE)));
 			
 			reports.add(report);
 		}
@@ -160,7 +161,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		db.close();
 		return reports;
 	}
-	
+		
 	public User getUser() {
 		String query = "SELECT " + USERS_COLUMN_MAILACCOUNT + " FROM " + USERS_TABLE_NAME;
 		User user = new User();
