@@ -21,9 +21,11 @@ import nl.gemeente.breda.bredaapp.util.TimeStampFormat;
 public class ReportAdapter extends ArrayAdapter<Report> {
 	
 	private Report report;
+	private Context context;
 	
 	public ReportAdapter(Context context, ArrayList<Report> reports) {
 		super(context, R.layout.fragment_list_view_row, reports);
+		this.context = context;
 	}
 	
 	@Override
@@ -44,6 +46,7 @@ public class ReportAdapter extends ArrayAdapter<Report> {
 		TextView description = (TextView) convertViewInitial.findViewById(R.id.fragmentListViewRow_TV_description);
 		TextView status = (TextView) convertViewInitial.findViewById(R.id.fragmentListViewRow_TV_status);
 		TextView category = (TextView) convertViewInitial.findViewById(R.id.fragmentListViewRow_TV_category);
+		TextView upvotes = (TextView) convertViewInitial.findViewById(R.id.fragmentListViewRow_TV_upvoteCount); 
 		
 		// Tijdelijk om timestamp te testen
 		TextView timestamp = (TextView) convertViewInitial.findViewById(R.id.fragmentListViewRow_TV_timeStamp);
@@ -56,6 +59,8 @@ public class ReportAdapter extends ArrayAdapter<Report> {
 		String requestedDate = tsf.getTime();
 		String formattedDate = tsf.convertTimeStamp(requestedDate);
 		timestamp.setText(formattedDate);
+		//upvotes.setText(report.getUpvotes() + " " + context.getString(R.string.upvote));
+		upvotes.setText(report.getUpvotes() + " " + (report.getUpvotes() == 1 ? context.getString(R.string.upvote) : context.getString(R.string.upvotes)));
 		
 		description.setText(report.getDescription());
 		

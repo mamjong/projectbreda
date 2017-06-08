@@ -131,6 +131,11 @@ public class ApiHomeScreen extends AsyncTask<String, Void, String> {
 					report.setLongitude(longtitude);
 				}
 				
+				if (thisReport.has("upvotes")) {
+					int upvotes = thisReport.getInt("upvotes");
+					report.setUpvotes(upvotes);
+				}
+				
 				// Callback
 				listener.onReportAvailable(report);
 			}

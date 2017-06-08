@@ -16,6 +16,7 @@ public class Report implements Serializable {
 	private double latitude;
 	private double longitude;
 	private boolean isFavorite;
+	private int upvotes;
 	
 	public Report() {
 	}
@@ -26,6 +27,14 @@ public class Report implements Serializable {
 	
 	public void setFavorite(boolean favorite) {
 		isFavorite = favorite;
+	}
+	
+	public int getUpvotes() {
+		return upvotes;
+	}
+	
+	public void setUpvotes(int upvotes) {
+		this.upvotes = upvotes;
 	}
 	
 	public String getServiceRequestId() {

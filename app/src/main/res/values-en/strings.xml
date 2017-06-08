@@ -71,4 +71,6 @@
     <string name="apprestart_title">Restart application</string>
     <string name="apprestart_description">To show the changes correctly, we need to restart the app.</string>
     <string name="settingsSaved">Settings saved</string>
+    <string name="upvote">upvote</string>
+    <string name="upvotes">upvotes</string>
 </resources>

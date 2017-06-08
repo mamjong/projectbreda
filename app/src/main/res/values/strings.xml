@@ -105,4 +105,6 @@
     <string name="apprestart_title">Opnieuw opstarten</string>
     <string name="apprestart_description">Om de wijzigingen goed weer te geven, dient de app opnieuw opgestart te worden.</string>
     <string name="settingsSaved">Instellingingen opgeslagen</string>
+    <string name="upvote">stem</string>
+    <string name="upvotes">stemmen</string>
 </resources>
