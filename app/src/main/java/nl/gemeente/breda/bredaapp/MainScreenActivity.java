@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.design.widget.TabLayout;
@@ -32,6 +33,7 @@ import nl.gemeente.breda.bredaapp.businesslogic.ServiceManager;
 import nl.gemeente.breda.bredaapp.domain.Report;
 import nl.gemeente.breda.bredaapp.domain.Service;
 import nl.gemeente.breda.bredaapp.util.AlertCreator;
+import nl.gemeente.breda.bredaapp.util.ReverseGeocoder;
 
 import static nl.gemeente.breda.bredaapp.UserSettingsActivity.PREFS_NAME;
 
@@ -43,23 +45,14 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 	
 	protected int reportRadius;
 	private MainScreenSectionsPagerAdapter sectionsPagerAdapter;
-	private ViewPager viewPager;
-	private ReportManager reportManager;
-	//private Button newReportActivityBtn;
-	private ServiceAdapter spinnerAdapter;
-	private Spinner homescreenDropdown;
-	private int numberOfReports;
 	private TextView loading;
 	private ImageView overlay;
 	private double latitude;
 	private double longtitude;
 	private Context context;
 	private String serviceCode;
-	private TabLayout tabs;
 	
 	private int backPressAmount = 0;
-	
-	private FloatingActionMenu floatingActionMenu;
 	
 	//================================================================================
 	// Accessors
@@ -72,46 +65,32 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		Bundle bundle = new Bundle();
 		bundle.putInt("menuID", R.id.nav_reports);
 		super.setMenuSelected(bundle);
-
-//		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//		setSupportActionBar(toolbar);
+		
 		sectionsPagerAdapter = new MainScreenSectionsPagerAdapter(getSupportFragmentManager(), getApplicationContext());
 		
 		latitude = 0;
 		longtitude = 0;
 		serviceCode = "0";
 		
-		viewPager = (ViewPager) findViewById(R.id.container);
+		ViewPager viewPager = (ViewPager) findViewById(R.id.container);
 		viewPager.setAdapter(sectionsPagerAdapter);
 		
 		TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 		tabLayout.setupWithViewPager(viewPager);
 		
-		//newReportActivityBtn = (Button) findViewById(R.id.mainScreenActivity_Btn_MakeReport);
-
-//		newReportActivityBtn.setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				Intent i = new Intent(getApplicationContext(), CreateNewReportActivity.class);
-//				startActivity(i);
-//			}
-//		});
-		
 		context = getApplicationContext();
 		
-		getReports("0", 60.1892477, 24.9707467, 10000);
+		getReports("OV", 51.585811, 4.792396, 10000);
 		getLocation();
-		
-		numberOfReports = -1;
 		
 		loading = (TextView) findViewById(R.id.activityMainscreen_tv_loading);
 		overlay = (ImageView) findViewById(R.id.activityMainscreen_overlay_image);
 		overlay.setVisibility(View.INVISIBLE);
 		loading.setText(R.string.spinner_loading);
 		
-		homescreenDropdown = (Spinner) findViewById(R.id.homescreen_dropdown);
+		Spinner homescreenDropdown = (Spinner) findViewById(R.id.homescreen_dropdown);
 		
-		spinnerAdapter = new ServiceAdapter(getApplicationContext(), ServiceManager.getServices(), R.layout.spinner_layout_adapter);
+		ServiceAdapter spinnerAdapter = new ServiceAdapter(getApplicationContext(), ServiceManager.getServices(), R.layout.spinner_layout_adapter);
 		homescreenDropdown.setAdapter(spinnerAdapter);
 		homescreenDropdown.setOnItemSelectedListener(this);
 		homescreenDropdown.setPrompt(getResources().getString(R.string.spinner_loading));
@@ -121,16 +100,13 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		
 		spinnerAdapter.notifyDataSetChanged();
 		
-		floatingActionMenu = (FloatingActionMenu) findViewById(R.id.fam);
+		FloatingActionMenu floatingActionMenu = (FloatingActionMenu) findViewById(R.id.fam);
 		floatingActionMenu.setOnFloatingActionMenuSelectedListener(new OnFloatingActionMenuSelectedListener() {
 			@Override
 			public void onFloatingActionMenuSelected(FloatingActionButton floatingActionButton) {
 				if (floatingActionButton instanceof FloatingActionToggleButton) {
-					FloatingActionToggleButton fatb = (FloatingActionToggleButton) floatingActionButton;
+					// not used
 				} else if (floatingActionButton instanceof FloatingActionButton) {
-					FloatingActionButton fab = (FloatingActionButton) floatingActionButton;
-					String label = fab.getLabelText();
-					Toast.makeText(getApplicationContext(), label, Toast.LENGTH_SHORT).show();
 					MainScreenActivity.super.onMenuClick(CreateNewReportActivity.class, -1, false);
 				}
 			}
@@ -140,7 +116,7 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 	public void getReports(String serviceCode, double latitude, double longtitude, int radius) {
 		ReportManager.emptyArray();
 		ApiHomeScreen apiHomeScreen = new ApiHomeScreen(this, this);
-		String[] urls = new String[]{"https://asiointi.hel.fi/palautews/rest/v1/requests.json?status=open&service_code=" + serviceCode + "&lat=" + latitude + "&long=" + longtitude + "&radius=" + radius};
+		String[] urls = new String[]{"http://37.34.59.50/breda/CitySDK/requests.json?status=open&service_code=" + serviceCode + "&lat=" + latitude + "&long=" + longtitude + "&radius=" + radius};
 		apiHomeScreen.execute(urls);
 	}
 	
@@ -152,7 +128,6 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 	
 	@Override
 	public void onReportAvailable(Report report) {
-		//Log.i("Report", report.getDescription());
 		ReportManager.addReport(report);
 	}
 	
@@ -163,7 +138,11 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		Service service = ServiceManager.getServices().get(position);
 		serviceCode = service.getServiceCode();
 		
-		if (latitude == 0 || longtitude == 0) {
+		Float zero = 0.f;
+		Float lat = new Float(latitude);
+		Float lon = new Float(longtitude);
+		
+		if (lat.equals(zero) || lon.equals(zero)) {
 			getReports(serviceCode, 60.1892477, 24.9707467, 10000);
 		} else {
 			getReports(serviceCode, latitude, longtitude, reportRadius);
@@ -178,12 +157,11 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 	
 	@Override
 	public void onNothingSelected(AdapterView<?> parent) {
-		
+		return;
 	}
 	
 	@Override
 	public void onNumberOfReportsAvailable(int number) {
-		this.numberOfReports = number;
 		if (number > 0) {
 			if (sectionsPagerAdapter.getMap() != null) {
 				sectionsPagerAdapter.getMap().getUiSettings().setScrollGesturesEnabled(true);
@@ -207,33 +185,31 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 	}
 	
 	@Override
-	public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-		switch (requestCode) {
-			case 1: {
-				if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-					finish();
-					startActivity(getIntent());
-				} else {
-					AlertCreator alertCreator = new AlertCreator(MainScreenActivity.this);
-					
-					alertCreator.setTitle(R.string.no_location_permission_title);
-					alertCreator.setMessage(R.string.no_location_permission_description);
-					alertCreator.setNegativeButton(R.string.no_location_permission_negative, new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							finish();
-						}
-					});
-					alertCreator.setPositiveButton(R.string.no_location_permission_positive, new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							ActivityCompat.requestPermissions(MainScreenActivity.this, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-						}
-					});
-					alertCreator.show();
-				}
-				return;
+	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+		if (requestCode == 1) {
+			if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+				finish();
+				startActivity(getIntent());
+			} else {
+				AlertCreator alertCreator = new AlertCreator(MainScreenActivity.this);
+				
+				alertCreator.setTitle(R.string.no_location_permission_title);
+				alertCreator.setMessage(R.string.no_location_permission_description);
+				alertCreator.setNegativeButton(R.string.no_location_permission_negative, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						finish();
+					}
+				});
+				alertCreator.setPositiveButton(R.string.no_location_permission_positive, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						ActivityCompat.requestPermissions(MainScreenActivity.this, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+					}
+				});
+				alertCreator.show();
 			}
+			return;
 		}
 	}
 	
@@ -243,28 +219,12 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		this.latitude = latitude;
 		this.longtitude = longtitude;
 		getReports(serviceCode, latitude, longtitude, reportRadius);
+		
+		ReverseGeocoder geocoder = new ReverseGeocoder(latitude, longtitude, this);
 	}
 	
 	@Override
 	public void onBackPressed() {
-//		AlertCreator exit = new AlertCreator(MainScreenActivity.this);
-//		exit.setIcon(R.mipmap.ic_launcher);
-//		exit.setTitle(getResources().getString(R.string.appClose));
-//		exit.setMessage(getResources().getString(R.string.appCloseMessage));
-//		exit.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
-//			@Override
-//			public void onClick(DialogInterface dialog, int which) {
-//				System.exit(0);
-//			}
-//		});
-//		exit.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
-//			@Override
-//			public void onClick(DialogInterface dialog, int which) {
-//				
-//			}
-//		});
-//		exit.show();
-		
 		if (backPressAmount == 0) {
 			Toast toast = Toast.makeText(MainScreenActivity.this, "Press again to exit.", Toast.LENGTH_LONG);
 			toast.show();
@@ -273,7 +233,7 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 			new CountDownTimer(2000, 1000) {
 				@Override
 				public void onTick(long millisUntilFinished) {
-					
+					// moeten we nog doen
 				}
 				
 				@Override

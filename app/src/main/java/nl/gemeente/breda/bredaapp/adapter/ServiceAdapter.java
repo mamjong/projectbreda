@@ -22,13 +22,15 @@ public class ServiceAdapter extends ArrayAdapter<Service> {
 		
 	}
 	
-	public View getView(int position, View convertView, ViewGroup parent) {
+	@Override
+	public View getView(int position, View convertViewInitial, ViewGroup parent) {
 		
 		// Create product
 		Service service = getItem(position);
+		View convertView = convertViewInitial;
 		
 		// Check for existing view
-		if (convertView == null) {
+		if (convertViewInitial == null) {
 			convertView = LayoutInflater.from(getContext()).inflate(layout, parent, false);
 		}
 		

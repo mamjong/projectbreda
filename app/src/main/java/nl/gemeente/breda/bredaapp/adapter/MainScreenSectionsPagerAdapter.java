@@ -65,6 +65,8 @@ public class MainScreenSectionsPagerAdapter extends FragmentPagerAdapter {
 				return context.getResources().getString(R.string.homescreen_left_tab);
 			case 1:
 				return context.getResources().getString(R.string.homescreen_right_tab);
+			default:
+				break;
 		}
 		return null;
 	}

@@ -9,7 +9,6 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -30,9 +29,7 @@ public class ApiHomeScreen extends AsyncTask<String, Void, String> {
 	@Override
 	protected String doInBackground(String... params) {
 		
-		InputStream inputStream = null;
 		BufferedReader reader = null;
-		String urlString = "";
 		String response = "";
 		
 		try {
@@ -44,21 +41,20 @@ public class ApiHomeScreen extends AsyncTask<String, Void, String> {
 				response += line;
 			}
 		} catch (MalformedURLException e) {
-			Log.e("ERROR", e.getLocalizedMessage());
+			Log.e("ERR", e.getLocalizedMessage());
 			return null;
 		} catch (IOException e) {
-			Log.e("ERROR", e.getLocalizedMessage());
+			Log.e("ERR", e.getLocalizedMessage());
 			return null;
 		} catch (Exception e) {
-			Log.e("ERROR", e.getLocalizedMessage());
+			Log.e("ERR", e.getLocalizedMessage());
 			return null;
 		} finally {
 			if (reader != null) {
 				try {
 					reader.close();
 				} catch (IOException e) {
-					Log.e("ERROR", e.getLocalizedMessage());
-					return null;
+					Log.e("ERR", e.getLocalizedMessage());
 				}
 			}
 		}
@@ -66,13 +62,12 @@ public class ApiHomeScreen extends AsyncTask<String, Void, String> {
 		return response;
 	}
 	
+	@Override
 	protected void onPostExecute(String response) {
 		if ((response == null) || (response.equalsIgnoreCase(""))) {
 			listener.noConnectionAvailable();
 			return;
 		}
-		
-		//Log.i("RESPONSE", response);
 		
 		try {
 			JSONArray reports = new JSONArray(response);
@@ -88,48 +83,48 @@ public class ApiHomeScreen extends AsyncTask<String, Void, String> {
 				
 				// Get values
 				if (thisReport.has("service_request_id")) {
-					String service_request_id = thisReport.getString("service_request_id");
-					report.setServiceRequestId(service_request_id);
+					String serviceRequestId = thisReport.getString("service_request_id");
+					report.setServiceRequestId(serviceRequestId);
 				}
 				if (thisReport.has("service_code")) {
-					String service_code = thisReport.getString("service_code");
-					report.setServiceCode(service_code);
+					String serviceCode = thisReport.getString("service_code");
+					report.setServiceCode(serviceCode);
 				}
 				if (thisReport.has("description")) {
 					String description = thisReport.getString("description");
 					report.setDescription(description);
 				}
 				if (thisReport.has("requested_datetime")) {
-					String requested_datetime = thisReport.getString("requested_datetime");
-					report.setRequestedDatetime(requested_datetime);
+					String requestedDatetime = thisReport.getString("requested_datetime");
+					report.setRequestedDatetime(requestedDatetime);
 				}
 				if (thisReport.has("updated_datetime")) {
-					String updated_datetime = thisReport.getString("updated_datetime");
-					report.setUpdatedDatetime(updated_datetime);
+					String updatedDatetime = thisReport.getString("updated_datetime");
+					report.setUpdatedDatetime(updatedDatetime);
 				}
 				if (thisReport.has("status")) {
 					String status = thisReport.getString("status");
 					report.setStatus(status);
 				}
 				if (thisReport.has("status_notes")) {
-					String status_notes = thisReport.getString("status_notes");
-					report.setStatusNotes(status_notes);
+					String statusNotes = thisReport.getString("status_notes");
+					report.setStatusNotes(statusNotes);
 				}
 				if (thisReport.has("agency_responsible")) {
-					String agency_responsible = thisReport.getString("agency_responsible");
-					report.setAgencyResponsible(agency_responsible);
+					String agencyResponsible = thisReport.getString("agency_responsible");
+					report.setAgencyResponsible(agencyResponsible);
 				}
 				if (thisReport.has("service_name")) {
-					String service_name = thisReport.getString("service_name");
-					report.setServiceName(service_name);
+					String serviceName = thisReport.getString("service_name");
+					report.setServiceName(serviceName);
 				}
 				if (thisReport.has("lat")) {
 					double lat = thisReport.getDouble("lat");
 					report.setLatitude(lat);
 				}
 				if (thisReport.has("media_url")) {
-					String media_url = thisReport.getString("media_url");
-					report.setMediaUrl(media_url);
+					String mediaUrl = thisReport.getString("media_url");
+					report.setMediaUrl(mediaUrl);
 				}
 				if (thisReport.has("long")) {
 					double longtitude = thisReport.getDouble("long");
@@ -140,7 +135,7 @@ public class ApiHomeScreen extends AsyncTask<String, Void, String> {
 				listener.onReportAvailable(report);
 			}
 		} catch (JSONException e) {
-			Log.e("ERROR", e.getLocalizedMessage());
+			Log.e("ERR", e.getLocalizedMessage());
 		}
 	}
 	

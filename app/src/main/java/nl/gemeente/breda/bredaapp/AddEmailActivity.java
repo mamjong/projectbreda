@@ -22,7 +22,6 @@ public class AddEmailActivity extends AppCompatActivity {
 	private String email;
 	private DatabaseHandler dbh;
 	private CheckBox readTOSCheck;
-	//private TextView terms;
 	private Button terms;
 	private boolean mailOkay;
 	private boolean termsOkay;
@@ -53,23 +52,18 @@ public class AddEmailActivity extends AppCompatActivity {
 		emailInputBox.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+				// to do
 			}
 			
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-//				if (s.toString().trim().length() == 0) {
-//					//emailConfirmBtn.setEnabled(false);
-//					mailOkay = false;
-//				} else if (isValidEmail(s)){
-//					//emailConfirmBtn.setEnabled(true);
-//					mailOkay = true;
-//				}
 				checkMail(s);
 				submitButtonState();
 			}
 			
 			@Override
 			public void afterTextChanged(Editable s) {
+				// to do
 			}
 		});
 		
@@ -112,15 +106,13 @@ public class AddEmailActivity extends AppCompatActivity {
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == ACCEPT_TERMS) {
-			if (resultCode == RESULT_OK) {
-				emailConfirmBtn.setEnabled(true);
-				boolean accepted = data.getBooleanExtra("accepted", false);
-				readTOSCheck.setChecked(accepted);
-				readTOSCheck.setEnabled(true);
-				termsOkay = accepted;
-				checkMail();
-			}
+		if (requestCode == ACCEPT_TERMS && resultCode == RESULT_OK) {
+			emailConfirmBtn.setEnabled(true);
+			boolean accepted = data.getBooleanExtra("accepted", false);
+			readTOSCheck.setChecked(accepted);
+			readTOSCheck.setEnabled(true);
+			termsOkay = accepted;
+			checkMail();
 		}
 	}
 	

@@ -9,7 +9,7 @@ public class InfoActivity extends AppBaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_info);
 		super.setMenuSelected(getIntent().getExtras());
-		
 		super.setToolbarTitle(R.string.info_title);
+		super.setShareText(R.string.about_share_text);
 	}
 }

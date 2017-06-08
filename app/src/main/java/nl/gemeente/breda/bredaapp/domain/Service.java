@@ -10,6 +10,7 @@ public class Service {
 	private String group;
 	
 	public Service() {
+		// to do
 	}
 	
 	public String getServiceCode() {
