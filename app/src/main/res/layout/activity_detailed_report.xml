@@ -79,7 +79,7 @@
 
     <Button
         android:id="@+id/DetailedReportActivity_bt_extraReportBtn"
-        android:layout_width="168dp"
+        android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -87,7 +87,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/offimage"
+        android:background="@drawable/ic_plus_one_black_48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/DetailedReportActivity_rl_relativeLayout"
         app:layout_constraintRight_toRightOf="parent"

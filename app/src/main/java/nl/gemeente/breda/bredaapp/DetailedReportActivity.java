@@ -76,10 +76,10 @@ public class DetailedReportActivity extends AppBaseActivity {
 		
 
 		if (dbh.checkReport(r) == true) {
-			extraReport.setBackgroundResource(R.drawable.onimage2);
+			extraReport.setBackgroundResource(R.drawable.ic_check_black_48dp);
 			isPressed = true;
 		} else if (dbh.checkReport(r) == false) {
-			extraReport.setBackgroundResource(R.drawable.offimage);
+			extraReport.setBackgroundResource(R.drawable.ic_plus_one_black_48dp);
 			isPressed = false;
 		}
 		
@@ -140,7 +140,7 @@ public class DetailedReportActivity extends AppBaseActivity {
 
 				if (isPressed == false) {
 					dbh.addReport(r);
-					extraReport.setBackgroundResource(R.drawable.onimage2);
+					extraReport.setBackgroundResource(R.drawable.ic_check_black_48dp);
 					Log.i(TAG, "melding = checked");
 					upvotes++;
 					count.setText(Integer.toString(upvotes));
@@ -148,7 +148,7 @@ public class DetailedReportActivity extends AppBaseActivity {
 					
 				} else if (isPressed == true) {
 					dbh.deleteReport(r);
-					extraReport.setBackgroundResource(R.drawable.offimage);
+					extraReport.setBackgroundResource(R.drawable.ic_plus_one_black_48dp);
 					Log.i(TAG, "melding = unchecked");
 					upvotes--;
 					count.setText(Integer.toString(upvotes));
