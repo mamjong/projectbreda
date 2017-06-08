@@ -1,10 +1,13 @@
 package nl.gemeente.breda.bredaapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,14 +26,15 @@ import nl.gemeente.breda.bredaapp.domain.Report;
 
 import static nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment.EXTRA_REPORT;
 
-public class FavoriteReportsActivity extends AppBaseActivity implements ApiHomeScreen.Listener, ApiHomeScreen.NumberOfReports {
+public class FavoriteReportsActivity extends AppBaseActivity implements ApiHomeScreen.Listener, ApiHomeScreen.NumberOfReports, AdapterView.OnItemClickListener {
 	
 	public static final String TAG = "FavoriteReportsActivity";
 	private ListView favoriteReportsListView;
 	private FavoriteReportsAdapter favoriteReportsAdapter;
-	private ArrayList<Report> reports = new ArrayList<Report>();
+	private ArrayList<Report> favoritereports = new ArrayList<Report>();
 	private String serviceRequestId;
 	private int numberOfReports;
+	private Report report;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,20 +47,21 @@ public class FavoriteReportsActivity extends AppBaseActivity implements ApiHomeS
 		favoriteReportsListView = (ListView) findViewById(R.id.favoritescreen_lv);
 		
 		//if (reports.contains(report.getServiceRequestId())) {
-		reports = (ArrayList<Report>) dbh.getAllReports();
+		favoritereports = (ArrayList<Report>) dbh.getAllReports();
 		
-		Log.i(TAG, "We hebben " + reports.size() + " favorites");
+		Log.i(TAG, "We hebben " + favoritereports.size() + " favorites");
 		
 	
-		for (Report report : reports) {
+		for (Report report : favoritereports) {
 			serviceRequestId = report.getServiceRequestId();
 			Log.i(TAG, "ID = " + report.getServiceRequestId());
 			
-	//		favoriteReportsAdapter = new FavoriteReportsAdapter(getApplicationContext(), FavoriteReportManager.getFavoriteReports());
-			favoriteReportsAdapter = new FavoriteReportsAdapter(getApplicationContext(), reports);
+			//		favoriteReportsAdapter = new FavoriteReportsAdapter(getApplicationContext(), FavoriteReportManager.getFavoriteReports());
+			favoriteReportsAdapter = new FavoriteReportsAdapter(getApplicationContext(), FavoriteReportManager.getFavoriteReports());
 			favoriteReportsListView.setAdapter(favoriteReportsAdapter);
-	
+			
 			getFavoriteReports(serviceRequestId);
+			favoriteReportsListView.setOnItemClickListener(this);
 		}
 	}
 	
@@ -66,13 +71,11 @@ public class FavoriteReportsActivity extends AppBaseActivity implements ApiHomeS
 		String[] urls = new String[]{"https://asiointi.hel.fi/palautews/rest/v1/requests/" + serviceRequestId + ".json"};
 		apiHomeScreen.execute(urls);
 	}
-	
-	
-	
+		
 	@Override
 	public void onReportAvailable(Report report) {
 		Log.i("Report", report.getDescription());
-		ReportManager.addReport(report);
+		FavoriteReportManager.addReport(report);
 		favoriteReportsAdapter.notifyDataSetChanged();
 	}
 
@@ -87,5 +90,15 @@ public class FavoriteReportsActivity extends AppBaseActivity implements ApiHomeS
 	public void onNumberOfReportsAvailable(int number) {
 		this.numberOfReports = number;
 	}
+	
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		Log.i(TAG, "Favorite report " + position + " is geselecteerd");
 
+		Report r = favoritereports.get(position);
+		Intent detailedReportIntent = new Intent(getApplicationContext(), DetailedReportActivity.class);
+		detailedReportIntent.putExtra("MediaUrl", r.getMediaUrl());
+		detailedReportIntent.putExtra(EXTRA_REPORT, r);
+		startActivity(detailedReportIntent);
+	}
 }
