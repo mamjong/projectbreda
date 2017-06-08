@@ -44,7 +44,8 @@ public class DetailedReportActivity extends AppBaseActivity {
 		extraReport = (Button) findViewById(R.id.DetailedReportActivity_bt_extraReportBtn);
 		TextView category = (TextView) findViewById(R.id.DetailedReportActivity_tv_categoryInput);
 		progressBar = (ProgressBar) findViewById(R.id.DetailedReportActivity_pb_imageProgressBar);
-		TextView count = (TextView) findViewById(R.id.DetailedReportActivity_tv_reportCounter); 
+		TextView count = (TextView) findViewById(R.id.DetailedReportActivity_tv_reportCounter);
+		int upvotes;
 		
 		Bundle extras = getIntent().getExtras();
 		String getMediaUrl = extras.getString("MediaUrl");
@@ -139,6 +140,7 @@ public class DetailedReportActivity extends AppBaseActivity {
 					dbh.addReport(r);
 					extraReport.setBackgroundResource(R.drawable.onimage2);
 					Log.i(TAG, "melding = checked");
+					
 					isPressed = true;
 					
 				} else if (isPressed == true) {
