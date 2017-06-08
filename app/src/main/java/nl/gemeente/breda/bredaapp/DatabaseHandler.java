@@ -71,9 +71,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		db.execSQL(DROPTABLEIFEXISTS + USERS_TABLE_NAME);
-		db.execSQL(DROPTABLEIFEXISTS + REPORTS_TABLE_NAME);
-		db.execSQL(DROPTABLEIFEXISTS + SETTINGS_TABLE_NAME);
+		db.execSQL(DROPTABLEIFEXISTS + " " + USERS_TABLE_NAME);
+		db.execSQL(DROPTABLEIFEXISTS + " " + REPORTS_TABLE_NAME);
+		db.execSQL(DROPTABLEIFEXISTS + " " + SETTINGS_TABLE_NAME);
 		onCreate(db);
 	}
 	
