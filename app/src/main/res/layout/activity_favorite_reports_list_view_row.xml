@@ -111,12 +111,14 @@
                     android:text="Description"
                     android:textSize="12dp"/>
 
-                <ImageView
+                <TextView
+                    android:id="@+id/activityFavoriteReportsListViewRow_IV_upvoteCount"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="30dp"
-                    android:id="@+id/activityFavoriteReportsListViewRow_IV_imageCheckbox"
-                    android:layout_margin="12.5dp" />
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:text="-"
+                    android:textAlignment="textEnd"/>
+
             </LinearLayout>
 
         </LinearLayout>

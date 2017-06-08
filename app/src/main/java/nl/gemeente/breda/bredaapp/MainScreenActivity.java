@@ -116,7 +116,10 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 	public void getReports(String serviceCode, double latitude, double longtitude, int radius) {
 		ReportManager.emptyArray();
 		ApiHomeScreen apiHomeScreen = new ApiHomeScreen(this, this);
-		String[] urls = new String[]{"http://37.34.59.50/breda/CitySDK/requests.json?status=open&service_code=" + serviceCode + "&lat=" + latitude + "&long=" + longtitude + "&radius=" + radius};
+		String[] urls = new String[]{
+				"http://37.34.59.50/breda/CitySDK/requests.json"
+		};
+//		String[] urls = new String[]{"http://37.34.59.50/breda/CitySDK/requests.json?status=open&service_code=" + serviceCode + "&lat=" + latitude + "&long=" + longtitude + "&radius=" + radius};
 		apiHomeScreen.execute(urls);
 	}
 	
