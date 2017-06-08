@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -17,7 +19,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -80,7 +84,9 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 		map.setLatLngBoundsForCameraTarget(helsinki);
 		map.setMinZoomPreference(11);
 		map.getUiSettings().setMapToolbarEnabled(false);
+		map.getUiSettings().setRotateGesturesEnabled(false);
 		map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(51.585811, 4.792396)));
+		map.setInfoWindowAdapter(new MapInfoWindowAdapter());
 		
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
@@ -120,5 +126,41 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 	
 	public GoogleMap getMap() {
 		return map;
+	}
+	
+	class MapInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
+		
+		private final View contentView;
+		
+		public MapInfoWindowAdapter() {
+			contentView = LayoutInflater.from(getContext()).inflate(R.layout.infowindow_map, null);
+		}
+		
+		
+		@Override
+		public View getInfoWindow(Marker marker) {
+			return null;
+		}
+		
+		@Override
+		public View getInfoContents(Marker marker) {
+			TextView tv_title = (TextView) contentView.findViewById(R.id.infoWindow_TV_Title);
+			TextView tv_address = (TextView) contentView.findViewById(R.id.infoWindow_TV_Address);
+			TextView tv_category = (TextView) contentView.findViewById(R.id.infoWindow_TV_Category);
+			TextView tv_upvotes = (TextView) contentView.findViewById(R.id.infoWindow_TV_Upvotes);
+			ImageView iv_image = (ImageView) contentView.findViewById(R.id.infoWindow_IV_Image);
+			
+			for (Report r : reports) {
+				if (r.getDescription().equals(marker.getTitle())) {
+					tv_title.setText(r.getDescription());
+					//tv_address.setText();
+					tv_category.setText(r.getServiceName());
+					tv_upvotes.setText(r.getUpvotes() + "");
+					Picasso.with(getContext()).load(r.getMediaUrl()).into(iv_image);
+				}
+			}
+			
+			return contentView;
+		}
 	}
 }
