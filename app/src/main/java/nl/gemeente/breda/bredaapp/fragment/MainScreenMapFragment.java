@@ -180,11 +180,6 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 					intent.putExtra("NoImage", R.drawable.nopicturefound);
 					intent.putExtra(EXTRA_REPORT, r);
 					startActivity(intent);
-					
-//					Uri intentUri = Uri.parse("geo:" + r.getLatitude() + "," + r.getLongitude() + "?z=18");
-//					Intent intent = new Intent(Intent.ACTION_VIEW, intentUri);
-//					intent.setPackage("com.google.android.apps.maps");
-//					startActivity(intent);
 					return;
 				}
 			}

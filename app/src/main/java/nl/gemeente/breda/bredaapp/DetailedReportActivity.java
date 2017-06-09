@@ -5,8 +5,11 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,14 +22,23 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.vision.text.Text;
 
 import nl.gemeente.breda.bredaapp.domain.Report;
+import nl.gemeente.breda.bredaapp.fragment.MainScreenMapFragment;
 import nl.gemeente.breda.bredaapp.util.ReverseGeocoder;
 
 import static nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment.EXTRA_REPORT;
 
-public class DetailedReportActivity extends AppBaseActivity {
+public class DetailedReportActivity extends AppBaseActivity implements OnMapReadyCallback {
 	
 	private static final String TAG = "DetailedReportActivity";
 	private Button extraReport;
@@ -34,6 +46,9 @@ public class DetailedReportActivity extends AppBaseActivity {
 	private ProgressBar progressBar;
 	private int upvotes;
 	
+	private Report r;
+	
+	private GoogleMap map;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,17 +62,27 @@ public class DetailedReportActivity extends AppBaseActivity {
 		TextView category = (TextView) findViewById(R.id.DetailedReportActivity_tv_categoryInput);
 		progressBar = (ProgressBar) findViewById(R.id.DetailedReportActivity_pb_imageProgressBar);
 		final TextView count = (TextView) findViewById(R.id.DetailedReportActivity_tv_reportCounter);
+		ImageView directions = (ImageView) findViewById(R.id.DetailedReportActivity_iv_directions); 
 		
 		Bundle extras = getIntent().getExtras();
 		String getMediaUrl = extras.getString("MediaUrl");
 		int getNoImage = extras.getInt("NoImage");
 		
-		
-		final Report r = (Report) extras.getSerializable(EXTRA_REPORT);
+		r = (Report) extras.getSerializable(EXTRA_REPORT);
 		final DatabaseHandler dbh = new DatabaseHandler(getApplicationContext(), null, null, 1);
 		
 		double lat = r.getLatitude();
 		double lng = r.getLongitude();
+		
+		directions.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Uri intentUri = Uri.parse("geo:" + r.getLatitude() + "," + r.getLongitude() + "?z=18");
+				Intent intent = new Intent(Intent.ACTION_VIEW, intentUri);
+				intent.setPackage("com.google.android.apps.maps");
+				startActivity(intent);
+			}
+		});
 		
 		ReverseGeocoder geocoder = new ReverseGeocoder(lat, lng, this);
 		TextView address = (TextView) findViewById(R.id.DetailedReportActivity_tv_address);
@@ -156,5 +181,37 @@ public class DetailedReportActivity extends AppBaseActivity {
 				}
 			}
 		});
+		
+		SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentMapView_FL_mapLayout);
+		if (mapFragment == null) {
+			FragmentManager manager = getSupportFragmentManager();
+			FragmentTransaction transaction = manager.beginTransaction();
+			mapFragment = SupportMapFragment.newInstance();
+			transaction.replace(R.id.fragmentMapView_FL_mapLayout, mapFragment).commit();
+		}
+		
+		if (mapFragment != null) {
+			mapFragment.getMapAsync(this);
+		}
+	}
+	
+	@Override
+	public void onMapReady(GoogleMap googleMap) {
+		map = googleMap;
+		
+		LatLng latLng = new LatLng(r.getLatitude(), r.getLongitude());
+		
+		MarkerOptions markerOptions = new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker));
+		map.addMarker(markerOptions);
+		LatLngBounds breda = new LatLngBounds(new LatLng(51.482969, 4.654534), new LatLng(51.647188, 4.874748));
+		map.setLatLngBoundsForCameraTarget(breda);
+		map.setMinZoomPreference(11);
+		map.getUiSettings().setMapToolbarEnabled(false);
+		map.getUiSettings().setRotateGesturesEnabled(false);
+		map.getUiSettings().setAllGesturesEnabled(false);
+		map.getUiSettings().setCompassEnabled(false);
+		map.getUiSettings().setRotateGesturesEnabled(false);
+		map.getUiSettings().setMyLocationButtonEnabled(false);
+		map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15.f));
 	}
 }
