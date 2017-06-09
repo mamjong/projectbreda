@@ -156,7 +156,7 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 					//tv_address.setText();
 					tv_category.setText(r.getServiceName());
 					tv_upvotes.setText(r.getUpvotes() + "");
-					Picasso.with(getContext()).load(r.getMediaUrl()).into(iv_image);
+					Picasso.with(getContext()).load(r.getMediaUrl()).placeholder(R.drawable.nopicturefound).error(R.drawable.nopicturefound).into(iv_image);
 				}
 			}
 			
