@@ -46,7 +46,6 @@ public class FavoriteReportsActivity extends AppBaseActivity implements ApiHomeS
 		numberOfReports = -1;
 		favoriteReportsListView = (ListView) findViewById(R.id.favoritescreen_lv);
 		
-		//if (reports.contains(report.getServiceRequestId())) {
 		favoritereports = (ArrayList<Report>) dbh.getAllReports();
 		
 		Log.i(TAG, "We hebben " + favoritereports.size() + " favorites");
@@ -56,7 +55,6 @@ public class FavoriteReportsActivity extends AppBaseActivity implements ApiHomeS
 			serviceRequestId = report.getServiceRequestId();
 			Log.i(TAG, "ID = " + report.getServiceRequestId());
 			
-			//		favoriteReportsAdapter = new FavoriteReportsAdapter(getApplicationContext(), FavoriteReportManager.getFavoriteReports());
 			favoriteReportsAdapter = new FavoriteReportsAdapter(getApplicationContext(), FavoriteReportManager.getFavoriteReports());
 			favoriteReportsListView.setAdapter(favoriteReportsAdapter);
 			
@@ -68,8 +66,7 @@ public class FavoriteReportsActivity extends AppBaseActivity implements ApiHomeS
 	public void getFavoriteReports(String serviceRequestId) {
 		FavoriteReportManager.emptyArray();
 		ApiHomeScreen apiHomeScreen = new ApiHomeScreen(this, this);
-		String[] urls = new String[]{"http://37.34.59.50/breda/CitySDK/request/" + serviceRequestId + ".json"};
-		//String[] urls = new String[]{"https://asiointi.hel.fi/palautews/rest/v1/requests/" + serviceRequestId + ".json"};
+		String[] urls = new String[]{"http://37.34.59.50/breda/CitySDK/requests.json?service_request_id=" + serviceRequestId};
 		apiHomeScreen.execute(urls);
 	}
 		
@@ -96,7 +93,7 @@ public class FavoriteReportsActivity extends AppBaseActivity implements ApiHomeS
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Log.i(TAG, "Favorite report " + position + " is geselecteerd");
 
-		Report r = favoritereports.get(position);
+		Report r = FavoriteReportManager.getFavoriteReports().get(position);
 		Intent detailedReportIntent = new Intent(getApplicationContext(), DetailedReportActivity.class);
 		detailedReportIntent.putExtra("MediaUrl", r.getMediaUrl());
 		detailedReportIntent.putExtra(EXTRA_REPORT, r);

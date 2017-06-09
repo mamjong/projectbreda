@@ -129,6 +129,7 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 	@Override
 	public void onReportAvailable(Report report) {
 		ReportManager.addReport(report);
+		Log.i("Report", report.getDescription());
 	}
 	
 	@Override

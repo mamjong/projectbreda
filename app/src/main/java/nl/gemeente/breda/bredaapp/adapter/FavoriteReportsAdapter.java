@@ -55,7 +55,7 @@ public class FavoriteReportsAdapter extends ArrayAdapter<Report> {
 		
 		// Get and set content
 		category.setText(report.getServiceName());
-		
+
 //		timestamp.setText(convertTimeStamp(report.getRequestedDatetime()));
 		
 		description.setText(report.getDescription());
@@ -72,7 +72,7 @@ public class FavoriteReportsAdapter extends ArrayAdapter<Report> {
 //			String colorRed = "#E74C3C";
 //			status.setTextColor(Color.parseColor(colorRed));
 //		}
-		
+
 //		// First letter uppercase
 //		String upperCaseStatus = reportStatus.substring(0, 1).toUpperCase() + reportStatus.substring(1);
 //		status.setText(upperCaseStatus);
@@ -91,7 +91,7 @@ public class FavoriteReportsAdapter extends ArrayAdapter<Report> {
 		// Return view
 		return convertView;
 	}
-	
+
 //	// Format time/date from JSON object
 //	public String convertTimeStamp(String dateTime) {
 //

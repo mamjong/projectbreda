@@ -32,13 +32,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	
 	private static final String SETTINGS_TABLE_NAME = "settings";
 	
-	private static final String SETTINGSCOLUMNTYPE = "_type";
+	private static final String SETTINGS_COLUMN_TYPE = "_type";
 	
-	private static final String SETTINGSCOLUMNVALUE = "value";
+	private static final String SETTINGS_COLUMN_VALUE = "value";
 	
-	private static final String CREATETABLE = "CREATE TABLE ";
+	private static final String CREATE_TABLE = "CREATE TABLE ";
 	
-	private static final String DROPTABLEIFEXISTS = "DROP TABLE IF EXISTS";
+	private static final String DROP_TABLE_IF_EXISTS = "DROP TABLE IF EXISTS ";
 	
 	public DatabaseHandler(Context context, String name,
 	                       SQLiteDatabase.CursorFactory factory, int version) {
@@ -47,21 +47,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String createuserstable = CREATETABLE + USERS_TABLE_NAME +
+		String createuserstable = CREATE_TABLE + USERS_TABLE_NAME +
 				"(" +
 				USERS_COLUMN_MAILACCOUNT + " TEXT PRIMARY KEY" +
 				")";
 		
-		String createreportstable = CREATETABLE + REPORTS_TABLE_NAME +
+		String createreportstable = CREATE_TABLE + REPORTS_TABLE_NAME +
 				"(" +
 				REPORTS_COLUMN_ID + " TEXT PRIMARY KEY, " +
 				REPORTS_COLUMN_IS_FAVORITE + " INTEGER" +
 				")";
 		
-		String createsettingstable = CREATETABLE + SETTINGS_TABLE_NAME +
+		String createsettingstable = CREATE_TABLE + SETTINGS_TABLE_NAME +
 				"(" +
-				SETTINGSCOLUMNTYPE + " TEXT PRIMARY KEY, " +
-				SETTINGSCOLUMNVALUE + " TEXT" +
+				SETTINGS_COLUMN_TYPE + " TEXT PRIMARY KEY, " +
+				SETTINGS_COLUMN_VALUE + " TEXT" +
 				")";
 		
 		db.execSQL(createuserstable);
@@ -71,9 +71,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		db.execSQL(DROPTABLEIFEXISTS + USERS_TABLE_NAME);
-		db.execSQL(DROPTABLEIFEXISTS + REPORTS_TABLE_NAME);
-		db.execSQL(DROPTABLEIFEXISTS + SETTINGS_TABLE_NAME);
+		db.execSQL(DROP_TABLE_IF_EXISTS + USERS_TABLE_NAME);
+		db.execSQL(DROP_TABLE_IF_EXISTS + REPORTS_TABLE_NAME);
+		db.execSQL(DROP_TABLE_IF_EXISTS + SETTINGS_TABLE_NAME);
 		onCreate(db);
 	}
 	
@@ -191,15 +191,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	}
 	
 	public String getSettingsValue(String key) {
-		String query = "SELECT " + SETTINGSCOLUMNVALUE + " FROM " + SETTINGS_TABLE_NAME
-				+ " WHERE " + SETTINGSCOLUMNTYPE + "=\"" + key + "\";";
+		String query = "SELECT " + SETTINGS_COLUMN_VALUE + " FROM " + SETTINGS_TABLE_NAME
+				+ " WHERE " + SETTINGS_COLUMN_TYPE + "=\"" + key + "\";";
 		
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.rawQuery(query, null);
 		
 		cursor.moveToFirst();
 		
-		String result = cursor.getString(cursor.getColumnIndex(SETTINGSCOLUMNVALUE));
+		String result = cursor.getString(cursor.getColumnIndex(SETTINGS_COLUMN_VALUE));
 		db.close();
 		
 		return result;
@@ -210,7 +210,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(key, value);
 		
 		SQLiteDatabase db = this.getWritableDatabase();
-		db.update(SETTINGS_TABLE_NAME, values, SETTINGSCOLUMNTYPE + "=" + key, null);
+		db.update(SETTINGS_TABLE_NAME, values, SETTINGS_COLUMN_TYPE + "=" + key, null);
 		db.close();
 	}
 }

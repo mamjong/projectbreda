@@ -7,11 +7,13 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -124,12 +126,18 @@ public class DetailedReportActivity extends AppBaseActivity {
 					extraReport.setBackgroundResource(R.drawable.onimage2);
 					Log.i(TAG, "melding = checked");
 					isPressed = true;
+					Toast toast = Toast.makeText(DetailedReportActivity.this, R.string.toast_report_added, Toast.LENGTH_SHORT);
+					toast.setGravity(Gravity.CENTER, 0, 0);
+					toast.show();
 					
 				} else if (isPressed == true) {
 					dbh.deleteReport(r);
 					extraReport.setBackgroundResource(R.drawable.offimage);
 					Log.i(TAG, "melding = unchecked");
 					isPressed = false;
+					Toast toast = Toast.makeText(DetailedReportActivity.this, R.string.toast_report_deleted, Toast.LENGTH_SHORT);
+					toast.setGravity(Gravity.CENTER, 0, 0);
+					toast.show();
 				}
 			}
 		});
