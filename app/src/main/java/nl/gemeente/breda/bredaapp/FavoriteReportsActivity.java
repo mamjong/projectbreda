@@ -39,6 +39,7 @@ public class FavoriteReportsActivity extends AppBaseActivity implements ApiHomeS
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		super.setToolbarTitle(R.string.FavoriteReportsActivity_name);
 		setContentView(R.layout.activity_favorite_reports);
 		super.setMenuSelected(getIntent().getExtras());
 		
@@ -72,7 +73,7 @@ public class FavoriteReportsActivity extends AppBaseActivity implements ApiHomeS
 		
 	@Override
 	public void onReportAvailable(Report report) {
-		Log.i("Report", report.getDescription());
+		Log.i("Report description: ", report.getDescription());
 		FavoriteReportManager.addReport(report);
 		favoriteReportsAdapter.notifyDataSetChanged();
 	}
