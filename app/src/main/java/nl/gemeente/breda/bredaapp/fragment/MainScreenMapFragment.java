@@ -2,6 +2,7 @@ package nl.gemeente.breda.bredaapp.fragment;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,6 +18,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
@@ -114,7 +116,7 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 							
 							LatLng position = new LatLng(latitude, longtitude);
 							
-							MarkerOptions markerOptions = new MarkerOptions().position(position).title(description);
+							MarkerOptions markerOptions = new MarkerOptions().position(position).title(description).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker));
 							MainScreenMapFragment.this.map.addMarker(markerOptions);
 						}
 					}
@@ -178,6 +180,11 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 					intent.putExtra("NoImage", R.drawable.nopicturefound);
 					intent.putExtra(EXTRA_REPORT, r);
 					startActivity(intent);
+					
+//					Uri intentUri = Uri.parse("geo:" + r.getLatitude() + "," + r.getLongitude() + "?z=18");
+//					Intent intent = new Intent(Intent.ACTION_VIEW, intentUri);
+//					intent.setPackage("com.google.android.apps.maps");
+//					startActivity(intent);
 					return;
 				}
 			}
