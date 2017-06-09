@@ -84,7 +84,7 @@ public class ReportAdapter extends ArrayAdapter<Report> {
 		if (report.getMediaUrl() == null) {
 			Picasso.with(getContext()).load(R.drawable.nopicturefound).into(mediaUrl);
 		} else {
-			Picasso.with(getContext()).load(report.getMediaUrl()).into(mediaUrl);
+			Picasso.with(getContext()).load(report.getMediaUrl()).placeholder(R.drawable.nopicturefound).error(R.drawable.nopicturefound).into(mediaUrl);
 		}
 		
 		// Return view

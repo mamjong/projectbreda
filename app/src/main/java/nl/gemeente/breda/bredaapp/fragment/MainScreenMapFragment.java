@@ -1,6 +1,8 @@
 package nl.gemeente.breda.bredaapp.fragment;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,23 +11,31 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import nl.gemeente.breda.bredaapp.DetailedReportActivity;
 import nl.gemeente.breda.bredaapp.R;
 import nl.gemeente.breda.bredaapp.businesslogic.ReportManager;
 import nl.gemeente.breda.bredaapp.domain.Report;
+
+import static nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment.EXTRA_REPORT;
 
 public class MainScreenMapFragment extends Fragment implements OnMapReadyCallback {
 	
@@ -76,11 +86,15 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 			map.setMapStyle(style);
 		}
 		
-		LatLngBounds helsinki = new LatLngBounds(new LatLng(51.482969, 4.654534), new LatLng(51.647188, 4.874748));
-		map.setLatLngBoundsForCameraTarget(helsinki);
+		LatLngBounds breda = new LatLngBounds(new LatLng(51.482969, 4.654534), new LatLng(51.647188, 4.874748));
+		MapInfoWindowAdapter mapInfoWindowAdapter = new MapInfoWindowAdapter();
+		map.setLatLngBoundsForCameraTarget(breda);
 		map.setMinZoomPreference(11);
 		map.getUiSettings().setMapToolbarEnabled(false);
+		map.getUiSettings().setRotateGesturesEnabled(false);
 		map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(51.585811, 4.792396)));
+		map.setInfoWindowAdapter(mapInfoWindowAdapter);
+		map.setOnInfoWindowClickListener(mapInfoWindowAdapter);
 		
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
@@ -102,7 +116,7 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 							
 							LatLng position = new LatLng(latitude, longtitude);
 							
-							MarkerOptions markerOptions = new MarkerOptions().position(position).title(description);
+							MarkerOptions markerOptions = new MarkerOptions().position(position).title(description).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker));
 							MainScreenMapFragment.this.map.addMarker(markerOptions);
 						}
 					}
@@ -120,5 +134,55 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 	
 	public GoogleMap getMap() {
 		return map;
+	}
+	
+	class MapInfoWindowAdapter implements GoogleMap.InfoWindowAdapter, GoogleMap.OnInfoWindowClickListener {
+		
+		private final View contentView;
+		
+		public MapInfoWindowAdapter() {
+			contentView = LayoutInflater.from(getContext()).inflate(R.layout.infowindow_map, null);
+		}
+		
+		
+		@Override
+		public View getInfoWindow(Marker marker) {
+			return null;
+		}
+		
+		@Override
+		public View getInfoContents(Marker marker) {
+			TextView tv_title = (TextView) contentView.findViewById(R.id.infoWindow_TV_Title);
+			TextView tv_address = (TextView) contentView.findViewById(R.id.infoWindow_TV_Address);
+			TextView tv_category = (TextView) contentView.findViewById(R.id.infoWindow_TV_Category);
+			TextView tv_upvotes = (TextView) contentView.findViewById(R.id.infoWindow_TV_Upvotes);
+			ImageView iv_image = (ImageView) contentView.findViewById(R.id.infoWindow_IV_Image);
+			
+			for (Report r : reports) {
+				if (r.getDescription().equals(marker.getTitle())) {
+					tv_title.setText(r.getDescription());
+					tv_address.setText(r.getAddress());
+					tv_category.setText(r.getServiceName());
+					tv_upvotes.setText(r.getUpvotes() + "");
+					Picasso.with(getContext()).load(r.getMediaUrl()).placeholder(R.drawable.nopicturefound).error(R.drawable.nopicturefound).into(iv_image);
+				}
+			}
+			
+			return contentView;
+		}
+		
+		@Override
+		public void onInfoWindowClick(Marker marker) {
+			for (Report r : reports) {
+				if (r.getDescription().equals(marker.getTitle())) {
+					Intent intent = new Intent(getContext(), DetailedReportActivity.class);
+					intent.putExtra("MediaUrl", r.getMediaUrl());
+					intent.putExtra("NoImage", R.drawable.nopicturefound);
+					intent.putExtra(EXTRA_REPORT, r);
+					startActivity(intent);
+					return;
+				}
+			}
+		}
 	}
 }
