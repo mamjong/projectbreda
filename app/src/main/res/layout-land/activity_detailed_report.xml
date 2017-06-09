@@ -20,7 +20,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="60dp"
                 android:orientation="horizontal">
 
                 <RelativeLayout
@@ -55,8 +54,10 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:layout_marginRight="10dp"
                         android:layout_weight="1"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:layout_gravity="right">
 
                         <TextView
                             android:id="@+id/DetailedReportActivity_tv_reportText"
@@ -94,11 +95,10 @@
 
                     <Button
                         android:id="@+id/DetailedReportActivity_bt_extraReportBtn"
-                        android:layout_width="@dimen/cast_expanded_controller_ad_layout_height"
-                        android:layout_height="100dp"
-                        android:layout_marginStart="100dp"
-                        android:layout_marginEnd="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:background="@drawable/ic_plus_one_black_48dp"
+                        android:layout_gravity="right"
                         />
 
                 </LinearLayout>
@@ -165,6 +165,17 @@
                         />
                 </LinearLayout>
             </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/DetailedReportActivity_tv_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="20dp"
+                android:textSize="18sp"
+                android:text="TextView"/>
 
             <FrameLayout
                 android:id="@+id/fragmentMapView_FL_mapLayout"
