@@ -178,6 +178,7 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 					intent.putExtra("NoImage", R.drawable.nopicturefound);
 					intent.putExtra(EXTRA_REPORT, r);
 					startActivity(intent);
+					return;
 				}
 			}
 		}
