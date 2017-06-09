@@ -15,6 +15,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import nl.gemeente.breda.bredaapp.domain.Report;
+import nl.gemeente.breda.bredaapp.util.ReverseGeocoder;
 
 public class ApiHomeScreen extends AsyncTask<String, Void, String> {
 	
@@ -130,12 +131,11 @@ public class ApiHomeScreen extends AsyncTask<String, Void, String> {
 					double longtitude = thisReport.getDouble("long");
 					report.setLongitude(longtitude);
 				}
-				
 				if (thisReport.has("upvotes")) {
 					int upvotes = thisReport.getInt("upvotes");
 					report.setUpvotes(upvotes);
 				}
-				
+
 				// Callback
 				listener.onReportAvailable(report);
 			}

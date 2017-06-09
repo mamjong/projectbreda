@@ -13,6 +13,7 @@ public class Report implements Serializable {
 	private String agencyResponsible;
 	private String serviceName;
 	private String mediaUrl;
+	private String address;
 	private double latitude;
 	private double longitude;
 	private boolean isFavorite;
@@ -131,5 +132,13 @@ public class Report implements Serializable {
 	
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
+	}
+	
+	public String getAddress() {
+		return address;
+	}
+	
+	public void setAddress(String address) {
+		this.address = address;
 	}
 }
