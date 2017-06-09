@@ -1,5 +1,6 @@
 package nl.gemeente.breda.bredaapp.fragment;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -27,9 +28,12 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import nl.gemeente.breda.bredaapp.DetailedReportActivity;
 import nl.gemeente.breda.bredaapp.R;
 import nl.gemeente.breda.bredaapp.businesslogic.ReportManager;
 import nl.gemeente.breda.bredaapp.domain.Report;
+
+import static nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment.EXTRA_REPORT;
 
 public class MainScreenMapFragment extends Fragment implements OnMapReadyCallback {
 	
@@ -80,13 +84,15 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 			map.setMapStyle(style);
 		}
 		
-		LatLngBounds helsinki = new LatLngBounds(new LatLng(51.482969, 4.654534), new LatLng(51.647188, 4.874748));
-		map.setLatLngBoundsForCameraTarget(helsinki);
+		LatLngBounds breda = new LatLngBounds(new LatLng(51.482969, 4.654534), new LatLng(51.647188, 4.874748));
+		MapInfoWindowAdapter mapInfoWindowAdapter = new MapInfoWindowAdapter();
+		map.setLatLngBoundsForCameraTarget(breda);
 		map.setMinZoomPreference(11);
 		map.getUiSettings().setMapToolbarEnabled(false);
 		map.getUiSettings().setRotateGesturesEnabled(false);
 		map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(51.585811, 4.792396)));
-		map.setInfoWindowAdapter(new MapInfoWindowAdapter());
+		map.setInfoWindowAdapter(mapInfoWindowAdapter);
+		map.setOnInfoWindowClickListener(mapInfoWindowAdapter);
 		
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
@@ -128,7 +134,7 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 		return map;
 	}
 	
-	class MapInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
+	class MapInfoWindowAdapter implements GoogleMap.InfoWindowAdapter, GoogleMap.OnInfoWindowClickListener {
 		
 		private final View contentView;
 		
@@ -153,7 +159,7 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 			for (Report r : reports) {
 				if (r.getDescription().equals(marker.getTitle())) {
 					tv_title.setText(r.getDescription());
-					//tv_address.setText();
+					tv_address.setText(r.getAddress());
 					tv_category.setText(r.getServiceName());
 					tv_upvotes.setText(r.getUpvotes() + "");
 					Picasso.with(getContext()).load(r.getMediaUrl()).placeholder(R.drawable.nopicturefound).error(R.drawable.nopicturefound).into(iv_image);
@@ -161,6 +167,19 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 			}
 			
 			return contentView;
+		}
+		
+		@Override
+		public void onInfoWindowClick(Marker marker) {
+			for (Report r : reports) {
+				if (r.getDescription().equals(marker.getTitle())) {
+					Intent intent = new Intent(getContext(), DetailedReportActivity.class);
+					intent.putExtra("MediaUrl", r.getMediaUrl());
+					intent.putExtra("NoImage", R.drawable.nopicturefound);
+					intent.putExtra(EXTRA_REPORT, r);
+					startActivity(intent);
+				}
+			}
 		}
 	}
 }

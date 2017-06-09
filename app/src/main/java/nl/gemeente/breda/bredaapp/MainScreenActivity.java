@@ -24,6 +24,9 @@ import com.flask.floatingactionmenu.FloatingActionMenu;
 import com.flask.floatingactionmenu.FloatingActionToggleButton;
 import com.flask.floatingactionmenu.OnFloatingActionMenuSelectedListener;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import nl.gemeente.breda.bredaapp.adapter.MainScreenSectionsPagerAdapter;
 import nl.gemeente.breda.bredaapp.adapter.ServiceAdapter;
 import nl.gemeente.breda.bredaapp.api.ApiHomeScreen;
