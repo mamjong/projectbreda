@@ -149,6 +149,7 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		}
 		
 		ReportManager.addReport(report);
+		sectionsPagerAdapter.getMapFragment().addMarkers();
 	}
 	
 	@Override
