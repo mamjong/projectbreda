@@ -84,11 +84,11 @@ public class DetailedReportActivity extends AppBaseActivity implements OnMapRead
 			}
 		});
 		
-		ReverseGeocoder geocoder = new ReverseGeocoder(lat, lng, this);
+		//ReverseGeocoder geocoder = new ReverseGeocoder(lat, lng, this);
 		TextView address = (TextView) findViewById(R.id.DetailedReportActivity_tv_address);
-		String address_content = geocoder.getAddress();
-		address_content = address_content.replaceAll("(?<=(^|\\G)\\S{0,100}\\s\\S{0,100})\\s", "\n");
-		address.setText(address_content);
+		//String address_content = geocoder.getAddress();
+		//address_content = address_content.replaceAll("(?<=(^|\\G)\\S{0,100}\\s\\S{0,100})\\s", "\n");
+		address.setText("");
 		
 		
 		category.setText(r.getServiceName());

@@ -135,8 +135,8 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 	@Override
 	public void onReportAvailable(Report report) {
 		if (report.getLongitude() > 1 && report.getLatitude() > 1){
-			ReverseGeocoder reverseGeocoder = new ReverseGeocoder(report.getLatitude(), report.getLongitude(), context);
-			report.setAddress(reverseGeocoder.getAddress());
+			//ReverseGeocoder reverseGeocoder = new ReverseGeocoder(report.getLatitude(), report.getLongitude(), context);
+			//report.setAddress(reverseGeocoder.getAddress());
 		}
 		
 		ReportManager.addReport(report);
@@ -231,7 +231,7 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		this.longtitude = longtitude;
 		getReports(serviceCode, latitude, longtitude, reportRadius);
 		
-		ReverseGeocoder geocoder = new ReverseGeocoder(latitude, longtitude, this);
+		//ReverseGeocoder geocoder = new ReverseGeocoder(latitude, longtitude, this);
 	}
 	
 	@Override
