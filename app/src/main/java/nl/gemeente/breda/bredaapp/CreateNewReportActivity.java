@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -41,6 +42,7 @@ public class CreateNewReportActivity extends AppBaseActivity {
 	private Button continueToMap;
 	private TextView noPicture;
 	private ImageView selectedPictureView;
+	private EditText commentText;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class CreateNewReportActivity extends AppBaseActivity {
 		continueToMap = (Button) findViewById(R.id.activityCreateNewReport_bt_continue);
 		noPicture = (TextView) findViewById(R.id.activityCreateNewReport_tv_noPicture);
 		selectedPictureView = (ImageView) findViewById(R.id.activityCreateNewReport_iv_defectImage);
+		commentText = (EditText) findViewById(R.id.activityCreateNewReport_et_commentText);
 		serviceAdapter = new ServiceAdapter(getApplicationContext(), ServiceManager.getServices(), R.layout.spinner_layout_custom_row);
 		
 		continueToMap.setEnabled(false);
@@ -134,6 +137,7 @@ public class CreateNewReportActivity extends AppBaseActivity {
 							String filename = "inframeld.jpeg";
 							
 							saveImage(CreateNewReportActivity.this, itemImage, filename);
+							commentText.getText();
 							
 							Intent continueToMapIntent = new Intent(getApplicationContext(), CheckDataActivity.class);
 							continueToMapIntent.putExtra("SERVICE", chosenService);

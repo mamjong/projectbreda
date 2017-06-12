@@ -28,6 +28,7 @@
                     android:layout_height="192dp"
                     android:layout_centerHorizontal="true"
                     android:layout_weight="1"
+                    android:layout_marginTop="8dp"
                     android:src="@color/colorAccentDark"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -116,6 +117,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginLeft="8dp"
                     android:text="@string/DetailedReportActivity_tv_commentTitle"/>
 

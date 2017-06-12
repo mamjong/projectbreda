@@ -13,6 +13,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="8dp"
             android:paddingBottom="8dp"
+            android:layout_marginTop="8dp"
             android:src="@color/colorAccentDark"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
