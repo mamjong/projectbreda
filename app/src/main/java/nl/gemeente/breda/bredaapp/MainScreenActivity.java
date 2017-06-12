@@ -117,7 +117,6 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 					} else if(label.equals(getResources().getString(R.string.fab_location))){
 						MainScreenActivity.super.onMenuClick(CreateNewReportActivity.class, -1, false);
 					}
-					MainScreenActivity.super.onMenuClick(CreateNewReportActivity.class, -1, false);
 				}
 			}
 		});
