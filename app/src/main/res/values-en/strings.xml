@@ -54,7 +54,14 @@
     <string name="menu_about">About</string>
     <string name="themeStandard">Default theme</string>
     <string name="themeNight">Dark theme</string>
+
+    <string name="activityCreateNewReportDifferentLocation_bt_addImage">Choose an image</string>
+    <string name="activityCreateNewReportDifferentLocation_tv_locationTextView">Comment</string>
+    <string name="activityCreateNewReportDifferentLocation_et_streetHint">Street</string>
+    <string name="fab_location">I\'m at the current location</string>
+    <string name="fab_other">I\'m somewhere else</string>
     <string name="radius_title">Radius:</string>
+
     <string name="UserSettingsAcitivity_name">Settings</string>
 
     <string name="FavoriteReportsActivity_Label">Favorite Reports</string>
@@ -67,6 +74,8 @@
     <string name="incorrect_email">E-mail updated.</string>
     <string name="about_share_text">This epic team made InfraMeld!</string>
     <string name="created_report_share_text_prefix">I created a report with InfraMeld: </string>
+    <string name="activityCreateNewReport_tv_category">Category</string>
+    <string name="activityCreateNewReport_tv_CommentTextView">Comments</string>
     <string name="addressNotFound">Address not found</string>
     <string name="apprestart_title">Restart application</string>
     <string name="apprestart_description">To show the changes correctly, we need to restart the app.</string>

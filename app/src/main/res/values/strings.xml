@@ -5,6 +5,7 @@
     <string name="CheckDataActivity_bt_confirmReportButton">Bevestig melding</string>
 
     <string name="activityCreateNewReport_tv_noPicture">Ik heb geen foto.</string>
+    <string name="activityCreateNewReport_tv_category">Categorie</string>
     <string name="activityCreateNewReport_bt_makePicture">Kies/maak foto</string>
     <string name="activityCreateNewReport_bt_continue">Doorgaan</string>
     <string name="activityCreateNewReport_text_chooseSource">Bron kiezen</string>
@@ -13,6 +14,11 @@
     <string name="activityCreateNewReport_text_itemGallery">Gallerij</string>
     <string name="activityCreateNewReport_text_imageTooLarge">Er is een fout opgetreden met je afbeelding. Probeer een andere afbeelding.</string>
     <string name="activityCreateNewReport_text_noImageSelected">Geen afbeelding geselecteerd. Heeft u geen afbeelding, selecteer dan \"Ik heb geen foto.\".</string>
+    <string name="activityCreateNewReport_tv_CommentTextView">Commentaar</string>
+
+    <string name="activityCreateNewReportDifferentLocation_bt_addImage">Kies een afbeelding</string>
+    <string name="activityCreateNewReportDifferentLocation_tv_locationTextView">Commentaar</string>
+    <string name="activityCreateNewReportDifferentLocation_et_streetHint">Straat</string>
 
     <string name="activityTermsAndConditions_bt_accept">Accepteren</string>
     <string name="activityTermsAndConditions_bt_decline">Niet accepteren</string>
@@ -84,6 +90,9 @@
     <string name="menu_view_your_reports">Bekijk favorite meldingen</string>
     <string name="menu_settings">Instellingen</string>
     <string name="menu_about">Over</string>
+
+    <string name="fab_location">Ik ben op de huidige locatie</string>
+    <string name="fab_other">Ik ben ergens anders</string>
 
     <string name="FavoriteReportsActivity_Label">Favoriete Meldingen</string>
 
