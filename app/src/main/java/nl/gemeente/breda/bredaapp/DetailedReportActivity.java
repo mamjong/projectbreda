@@ -86,9 +86,9 @@ public class DetailedReportActivity extends AppBaseActivity implements OnMapRead
 		
 		//ReverseGeocoder geocoder = new ReverseGeocoder(lat, lng, this);
 		TextView address = (TextView) findViewById(R.id.DetailedReportActivity_tv_address);
-		//String address_content = geocoder.getAddress();
-		//address_content = address_content.replaceAll("(?<=(^|\\G)\\S{0,100}\\s\\S{0,100})\\s", "\n");
-		address.setText("");
+		String address_content = r.getAddress();
+		address_content = address_content.replaceAll("(?<=(^|\\G)\\S{0,100}\\s\\S{0,100})\\s", "\n");
+		address.setText(address_content);
 		
 		
 		category.setText(r.getServiceName());

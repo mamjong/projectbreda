@@ -37,10 +37,11 @@ import nl.gemeente.breda.bredaapp.domain.Report;
 import nl.gemeente.breda.bredaapp.domain.Service;
 import nl.gemeente.breda.bredaapp.util.AlertCreator;
 import nl.gemeente.breda.bredaapp.util.ReverseGeocoder;
+import nl.gemeente.breda.bredaapp.util.ReverseGeocoderTask;
 
 import static nl.gemeente.breda.bredaapp.UserSettingsActivity.PREFS_NAME;
 
-public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen.Listener, ApiHomeScreen.NumberOfReports, AdapterView.OnItemSelectedListener, LocationApi.LocationListener {
+public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen.Listener, ApiHomeScreen.NumberOfReports, AdapterView.OnItemSelectedListener, LocationApi.LocationListener, ReverseGeocoderTask.ReverseGeoCoderListener {
 	
 	//================================================================================
 	// Properties
@@ -143,6 +144,8 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		if (report.getLongitude() > 1 && report.getLatitude() > 1){
 			//ReverseGeocoder reverseGeocoder = new ReverseGeocoder(report.getLatitude(), report.getLongitude(), context);
 			//report.setAddress(reverseGeocoder.getAddress());
+			ReverseGeocoderTask task = new ReverseGeocoderTask(report, context, this);
+			task.execute();
 		}
 		
 		ReportManager.addReport(report);
@@ -261,5 +264,10 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		} else if (backPressAmount == 1) {
 			System.exit(0);
 		}
+	}
+	
+	@Override
+	public void onAddressAvailable(Report report, String address) {
+		report.setAddress(address);
 	}
 }
