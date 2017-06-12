@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -45,6 +46,8 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 	
 	private GoogleMap map;
 	private ArrayList<Report> reports;
+	private boolean mapReady = false;
+	private boolean startedLoading = false;
 	
 	//================================================================================
 	// Accessors
@@ -74,6 +77,8 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 	@Override
 	public void onMapReady(GoogleMap googleMap) {
 		map = googleMap;
+		mapReady = true;
+		addMarkers();
 		int themeID = R.style.AppTheme;
 		try {
 			themeID = getContext().getPackageManager().getPackageInfo(getContext().getPackageName(), 0).applicationInfo.theme;
@@ -96,33 +101,52 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 		map.setInfoWindowAdapter(mapInfoWindowAdapter);
 		map.setOnInfoWindowClickListener(mapInfoWindowAdapter);
 		
-		Timer timer = new Timer();
-		timer.scheduleAtFixedRate(new TimerTask() {
+//		Timer timer = new Timer();
+//		timer.scheduleAtFixedRate(new TimerTask() {
+//			
+//			@Override
+//			public void run() {
+//				if (getActivity() == null)
+//					return;
+//				
+//				getActivity().runOnUiThread(new Runnable() {
+//					@Override
+//					public void run() {
+//						reports = ReportManager.getReports();
+//						
+//						for (Report report : reports) {
+//							double latitude = report.getLatitude();
+//							double longtitude = report.getLongitude();
+//							String description = report.getDescription();
+//							
+//							LatLng position = new LatLng(latitude, longtitude);
+//							
+//							MarkerOptions markerOptions = new MarkerOptions().position(position).title(description).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker));
+//							MainScreenMapFragment.this.map.addMarker(markerOptions);
+//						}
+//					}
+//				});
+//			}
+//		}, 0, 750);
+	}
+	
+	public void addMarkers() {
+		if (map == null) {
+			return;
+		}
+		
+		reports = ReportManager.getReports();
+		
+		for (Report report : reports) {
+			double latitude = report.getLatitude();
+			double longtitude = report.getLongitude();
+			String description = report.getDescription();
 			
-			@Override
-			public void run() {
-				if (getActivity() == null)
-					return;
-				
-				getActivity().runOnUiThread(new Runnable() {
-					@Override
-					public void run() {
-						reports = ReportManager.getReports();
-						
-						for (Report report : reports) {
-							double latitude = report.getLatitude();
-							double longtitude = report.getLongitude();
-							String description = report.getDescription();
-							
-							LatLng position = new LatLng(latitude, longtitude);
-							
-							MarkerOptions markerOptions = new MarkerOptions().position(position).title(description).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker));
-							MainScreenMapFragment.this.map.addMarker(markerOptions);
-						}
-					}
-				});
-			}
-		}, 0, 750);
+			LatLng position = new LatLng(latitude, longtitude);
+			
+			MarkerOptions markerOptions = new MarkerOptions().position(position).title(description).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker));
+			MainScreenMapFragment.this.map.addMarker(markerOptions);
+		}
 	}
 	
 	public void removeMarkers() {

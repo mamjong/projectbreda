@@ -10,6 +10,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -43,22 +47,24 @@ public class MainScreenListFragment extends Fragment implements AdapterView.OnIt
 		reportsListView.setAdapter(reportAdapter);
 		reportsListView.setOnItemClickListener(this);
 		
-		Timer timer = new Timer();
-		timer.scheduleAtFixedRate(new TimerTask() {
-			
-			@Override
-			public void run() {
-				if (getActivity() == null)
-					return;
-				
-				getActivity().runOnUiThread(new Runnable() {
-					@Override
-					public void run() {
-						reportAdapter.notifyDataSetChanged();
-					}
-				});
-			}
-		}, 0, 750);
+		addReportsToList();
+		
+//		Timer timer = new Timer();
+//		timer.scheduleAtFixedRate(new TimerTask() {
+//			
+//			@Override
+//			public void run() {
+//				if (getActivity() == null)
+//					return;
+//				
+//				getActivity().runOnUiThread(new Runnable() {
+//					@Override
+//					public void run() {
+//						reportAdapter.notifyDataSetChanged();
+//					}
+//				});
+//			}
+//		}, 0, 750);
 		
 		return rootView;
 	}
@@ -73,5 +79,9 @@ public class MainScreenListFragment extends Fragment implements AdapterView.OnIt
 		detailedReportIntent.putExtra("NoImage", R.drawable.nopicturefound);
 		detailedReportIntent.putExtra(EXTRA_REPORT, r);
 		startActivity(detailedReportIntent);
+	}
+	
+	public void addReportsToList() {
+		reportAdapter.notifyDataSetChanged();
 	}
 }
