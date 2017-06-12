@@ -20,6 +20,7 @@ public class Report implements Serializable {
 	private int upvotes;
 	
 	public Report() {
+		address = "";
 	}
 	
 	public boolean isFavorite() {

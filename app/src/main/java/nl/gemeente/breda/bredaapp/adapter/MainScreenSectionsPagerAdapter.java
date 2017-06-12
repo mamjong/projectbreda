@@ -53,6 +53,10 @@ public class MainScreenSectionsPagerAdapter extends FragmentPagerAdapter {
 		return tab1;
 	}
 	
+	public MainScreenListFragment getListFragment() {
+		return tab2;
+	}
+	
 	public Fragment getTab2() {
 		return tab2;
 	}
