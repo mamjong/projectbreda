@@ -26,7 +26,7 @@ import java.util.TimerTask;
 import nl.gemeente.breda.bredaapp.adapter.ServiceAdapter;
 import nl.gemeente.breda.bredaapp.businesslogic.ServiceManager;
 
-public class CreateNewReportDifferentLocationActivity extends AppCompatActivity {
+public class CreateNewReportDifferentLocationActivity extends AppBaseActivity {
 	
 	private static final int GALLERY_PIC_REQUEST = 1338;
 	private Button imageButton, continueButton;
@@ -41,6 +41,7 @@ public class CreateNewReportDifferentLocationActivity extends AppCompatActivity 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		super.setMenuSelected(getIntent().getExtras());
 		setContentView(R.layout.activity_create_new_report_different_location);
 		
 		imageButton = (Button) findViewById(R.id.activityCreateNewReportDifferentLocation_bt_addImage);
