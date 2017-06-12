@@ -13,11 +13,29 @@ public class Report implements Serializable {
 	private String agencyResponsible;
 	private String serviceName;
 	private String mediaUrl;
+	private String address;
 	private double latitude;
 	private double longitude;
+	private boolean isFavorite;
+	private int upvotes;
 	
 	public Report() {
-		// to do
+	}
+	
+	public boolean isFavorite() {
+		return isFavorite;
+	}
+	
+	public void setFavorite(boolean favorite) {
+		isFavorite = favorite;
+	}
+	
+	public int getUpvotes() {
+		return upvotes;
+	}
+	
+	public void setUpvotes(int upvotes) {
+		this.upvotes = upvotes;
 	}
 	
 	public String getServiceRequestId() {
@@ -114,5 +132,13 @@ public class Report implements Serializable {
 	
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
+	}
+	
+	public String getAddress() {
+		return address;
+	}
+	
+	public void setAddress(String address) {
+		this.address = address;
 	}
 }

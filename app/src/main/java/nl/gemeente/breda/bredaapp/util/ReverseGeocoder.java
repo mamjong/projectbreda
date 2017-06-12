@@ -34,7 +34,7 @@ public class ReverseGeocoder {
 				}
 			}
 		} catch (Exception e) {
-			Log.e("REVERSRELOCATION", e.getMessage());
+			Log.e("REVERSELOCATION", e.getMessage());
 		}
 	}
 	

@@ -24,6 +24,9 @@ import com.flask.floatingactionmenu.FloatingActionMenu;
 import com.flask.floatingactionmenu.FloatingActionToggleButton;
 import com.flask.floatingactionmenu.OnFloatingActionMenuSelectedListener;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import nl.gemeente.breda.bredaapp.adapter.MainScreenSectionsPagerAdapter;
 import nl.gemeente.breda.bredaapp.adapter.ServiceAdapter;
 import nl.gemeente.breda.bredaapp.api.ApiHomeScreen;
@@ -123,7 +126,10 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 	public void getReports(String serviceCode, double latitude, double longtitude, int radius) {
 		ReportManager.emptyArray();
 		ApiHomeScreen apiHomeScreen = new ApiHomeScreen(this, this);
-		String[] urls = new String[]{"http://37.34.59.50/breda/CitySDK/requests.json?status=open&service_code=" + serviceCode + "&lat=" + latitude + "&long=" + longtitude + "&radius=" + radius};
+		String[] urls = new String[]{
+				"http://37.34.59.50/breda/CitySDK/requests.json"
+		};
+//		String[] urls = new String[]{"http://37.34.59.50/breda/CitySDK/requests.json?status=open&service_code=" + serviceCode + "&lat=" + latitude + "&long=" + longtitude + "&radius=" + radius};
 		apiHomeScreen.execute(urls);
 	}
 	
@@ -135,6 +141,11 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 	
 	@Override
 	public void onReportAvailable(Report report) {
+		if (report.getLongitude() > 1 && report.getLatitude() > 1){
+			//ReverseGeocoder reverseGeocoder = new ReverseGeocoder(report.getLatitude(), report.getLongitude(), context);
+			//report.setAddress(reverseGeocoder.getAddress());
+		}
+		
 		ReportManager.addReport(report);
 	}
 	
@@ -186,7 +197,7 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 	
 	@Override
 	public void noConnectionAvailable() {
-		Toast toast = Toast.makeText(this, "No connection available.", Toast.LENGTH_LONG);
+		Toast toast = Toast.makeText(this, getResources().getString(R.string.no_internet), Toast.LENGTH_SHORT);
 		toast.setGravity(Gravity.CENTER, 0, 0);
 		toast.show();
 	}
@@ -227,7 +238,7 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		this.longtitude = longtitude;
 		getReports(serviceCode, latitude, longtitude, reportRadius);
 		
-		ReverseGeocoder geocoder = new ReverseGeocoder(latitude, longtitude, this);
+		//ReverseGeocoder geocoder = new ReverseGeocoder(latitude, longtitude, this);
 	}
 	
 	@Override

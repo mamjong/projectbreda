@@ -3,7 +3,7 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
               xmlns:tools="http://schemas.android.com/tools"
               android:orientation="vertical"
-              tools:context="nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment"
+              tools:context="nl.gemeente.breda.bredaapp.FavoriteReportsActivity"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
@@ -14,7 +14,7 @@
         android:padding="10dp">
 
         <ImageView
-            android:id="@+id/fragmentListViewRow_IV_mediaUrl"
+            android:id="@+id/activityFavoriteReportsListViewRow_IV_mediaUrl"
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:layout_gravity="center"
@@ -34,7 +34,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/fragmentListViewRow_TV_category"
+                    android:id="@+id/activityFavoriteReportsListViewRow_TV_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="TextView"
@@ -48,7 +48,7 @@
                     android:layout_weight="1"/>
 
                 <TextView
-                    android:id="@+id/fragmentListViewRow_TV_timeStamp"
+                    android:id="@+id/activityFavoriteReportsListViewRow_TV_timeStamp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="10-10-1010"
@@ -74,8 +74,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Subcategory"
@@ -83,13 +82,19 @@
                     android:textStyle="bold|italic"/>
 
                 <TextView
-                    android:id="@+id/fragmentListViewRow_TV_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/activityFavoriteReportsListViewRow_TV_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Status"
                     android:textColor="@android:color/holo_green_light"
                     android:layout_gravity="start"
                     android:textSize="12dp"/>
+
             </LinearLayout>
 
             <LinearLayout
@@ -98,21 +103,22 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/fragmentListViewRow_TV_description"
-                    android:layout_width="match_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
+                    android:id="@+id/activityFavoriteReportsListViewRow_TV_description"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
                     android:maxLength="100"
                     android:text="Description"
                     android:textSize="12dp"/>
 
                 <TextView
-                    android:id="@+id/fragmentListViewRow_TV_upvoteCount"
-                    android:layout_width="match_parent"
+                    android:id="@+id/activityFavoriteReportsListViewRow_IV_upvoteCount"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
                     android:text="-"
                     android:textAlignment="textEnd"/>
+
             </LinearLayout>
 
         </LinearLayout>

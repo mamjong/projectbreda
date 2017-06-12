@@ -79,6 +79,10 @@ public class AlertCreator {
 		dialog.setNegativeButton(button.getText(), button.getEvent());
 	}
 	
+	public void setDismissEvent(DialogInterface.OnDismissListener event) {
+		dialog.setOnDismissListener(event);
+	}
+	
 	public AlertDialog show() {
 		return dialog.show();
 	}
