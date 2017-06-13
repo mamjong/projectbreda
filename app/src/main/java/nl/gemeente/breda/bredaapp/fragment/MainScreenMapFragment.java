@@ -183,6 +183,9 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 			ImageView iv_image = (ImageView) contentView.findViewById(R.id.infoWindow_IV_Image);
 			
 			for (Report r : reports) {
+				if (r.getDescription() == null) {
+					return null;
+				}
 				if (r.getDescription().equals(marker.getTitle())) {
 					tv_title.setText(r.getDescription());
 					tv_address.setText(r.getAddress());
