@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="nl.gemeente.breda.bredaapp.CreateNewReportActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              tools:context="nl.gemeente.breda.bredaapp.CreateNewReportActivity"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1">
 
     <Spinner
         android:id="@+id/activityCreateNewReport_spr_categories"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
         android:dropDownWidth="match_parent"
-        android:textSize="14sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:textSize="14sp"/>
 
     <Spinner
         android:id="@+id/activityCreateNewReport_spr_defects"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:textSize="12sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activityCreateNewReport_spr_categories"
-        app:layout_constraintBottom_toTopOf="@+id/activityCreateNewReport_bt_makePicture"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp" />
 
     <Button
         android:id="@+id/activityCreateNewReport_bt_makePicture"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
@@ -44,51 +44,59 @@
         android:layout_marginTop="20dp"
         android:background="?attr/normalBackground"
         android:text="@string/activityCreateNewReport_bt_makePicture"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@+id/activityCreateNewReport_iv_defectImage"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activityCreateNewReport_spr_defects" />
+        android:textColor="@android:color/white"/>
 
     <ImageView
         android:id="@+id/activityCreateNewReport_iv_defectImage"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="150dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginStart="10dp"
         android:contentDescription="DefectObjectImage"
-        app:layout_constraintBottom_toTopOf="@+id/activityCreateNewReport_tv_noPicture"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activityCreateNewReport_bt_makePicture"
         app:srcCompat="@color/colorAccentDark" />
 
     <TextView
         android:id="@+id/activityCreateNewReport_tv_noPicture"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/activityCreateNewReport_tv_noPicture"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/activityCreateNewReport_bt_continue"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activityCreateNewReport_iv_defectImage" />
+        android:layout_marginTop="5dp"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/activityCreateNewReport_tv_category"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/activityCreateNewReport_tv_CommentTextView"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:textAlignment="viewStart" />
+
+    <EditText
+        android:id="@+id/activityCreateNewReport_et_commentText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:lines="8"
+        android:minLines="1"
+        android:maxLines="12"
+        android:gravity="top|left"/>
+
+
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/activityCreateNewReport_bt_continue"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="?attr/normalBackground"
         android:text="@string/activityCreateNewReport_bt_continue"
         android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         />
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

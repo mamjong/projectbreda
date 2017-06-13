@@ -74,12 +74,12 @@
         android:textStyle="bold"
         app:layout_constraintLeft_toRightOf="@+id/DetailedReportActivity_tv_reportCounter"
         app:layout_constraintTop_toBottomOf="@+id/DetailedReportActivity_tv_reportText"
-        app:layout_constraintVertical_bias="0.03"
-        />
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="-1dp"/>
 
     <Button
         android:id="@+id/DetailedReportActivity_bt_extraReportBtn"
-        android:layout_width="168dp"
+        android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -87,7 +87,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/offimage"
+        android:background="@drawable/ic_plus_one_black_48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/DetailedReportActivity_rl_relativeLayout"
         app:layout_constraintRight_toRightOf="parent"
@@ -100,7 +100,7 @@
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/DetailedReportActivity_rl_relativeLayout"
         app:layout_constraintLeft_toLeftOf="parent"
-        >
+        android:id="@+id/linearLayout">
 
         <TextView
             android:layout_width="match_parent"
@@ -156,23 +156,47 @@
         android:id="@+id/fragmentMapView_FL_mapLayout"
         android:name="com.google.android.gms.maps.SupportMapsFragment"
         android:layout_width="0dp"
-        android:layout_height="82dp"
+        android:layout_height="130dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="3dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"
-        app:layout_constraintVertical_bias="1.0"
-        android:layout_marginStart="3dp"
-        android:layout_marginEnd="8dp">
+        app:layout_constraintVertical_bias="1.0">
 
         <!--<Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Button"/>-->
     </FrameLayout>
+
+    <TextView
+        android:id="@+id/DetailedReportActivity_tv_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/DetailedReportActivity_bt_extraReportBtn"
+        app:layout_constraintLeft_toRightOf="@+id/DetailedReportActivity_rl_relativeLayout"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <ImageView
+        android:id="@+id/DetailedReportActivity_iv_directions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/fragmentMapView_FL_mapLayout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:srcCompat="@drawable/ic_directions_black_48dp"/>
 
 </android.support.constraint.ConstraintLayout>

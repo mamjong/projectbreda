@@ -10,6 +10,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -21,12 +25,11 @@ import nl.gemeente.breda.bredaapp.domain.Report;
 
 public class MainScreenListFragment extends Fragment implements AdapterView.OnItemClickListener {
 	
-	public final static String EXTRA_REPORT = "REPORT";
+	public static final String EXTRA_REPORT = "REPORT";
 	//================================================================================
 	// Properties
 	//================================================================================
 	private static final String TAG = "MainScreenListFragment";
-	private ListView reportsListView;
 	private ReportAdapter reportAdapter;
 	
 	//================================================================================
@@ -37,28 +40,31 @@ public class MainScreenListFragment extends Fragment implements AdapterView.OnIt
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final View rootView = inflater.inflate(R.layout.fragment_list_view, container, false);
 		
+		ListView reportsListView;
 		reportsListView = (ListView) rootView.findViewById(R.id.homescreen_lv);
 		
 		reportAdapter = new ReportAdapter(getContext(), ReportManager.getReports()); //fragmentListView_LV_reportsList
 		reportsListView.setAdapter(reportAdapter);
 		reportsListView.setOnItemClickListener(this);
 		
-		Timer timer = new Timer();
-		timer.scheduleAtFixedRate(new TimerTask() {
-			
-			@Override
-			public void run() {
-				if (getActivity() == null)
-					return;
-				
-				getActivity().runOnUiThread(new Runnable() {
-					@Override
-					public void run() {
-						reportAdapter.notifyDataSetChanged();
-					}
-				});
-			}
-		}, 0, 750);
+		addReportsToList();
+		
+//		Timer timer = new Timer();
+//		timer.scheduleAtFixedRate(new TimerTask() {
+//			
+//			@Override
+//			public void run() {
+//				if (getActivity() == null)
+//					return;
+//				
+//				getActivity().runOnUiThread(new Runnable() {
+//					@Override
+//					public void run() {
+//						reportAdapter.notifyDataSetChanged();
+//					}
+//				});
+//			}
+//		}, 0, 750);
 		
 		return rootView;
 	}
@@ -70,7 +76,12 @@ public class MainScreenListFragment extends Fragment implements AdapterView.OnIt
 		Report r = ReportManager.getReports().get(position);
 		Intent detailedReportIntent = new Intent(getContext(), DetailedReportActivity.class);
 		detailedReportIntent.putExtra("MediaUrl", r.getMediaUrl());
+		detailedReportIntent.putExtra("NoImage", R.drawable.nopicturefound);
 		detailedReportIntent.putExtra(EXTRA_REPORT, r);
 		startActivity(detailedReportIntent);
+	}
+	
+	public void addReportsToList() {
+		reportAdapter.notifyDataSetChanged();
 	}
 }

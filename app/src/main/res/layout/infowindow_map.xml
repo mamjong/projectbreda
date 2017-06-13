@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/infoWindow_TV_Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Title"
+        android:textSize="18dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/infoWindow_IV_Image"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        app:srcCompat="@drawable/nopicturefound"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/infoWindow_TV_Title"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/infoWindow_TV_Title"/>
+
+    <TextView
+        android:id="@+id/infoWindow_TV_Address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Adres"
+        app:layout_constraintLeft_toRightOf="@+id/infoWindow_IV_Image"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintTop_toTopOf="@+id/infoWindow_IV_Image"
+        android:layout_marginTop="0dp"/>
+
+    <TextView
+        android:id="@+id/infoWindow_TV_Category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="10dp"
+        android:text="Categorie"
+        app:layout_constraintBottom_toTopOf="@+id/infoWindow_TV_Upvotes"
+        app:layout_constraintLeft_toLeftOf="@+id/infoWindow_TV_Address"
+        app:layout_constraintTop_toBottomOf="@+id/infoWindow_TV_Address"/>
+
+    <TextView
+        android:id="@+id/infoWindow_TV_Upvotes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:text="Upvotes"
+        app:layout_constraintBottom_toBottomOf="@+id/infoWindow_IV_Image"
+        app:layout_constraintLeft_toLeftOf="@+id/infoWindow_TV_Category"/>
+</android.support.constraint.ConstraintLayout>

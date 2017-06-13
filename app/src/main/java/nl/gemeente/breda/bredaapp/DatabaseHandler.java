@@ -3,11 +3,13 @@ package nl.gemeente.breda.bredaapp;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import nl.gemeente.breda.bredaapp.domain.Report;
 import nl.gemeente.breda.bredaapp.domain.User;
@@ -26,11 +28,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	
 	private static final String REPORTS_COLUMN_ID = "_id";
 	
+	private static final String REPORTS_COLUMN_IS_FAVORITE = "isFavorite";
+	
 	private static final String SETTINGS_TABLE_NAME = "settings";
 	
-	private static final String SETTINGS_COLUMN_TYPE = "_type";
+	private static final String SETTINGSCOLUMNTYPE = "_type";
 	
-	private static final String SETTINGS_COLUMN_VALUE = "value";
+	private static final String SETTINGSCOLUMNVALUE = "value";
+	
+	private static final String CREATETABLE = "CREATE TABLE ";
+	
+	private static final String DROPTABLEIFEXISTS = "DROP TABLE IF EXISTS";
 	
 	public DatabaseHandler(Context context, String name,
 	                       SQLiteDatabase.CursorFactory factory, int version) {
@@ -39,32 +47,33 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String CREATE_USERS_TABLE = "CREATE TABLE " + USERS_TABLE_NAME +
+		String createuserstable = CREATETABLE + USERS_TABLE_NAME +
 				"(" +
 				USERS_COLUMN_MAILACCOUNT + " TEXT PRIMARY KEY" +
 				")";
 		
-		String CREATE_REPORTS_TABLE = "CREATE TABLE " + REPORTS_TABLE_NAME +
+		String createreportstable = CREATETABLE + REPORTS_TABLE_NAME +
 				"(" +
-				REPORTS_COLUMN_ID + " INTEGER PRIMARY KEY" +
+				REPORTS_COLUMN_ID + " TEXT PRIMARY KEY, " +
+				REPORTS_COLUMN_IS_FAVORITE + " INTEGER" +
 				")";
 		
-		String CREATE_SETTINGS_TABLE = "CREATE TABLE " + SETTINGS_TABLE_NAME +
+		String createsettingstable = CREATETABLE + SETTINGS_TABLE_NAME +
 				"(" +
-				SETTINGS_COLUMN_TYPE + " TEXT PRIMARY KEY, " +
-				SETTINGS_COLUMN_VALUE + " TEXT" +
+				SETTINGSCOLUMNTYPE + " TEXT PRIMARY KEY, " +
+				SETTINGSCOLUMNVALUE + " TEXT" +
 				")";
 		
-		db.execSQL(CREATE_USERS_TABLE);
-		db.execSQL(CREATE_REPORTS_TABLE);
-		db.execSQL(CREATE_SETTINGS_TABLE);
+		db.execSQL(createuserstable);
+		db.execSQL(createreportstable);
+		db.execSQL(createsettingstable);
 	}
 	
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		db.execSQL("DROP TABLE IF EXISTS " + USERS_TABLE_NAME);
-		db.execSQL("DROP TABLE IF EXISTS " + REPORTS_TABLE_NAME);
-		db.execSQL("DROP TABLE IF EXISTS " + SETTINGS_TABLE_NAME);
+		db.execSQL(DROPTABLEIFEXISTS + " " + USERS_TABLE_NAME);
+		db.execSQL(DROPTABLEIFEXISTS + " " + REPORTS_TABLE_NAME);
+		db.execSQL(DROPTABLEIFEXISTS + " " + SETTINGS_TABLE_NAME);
 		onCreate(db);
 	}
 	
@@ -106,13 +115,38 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		ContentValues values = new ContentValues();
 		
 		values.put(REPORTS_COLUMN_ID, report.getServiceRequestId());
+		values.put(REPORTS_COLUMN_IS_FAVORITE, report.isFavorite());
 		
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.insert(REPORTS_TABLE_NAME, null, values);
 		db.close();
 	}
 	
-	public ArrayList getAllReportIDs() {
+	public void deleteReport(Report report) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.delete(REPORTS_TABLE_NAME, "_id= '" + report.getServiceRequestId() + "'", null);
+		db.close();
+	}
+	
+	public Boolean checkReport(Report report) {
+		String query = "SELECT * FROM " + REPORTS_TABLE_NAME + " WHERE " + REPORTS_COLUMN_ID +
+				" = '" + report.getServiceRequestId() + "'";
+		
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.rawQuery(query, null);
+		
+		Boolean reportCheck = false;
+		
+		if(cursor.moveToFirst()){
+			reportCheck = true;
+		} else if (!cursor.moveToFirst()) {
+			reportCheck = false;
+		}
+		
+		return reportCheck;
+	}
+	
+	public ArrayList getAllReports() {
 		String query = "SELECT * FROM " + REPORTS_TABLE_NAME;
 		ArrayList<Report> reports = new ArrayList<>();
 		
@@ -123,14 +157,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			Report report = new Report();
 			
 			report.setServiceRequestId(cursor.getString(cursor.getColumnIndex(REPORTS_COLUMN_ID)));
-			
+			report.setServiceName(cursor.getString(cursor.getColumnIndex(REPORTS_COLUMN_IS_FAVORITE)));
+
 			reports.add(report);
 		}
 		
 		db.close();
 		return reports;
 	}
-	
+		
 	public User getUser() {
 		String query = "SELECT " + USERS_COLUMN_MAILACCOUNT + " FROM " + USERS_TABLE_NAME;
 		User user = new User();
@@ -156,15 +191,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	}
 	
 	public String getSettingsValue(String key) {
-		String query = "SELECT " + SETTINGS_COLUMN_VALUE + " FROM " + SETTINGS_TABLE_NAME
-				+ " WHERE " + SETTINGS_COLUMN_TYPE + "=\"" + key + "\";";
+		String query = "SELECT " + SETTINGSCOLUMNVALUE + " FROM " + SETTINGS_TABLE_NAME
+				+ " WHERE " + SETTINGSCOLUMNTYPE + "=\"" + key + "\";";
 		
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.rawQuery(query, null);
 		
 		cursor.moveToFirst();
 		
-		String result = cursor.getString(cursor.getColumnIndex(SETTINGS_COLUMN_VALUE));
+		String result = cursor.getString(cursor.getColumnIndex(SETTINGSCOLUMNVALUE));
 		db.close();
 		
 		return result;
@@ -175,7 +210,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(key, value);
 		
 		SQLiteDatabase db = this.getWritableDatabase();
-		db.update(SETTINGS_TABLE_NAME, values, SETTINGS_COLUMN_TYPE + "=" + key, null);
+		db.update(SETTINGS_TABLE_NAME, values, SETTINGSCOLUMNTYPE + "=" + key, null);
 		db.close();
 	}
 }

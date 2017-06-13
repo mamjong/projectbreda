@@ -1,5 +1,6 @@
 package nl.gemeente.breda.bredaapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,34 +12,33 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.GenericArrayType;
 import java.util.Arrays;
 
 import nl.gemeente.breda.bredaapp.domain.User;
-import nl.gemeente.breda.bredaapp.util.ThemeManager;
+import nl.gemeente.breda.bredaapp.util.AlertCreator;
 
 public class UserSettingsActivity extends AppBaseActivity {
 	
 	public static final String PREFS_NAME = "PrefsFile";
 	private User user;
-	private Button changeEmailButton;
 	private EditText currentEmail;
-	private Switch changeSettings;
-	private Spinner themeSpinner, languageSpinner;
-	private int reportRadius, seekBarPos;
-	private TextView reportRadiusView;
-	private SeekBar changeRadius;
-	private String[] themeSpinnerEntries, languageSpinnerEntries;
-	private String selectedTheme, selectedLanguage, toastInvalidEmail;
-	private boolean initialStart;
+	private int reportRadius;
+	private int seekBarPos;
+	private static final String TAG = "Usersettings";
+	private static final String THEME = "theme";
+	private static final String STANDARD = "standard";
+	private static final String NIGHT = "NIGHT";
+	
+	private static int CURRENT_THEME;
+	private static int SELECTED_THEME;
+	
+	private SharedPreferences.Editor editor;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,45 +46,61 @@ public class UserSettingsActivity extends AppBaseActivity {
 		super.setMenuSelected(getIntent().getExtras());
 		super.setToolbarTitle(R.string.UserSettingsAcitivity_name);
 		super.setShareVisible(false);
+		
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+			if (extras.containsKey("EXIT")) {
+				if (extras.getBoolean("EXIT")) {
+					Intent i = new Intent(UserSettingsActivity.this, SplashActivity.class);
+					i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+					startActivity(i);
+				}
+			}
+		}
+		
 		setContentView(R.layout.activity_user_settings);
+		
+		SeekBar changeRadius;
+		final Button changeSettingsButton;
+		Spinner themeSpinner;
+		final TextView reportRadiusView;
+		String selectedTheme;
+		String[] themeSpinnerEntries;
 		
 		SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 		reportRadius = preferences.getInt("ReportRadius", 500);
 		seekBarPos = preferences.getInt("SeekBarPos", 4);
-		selectedTheme = preferences.getString("theme", "standard");
+		selectedTheme = preferences.getString(THEME, STANDARD);
 		Log.i("Settings loaded", selectedTheme);
 		
-		initialStart = true;
+		editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+		
 		final DatabaseHandler dbh = new DatabaseHandler(getApplicationContext(), null, null, 1);
 		currentEmail = (EditText) findViewById(R.id.UserSettingsActivity_et_currentEmail);
 		changeRadius = (SeekBar) findViewById(R.id.UserSettingsActivity_sb_ChangeRadius);
 		themeSpinner = (Spinner) findViewById(R.id.UserSettingsActivity_sp_ChangeTheme);
-		languageSpinner = (Spinner) findViewById(R.id.UserSettingsActivity_sp_ChangeLanguage);
 		reportRadiusView = (TextView) findViewById(R.id.UserSettingsActivity_tv_currentRadius);
-		changeEmailButton = (Button) findViewById(R.id.UserSettingsActivity_btn_confirmEmail);
+		changeSettingsButton = (Button) findViewById(R.id.UserSettingsActivity_btn_confirmSettings);
 		reportRadiusView.setText(reportRadius + " meters");
-		toastInvalidEmail = getResources().getString(R.string.incorrect_email);
 		
-		
-		this.themeSpinnerEntries = getResources().getStringArray(R.array.themeSpinner);
-		languageSpinnerEntries = getResources().getStringArray(R.array.spinnerLanguageData);
+		themeSpinnerEntries = getResources().getStringArray(R.array.themeSpinner);
 		
 		int selectedThemeIndex = 0;
-		if (selectedTheme.equals("standard")) {
+		if (selectedTheme.equals(STANDARD)) {
 			selectedThemeIndex = Arrays.asList(themeSpinnerEntries).indexOf(getResources().getString(R.string.themeStandard));
 			Log.i("Selected theme index", "standard: " + selectedThemeIndex);
-		} else if (selectedTheme.equals("night")) {
+		} else if (selectedTheme.equals(NIGHT)) {
 			selectedThemeIndex = Arrays.asList(themeSpinnerEntries).indexOf(getResources().getString(R.string.themeNight));
 			Log.i("Selected theme index", "night: " +selectedThemeIndex);
 		}
 		
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_layout_custom_row, themeSpinnerEntries);
+		CURRENT_THEME = selectedThemeIndex;
+		SELECTED_THEME = selectedThemeIndex;
+		
+		ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_layout_custom_row, themeSpinnerEntries);
 		themeSpinner.setAdapter(adapter);
 		themeSpinner.setSelection(selectedThemeIndex);
 		
-		ArrayAdapter<String> languageAdapter = new ArrayAdapter<String>(this, R.layout.spinner_layout_custom_row, languageSpinnerEntries);
-		languageSpinner.setAdapter(languageAdapter);
-				
 		user = dbh.getUser();
 		currentEmail.setText(user.getMailAccount());
 		
@@ -95,71 +111,57 @@ public class UserSettingsActivity extends AppBaseActivity {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 				String selected = parent.getItemAtPosition(position).toString();
-				
-				
-				if (!initialStart) {
-					Intent i = new Intent(UserSettingsActivity.this, UserSettingsActivity.class);
-					startActivity(i);
-					finish();
-				}
-				
-				initialStart = false;
+				SELECTED_THEME = position;
 				
 				if (selected.equals(getResources().getString(R.string.themeStandard))) {
-					SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
-					editor.putString("theme", "standard");
-					editor.commit();
+					editor.putString(THEME, STANDARD);
 				} else if (selected.equals(getResources().getString(R.string.themeNight))) {
-					SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
-					editor.putString("theme", "night");
-					editor.commit();
+					editor.putString(THEME, NIGHT);
 				}
-				
-				
-				
-				
 			}
-			
-			
 			
 			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
-				
+				Log.i(TAG, "onNothingSelected not supported.");
 			}
 		});
 		
-		changeEmailButton.setOnClickListener(new View.OnClickListener() {
+		changeSettingsButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				dbh.updateUser(currentEmail.getText().toString());
 				user = dbh.getUser();
 				currentEmail.setText(user.getMailAccount());
 				
-				Toast toast = Toast.makeText(getApplicationContext(), toastInvalidEmail, Toast.LENGTH_SHORT);
-				toast.show();
+				editor.commit();
 				
-			}
-		});
-		
-		languageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				String selected = parent.getItemAtPosition(position).toString();
-				
-				if (selected.equals("Nederlands")) {
-					SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
-					editor.putString("language", "nl");
-					editor.commit();
-				} else if (selected.equals("Engels")) {
-					SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
-					editor.putString("language", "en");
-					editor.commit();
+				if (SELECTED_THEME != CURRENT_THEME) {
+					AlertCreator creator = new AlertCreator(UserSettingsActivity.this);
+					creator.setIcon(R.mipmap.ic_launcher);
+					creator.setTitle(getResources().getString(R.string.apprestart_title));
+					creator.setMessage(getResources().getString(R.string.apprestart_description));
+					creator.setPositiveButton("Restart", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Intent restart = new Intent(UserSettingsActivity.this, UserSettingsActivity.class);
+							restart.putExtra("EXIT", true);
+							startActivity(restart);
+						}
+					});
+					creator.setDismissEvent(new DialogInterface.OnDismissListener() {
+						@Override
+						public void onDismiss(DialogInterface dialog) {
+							Intent restart = new Intent(UserSettingsActivity.this, UserSettingsActivity.class);
+							restart.putExtra("EXIT", true);
+							startActivity(restart);
+						}
+					});
+					
+					creator.show();
+				} else {
+					Toast toast = Toast.makeText(UserSettingsActivity.this, getResources().getString(R.string.settingsSaved), Toast.LENGTH_SHORT);
+					toast.show();
 				}
-			}
-			
-			@Override
-			public void onNothingSelected(AdapterView<?> parent){
-				
 			}
 		});
 		
@@ -172,15 +174,17 @@ public class UserSettingsActivity extends AppBaseActivity {
 			
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				
+
 			}
 			
 			@Override
 			public void afterTextChanged(Editable s) {
 				if (Patterns.EMAIL_ADDRESS.matcher(s).matches()) {
 					currentEmail.setBackgroundResource(R.drawable.email_border_correct);
+					changeSettingsButton.setEnabled(true);
 				} else {
 					currentEmail.setBackgroundResource(R.drawable.email_border_wrong);
+					changeSettingsButton.setEnabled(false);
 				}
 			}
 		});
@@ -191,10 +195,8 @@ public class UserSettingsActivity extends AppBaseActivity {
 				reportRadius = progress * 100 + 100;
 				reportRadiusView.setText(reportRadius + " meters");
 				seekBarPos = progress;
-				SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
 				editor.putInt("ReportRadius", reportRadius);
 				editor.putInt("SeekBarPos", seekBarPos);
-				editor.commit();
 			}
 			
 			@Override
@@ -207,5 +209,7 @@ public class UserSettingsActivity extends AppBaseActivity {
 				
 			}
 		});
+		
+		changeSettingsButton.setEnabled(Patterns.EMAIL_ADDRESS.matcher(currentEmail.getText()).matches());
 	}
 }

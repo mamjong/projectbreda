@@ -49,6 +49,14 @@ public class MainScreenSectionsPagerAdapter extends FragmentPagerAdapter {
 		return tab1;
 	}
 	
+	public MainScreenMapFragment getMapFragment() {
+		return tab1;
+	}
+	
+	public MainScreenListFragment getListFragment() {
+		return tab2;
+	}
+	
 	public Fragment getTab2() {
 		return tab2;
 	}
@@ -65,6 +73,8 @@ public class MainScreenSectionsPagerAdapter extends FragmentPagerAdapter {
 				return context.getResources().getString(R.string.homescreen_left_tab);
 			case 1:
 				return context.getResources().getString(R.string.homescreen_right_tab);
+			default:
+				break;
 		}
 		return null;
 	}

@@ -5,13 +5,13 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import nl.gemeente.breda.bredaapp.domain.Report;
@@ -19,9 +19,6 @@ import nl.gemeente.breda.bredaapp.domain.Report;
 import static nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment.EXTRA_REPORT;
 
 public class CheckDataActivity extends AppBaseActivity {
-	
-	
-	private Bitmap bitmap;
 	
 	protected static Bitmap loadBitmap(Context context, String name) {
 		Bitmap bitmap = null;
@@ -31,10 +28,8 @@ public class CheckDataActivity extends AppBaseActivity {
 			fis = context.openFileInput(name);
 			bitmap = BitmapFactory.decodeStream(fis);
 			fis.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
-			e.printStackTrace();
+			Log.e("ERR", String.valueOf(e));
 		}
 		
 		return bitmap;
@@ -54,17 +49,10 @@ public class CheckDataActivity extends AppBaseActivity {
 		Intent i = getIntent();
 		Bundle extras = getIntent().getExtras();
 		
-		bitmap = loadBitmap(CheckDataActivity.this, "inframeld.jpeg");
+		Bitmap bitmap = loadBitmap(CheckDataActivity.this, "inframeld.jpeg");
 		itemImageView.setImageBitmap(bitmap);
-//		Bitmap inputImage;
 		
 		final Report r = (Report) extras.getSerializable(EXTRA_REPORT);
-
-//		if ( getIntent().hasExtra("IMAGE") ) {
-//			inputImage = BitmapFactory.decodeByteArray(
-//					i.getByteArrayExtra("IMAGE"), 0, getIntent().getByteArrayExtra("IMAGE").length);
-//			itemImageView.setImageBitmap(inputImage);
-//		}
 		
 		if (i.hasExtra("SERVICE")) {
 			serviceTypeInput.setText(extras.getString("SERVICE"));
