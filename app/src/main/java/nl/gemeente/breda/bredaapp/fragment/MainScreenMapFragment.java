@@ -201,6 +201,10 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 		@Override
 		public void onInfoWindowClick(Marker marker) {
 			for (Report r : reports) {
+				if (r.getDescription() == null) {
+					return;
+				}
+				
 				if (r.getDescription().equals(marker.getTitle())) {
 					Intent intent = new Intent(getContext(), DetailedReportActivity.class);
 					intent.putExtra("MediaUrl", r.getMediaUrl());
