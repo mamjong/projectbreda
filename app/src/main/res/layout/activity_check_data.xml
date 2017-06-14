@@ -54,9 +54,8 @@
                         android:id="@+id/CheckDataActivity_tv_categoryInput"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="TextView"
-                        android:textSize="16sp"
-                        android:layout_marginLeft="8dp"/>
+                        android:layout_marginLeft="8dp"
+                        android:textSize="16sp"/>
 
                 </LinearLayout>
 
@@ -78,7 +77,6 @@
                         android:id="@+id/CheckDataActivity_tv_kindOfDefectInput"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="TextView"
                         android:textSize="16sp"/>
 
                 </LinearLayout>
@@ -98,11 +96,10 @@
                 android:layout_height="100dp">
 
                 <TextView
-                    android:id="@+id/textView7"
+                    android:id="@+id/CheckDataActivity_tv_comment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
-                    android:text="TextView"
                     android:textSize="16sp"/>
 
             </ScrollView>

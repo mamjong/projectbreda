@@ -36,7 +36,6 @@ public class CreateNewReportActivity extends AppBaseActivity implements Location
 	
 	private static final int CAMERA_PIC_REQUEST = 1337;
 	private static final int GALLERY_PIC_REQUEST = 1338;
-	private String[] arraySpinnerGroenSubs, arraySpinnerAfvalSubs, arraySpinnerDierenEnOngedierteSubs, arraySpinnerOpenbareVerlichtingSubs;
 	private ServiceAdapter serviceAdapter;
 	private String chosenService;
 	private Bitmap itemImage;
@@ -78,9 +77,23 @@ public class CreateNewReportActivity extends AppBaseActivity implements Location
 		
 		
 		// Service spinner -- Wordt opgehaald van de API
-		Spinner sprCategories = (Spinner) findViewById(R.id.activityCreateNewReport_spr_categories);
+		final Spinner sprCategories = (Spinner) findViewById(R.id.activityCreateNewReport_spr_categories);
 		
 		sprCategories.setAdapter(serviceAdapter);
+		
+		sprCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				chosenService = sprCategories.getItemAtPosition(position).toString();
+			}
+			
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				
+			}
+		});
+		
+		chosenService = sprCategories.getSelectedItem().toString();
 		
 		continueToMap.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -101,10 +114,13 @@ public class CreateNewReportActivity extends AppBaseActivity implements Location
 							String filename = "inframeld.jpeg";
 							
 							saveImage(CreateNewReportActivity.this, itemImage, filename);
-							commentText.getText();
+							String comment = commentText.getText().toString();
 							
 							Intent continueToMapIntent = new Intent(getApplicationContext(), CheckDataActivity.class);
 							continueToMapIntent.putExtra("SERVICE", chosenService);
+							continueToMapIntent.putExtra("COMMENT", comment);
+							continueToMapIntent.putExtra("LATITUDE", locationLatitude);
+							continueToMapIntent.putExtra("LONGITUDE", locationLongitude);
 							
 							startActivity(continueToMapIntent);
 						} catch (RuntimeException e) {
