@@ -94,6 +94,7 @@
 
     <string name="fab_location">Ik ben op de huidige locatie</string>
     <string name="fab_other">Ik ben ergens anders</string>
+    <string name="fab_text">Melding maken</string>
 
     <string name="FavoriteReportsActivity_Label">Favoriete Meldingen</string>
 
@@ -117,4 +118,9 @@
     <string name="settingsSaved">Instellingingen opgeslagen</string>
     <string name="upvote">stem</string>
     <string name="upvotes">stemmen</string>
+    
+    <string name="location_off_title">Locatie benodigd</string>
+    <string name="location_off_text">Locatie is benodigd om de melding te kunnen maken.</string>
+    <string name="location_off_positive">Zet locatie aan</string>
+    <string name="location_off_negative">Probeer opnieuw</string>
 </resources>

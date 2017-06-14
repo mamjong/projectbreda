@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,11 +27,12 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import nl.gemeente.breda.bredaapp.adapter.ServiceAdapter;
+import nl.gemeente.breda.bredaapp.api.LocationApi;
 import nl.gemeente.breda.bredaapp.businesslogic.ServiceManager;
 import nl.gemeente.breda.bredaapp.util.AlertCreator;
 
 
-public class CreateNewReportActivity extends AppBaseActivity {
+public class CreateNewReportActivity extends AppBaseActivity implements LocationApi.LocationListener {
 	
 	private static final int CAMERA_PIC_REQUEST = 1337;
 	private static final int GALLERY_PIC_REQUEST = 1338;
@@ -43,6 +45,10 @@ public class CreateNewReportActivity extends AppBaseActivity {
 	private TextView noPicture;
 	private ImageView selectedPictureView;
 	private EditText commentText;
+	
+	private LocationApi locationService;
+	private double locationLatitude;
+	private double locationLongitude;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +66,9 @@ public class CreateNewReportActivity extends AppBaseActivity {
 		
 		continueToMap.setEnabled(false);
 		
+		locationService = new LocationApi(this);
+		getLocation();
+		
 		noPicture.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -69,54 +78,9 @@ public class CreateNewReportActivity extends AppBaseActivity {
 		
 		
 		// Service spinner -- Wordt opgehaald van de API
-		final Spinner sprSubCategories = (Spinner) findViewById(R.id.activityCreateNewReport_spr_defects);
 		Spinner sprCategories = (Spinner) findViewById(R.id.activityCreateNewReport_spr_categories);
 		
 		sprCategories.setAdapter(serviceAdapter);
-		
-		// Subcategories: TODO: Maken aan de hand van de API
-//		sprCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//			@Override
-//			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-//				chosenService = parent.getItemAtPosition(pos).toString();
-//				
-//				switch (parent.getItemAtPosition(pos).toString()) {
-//					case "Groen":
-//						ArrayAdapter<String> sprSubGroenAdapter = new ArrayAdapter<String>(CreateNewReportActivity.this,
-//								android.R.layout.simple_spinner_item, arraySpinnerGroenSubs);
-//						sprSubCategories.setAdapter(sprSubGroenAdapter);
-//						
-//						
-//						// On Item Selected --
-//						
-//						break;
-//					case "Openbare verlichting":
-//						ArrayAdapter<String> sprSubOVAdapter = new ArrayAdapter<String>(CreateNewReportActivity.this,
-//								android.R.layout.simple_spinner_item, arraySpinnerOpenbareVerlichtingSubs);
-//						sprSubCategories.setAdapter(sprSubOVAdapter);
-//						
-//						break;
-//					case "Afval":
-//						ArrayAdapter<String> sprSubAfvalAdapter = new ArrayAdapter<String>(CreateNewReportActivity.this,
-//								android.R.layout.simple_spinner_item, arraySpinnerAfvalSubs);
-//						sprSubCategories.setAdapter(sprSubAfvalAdapter);
-//						break;
-//					case "Dieren en ongedierte":
-//						ArrayAdapter<String> sprSubDierAdapter = new ArrayAdapter<String>(CreateNewReportActivity.this,
-//								android.R.layout.simple_spinner_item, arraySpinnerDierenEnOngedierteSubs);
-//						sprSubCategories.setAdapter(sprSubDierAdapter);
-//						break;
-//					
-//					default:
-//						break;
-//				}
-//			}
-//			
-//			@Override
-//			public void onNothingSelected(AdapterView<?> parent) {
-//				Toast.makeText(parent.getContext(), "Nothing selected", Toast.LENGTH_LONG).show();
-//			}
-//		});
 		
 		continueToMap.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -183,10 +147,24 @@ public class CreateNewReportActivity extends AppBaseActivity {
 	}
 	
 	@Override
-	public void onResume() {
+	protected void onResume() {
 		super.onResume();
-		continueToMap.setEnabled(true);
-		continueToMap.setText(getResources().getString(R.string.activityCreateNewReport_bt_continue));
+		if (selectedPictureView.getDrawable() != null) {
+			continueToMap.setEnabled(true);
+			continueToMap.setText(getResources().getString(R.string.activityCreateNewReport_bt_continue));
+		}
+		
+		getLocation();
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+	}
+	
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
 	}
 	
 	private void noPicture() {
@@ -236,6 +214,28 @@ public class CreateNewReportActivity extends AppBaseActivity {
 		} catch (IOException e) {
 			Log.e("ERR", String.valueOf(e));
 		}
+	}
+	
+	public void getLocation() {
+		locationService.setContext(getApplicationContext(), this);
+		locationService.search();
+	}
+	
+	public void noLocation() {
+		Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+		startActivity(i);
+		Toast.makeText(this, getString(R.string.location_off_text), Toast.LENGTH_SHORT).show();
+	}
+	
+	@Override
+	public void onLocationAvailable(double latitude, double longtitude) {
+		locationLatitude = latitude;
+		locationLongitude = longtitude;
+	}
+	
+	@Override
+	public void onLocationError() {
+		noLocation();
 	}
 }
 

@@ -246,6 +246,11 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 	}
 	
 	@Override
+	public void onLocationError() {
+		// Nothing to do here, user has turned location off or there is an error getting the user's location
+	}
+	
+	@Override
 	public void onBackPressed() {
 		if (backPressAmount == 0) {
 			Toast toast = Toast.makeText(MainScreenActivity.this, "Press again to exit.", Toast.LENGTH_LONG);

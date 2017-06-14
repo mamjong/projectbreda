@@ -60,6 +60,7 @@
     <string name="activityCreateNewReportDifferentLocation_et_streetHint">Street</string>
     <string name="fab_location">I\'m at the current location</string>
     <string name="fab_other">I\'m somewhere else</string>
+    <string name="fab_text">Create report</string>
     <string name="radius_title">Radius:</string>
 
     <string name="UserSettingsAcitivity_name">Settings</string>
@@ -82,4 +83,9 @@
     <string name="settingsSaved">Settings saved</string>
     <string name="upvote">upvote</string>
     <string name="upvotes">upvotes</string>
+
+    <string name="location_off_title">Location required</string>
+    <string name="location_off_text">Your location is required to create a new report.</string>
+    <string name="location_off_positive">Turn location on</string>
+    <string name="location_off_negative">Try again</string>
 </resources>
