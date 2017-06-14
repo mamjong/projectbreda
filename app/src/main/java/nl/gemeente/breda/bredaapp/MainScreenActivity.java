@@ -42,7 +42,7 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 	//================================================================================
 	// Properties
 	//================================================================================
-	
+	public static final String TAG = "MainScreenActivity";
 	protected int reportRadius;
 	private MainScreenSectionsPagerAdapter sectionsPagerAdapter;
 	private TextView loading;
@@ -169,6 +169,7 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 			}
 			loading.setText("");
 			overlay.setVisibility(View.INVISIBLE);
+			Log.i(TAG, "We hebben " + number + " reports");
 		} else if (number == 0) {
 			if (sectionsPagerAdapter.getMap() != null) {
 				sectionsPagerAdapter.getMap().getUiSettings().setScrollGesturesEnabled(false);
