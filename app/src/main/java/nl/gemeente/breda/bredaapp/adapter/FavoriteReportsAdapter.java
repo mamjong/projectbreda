@@ -78,39 +78,9 @@ public class FavoriteReportsAdapter extends ArrayAdapter<Report> {
 //		status.setText(upperCaseStatus);
 		
 		// When image is not available
-		if (report.getMediaUrl() == null) {
-			Picasso.with(getContext()).load(R.drawable.nopicturefound).into(mediaUrl);
-		} else {
-			Picasso.with(getContext()).load(report.getMediaUrl()).into(mediaUrl);
-		}
-		
-		
-		// ImageLoader sucks
-//		new ImageLoader(mediaUrl).execute(report.getMediaUrl());
-		
+		Picasso.with(getContext()).load(report.getMediaUrl()).error(R.drawable.nopicturefound).into(mediaUrl);
+
 		// Return view
 		return convertView;
 	}
-	
-//	// Format time/date from JSON object
-//	public String convertTimeStamp(String dateTime) {
-//
-////		// Format: 2017-05-17T20:50:27+03:00 van Helsinki
-//		SimpleDateFormat sourceFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-//
-////		// Format example = 10-10-1010 om 10:10
-////		SimpleDateFormat reqDateFormat = new SimpleDateFormat("dd-MM-YYYY 'om' HH:mm");
-//
-//		// Format example = 10-10-1010
-//		SimpleDateFormat reqDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-//
-//		Date date = null;
-//		try {
-//			date = sourceFormat.parse(report.getRequestedDatetime());
-//		} catch (ParseException e) {
-//			e.printStackTrace();
-//		}
-//		String formatDateTime = reqDateFormat.format(date);
-//		return formatDateTime;
-//	}
 }
