@@ -3,6 +3,7 @@ package nl.gemeente.breda.bredaapp;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -49,6 +51,7 @@ public class CreateNewReportDifferentLocationActivity extends AppBaseActivity im
 	private ServiceAdapter serviceAdapter;
 	private String chosenService;
 	private EditText commentEditText;
+	private TextView noPicture;
 	
 	private GoogleMap map;
 	
@@ -68,6 +71,7 @@ public class CreateNewReportDifferentLocationActivity extends AppBaseActivity im
 		imageButton = (Button) findViewById(R.id.activityCreateNewReportDifferentLocation_bt_addImage);
 		continueButton = (Button)findViewById(R.id.activityCreateNewReportDifferentLocation_bt_continue);
 		selectedPicture = (ImageView)findViewById(R.id.activityCreateNewReportDifferentLocation_iv_defectImage);
+		noPicture = (TextView) findViewById(R.id.activityCreateNewReport_tv_noPicture);
 		serviceAdapter = new ServiceAdapter(getApplicationContext(), ServiceManager.getServices(), R.layout.spinner_layout_custom_row);
 		commentEditText = (EditText)findViewById(R.id.activityCreateNewReportDifferentLocation_et_commentText);
 		
@@ -80,6 +84,13 @@ public class CreateNewReportDifferentLocationActivity extends AppBaseActivity im
 				galleryIntent.setType("image/*");
 				galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
 				startActivityForResult(galleryIntent, GALLERY_PIC_REQUEST);
+			}
+		});
+		
+		noPicture.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				noPicture();
 			}
 		});
 		
@@ -149,6 +160,13 @@ public class CreateNewReportDifferentLocationActivity extends AppBaseActivity im
 		if (mapFragment != null) {
 			mapFragment.getMapAsync(this);
 		}
+	}
+	
+	private void noPicture() {
+		itemImage = BitmapFactory.decodeResource(getResources(), R.drawable.nopicturefound);
+		selectedPicture.setImageBitmap(itemImage);
+		imageSelected = true;
+		updateContinueButton();
 	}
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
