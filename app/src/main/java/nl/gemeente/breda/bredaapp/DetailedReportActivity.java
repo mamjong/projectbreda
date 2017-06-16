@@ -58,7 +58,7 @@ public class DetailedReportActivity extends AppBaseActivity implements OnMapRead
 		setContentView(R.layout.activity_detailed_report);
 		super.setMenuSelected(getIntent().getExtras());
 		
-		TextView description = (TextView) findViewById(R.id.DetailedReportActivity_tv_kindOfDefectInput);
+		TextView description = (TextView) findViewById(R.id.DetailedReportActivity_tv_commentText);
 		ImageView mediaUrl = (ImageView) findViewById(R.id.DetailedReportActivity_iv_image);
 		extraReport = (Button) findViewById(R.id.DetailedReportActivity_bt_extraReportBtn);
 		TextView category = (TextView) findViewById(R.id.DetailedReportActivity_tv_categoryInput);

@@ -62,7 +62,7 @@ public class Report implements Serializable {
 	}
 	
 	public void setDescription(String description) {
-		this.description = description;
+		this.description = description.replaceAll("%20", " ").trim();
 	}
 	
 	public String getRequestedDatetime() {
