@@ -48,6 +48,7 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 	private ArrayList<Report> reports;
 	private boolean mapReady = false;
 	private boolean startedLoading = false;
+	private MapInfoWindowAdapter mapInfoWindowAdapter;
 	
 	//================================================================================
 	// Accessors
@@ -78,7 +79,6 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 	public void onMapReady(GoogleMap googleMap) {
 		map = googleMap;
 		mapReady = true;
-		addMarkers();
 		int themeID = R.style.AppTheme;
 		try {
 			themeID = getContext().getPackageManager().getPackageInfo(getContext().getPackageName(), 0).applicationInfo.theme;
@@ -92,7 +92,7 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 		}
 		
 		LatLngBounds breda = new LatLngBounds(new LatLng(51.482969, 4.654534), new LatLng(51.647188, 4.874748));
-		MapInfoWindowAdapter mapInfoWindowAdapter = new MapInfoWindowAdapter();
+		mapInfoWindowAdapter = new MapInfoWindowAdapter();
 		map.setLatLngBoundsForCameraTarget(breda);
 		map.setMinZoomPreference(11);
 		map.getUiSettings().setMapToolbarEnabled(false);
@@ -101,33 +101,7 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 		map.setInfoWindowAdapter(mapInfoWindowAdapter);
 		map.setOnInfoWindowClickListener(mapInfoWindowAdapter);
 		
-//		Timer timer = new Timer();
-//		timer.scheduleAtFixedRate(new TimerTask() {
-//			
-//			@Override
-//			public void run() {
-//				if (getActivity() == null)
-//					return;
-//				
-//				getActivity().runOnUiThread(new Runnable() {
-//					@Override
-//					public void run() {
-//						reports = ReportManager.getReports();
-//						
-//						for (Report report : reports) {
-//							double latitude = report.getLatitude();
-//							double longtitude = report.getLongitude();
-//							String description = report.getDescription();
-//							
-//							LatLng position = new LatLng(latitude, longtitude);
-//							
-//							MarkerOptions markerOptions = new MarkerOptions().position(position).title(description).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker));
-//							MainScreenMapFragment.this.map.addMarker(markerOptions);
-//						}
-//					}
-//				});
-//			}
-//		}, 0, 750);
+		addMarkers();
 	}
 	
 	public void addMarkers() {
@@ -176,6 +150,9 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 		
 		@Override
 		public View getInfoContents(Marker marker) {
+			if (marker.getTitle() == null) {
+				return null;
+			}
 			TextView tv_title = (TextView) contentView.findViewById(R.id.infoWindow_TV_Title);
 			TextView tv_address = (TextView) contentView.findViewById(R.id.infoWindow_TV_Address);
 			TextView tv_category = (TextView) contentView.findViewById(R.id.infoWindow_TV_Category);
@@ -186,12 +163,16 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 				if (r.getDescription() == null) {
 					return null;
 				}
-				if (r.getDescription().equals(marker.getTitle())) {
+				
+				Log.i("Marker Title", marker.getTitle());
+				if (r.getDescription().equalsIgnoreCase(marker.getTitle())) {
+					Log.i("Description", "Hit!");
 					tv_title.setText(r.getDescription());
 					tv_address.setText(r.getAddress());
 					tv_category.setText(r.getServiceName());
 					tv_upvotes.setText(r.getUpvotes() + "");
 					Picasso.with(getContext()).load(r.getMediaUrl()).placeholder(R.drawable.nopicturefound).error(R.drawable.nopicturefound).into(iv_image);
+					break;
 				}
 			}
 			
@@ -201,10 +182,6 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 		@Override
 		public void onInfoWindowClick(Marker marker) {
 			for (Report r : reports) {
-				if (r.getDescription() == null) {
-					return;
-				}
-				
 				if (r.getDescription().equals(marker.getTitle())) {
 					Intent intent = new Intent(getContext(), DetailedReportActivity.class);
 					intent.putExtra("MediaUrl", r.getMediaUrl());

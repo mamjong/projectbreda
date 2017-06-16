@@ -24,6 +24,7 @@ import com.flask.floatingactionmenu.FloatingActionMenu;
 import com.flask.floatingactionmenu.FloatingActionToggleButton;
 import com.flask.floatingactionmenu.OnFloatingActionMenuSelectedListener;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -57,6 +58,8 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 	private String serviceCode;
 	
 	private int backPressAmount = 0;
+	
+	private ArrayList<ReverseGeocoderTask> reverseGeocoderTasks = new ArrayList<>();
 	
 	//================================================================================
 	// Accessors
@@ -115,8 +118,16 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 					String label = fab.getLabelText();
 					if(label.equals(getResources().getString(R.string.fab_other))){
 						MainScreenActivity.super.onMenuClick(CreateNewReportDifferentLocationActivity.class, -1, false);
+						for (ReverseGeocoderTask task : MainScreenActivity.this.reverseGeocoderTasks) {
+							task.cancel(true);
+						}
+						reverseGeocoderTasks.clear();
 					} else if(label.equals(getResources().getString(R.string.fab_location))){
 						MainScreenActivity.super.onMenuClick(CreateNewReportActivity.class, -1, false);
+						for (ReverseGeocoderTask task : MainScreenActivity.this.reverseGeocoderTasks) {
+							task.cancel(true);
+						}
+						reverseGeocoderTasks.clear();
 					}
 				}
 			}
@@ -144,8 +155,9 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		if (report.getLongitude() > 1 && report.getLatitude() > 1){
 			//ReverseGeocoder reverseGeocoder = new ReverseGeocoder(report.getLatitude(), report.getLongitude(), context);
 			//report.setAddress(reverseGeocoder.getAddress());
-			ReverseGeocoderTask task = new ReverseGeocoderTask(report, context, this);
-			task.execute();
+			//ReverseGeocoderTask task = new ReverseGeocoderTask(report, context, this);
+			//reverseGeocoderTasks.add(task);
+			//task.execute();
 		}
 		
 		ReportManager.addReport(report);
@@ -243,6 +255,11 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		getReports(serviceCode, latitude, longtitude, reportRadius);
 		
 		//ReverseGeocoder geocoder = new ReverseGeocoder(latitude, longtitude, this);
+	}
+	
+	@Override
+	public void onLocationError() {
+		// Nothing to do here, user has turned location off or there is an error getting the user's location
 	}
 	
 	@Override
