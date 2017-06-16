@@ -15,6 +15,7 @@ import nl.gemeente.breda.bredaapp.adapter.FavoriteReportsAdapter;
 import nl.gemeente.breda.bredaapp.api.ApiHomeScreen;
 import nl.gemeente.breda.bredaapp.businesslogic.FavoriteReportManager;
 import nl.gemeente.breda.bredaapp.domain.Report;
+import nl.gemeente.breda.bredaapp.util.DatabaseHandler;
 
 import static nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment.EXTRA_REPORT;
 
@@ -64,7 +65,6 @@ public class FavoriteReportsActivity extends AppBaseActivity implements ApiHomeS
 		
 	@Override
 	public void onReportAvailable(Report report) {
-		Log.i("Report", report.getDescription());
 		FavoriteReportManager.addReport(report);
 		favoriteReportsAdapter.notifyDataSetChanged();
 	}

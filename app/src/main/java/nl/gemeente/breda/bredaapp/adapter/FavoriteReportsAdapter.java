@@ -2,8 +2,6 @@ package nl.gemeente.breda.bredaapp.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,18 +11,11 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
-import nl.gemeente.breda.bredaapp.DatabaseHandler;
 import nl.gemeente.breda.bredaapp.R;
 import nl.gemeente.breda.bredaapp.domain.Report;
 import nl.gemeente.breda.bredaapp.util.TimeStampFormat;
-
-import static nl.gemeente.breda.bredaapp.R.string.upvotes;
-import static nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment.EXTRA_REPORT;
 
 public class FavoriteReportsAdapter extends ArrayAdapter<Report> {
 	

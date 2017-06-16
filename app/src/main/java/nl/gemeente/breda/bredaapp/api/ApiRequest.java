@@ -86,6 +86,6 @@ public class ApiRequest {
 		String urlString = urlStringBuilder.toString();
 		Log.i("URL", query);
 		
-		new ApiPostTask(urlBase, query).execute();
+		new ApiPostTask(context, urlBase, query).execute();
 	}
 }

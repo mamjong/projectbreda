@@ -23,6 +23,7 @@ import android.widget.TextView;
 import nl.gemeente.breda.bredaapp.api.ApiServices;
 import nl.gemeente.breda.bredaapp.businesslogic.ServiceManager;
 import nl.gemeente.breda.bredaapp.domain.Service;
+import nl.gemeente.breda.bredaapp.util.DatabaseHandler;
 import nl.gemeente.breda.bredaapp.util.ThemeManager;
 
 
