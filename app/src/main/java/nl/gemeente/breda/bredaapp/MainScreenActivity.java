@@ -155,9 +155,9 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		if (report.getLongitude() > 1 && report.getLatitude() > 1){
 			//ReverseGeocoder reverseGeocoder = new ReverseGeocoder(report.getLatitude(), report.getLongitude(), context);
 			//report.setAddress(reverseGeocoder.getAddress());
-			ReverseGeocoderTask task = new ReverseGeocoderTask(report, context, this);
-			reverseGeocoderTasks.add(task);
-			task.execute();
+			//ReverseGeocoderTask task = new ReverseGeocoderTask(report, context, this);
+			//reverseGeocoderTasks.add(task);
+			//task.execute();
 		}
 		
 		ReportManager.addReport(report);
