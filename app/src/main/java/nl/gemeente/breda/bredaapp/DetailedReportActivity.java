@@ -11,11 +11,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -174,6 +176,9 @@ public class DetailedReportActivity extends AppBaseActivity implements OnMapRead
 					upvotes++;
 					count.setText(Integer.toString(upvotes));
 					isPressed = true;
+					Toast toast = Toast.makeText(DetailedReportActivity.this, getResources().getString(R.string.toast_report_added), Toast.LENGTH_SHORT);
+					toast.setGravity(Gravity.CENTER, 0, 0);
+					toast.show();
 					
 				} else if (isPressed == true) {
 					dbh.deleteReport(r);
@@ -182,6 +187,9 @@ public class DetailedReportActivity extends AppBaseActivity implements OnMapRead
 					upvotes--;
 					count.setText(Integer.toString(upvotes));
 					isPressed = false;
+					Toast toast = Toast.makeText(DetailedReportActivity.this, getResources().getString(R.string.toast_report_deleted), Toast.LENGTH_SHORT);
+					toast.setGravity(Gravity.CENTER, 0, 0);
+					toast.show();
 				}
 			}
 		});
