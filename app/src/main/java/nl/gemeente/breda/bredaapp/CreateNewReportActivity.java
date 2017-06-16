@@ -49,6 +49,8 @@ public class CreateNewReportActivity extends AppBaseActivity implements Location
 	private double locationLatitude;
 	private double locationLongitude;
 	
+	private int state = 0;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -66,7 +68,13 @@ public class CreateNewReportActivity extends AppBaseActivity implements Location
 		continueToMap.setEnabled(false);
 		
 		locationService = new LocationApi(this);
-		getLocation();
+		
+		new Timer().schedule(new TimerTask() {
+			@Override
+			public void run() {
+				getLocation();
+			}
+		}, 10);
 		
 		noPicture.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -165,12 +173,42 @@ public class CreateNewReportActivity extends AppBaseActivity implements Location
 	@Override
 	protected void onResume() {
 		super.onResume();
+		
+		if (state == 1) {
+			AlertCreator creator = new AlertCreator(CreateNewReportActivity.this);
+			creator.setTitle(getString(R.string.location_off_title));
+			creator.setMessage(getString(R.string.location_off_text));
+			creator.setPositiveButton(getString(R.string.location_off_positive), new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					state = 0;
+					getLocation();
+				}
+			});
+			creator.setNegativeButton(getString(R.string.location_off_negative), new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					state = 0;
+					finish();
+				}
+			});
+			
+			creator.setDismissEvent(new DialogInterface.OnDismissListener() {
+				@Override
+				public void onDismiss(DialogInterface dialog) {
+					if (state == 1) {
+						getLocation();
+					}
+				}
+			});
+			
+			creator.show();
+		}
+		
 		if (selectedPictureView.getDrawable() != null) {
 			continueToMap.setEnabled(true);
 			continueToMap.setText(getResources().getString(R.string.activityCreateNewReport_bt_continue));
 		}
-		
-		getLocation();
 	}
 	
 	@Override
@@ -238,6 +276,7 @@ public class CreateNewReportActivity extends AppBaseActivity implements Location
 	}
 	
 	public void noLocation() {
+		state = 1;
 		Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
 		startActivity(i);
 		Toast.makeText(this, getString(R.string.location_off_text), Toast.LENGTH_SHORT).show();
@@ -251,6 +290,7 @@ public class CreateNewReportActivity extends AppBaseActivity implements Location
 	
 	@Override
 	public void onLocationError() {
+		Log.i("Location", "error");
 		noLocation();
 	}
 }

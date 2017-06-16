@@ -3,6 +3,7 @@ package nl.gemeente.breda.bredaapp;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -34,14 +36,13 @@ public class CreateNewReportDifferentLocationActivity extends AppBaseActivity {
 	private ImageView selectedPicture;
 	private ServiceAdapter serviceAdapter;
 	private String chosenService;
-	private String[] arraySpinnerDataMain, arraySpinnerGroenSubs, arraySpinnerAfvalSubs, arraySpinnerDierenEnOngedierteSubs, arraySpinnerOpenbareVerlichtingSubs;
 	private EditText commentEditText;
-	private String commentText;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		super.setMenuSelected(getIntent().getExtras());
+		super.setShareVisible(false);
 		setContentView(R.layout.activity_create_new_report_different_location);
 		
 		imageButton = (Button) findViewById(R.id.activityCreateNewReportDifferentLocation_bt_addImage);
@@ -62,40 +63,21 @@ public class CreateNewReportDifferentLocationActivity extends AppBaseActivity {
 			}
 		});
 		
-		commentText = commentEditText.toString();
+		final Spinner sprCategories = (Spinner) findViewById(R.id.activityCreateNewReport_spr_categories);
+		sprCategories.setAdapter(serviceAdapter);
+		sprCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				chosenService = sprCategories.getItemAtPosition(position).toString();
+			}
+			
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				
+			}
+		});
 		
-		// Placeholder spinner data
-//		this.arraySpinnerDataMain = getResources().getStringArray(R.array.spinnerPlaceHolderData);
-//		this.arraySpinnerAfvalSubs = getResources().getStringArray(R.array.spinnerAfvalSubs);
-//		this.arraySpinnerDierenEnOngedierteSubs = getResources().getStringArray(R.array.spinnerDierenEnOngedierteSubs);
-//		this.arraySpinnerGroenSubs = getResources().getStringArray(R.array.spinnerGroenSubs);
-//		this.arraySpinnerOpenbareVerlichtingSubs = getResources().getStringArray(R.array.spinnerOpenbareVerlichtingSubs);
-//
-//		// Service spinner -- Wordt opgehaald van de API
-//		final Spinner sprSubCategories = (Spinner) findViewById(R.id.activityCreateNewReport_spr_defects);
-//		Spinner sprCategories = (Spinner) findViewById(R.id.activityCreateNewReport_spr_categories);
-//
-////		ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
-////				android.R.layout.simple_spinner_item, arraySpinnerDataMain);
-//
-//		sprCategories.setAdapter(serviceAdapter);
-//
-//		// Subcategories: TODO: Maken aan de hand van de API
-//		sprCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//			@Override
-//			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-////                Toast.makeText(parent.getContext(),
-////                        "OnItemSelectedListener: " + parent.getItemAtPosition(pos).toString(),
-////                        Toast.LENGTH_SHORT).show();
-//
-//				chosenService = parent.getItemAtPosition(pos).toString();
-//			}
-//
-//			@Override
-//			public void onNothingSelected(AdapterView<?> parent) {
-//				Toast.makeText(parent.getContext(), "Nothing selected", Toast.LENGTH_LONG).show();
-//			}
-//		});
+		chosenService = sprCategories.getSelectedItem().toString();
 		
 		continueButton.setOnClickListener(new View.OnClickListener(){
 			@Override
@@ -108,7 +90,6 @@ public class CreateNewReportDifferentLocationActivity extends AppBaseActivity {
 				Log.i("Create report", "Next clicked");
 				continueButton.setEnabled(false);
 				continueButton.setText(getResources().getString(R.string.spinner_loading));
-				//continueToMap.setBackgroundResource(R.color.colorPrimaryLight);
 				
 				new Timer().schedule(new TimerTask() {
 					@Override
@@ -118,9 +99,11 @@ public class CreateNewReportDifferentLocationActivity extends AppBaseActivity {
 							
 							saveImage(CreateNewReportDifferentLocationActivity.this, itemImage, filename);
 							
+							String comment = commentEditText.getText().toString();
+							
 							Intent continueToMapIntent = new Intent(getApplicationContext(), CheckDataActivity.class);
 							continueToMapIntent.putExtra("SERVICE", chosenService);
-							
+							continueToMapIntent.putExtra("COMMENT", comment);
 							startActivity(continueToMapIntent);
 						} catch (RuntimeException e) {
 							Toast toastError = Toast.makeText(CreateNewReportDifferentLocationActivity.this, getResources().getString(R.string.activityCreateNewReport_text_imageTooLarge), Toast.LENGTH_LONG);
@@ -143,6 +126,7 @@ public class CreateNewReportDifferentLocationActivity extends AppBaseActivity {
 						Bitmap picture = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
 						this.itemImage = picture;
 						selectedPicture.setImageBitmap(picture);
+						
 						continueButton.setEnabled(true);
 					} catch (Exception e) {
 						e.printStackTrace();

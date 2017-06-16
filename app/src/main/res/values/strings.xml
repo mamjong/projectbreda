@@ -122,5 +122,5 @@
     <string name="location_off_title">Locatie benodigd</string>
     <string name="location_off_text">Locatie is benodigd om de melding te kunnen maken.</string>
     <string name="location_off_positive">Zet locatie aan</string>
-    <string name="location_off_negative">Probeer opnieuw</string>
+    <string name="location_off_negative">Terug</string>
 </resources>

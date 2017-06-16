@@ -86,7 +86,7 @@
     <string name="location_off_title">Location required</string>
     <string name="location_off_text">Your location is required to create a new report.</string>
     <string name="location_off_positive">Turn location on</string>
-    <string name="location_off_negative">Try again</string>
+    <string name="location_off_negative">Back</string>
     <string name="toast_report_added">Add report to favorites</string>
     <string name="toast_report_added_error">Error! Report could not be added!</string>
     <string name="toast_report_deleted">Delete report from favorites</string>
