@@ -101,6 +101,7 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 		map.setInfoWindowAdapter(mapInfoWindowAdapter);
 		map.setOnInfoWindowClickListener(mapInfoWindowAdapter);
 		
+		removeMarkers();
 		addMarkers();
 	}
 	
@@ -124,7 +125,7 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 	}
 	
 	public void removeMarkers() {
-		reports.clear();
+		//reports.clear();
 		if (map != null) {
 			map.clear();
 		}
@@ -164,9 +165,7 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 					return null;
 				}
 				
-				Log.i("Marker Title", marker.getTitle());
 				if (r.getDescription().equalsIgnoreCase(marker.getTitle())) {
-					Log.i("Description", "Hit!");
 					tv_title.setText(r.getDescription());
 					tv_address.setText(r.getAddress());
 					tv_category.setText(r.getServiceName());

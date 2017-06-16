@@ -59,8 +59,6 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 	
 	private int backPressAmount = 0;
 	
-	private ArrayList<ReverseGeocoderTask> reverseGeocoderTasks = new ArrayList<>();
-	
 	//================================================================================
 	// Accessors
 	//================================================================================
@@ -118,16 +116,8 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 					String label = fab.getLabelText();
 					if(label.equals(getResources().getString(R.string.fab_other))){
 						MainScreenActivity.super.onMenuClick(CreateNewReportDifferentLocationActivity.class, -1, false);
-						for (ReverseGeocoderTask task : MainScreenActivity.this.reverseGeocoderTasks) {
-							task.cancel(true);
-						}
-						reverseGeocoderTasks.clear();
 					} else if(label.equals(getResources().getString(R.string.fab_location))){
 						MainScreenActivity.super.onMenuClick(CreateNewReportActivity.class, -1, false);
-						for (ReverseGeocoderTask task : MainScreenActivity.this.reverseGeocoderTasks) {
-							task.cancel(true);
-						}
-						reverseGeocoderTasks.clear();
 					}
 				}
 			}
@@ -161,6 +151,7 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		}
 		
 		ReportManager.addReport(report);
+		sectionsPagerAdapter.getMapFragment().removeMarkers();
 		sectionsPagerAdapter.getMapFragment().addMarkers();
 		sectionsPagerAdapter.getListFragment().addReportsToList();
 	}
