@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +19,9 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import java.util.Random;
+
+import nl.gemeente.breda.bredaapp.eastereggs.EasterEgg;
 import nl.gemeente.breda.bredaapp.util.ThemeManager;
 
 public abstract class AppBaseActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener {
@@ -31,6 +35,8 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 	private ImageView shareButton;
 	
 	private String shareText = "Check out InfraMeld! It's insane!";
+	private int i;
+	private int rand;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +72,74 @@ public abstract class AppBaseActivity extends AppCompatActivity implements MenuI
 				shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
 				shareIntent.setType("text/plain");
 				startActivity(shareIntent);
+			}
+		});
+		
+		View headerLayout = navigationView.getHeaderView(0);
+		ImageView logo = (ImageView) headerLayout.findViewById(R.id.navigation_header_logo);
+		i = 1;
+		Random r = new Random();
+		rand = r.nextInt(6) + 1;
+		logo.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (i < 5) {
+					i++;
+				} else if (i == 5) {
+					Log.i("RAND", String.valueOf(rand));
+					
+					Intent easteregg = new Intent(getApplicationContext(), EasterEgg.class);
+					
+					switch (rand) {
+						case 1:
+							easteregg.putExtra("TYPE", "VIDEO");
+							easteregg.putExtra("VIDEONAME", "easteregg1");
+							rand = 2;
+							break;
+						
+						case 2:
+							easteregg.putExtra("TYPE", "VIDEO");
+							easteregg.putExtra("VIDEONAME", "easteregg2");
+							rand = 3;
+							break;
+						
+						case 3:
+							easteregg.putExtra("TYPE", "WEBSITE");
+							easteregg.putExtra("URL", "http://www.nyan.cat/cats/technyancolor.gif");
+							rand = 4;
+							break;
+						
+						case 4:
+							easteregg.putExtra("TYPE", "WEBSITE");
+							easteregg.putExtra("URL", "http://endless.horse/");
+							rand = 5;
+							break;
+						
+						case 5:
+							easteregg.putExtra("TYPE", "WEBSITE");
+							easteregg.putExtra("URL", "http://www.republiquedesmangues.fr/");
+							rand = 6;
+							break;
+						
+						case 6:
+							easteregg.putExtra("TYPE", "WEBSITE");
+							easteregg.putExtra("URL", "http://crouton.net/");
+							rand = 7;
+							break;
+						
+						case 7:
+							easteregg.putExtra("TYPE", "WEBSITE");
+							easteregg.putExtra("URL", "http://www.patience-is-a-virtue.org/");
+							rand = 1;
+							break;
+						
+						default:
+							break;
+					}
+					startActivity(easteregg);
+					i = 1;
+				}
+				
 			}
 		});
 	}
