@@ -6,6 +6,8 @@ import android.graphics.Bitmap;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +20,16 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -28,7 +40,7 @@ import java.util.TimerTask;
 import nl.gemeente.breda.bredaapp.adapter.ServiceAdapter;
 import nl.gemeente.breda.bredaapp.businesslogic.ServiceManager;
 
-public class CreateNewReportDifferentLocationActivity extends AppBaseActivity {
+public class CreateNewReportDifferentLocationActivity extends AppBaseActivity implements OnMapReadyCallback, GoogleMap.OnMapLongClickListener, GoogleMap.OnMarkerDragListener {
 	
 	private static final int GALLERY_PIC_REQUEST = 1338;
 	private Button imageButton, continueButton;
@@ -37,6 +49,14 @@ public class CreateNewReportDifferentLocationActivity extends AppBaseActivity {
 	private ServiceAdapter serviceAdapter;
 	private String chosenService;
 	private EditText commentEditText;
+	
+	private GoogleMap map;
+	
+	private double latitude;
+	private double longitude;
+	
+	private boolean markerPlaced = false;
+	private boolean imageSelected = false;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +124,8 @@ public class CreateNewReportDifferentLocationActivity extends AppBaseActivity {
 							Intent continueToMapIntent = new Intent(getApplicationContext(), CheckDataActivity.class);
 							continueToMapIntent.putExtra("SERVICE", chosenService);
 							continueToMapIntent.putExtra("COMMENT", comment);
+							continueToMapIntent.putExtra("LATITUDE", latitude);
+							continueToMapIntent.putExtra("LONGITUDE", longitude);
 							startActivity(continueToMapIntent);
 						} catch (RuntimeException e) {
 							Toast toastError = Toast.makeText(CreateNewReportDifferentLocationActivity.this, getResources().getString(R.string.activityCreateNewReport_text_imageTooLarge), Toast.LENGTH_LONG);
@@ -115,6 +137,18 @@ public class CreateNewReportDifferentLocationActivity extends AppBaseActivity {
 				}, 1);
 			}
 		});
+		
+		SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentMapView_FL_mapLayout);
+		if (mapFragment == null) {
+			FragmentManager manager = getSupportFragmentManager();
+			FragmentTransaction transaction = manager.beginTransaction();
+			mapFragment = SupportMapFragment.newInstance();
+			transaction.replace(R.id.fragmentMapView_FL_mapLayout, mapFragment).commit();
+		}
+		
+		if (mapFragment != null) {
+			mapFragment.getMapAsync(this);
+		}
 	}
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -127,7 +161,8 @@ public class CreateNewReportDifferentLocationActivity extends AppBaseActivity {
 						this.itemImage = picture;
 						selectedPicture.setImageBitmap(picture);
 						
-						continueButton.setEnabled(true);
+						imageSelected = true;
+						updateContinueButton();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -147,6 +182,58 @@ public class CreateNewReportDifferentLocationActivity extends AppBaseActivity {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void onMapLongClick(LatLng point) {
+		map.clear();
+		MarkerOptions markerOptions = new MarkerOptions().position(point).title("").draggable(true).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker));
+		map.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 15.f));
+		
+		latitude = point.latitude;
+		longitude = point.longitude;
+		
+		map.addMarker(markerOptions);
+		markerPlaced = true;
+		updateContinueButton();
+	}
+	
+	@Override
+	public void onMapReady(GoogleMap googleMap) {
+		map = googleMap;
+		
+		LatLngBounds breda = new LatLngBounds(new LatLng(51.482969, 4.654534), new LatLng(51.647188, 4.874748));
+		map.setLatLngBoundsForCameraTarget(breda);
+		map.setMinZoomPreference(11);
+		map.getUiSettings().setMapToolbarEnabled(false);
+		map.getUiSettings().setCompassEnabled(false);
+		map.getUiSettings().setMyLocationButtonEnabled(false);
+		map.moveCamera(CameraUpdateFactory.newLatLngZoom(breda.getCenter(), 13.f));
+		map.setOnMapLongClickListener(this);
+	}
+	
+	@Override
+	public void onMarkerDragStart(Marker marker) {
+		
+	}
+	
+	@Override
+	public void onMarkerDrag(Marker marker) {
+		latitude = marker.getPosition().latitude;
+		longitude = marker.getPosition().longitude;
+	}
+	
+	@Override
+	public void onMarkerDragEnd(Marker marker) {
+		
+	}
+	
+	public void updateContinueButton() {
+		if ((imageSelected) && (markerPlaced)) {
+			continueButton.setEnabled(true);
+		} else {
+			continueButton.setEnabled(false);
 		}
 	}
 }
