@@ -87,6 +87,7 @@ public class CheckDataActivity extends AppBaseActivity {
 		confirmBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				Log.i("Confirm Button", "Clicked");
 				ApiRequest req = new ApiRequest(CheckDataActivity.this);
 				req.post(serviceTypeInput.getText().toString(), commentsInput.getText().toString(), latitude, longitude);
 				

@@ -161,6 +161,7 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		}
 		
 		ReportManager.addReport(report);
+		sectionsPagerAdapter.getMapFragment().removeMarkers();
 		sectionsPagerAdapter.getMapFragment().addMarkers();
 		sectionsPagerAdapter.getListFragment().addReportsToList();
 	}
