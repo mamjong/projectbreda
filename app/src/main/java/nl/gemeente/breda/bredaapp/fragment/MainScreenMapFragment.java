@@ -154,6 +154,9 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 			if (marker.getTitle() == null) {
 				return null;
 			}
+			
+			Log.i("Marker click", marker.getTitle().trim());
+			
 			TextView tv_title = (TextView) contentView.findViewById(R.id.infoWindow_TV_Title);
 			TextView tv_address = (TextView) contentView.findViewById(R.id.infoWindow_TV_Address);
 			TextView tv_category = (TextView) contentView.findViewById(R.id.infoWindow_TV_Category);
@@ -165,7 +168,7 @@ public class MainScreenMapFragment extends Fragment implements OnMapReadyCallbac
 					return null;
 				}
 				
-				if (r.getDescription().equalsIgnoreCase(marker.getTitle())) {
+				if (r.getDescription().trim().equalsIgnoreCase(marker.getTitle().trim())) {
 					tv_title.setText(r.getDescription());
 					tv_address.setText(r.getAddress());
 					tv_category.setText(r.getServiceName());
