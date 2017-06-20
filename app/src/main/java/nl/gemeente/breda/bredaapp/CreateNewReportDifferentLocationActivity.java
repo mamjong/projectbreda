@@ -3,8 +3,12 @@ package nl.gemeente.breda.bredaapp;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,18 +19,30 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import nl.gemeente.breda.bredaapp.adapter.ServiceAdapter;
 import nl.gemeente.breda.bredaapp.businesslogic.ServiceManager;
 
-public class CreateNewReportDifferentLocationActivity extends AppBaseActivity {
+public class CreateNewReportDifferentLocationActivity extends AppBaseActivity implements OnMapReadyCallback, GoogleMap.OnMapLongClickListener, GoogleMap.OnMarkerDragListener {
 	
 	private static final int GALLERY_PIC_REQUEST = 1338;
 	private Button imageButton, continueButton;
@@ -34,19 +50,28 @@ public class CreateNewReportDifferentLocationActivity extends AppBaseActivity {
 	private ImageView selectedPicture;
 	private ServiceAdapter serviceAdapter;
 	private String chosenService;
-	private String[] arraySpinnerDataMain, arraySpinnerGroenSubs, arraySpinnerAfvalSubs, arraySpinnerDierenEnOngedierteSubs, arraySpinnerOpenbareVerlichtingSubs;
 	private EditText commentEditText;
-	private String commentText;
+	private TextView noPicture;
+	
+	private GoogleMap map;
+	
+	private double latitude;
+	private double longitude;
+	
+	private boolean markerPlaced = false;
+	private boolean imageSelected = false;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		super.setMenuSelected(getIntent().getExtras());
+		super.setShareVisible(false);
 		setContentView(R.layout.activity_create_new_report_different_location);
 		
 		imageButton = (Button) findViewById(R.id.activityCreateNewReportDifferentLocation_bt_addImage);
 		continueButton = (Button)findViewById(R.id.activityCreateNewReportDifferentLocation_bt_continue);
 		selectedPicture = (ImageView)findViewById(R.id.activityCreateNewReportDifferentLocation_iv_defectImage);
+		noPicture = (TextView) findViewById(R.id.activityCreateNewReport_tv_noPicture);
 		serviceAdapter = new ServiceAdapter(getApplicationContext(), ServiceManager.getServices(), R.layout.spinner_layout_custom_row);
 		commentEditText = (EditText)findViewById(R.id.activityCreateNewReportDifferentLocation_et_commentText);
 		
@@ -62,40 +87,28 @@ public class CreateNewReportDifferentLocationActivity extends AppBaseActivity {
 			}
 		});
 		
-		commentText = commentEditText.toString();
+		noPicture.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				noPicture();
+			}
+		});
 		
-		// Placeholder spinner data
-//		this.arraySpinnerDataMain = getResources().getStringArray(R.array.spinnerPlaceHolderData);
-//		this.arraySpinnerAfvalSubs = getResources().getStringArray(R.array.spinnerAfvalSubs);
-//		this.arraySpinnerDierenEnOngedierteSubs = getResources().getStringArray(R.array.spinnerDierenEnOngedierteSubs);
-//		this.arraySpinnerGroenSubs = getResources().getStringArray(R.array.spinnerGroenSubs);
-//		this.arraySpinnerOpenbareVerlichtingSubs = getResources().getStringArray(R.array.spinnerOpenbareVerlichtingSubs);
-//
-//		// Service spinner -- Wordt opgehaald van de API
-//		final Spinner sprSubCategories = (Spinner) findViewById(R.id.activityCreateNewReport_spr_defects);
-//		Spinner sprCategories = (Spinner) findViewById(R.id.activityCreateNewReport_spr_categories);
-//
-////		ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
-////				android.R.layout.simple_spinner_item, arraySpinnerDataMain);
-//
-//		sprCategories.setAdapter(serviceAdapter);
-//
-//		// Subcategories: TODO: Maken aan de hand van de API
-//		sprCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//			@Override
-//			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-////                Toast.makeText(parent.getContext(),
-////                        "OnItemSelectedListener: " + parent.getItemAtPosition(pos).toString(),
-////                        Toast.LENGTH_SHORT).show();
-//
-//				chosenService = parent.getItemAtPosition(pos).toString();
-//			}
-//
-//			@Override
-//			public void onNothingSelected(AdapterView<?> parent) {
-//				Toast.makeText(parent.getContext(), "Nothing selected", Toast.LENGTH_LONG).show();
-//			}
-//		});
+		final Spinner sprCategories = (Spinner) findViewById(R.id.activityCreateNewReport_spr_categories);
+		sprCategories.setAdapter(serviceAdapter);
+		sprCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				chosenService = sprCategories.getItemAtPosition(position).toString();
+			}
+			
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				
+			}
+		});
+		
+		chosenService = sprCategories.getSelectedItem().toString();
 		
 		continueButton.setOnClickListener(new View.OnClickListener(){
 			@Override
@@ -108,7 +121,6 @@ public class CreateNewReportDifferentLocationActivity extends AppBaseActivity {
 				Log.i("Create report", "Next clicked");
 				continueButton.setEnabled(false);
 				continueButton.setText(getResources().getString(R.string.spinner_loading));
-				//continueToMap.setBackgroundResource(R.color.colorPrimaryLight);
 				
 				new Timer().schedule(new TimerTask() {
 					@Override
@@ -118,9 +130,13 @@ public class CreateNewReportDifferentLocationActivity extends AppBaseActivity {
 							
 							saveImage(CreateNewReportDifferentLocationActivity.this, itemImage, filename);
 							
+							String comment = commentEditText.getText().toString();
+							
 							Intent continueToMapIntent = new Intent(getApplicationContext(), CheckDataActivity.class);
 							continueToMapIntent.putExtra("SERVICE", chosenService);
-							
+							continueToMapIntent.putExtra("COMMENT", comment);
+							continueToMapIntent.putExtra("LATITUDE", latitude);
+							continueToMapIntent.putExtra("LONGITUDE", longitude);
 							startActivity(continueToMapIntent);
 						} catch (RuntimeException e) {
 							Toast toastError = Toast.makeText(CreateNewReportDifferentLocationActivity.this, getResources().getString(R.string.activityCreateNewReport_text_imageTooLarge), Toast.LENGTH_LONG);
@@ -132,6 +148,25 @@ public class CreateNewReportDifferentLocationActivity extends AppBaseActivity {
 				}, 1);
 			}
 		});
+		
+		SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentMapView_FL_mapLayout);
+		if (mapFragment == null) {
+			FragmentManager manager = getSupportFragmentManager();
+			FragmentTransaction transaction = manager.beginTransaction();
+			mapFragment = SupportMapFragment.newInstance();
+			transaction.replace(R.id.fragmentMapView_FL_mapLayout, mapFragment).commit();
+		}
+		
+		if (mapFragment != null) {
+			mapFragment.getMapAsync(this);
+		}
+	}
+	
+	private void noPicture() {
+		itemImage = BitmapFactory.decodeResource(getResources(), R.drawable.nopicturefound);
+		selectedPicture.setImageBitmap(itemImage);
+		imageSelected = true;
+		updateContinueButton();
 	}
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -143,7 +178,9 @@ public class CreateNewReportDifferentLocationActivity extends AppBaseActivity {
 						Bitmap picture = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
 						this.itemImage = picture;
 						selectedPicture.setImageBitmap(picture);
-						continueButton.setEnabled(true);
+						
+						imageSelected = true;
+						updateContinueButton();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -163,6 +200,58 @@ public class CreateNewReportDifferentLocationActivity extends AppBaseActivity {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void onMapLongClick(LatLng point) {
+		map.clear();
+		MarkerOptions markerOptions = new MarkerOptions().position(point).title("").draggable(true).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker));
+		map.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 15.f));
+		
+		latitude = point.latitude;
+		longitude = point.longitude;
+		
+		map.addMarker(markerOptions);
+		markerPlaced = true;
+		updateContinueButton();
+	}
+	
+	@Override
+	public void onMapReady(GoogleMap googleMap) {
+		map = googleMap;
+		
+		LatLngBounds breda = new LatLngBounds(new LatLng(51.482969, 4.654534), new LatLng(51.647188, 4.874748));
+		map.setLatLngBoundsForCameraTarget(breda);
+		map.setMinZoomPreference(11);
+		map.getUiSettings().setMapToolbarEnabled(false);
+		map.getUiSettings().setCompassEnabled(false);
+		map.getUiSettings().setMyLocationButtonEnabled(false);
+		map.moveCamera(CameraUpdateFactory.newLatLngZoom(breda.getCenter(), 13.f));
+		map.setOnMapLongClickListener(this);
+	}
+	
+	@Override
+	public void onMarkerDragStart(Marker marker) {
+		
+	}
+	
+	@Override
+	public void onMarkerDrag(Marker marker) {
+		latitude = marker.getPosition().latitude;
+		longitude = marker.getPosition().longitude;
+	}
+	
+	@Override
+	public void onMarkerDragEnd(Marker marker) {
+		
+	}
+	
+	public void updateContinueButton() {
+		if ((imageSelected) && (markerPlaced)) {
+			continueButton.setEnabled(true);
+		} else {
+			continueButton.setEnabled(false);
 		}
 	}
 }

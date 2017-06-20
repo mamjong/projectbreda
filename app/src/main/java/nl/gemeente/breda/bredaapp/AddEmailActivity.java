@@ -14,6 +14,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import nl.gemeente.breda.bredaapp.util.DatabaseHandler;
+
 public class AddEmailActivity extends AppCompatActivity {
 	
 	private final int ACCEPT_TERMS = 999;

@@ -24,6 +24,7 @@ import com.flask.floatingactionmenu.FloatingActionMenu;
 import com.flask.floatingactionmenu.FloatingActionToggleButton;
 import com.flask.floatingactionmenu.OnFloatingActionMenuSelectedListener;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -144,11 +145,13 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		if (report.getLongitude() > 1 && report.getLatitude() > 1){
 			//ReverseGeocoder reverseGeocoder = new ReverseGeocoder(report.getLatitude(), report.getLongitude(), context);
 			//report.setAddress(reverseGeocoder.getAddress());
-			ReverseGeocoderTask task = new ReverseGeocoderTask(report, context, this);
-			task.execute();
+			//ReverseGeocoderTask task = new ReverseGeocoderTask(report, context, this);
+			//reverseGeocoderTasks.add(task);
+			//task.execute();
 		}
 		
 		ReportManager.addReport(report);
+		sectionsPagerAdapter.getMapFragment().removeMarkers();
 		sectionsPagerAdapter.getMapFragment().addMarkers();
 		sectionsPagerAdapter.getListFragment().addReportsToList();
 	}
@@ -243,6 +246,11 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		getReports(serviceCode, latitude, longtitude, reportRadius);
 		
 		//ReverseGeocoder geocoder = new ReverseGeocoder(latitude, longtitude, this);
+	}
+	
+	@Override
+	public void onLocationError() {
+		// Nothing to do here, user has turned location off or there is an error getting the user's location
 	}
 	
 	@Override

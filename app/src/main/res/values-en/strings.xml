@@ -45,7 +45,7 @@
     <string name="UserSettingsActivity_tv_AccSettings">Account Settings</string>
     <string name="UserSettingsActivity_sw_ChangeSettings">Change Settings</string>
 
-    <string name="no_wifi">Verbind met een WiFi netwerk voor een betere werking van deze app</string>
+    <string name="no_wifi">Connect with a WiFi network for better performance of this app</string>
     <string name="info_title">About this app</string>
     <string name="info_textview">This app was created on behalf of the municipality of Breda and was developed by: Thomas Lucas, Thimo Koolen, Giede van Gils, Mark Meijer, Quoc-Sy Luong, Cas de Pender, Mark de Jong and Thomas Mout.</string>
     <string name="menu_view_reports">View all reports</string>
@@ -60,6 +60,7 @@
     <string name="activityCreateNewReportDifferentLocation_et_streetHint">Street</string>
     <string name="fab_location">I\'m at the current location</string>
     <string name="fab_other">I\'m somewhere else</string>
+    <string name="fab_text">Create report</string>
     <string name="radius_title">Radius:</string>
 
     <string name="UserSettingsAcitivity_name">Settings</string>
@@ -82,4 +83,14 @@
     <string name="settingsSaved">Settings saved</string>
     <string name="upvote">upvote</string>
     <string name="upvotes">upvotes</string>
+    <string name="location_off_title">Location required</string>
+    <string name="location_off_text">Your location is required to create a new report.</string>
+    <string name="location_off_positive">Turn location on</string>
+    <string name="location_off_negative">Back</string>
+    <string name="toast_report_added">Add report to favorites</string>
+    <string name="toast_report_added_error">Error! Report could not be added!</string>
+    <string name="toast_report_deleted">Delete report from favorites</string>
+    <string name="toast_report_deleted_error">Error! Report could not be deleted!</string>
+    <string name="activityTermsAndConditios_tv_termsAndConditions" translatable="false">All information you pass on to the municipality, will be treated confidential. Personal or address information will be used only with the reason why you have passed it. The municipality of Breda will treat your e-mail confidential, but does not completely exclude that it won\'t be seen by third parties. The municipality of Breda will try te answer e-mails that are sent to the central e-mailaddress contact@breda.nl or as reaction to the contactform on the website, within 5 workdays.</string>
+    <string name="DetailedReportActivity_tv_commentTitle">Comments:</string>
 </resources>

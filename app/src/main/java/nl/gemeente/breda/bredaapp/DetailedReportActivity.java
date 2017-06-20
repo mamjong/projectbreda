@@ -4,18 +4,19 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -30,11 +31,9 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.vision.text.Text;
 
 import nl.gemeente.breda.bredaapp.domain.Report;
-import nl.gemeente.breda.bredaapp.fragment.MainScreenMapFragment;
-import nl.gemeente.breda.bredaapp.util.ReverseGeocoder;
+import nl.gemeente.breda.bredaapp.util.DatabaseHandler;
 
 import static nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment.EXTRA_REPORT;
 
@@ -56,7 +55,7 @@ public class DetailedReportActivity extends AppBaseActivity implements OnMapRead
 		setContentView(R.layout.activity_detailed_report);
 		super.setMenuSelected(getIntent().getExtras());
 		
-		TextView description = (TextView) findViewById(R.id.DetailedReportActivity_tv_kindOfDefectInput);
+		TextView description = (TextView) findViewById(R.id.DetailedReportActivity_tv_commentText);
 		ImageView mediaUrl = (ImageView) findViewById(R.id.DetailedReportActivity_iv_image);
 		extraReport = (Button) findViewById(R.id.DetailedReportActivity_bt_extraReportBtn);
 		TextView category = (TextView) findViewById(R.id.DetailedReportActivity_tv_categoryInput);
@@ -174,6 +173,9 @@ public class DetailedReportActivity extends AppBaseActivity implements OnMapRead
 					upvotes++;
 					count.setText(Integer.toString(upvotes));
 					isPressed = true;
+					Toast toast = Toast.makeText(DetailedReportActivity.this, getResources().getString(R.string.toast_report_added), Toast.LENGTH_SHORT);
+					toast.setGravity(Gravity.CENTER, 0, 0);
+					toast.show();
 					
 				} else if (isPressed == true) {
 					dbh.deleteReport(r);
@@ -182,6 +184,9 @@ public class DetailedReportActivity extends AppBaseActivity implements OnMapRead
 					upvotes--;
 					count.setText(Integer.toString(upvotes));
 					isPressed = false;
+					Toast toast = Toast.makeText(DetailedReportActivity.this, getResources().getString(R.string.toast_report_deleted), Toast.LENGTH_SHORT);
+					toast.setGravity(Gravity.CENTER, 0, 0);
+					toast.show();
 				}
 			}
 		});

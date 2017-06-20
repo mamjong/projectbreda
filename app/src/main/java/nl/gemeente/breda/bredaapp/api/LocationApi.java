@@ -63,6 +63,7 @@ public class LocationApi implements ConnectionCallbacks, OnConnectionFailedListe
 		} else {
 			// No location found
 			// plantVirus();
+			listener.onLocationError();
 		}
 	}
 	
@@ -79,5 +80,6 @@ public class LocationApi implements ConnectionCallbacks, OnConnectionFailedListe
 	
 	public interface LocationListener {
 		void onLocationAvailable(double latitude, double longtitude);
+		void onLocationError();
 	}
 }
