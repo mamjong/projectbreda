@@ -66,7 +66,7 @@
         <activity
             android:name=".AddEmailActivity"
             android:label="@string/add_email_label"/>
-        <activity android:name=".eastereggs.TestEasterEgg"/>
+        <activity android:name=".eastereggs.EasterEgg"/>
         <activity
             android:name=".MainScreenActivity"
             android:configChanges="orientation|screenSize"

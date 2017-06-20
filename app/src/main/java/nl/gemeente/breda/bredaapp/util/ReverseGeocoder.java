@@ -28,7 +28,7 @@ public class ReverseGeocoder {
 			if(addresses != null && !addresses.isEmpty()) {
 				address = addresses.get(0).getAddressLine(0) + " " + addresses.get(0).getAddressLine(1);
 				if(address != null) {
-					Log.i("Address: ", address);
+					//Log.i("Address: ", address);
 				} else{
 					address = c.getString(R.string.addressNotFound);
 				}
