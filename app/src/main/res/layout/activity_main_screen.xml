@@ -121,7 +121,7 @@
                 app:fab_colorNormal="?attr/fabBackground"
                 app:fab_colorPressed="?attr/fabBackgroundPressed"
                 app:fab_labelStyle="@style/fab_labels_style"
-                app:fab_labelText="I'm at the current location"
+                app:fab_labelText="@string/fab_location"
                 app:fab_normal_icon="@drawable/ic_location_on_white_24dp"/>
 
             <com.flask.floatingactionmenu.FloatingActionButton
@@ -130,7 +130,7 @@
                 app:fab_colorNormal="?attr/fabBackground"
                 app:fab_colorPressed="?attr/fabBackgroundPressed"
                 app:fab_labelStyle="@style/fab_labels_style"
-                app:fab_labelText="I'm somewhere else"
+                app:fab_labelText="@string/fab_other"
                 app:fab_normal_icon="@drawable/ic_home_white_24dp"/>
 
             <com.flask.floatingactionmenu.FloatingActionToggleButton
@@ -139,7 +139,7 @@
                 app:fab_colorNormal="?attr/fabBackground"
                 app:fab_colorPressed="?attr/fabBackgroundPressed"
                 app:fab_labelStyle="@style/fab_labels_style"
-                app:fab_labelText="Create report"
+                app:fab_labelText="@string/fab_text"
                 app:fab_normal_icon="@drawable/ic_add_white_24dp"
                 app:fab_toggle_icon="@drawable/ic_info_white_24dp"/>
 

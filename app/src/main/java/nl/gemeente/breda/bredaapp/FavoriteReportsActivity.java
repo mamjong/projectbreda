@@ -2,27 +2,20 @@ package nl.gemeente.breda.bredaapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import nl.gemeente.breda.bredaapp.adapter.FavoriteReportsAdapter;
-import nl.gemeente.breda.bredaapp.adapter.ReportAdapter;
 import nl.gemeente.breda.bredaapp.api.ApiHomeScreen;
 import nl.gemeente.breda.bredaapp.businesslogic.FavoriteReportManager;
-import nl.gemeente.breda.bredaapp.businesslogic.ReportManager;
 import nl.gemeente.breda.bredaapp.domain.Report;
+import nl.gemeente.breda.bredaapp.util.DatabaseHandler;
 
 import static nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment.EXTRA_REPORT;
 
@@ -46,12 +39,10 @@ public class FavoriteReportsActivity extends AppBaseActivity implements ApiHomeS
 		numberOfReports = -1;
 		favoriteReportsListView = (ListView) findViewById(R.id.favoritescreen_lv);
 		
-		//if (reports.contains(report.getServiceRequestId())) {
 		favoritereports = (ArrayList<Report>) dbh.getAllReports();
 		
 		Log.i(TAG, "We hebben " + favoritereports.size() + " favorites");
 		
-	
 		for (Report report : favoritereports) {
 			serviceRequestId = report.getServiceRequestId();
 			Log.i(TAG, "ID = " + report.getServiceRequestId());
@@ -74,7 +65,6 @@ public class FavoriteReportsActivity extends AppBaseActivity implements ApiHomeS
 		
 	@Override
 	public void onReportAvailable(Report report) {
-		Log.i("Report", report.getDescription());
 		FavoriteReportManager.addReport(report);
 		favoriteReportsAdapter.notifyDataSetChanged();
 	}

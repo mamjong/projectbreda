@@ -102,4 +102,14 @@ public class Converter {
 	public float toFloat(double value) {
 		return (float) value;
 	}
+	
+	public static boolean isInt(String input) {
+		try {
+			Integer.parseInt(input);
+		} catch (Exception e) {
+			return false;
+		}
+		
+		return true;
+	}
 }

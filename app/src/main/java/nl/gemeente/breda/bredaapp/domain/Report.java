@@ -1,5 +1,7 @@
 package nl.gemeente.breda.bredaapp.domain;
 
+import android.util.Log;
+
 import java.io.Serializable;
 
 public class Report implements Serializable {
@@ -60,7 +62,7 @@ public class Report implements Serializable {
 	}
 	
 	public void setDescription(String description) {
-		this.description = description;
+		this.description = description.replaceAll("%20", " ").trim();
 	}
 	
 	public String getRequestedDatetime() {

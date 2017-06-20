@@ -22,6 +22,7 @@ import java.util.Arrays;
 
 import nl.gemeente.breda.bredaapp.domain.User;
 import nl.gemeente.breda.bredaapp.util.AlertCreator;
+import nl.gemeente.breda.bredaapp.util.DatabaseHandler;
 
 public class UserSettingsActivity extends AppBaseActivity {
 	

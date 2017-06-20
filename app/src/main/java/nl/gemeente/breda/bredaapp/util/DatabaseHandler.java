@@ -1,4 +1,4 @@
-package nl.gemeente.breda.bredaapp;
+package nl.gemeente.breda.bredaapp.util;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -116,6 +116,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		
 		values.put(REPORTS_COLUMN_ID, report.getServiceRequestId());
 		values.put(REPORTS_COLUMN_IS_FAVORITE, report.isFavorite());
+		
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.insert(REPORTS_TABLE_NAME, null, values);
+		db.close();
+	}
+	
+	public void addReport(int id) {
+		ContentValues values = new ContentValues();
+		values.put(REPORTS_COLUMN_ID, id);
+		values.put(REPORTS_COLUMN_IS_FAVORITE, true);
 		
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.insert(REPORTS_TABLE_NAME, null, values);
