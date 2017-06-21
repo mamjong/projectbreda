@@ -37,6 +37,7 @@ import nl.gemeente.breda.bredaapp.businesslogic.ServiceManager;
 import nl.gemeente.breda.bredaapp.domain.Report;
 import nl.gemeente.breda.bredaapp.domain.Service;
 import nl.gemeente.breda.bredaapp.util.AlertCreator;
+import nl.gemeente.breda.bredaapp.util.Constants;
 import nl.gemeente.breda.bredaapp.util.ReverseGeocoder;
 import nl.gemeente.breda.bredaapp.util.ReverseGeocoderTask;
 
@@ -128,9 +129,8 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		ReportManager.emptyArray();
 		ApiHomeScreen apiHomeScreen = new ApiHomeScreen(this, this);
 		String[] urls = new String[]{
-				"http://37.34.59.50/breda/CitySDK/requests.json"
+				Constants.API_ADDRESS + "requests.json"
 		};
-//		String[] urls = new String[]{"http://37.34.59.50/breda/CitySDK/requests.json?status=open&service_code=" + serviceCode + "&lat=" + latitude + "&long=" + longtitude + "&radius=" + radius};
 		apiHomeScreen.execute(urls);
 	}
 	
