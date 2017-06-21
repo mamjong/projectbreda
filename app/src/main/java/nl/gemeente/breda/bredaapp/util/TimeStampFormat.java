@@ -1,5 +1,7 @@
 package nl.gemeente.breda.bredaapp.util;
 
+import android.util.Log;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,7 +28,7 @@ public class TimeStampFormat {
 			date = sourceFormat.parse(formatDateTime);
 			formatDateTime = reqDateFormat.format(date);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			Log.i("Error", e.getMessage());
 		}
 		return formatDateTime;
 	}

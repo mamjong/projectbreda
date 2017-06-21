@@ -87,7 +87,7 @@ public class DetailedReportActivity extends AppBaseActivity implements OnMapRead
 		TextView address = (TextView) findViewById(R.id.DetailedReportActivity_tv_address);
 		if ((r.getAddress() == null) || (r.getAddress().isEmpty()) || (r.getAddress().equals(""))) {
 			String address_content = r.getAddress();
-			if (address_content == null) {
+			if (address_content != null) {
 				address_content = address_content.replaceAll("(?<=(^|\\G)\\S{0,100}\\s\\S{0,100})\\s", "\n");
 				address.setText(address_content);
 			}

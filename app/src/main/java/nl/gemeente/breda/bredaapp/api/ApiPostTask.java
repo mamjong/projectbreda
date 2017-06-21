@@ -65,11 +65,9 @@ public class ApiPostTask extends AsyncTask<String, Void, Void> {
 				dbh.addReport(getServiceRequestId(sb.toString()));
 			}
 		} catch (MalformedURLException e) {
-			Log.i("PostTask", "error");
-			e.printStackTrace();
+			Log.i("Error", e.getMessage());
 		} catch (IOException e) {
-			Log.i("PostTask", "error");
-			e.printStackTrace();
+			Log.i("Error", e.getMessage());
 		}
 		
 		return null;
@@ -93,7 +91,7 @@ public class ApiPostTask extends AsyncTask<String, Void, Void> {
 				}
 			}
 		} catch (JSONException e) {
-			e.printStackTrace();
+			Log.i("Error", e.getMessage());
 		}
 		
 		return ret;

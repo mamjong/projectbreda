@@ -21,6 +21,7 @@ import java.util.regex.Pattern;
 
 import nl.gemeente.breda.bredaapp.businesslogic.ServiceManager;
 import nl.gemeente.breda.bredaapp.domain.Service;
+import nl.gemeente.breda.bredaapp.util.Constants;
 import nl.gemeente.breda.bredaapp.util.Converter;
 import nl.gemeente.breda.bredaapp.util.ReverseGeocoder;
 
@@ -63,7 +64,7 @@ public class ApiRequest {
 			address = address.trim();
 		}
 		
-		String urlBase = "http://37.34.59.50/breda/CitySDK/requests.json";
+		String urlBase = Constants.API_ADDRESS + "requests.json";
 		
 		StringBuilder urlStringBuilder = new StringBuilder();
 		urlStringBuilder.append("service_code=" + serviceCode + "");

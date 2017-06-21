@@ -23,6 +23,7 @@ import android.widget.TextView;
 import nl.gemeente.breda.bredaapp.api.ApiServices;
 import nl.gemeente.breda.bredaapp.businesslogic.ServiceManager;
 import nl.gemeente.breda.bredaapp.domain.Service;
+import nl.gemeente.breda.bredaapp.util.Constants;
 import nl.gemeente.breda.bredaapp.util.DatabaseHandler;
 import nl.gemeente.breda.bredaapp.util.ThemeManager;
 
@@ -53,9 +54,11 @@ public class SplashActivity extends AppCompatActivity implements ApiServices.Lis
 			Intent noInternet = new Intent(getApplicationContext(), NoInternet.class);
 			noInternet.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 			startActivity(noInternet);
+			
+			return;
 		}
 		
-		if (activeNetwork.getType() != ConnectivityManager.TYPE_WIFI) {
+		if ((activeNetwork.getType() != ConnectivityManager.TYPE_WIFI) && (activeNetwork != null) && (activeNetwork.isConnected())) {
 			noWifi.setVisibility(View.VISIBLE);
 		}
 		
@@ -113,7 +116,9 @@ public class SplashActivity extends AppCompatActivity implements ApiServices.Lis
 	@Override
 	public void onResume() {
 		super.onResume();
-		timer.start();
+		if (timer != null) {
+			timer.start();
+		}
 	}
 	
 	@Override
@@ -124,7 +129,7 @@ public class SplashActivity extends AppCompatActivity implements ApiServices.Lis
 	
 	public void getServices() {
 		ServiceManager.emptyArray();
-		String[] urls = new String[]{"http://37.34.59.50/breda/CitySDK/services.json"};
+		String[] urls = new String[]{Constants.API_ADDRESS + "services.json"};
 		apiServices.execute(urls);
 	}
 	
