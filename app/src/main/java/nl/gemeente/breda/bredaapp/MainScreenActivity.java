@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.design.widget.TabLayout;
@@ -24,10 +23,6 @@ import com.flask.floatingactionmenu.FloatingActionMenu;
 import com.flask.floatingactionmenu.FloatingActionToggleButton;
 import com.flask.floatingactionmenu.OnFloatingActionMenuSelectedListener;
 
-import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import nl.gemeente.breda.bredaapp.adapter.MainScreenSectionsPagerAdapter;
 import nl.gemeente.breda.bredaapp.adapter.ServiceAdapter;
 import nl.gemeente.breda.bredaapp.api.ApiHomeScreen;
@@ -37,8 +32,6 @@ import nl.gemeente.breda.bredaapp.businesslogic.ServiceManager;
 import nl.gemeente.breda.bredaapp.domain.Report;
 import nl.gemeente.breda.bredaapp.domain.Service;
 import nl.gemeente.breda.bredaapp.util.AlertCreator;
-import nl.gemeente.breda.bredaapp.util.Constants;
-import nl.gemeente.breda.bredaapp.util.ReverseGeocoder;
 import nl.gemeente.breda.bredaapp.util.ReverseGeocoderTask;
 
 import static nl.gemeente.breda.bredaapp.UserSettingsActivity.PREFS_NAME;
@@ -129,7 +122,7 @@ public class MainScreenActivity extends AppBaseActivity implements ApiHomeScreen
 		ReportManager.emptyArray();
 		ApiHomeScreen apiHomeScreen = new ApiHomeScreen(this, this);
 		String[] urls = new String[]{
-				Constants.API_ADDRESS + "requests.json"
+				getString(R.string.api_address) + "requests.json"
 		};
 		apiHomeScreen.execute(urls);
 	}

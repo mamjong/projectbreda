@@ -15,7 +15,6 @@ import nl.gemeente.breda.bredaapp.adapter.FavoriteReportsAdapter;
 import nl.gemeente.breda.bredaapp.api.ApiHomeScreen;
 import nl.gemeente.breda.bredaapp.businesslogic.FavoriteReportManager;
 import nl.gemeente.breda.bredaapp.domain.Report;
-import nl.gemeente.breda.bredaapp.util.Constants;
 import nl.gemeente.breda.bredaapp.util.DatabaseHandler;
 
 import static nl.gemeente.breda.bredaapp.fragment.MainScreenListFragment.EXTRA_REPORT;
@@ -60,7 +59,7 @@ public class FavoriteReportsActivity extends AppBaseActivity implements ApiHomeS
 	public void getFavoriteReports(String serviceRequestId) {
 		FavoriteReportManager.emptyArray();
 		ApiHomeScreen apiHomeScreen = new ApiHomeScreen(this, this);
-		String[] urls = new String[]{Constants.API_ADDRESS + "requests.format?service_request_id=" + serviceRequestId};
+		String[] urls = new String[]{getString(R.string.api_address) + "requests.format?service_request_id=" + serviceRequestId};
 		apiHomeScreen.execute(urls);
 	}
 		
