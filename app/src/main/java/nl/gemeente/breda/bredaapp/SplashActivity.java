@@ -23,7 +23,6 @@ import android.widget.TextView;
 import nl.gemeente.breda.bredaapp.api.ApiServices;
 import nl.gemeente.breda.bredaapp.businesslogic.ServiceManager;
 import nl.gemeente.breda.bredaapp.domain.Service;
-import nl.gemeente.breda.bredaapp.util.Constants;
 import nl.gemeente.breda.bredaapp.util.DatabaseHandler;
 import nl.gemeente.breda.bredaapp.util.ThemeManager;
 
@@ -129,7 +128,7 @@ public class SplashActivity extends AppCompatActivity implements ApiServices.Lis
 	
 	public void getServices() {
 		ServiceManager.emptyArray();
-		String[] urls = new String[]{Constants.API_ADDRESS + "services.json"};
+		String[] urls = new String[]{getString(R.string.api_address) + "services.json"};
 		apiServices.execute(urls);
 	}
 	

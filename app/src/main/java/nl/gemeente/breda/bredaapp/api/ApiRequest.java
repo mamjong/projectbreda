@@ -4,24 +4,11 @@ import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.Arrays;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+import nl.gemeente.breda.bredaapp.R;
 import nl.gemeente.breda.bredaapp.businesslogic.ServiceManager;
 import nl.gemeente.breda.bredaapp.domain.Service;
-import nl.gemeente.breda.bredaapp.util.Constants;
 import nl.gemeente.breda.bredaapp.util.Converter;
 import nl.gemeente.breda.bredaapp.util.ReverseGeocoder;
 
@@ -64,7 +51,7 @@ public class ApiRequest {
 			address = address.trim();
 		}
 		
-		String urlBase = Constants.API_ADDRESS + "requests.json";
+		String urlBase = context.getString(R.string.api_address) + "requests.json";
 		
 		StringBuilder urlStringBuilder = new StringBuilder();
 		urlStringBuilder.append("service_code=" + serviceCode + "");
@@ -83,8 +70,6 @@ public class ApiRequest {
 				.appendQueryParameter("address_id", Integer.toString(addressID));
 		
 		String query = builder.build().getEncodedQuery();
-		
-		String urlString = urlStringBuilder.toString();
 		Log.i("URL", query);
 		
 		new ApiPostTask(context, urlBase, query).execute();
