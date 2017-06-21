@@ -142,7 +142,7 @@ public class CreateNewReportDifferentLocationActivity extends AppBaseActivity im
 							Toast toastError = Toast.makeText(CreateNewReportDifferentLocationActivity.this, getResources().getString(R.string.activityCreateNewReport_text_imageTooLarge), Toast.LENGTH_LONG);
 							toastError.show();
 						} catch (Exception e) {
-							e.printStackTrace();
+							Log.i("Error", e.getMessage());
 						}
 					}
 				}, 1);
@@ -182,7 +182,7 @@ public class CreateNewReportDifferentLocationActivity extends AppBaseActivity im
 						imageSelected = true;
 						updateContinueButton();
 					} catch (Exception e) {
-						e.printStackTrace();
+						Log.i("Error", e.getMessage());
 					}
 					break;
 			}
@@ -197,9 +197,9 @@ public class CreateNewReportDifferentLocationActivity extends AppBaseActivity im
 			bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
 			fos.close();
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			Log.i("Error", e.getMessage());
 		} catch (IOException e) {
-			e.printStackTrace();
+			Log.i("Error", e.getMessage());
 		}
 	}
 	
